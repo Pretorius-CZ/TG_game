@@ -280,6 +280,53 @@ počet odehrání. Skutečné tempo řídí tři páky dohromady:
 3. **Denní transport** — malý trvalý přísun zdarma, motivuje k
    pravidelnému návratu, ale sám o sobě postup nevyřeší
 
+### 7.1 Konkrétní čísla — ceny surovin a recepty
+
+**Rozhodnuto:** první konkrétní pracovní čísla pro ceny surovin a recepty
+všech 15 podsoučástí jsou spočítaná a uložená jako živá ladicí tabulka:
+[`docs/ekonomika-oprav.xlsx`](./ekonomika-oprav.xlsx). Tenhle soubor je od
+teď **autoritativní zdroj přesných čísel** (ceny, množství, výsledné
+tempo) — v GDD držíme jen shrnutí a principy, ne kopie čísel, co by se
+musely ručně synchronizovat na dvou místech.
+
+**Shrnutí výchozího nastavení (viz xlsx pro detail a možnost ladění):**
+
+| Surovina | Cena/jednotka (mince) |
+|---|---|
+| Hliník | 0,2 |
+| Deuterium | 0,4 (nejdražší — exotické palivo) |
+| Elektronika | 0,25 |
+| Šrot | 0,1 (nejlevnější — univerzální) |
+
+| Součást | Cena celkem (mince) | Podíl na kapitole 1 |
+|---|---|---|
+| Plášť | 85 | 14 % |
+| Navigace | 95 | 16 % |
+| Pohon/motor | 122 | 20 % |
+| Kokpit | 95 | 16 % |
+| Reaktor (zamčeno) | 210,5 | 35 % |
+| **Celkem** | **607,5** | 100 % |
+
+Při výchozích předpokladech (8 pokusů o level/den, 70% úspěšnost, 15
+mincí/vyhraný level v průměru) vychází kompletní oprava na **~7,2 dne
+(~1 týden)** — v rámci cíleného rozmezí 1–2 týdny, ale při dolní hranici.
+
+### 7.2 Otevřené riziko — subjektivní vnímání délky hry
+
+Matematický model (7.1) říká, že tempo sedí do cíle, ale **subjektivně
+to i tak působí jako krátká hra** (řádově dny, ne týdny) — na tohle
+upozornil při review této kapitoly sám autor designu. Možné vysvětlení
+k ověření: referenční hry (Homescapes, Toon Blast) mají řádově **stovky
+očíslovaných levelů** mezi jednotlivými renovacemi, takže postup je
+vnímán jako delší i při podobné "mincové" ekonomice — to je jiná osa než
+cena/odměna, kterou tahle tabulka řeší. Bez zahraní referenčních her a
+srovnání pocitu z postupu se to nedá spolehlivě posoudit jen na papíře.
+
+- **TODO:** zahrát referenční hry (Homescapes, Toon Blast a podobné) a
+  porovnat subjektivní pocit délky/tempa s tímhle modelem
+- **TODO:** podle toho případně přehodnotit buď ceny/odměny (7.1), nebo
+  počet levelů mezi jednotlivými opravami (8), nebo obojí
+
 ## 8. Generování levelů a obtížnost
 
 **Rozhodnuto:** levely se negenerují ručně jeden po druhém do
@@ -366,8 +413,12 @@ měla počítat dopředu, ať se nepřidává narychlo.
 
 ## 12. Otevřené otázky
 
-- Přesná množství surovin v receptu každé podsoučásti (5.5)
-- Ceny surovin v obchodě, v mincích (5.4)
+- **Subjektivní pocit krátké hry i přes matematicky "V CÍLI" tempo — ověřit
+  proti referenčním hrám (viz 7.2). Nejdůležitější otevřená otázka teď.**
+- Přesná množství surovin v receptu každé podsoučásti — první návrh
+  hotový v `docs/ekonomika-oprav.xlsx` (5.5, 7.1), čeká na ověření dle 7.2
+- Ceny surovin v obchodě, v mincích — první návrh hotový v
+  `docs/ekonomika-oprav.xlsx` (5.4, 7.1), čeká na ověření dle 7.2
 - Přesné prahy hvězdičkového hodnocení výkonu → mince (5.3)
 - Finální název herní měny (5.4)
 - Přesný denní limit reklam (na mince i na životy zvlášť), cena Stars za
@@ -411,3 +462,10 @@ měla počítat dopředu, ať se nepřidává narychlo.
   levelů (ručně prvních ~10–15, pak generátor s křivkou obtížnosti),
   hard levely s násobičem odměny, poznámka o kontrole řešitelnosti pro
   architecture.md
+- 2026-08-24: **konkrétní čísla ekonomiky** — ceny surovin a recepty
+  všech 15 podsoučástí spočítané v `docs/ekonomika-oprav.xlsx` (živá
+  ladicí tabulka, autoritativní zdroj přesných čísel); výchozí nastavení
+  dává celkovou cenu kapitoly 1 = 607,5 mincí, ~7,2 dne při výchozích
+  předpokladech; zaznamenáno otevřené riziko — subjektivní pocit krátké
+  hry i přes matematicky "V CÍLI" tempo, čeká na ověření proti
+  referenčním hrám (sekce 7.2)

@@ -232,3 +232,42 @@ nová sekce 7 (Obsah a tempo), nová sekce 8 (Generování levelů),
 aktualizovaná sekce 5.5 (poznámka k číslům v tabulce podsoučástí),
 renumerace navazujících sekcí (Monetizace, Sociální prvky, MVP scope,
 Otevřené otázky, Změny a historie).
+
+---
+
+## 2026-08-24 — Konkrétní čísla ekonomiky (ceny, recepty) a otevřené riziko tempa
+
+**Rozhodnutí:** Vytvořena živá ladicí tabulka `docs/ekonomika-oprav.xlsx`
+se 4 listy (Suroviny, Recepty, Ekonomika, Souhrn) — od teď **autoritativní
+zdroj přesných čísel** pro ceny surovin, recepty všech 15 podsoučástí a
+výpočet výsledného tempa; v `game-design.md` je jen shrnutí a princip, ne
+kopie čísel.
+
+Výchozí nastavení: Hliník 0,2 mince/ks, Deuterium 0,4 (nejdražší),
+Elektronika 0,25, Šrot 0,1 (nejlevnější). Recepty v jednotkách řádu
+stovek na podsoučást (dle zadání uživatele). Výsledná cena kapitoly 1:
+Plášť 85, Navigace 95, Pohon/motor 122, Kokpit 95, Reaktor 210,5 — celkem
+**607,5 mincí**. Při výchozích předpokladech (8 pokusů/den, 70%
+úspěšnost, 15 mincí/vyhraný level) vychází kompletní oprava na **~7,2
+dne**, což tabulka vyhodnotí jako "V CÍLI" vůči cíli 1–2 týdny (na dolní
+hranici).
+
+**Otevřené riziko (nevyřešeno, záměrně zapsáno jako otevřené):** i přes
+matematicky "V CÍLI" výsledek autor designu subjektivně vnímá hru jako
+krátkou (řádově dny). Hypotéza k ověření: referenční hry (Homescapes,
+Toon Blast) mají řádově stovky očíslovaných levelů mezi renovacemi, což
+může subjektivní pocit délky ovlivňovat víc než cena/odměna samotná — to
+je jiná osa než tahle tabulka řeší. Rozhodnuto zahrát referenční hry pro
+porovnání, než se čísla/počet levelů dál dolaďují.
+
+**Kontext/důvod:** Explicitní čísla (ne jen framework) byla potřeba,
+protože uživatel chtěl vědět konkrétně "kolik bude co stát" — tabulka
+místo statických čísel v markdownu umožňuje živé ladění bez nutnosti
+přepisovat GDD při každé změně ceny. Otevřené riziko se záměrně
+nezavírá unáhleně — subjektivní pocit hráče je stejně důležitý signál
+jako matematický model, a matematika sama nemůže nahradit reálnou
+zkušenost s referenčními hrami.
+
+**Dopad:** Aktualizuje `game-design.md` sekce 7 (nová 7.1 a 7.2), sekce
+12 (Otevřené otázky). Nový soubor `docs/ekonomika-oprav.xlsx` uložen do
+repozitáře jako trvalý nástroj pro budoucí ladění (i pro další kapitoly).
