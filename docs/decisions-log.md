@@ -87,3 +87,100 @@ kompromis mezi variabilitou a čitelností — víc druhů by riskovalo pocit
 "grindwallu" (mám suroviny, ale ne ty, co zrovna potřebuju).
 
 **Dopad:** Aktualizuje `game-design.md` sekce 3, 4.4, 4.5, 7, 8.
+
+---
+
+## 2026-08-24 — Revize: jednotná herní měna místo 4 surovin
+
+**Rozhodnutí:** Systém 4 surovin (hliník/deuterium/elektronika/šrot, viz
+záznam výše) se **ruší a nahrazuje** jednotnou herní měnou — pracovní
+název "Mince". Mince se získávají za dokončené match-3 levely a utrácí za
+opravu vybrané odemčené součásti (cena v mincích na součást). Nelineární
+výběr součástí a zamčená finální součást (reaktor) zůstávají beze změny —
+mění se jen to, čím se "platí". Mince budou také přímo nakupitelné za
+Telegram Stars (mikrotransakce).
+
+**Kontext/důvod:** Čtyři suroviny přinášely riziko "grindwallu" a
+výrazně složitější balancing (čtyři nezávislé křivky odměn/cen). Jedna
+měna je jednodušší na vývoj i vyvažování, a hlavně se přímo napojuje na
+monetizaci — nákup mincí za Stars je standardní, hráčům známý
+mikrotransakční vzorec. Zvažována byla varianta zachovat materiály jen
+jako narativní/UI popisky nad jednotnou měnou (např. "Koupit hliníkový
+plát za 150 mincí") — ponecháno jako otevřená volba, ne rozhodnuto.
+
+**Dopad:** Aktualizuje `game-design.md` sekce 3, 4.4, 4.5, 5, 7, 8.
+Předchozí záznam o 4 surovinách zůstává v logu kvůli historii rozhodování
+(proč jsme k tomu nejdřív došli a proč se to změnilo), ale v `game-design.md`
+už neplatí.
+
+---
+
+## 2026-08-24 — Finální revize ekonomiky: mince + obchod + suroviny
+
+**Rozhodnutí:** Ekonomika je dvouvrstvá, ne buď-anebo mezi mincemi a
+surovinami:
+- Match-3 level dává **mince**, v množství odstupňovaném podle výkonu
+  (čím víc zbývajících tahů při splnění cíle, tím víc mincí — obdoba
+  hvězdičkového hodnocení).
+- Mince se utrácí v **obchodě** za suroviny (hliník, deuterium,
+  elektronika, šrot — návrat ke čtyřem surovinám z dřívějšího
+  rozhodnutí). Obchod má pro MVP **pevnou nabídku** — všechny suroviny
+  vždy dostupné za pevnou cenu.
+- Suroviny se spotřebovávají na opravu součástí rakety podle receptu
+  (kombinace surovin na součást) — struktura 5 součástí a nelineární
+  výběr + zamčený finální díl zůstávají beze změny.
+- Jediná věc nakupitelná za reálné peníze (Telegram Stars) zůstávají
+  mince — suroviny se kupují jen za mince, monetizace tedy zůstává
+  jednoduchá i s návratem víc surovin.
+
+**Kontext/důvod:** Čistě jednotná měna (viz předchozí záznam) byla
+jednoduchá, ale ztrácela strategickou hloubku a nákupní rozhodování,
+které dávaly smysl pro budoucí opravy vyžadující víc druhů surovin.
+Dvouvrstvý model (mince → obchod → suroviny) tohle řeší — hloubka se
+vrací, ale jen jako útrata mincí v obchodě, ne jako náhodný drop čtyř
+nezávislých surovin z levelů, takže balancing zůstává zvládnutelný.
+Pevná nabídka obchodu zvolena místo rotující/omezené kvůli jednoduchosti
+pro MVP; rotující nabídka (propojitelná s denní výzvou) zůstává jako
+kandidát na post-MVP retention mechaniku.
+
+**Dopad:** Aktualizuje `game-design.md` sekce 3, 4.3, 4.4, 4.5, 5, 7, 8.
+
+---
+
+## 2026-08-24 — Narativní rámec, mapa levelů, obtížnost a životy
+
+**Rozhodnutí:**
+- **Příběh:** hráč je pilot/průzkumník, jehož loď havaruje na neznámé
+  planetě. AI/systémy lodi se s opravou každé součásti částečně
+  "probouzí" a odhalují příběh. Po opravě finální součásti (reaktoru) se
+  odhalí neznámý signál z vesmíru — vyvrcholení kapitoly 1.
+- **Zárodek kapitoly 2:** cílem je dostat se blíž k signálu; budovaná
+  vesmírná stanice je prostředek k tomu (základna/odpalovací bod), ne
+  samoúčelný cíl. Detaily kapitoly 2 se řeší až později — teď je fokus
+  na kapitole 1.
+- **Mapa levelů kapitoly 1:** cíl ~30 match-3 levelů celkem — tutoriál
+  (2–3, lineární), volný výběr 4 součástí (~20, nelineární), zamčené
+  finále reaktoru (~5–7), narativní přechod (0 levelů, cutscene). Celá
+  raketa musí být opravená, než se odemkne kapitola 2 — žádný přeskok.
+- **Cílový rámec obtížnosti:** tutoriál ~95–100 % úspěšnost na 1. pokus,
+  volná fáze ~70–80 %, finále ~50–60 %. Startovní odhad k doladění podle
+  reálných dat z hraní, ne finální čísla.
+- **Životy:** max 5, doplňování časem (~30 min/život, plně za ~2,5 h).
+  Rychlejší doplnění: odměněná reklama (+1 život, denní limit) nebo
+  Telegram Stars (okamžité doplnění všech, za reálné peníze). Žádná
+  nová "prémiová" měna (diamanty apod.) — Stars tuhle roli plní přímo,
+  jako alternativa pro hráče, kteří nechtějí čekat ani sledovat reklamy.
+
+**Kontext/důvod:** Příběh dává hráči důvod, proč mu na opravě záleží, a
+propojuje kapitolu 1 s kapitolou 2 (stanice teď má narativní účel, ne je
+to jen "další fáze"). Mapa levelů dává konkrétní tuning cíl pro délku
+kapitoly 1. Cílová obtížnost je nutná, aby hra nebyla ani nudná, ani
+frustrující — bez reálných dat z hraní se přesně nastavit nedá, proto je
+to rámec k doladění, ne pevná čísla. Diamanty/nová prémiová měna byly
+zvažovány, ale zamítnuty — Telegram Stars už strukturálně dělají přesně
+tohle (reálné peníze → herní hodnota), přidávat další vrstvu by jen
+zbytečně komplikovalo ekonomiku.
+
+**Dopad:** Aktualizuje `game-design.md` — nová sekce 3 (Příběh), nová
+sekce 6 (Mapa levelů), rozšířené sekce 5.2 (Energie) a 5.3 (Obtížnost),
+aktualizovaná sekce 7 (Monetizace), renumerace navazujících sekcí.
