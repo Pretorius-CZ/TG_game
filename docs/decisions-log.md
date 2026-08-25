@@ -184,3 +184,51 @@ zbytečně komplikovalo ekonomiku.
 **Dopad:** Aktualizuje `game-design.md` — nová sekce 3 (Příběh), nová
 sekce 6 (Mapa levelů), rozšířené sekce 5.2 (Energie) a 5.3 (Obtížnost),
 aktualizovaná sekce 7 (Monetizace), renumerace navazujících sekcí.
+
+---
+
+## 2026-08-24 — UI/UX, oddělení obrazovek a generování levelů
+
+**Rozhodnutí:**
+- **Orientace:** na výšku (portrait) — genre standard pro Telegram Mini
+  Apps, tvar rakety se do portrétu přirozeně vejde.
+- **Vizuální styl:** holografické schéma/blueprint (svítící linky na
+  tmavém pozadí), ne malovaná ilustrace — levnější a konzistentnější
+  produkce.
+- **Tři nezávislé obrazovky:** Raketa (hub s kartami receptů, oprava je
+  okamžitá a zdarma, nespouští minihru), Hrát (persistentní, cesta
+  levelů, sem se váže energie), Obchod (mince → suroviny, pevná
+  nabídka). Stejný princip jako Homescapes/Gardenscapes.
+- **Oprava nekonzistence:** levely na cestě NEJSOU vázané na konkrétní
+  opravovanou součást — dávají obecný mix mincí (viz záznam o ekonomice
+  výše). Tapnutí na součást v hubu proto nikdy nespouští minihru, jen
+  otevírá kartu receptu. Kosmic prostředí v pozadí cesty levelů se mění
+  podle pozice na cestě, ne podle vybrané opravy.
+- **Cílové tempo kapitoly 1:** ~1–2 týdny běžného neplaceného hraní —
+  hlavní tuning KPI. Klíčový princip: velikost obsahové knihovny (počet
+  unikátních levelů) ≠ délka hry — levely jsou opakovaně hratelné, tempo
+  řídí ekonomika (ceny vs. výdělek) + energie.
+- **Generování levelů:** prvních ~10–15 levelů ručně navržených
+  (tutoriál + začátek), zbytek generovaný podle křivky obtížnosti
+  (parametry: velikost desky, počet typů políček, počet tahů, překážky,
+  typ cíle). Škáluje se to i na budoucí kapitoly bez lineárního nárůstu
+  práce.
+- **Hard levely:** stejný generátor, tvrdší preset, násobič odměny
+  (~1,5–2×), volitelná odbočka na cestě, ne povinná.
+- **Technická poznámka:** generátor musí kontrolovat řešitelnost
+  vygenerované desky (zaručený aspoň 1 platný tah) — pro `architecture.md`.
+
+**Kontext/důvod:** Uživatel upozornil na nekonzistenci — dřívější popis
+implikoval, že tapnutí na podsoučást spouští "její" minihru, což
+odporovalo už dřív rozhodnutému obecnému mixu mincí. Oddělení na 3
+obrazovky tohle řeší čistě a odpovídá ověřenému vzoru žánru. Cílové
+tempo (1–2 týdny) bylo potřeba jako explicitní KPI, protože "počet
+levelů" sám o sobě délku hry neurčuje. Generování levelů řeší
+škálovatelnost (stovky levelů pro budoucí kapitoly) bez lineárního
+nárůstu autorské práce.
+
+**Dopad:** Výrazně přepisuje `game-design.md` — nová sekce 6 (UI/UX),
+nová sekce 7 (Obsah a tempo), nová sekce 8 (Generování levelů),
+aktualizovaná sekce 5.5 (poznámka k číslům v tabulce podsoučástí),
+renumerace navazujících sekcí (Monetizace, Sociální prvky, MVP scope,
+Otevřené otázky, Změny a historie).

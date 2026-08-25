@@ -16,7 +16,8 @@ za tajemným signálem, který se odhalí na konci kapitoly 1 (kapitola 2,
 mimo MVP). Hra kombinuje match-3 mechaniku (zdroj mincí, obchod se
 surovinami) s vizuální meta-progresí (raketa/stanice se hráči doslova
 "staví před očima") — ověřený vzorec ve stylu Homescapes/Toon Blast,
-aplikovaný na sci-fi/space téma.
+aplikovaný na sci-fi/space téma, s holografickým/blueprint vizuálním
+stylem (viz sekce 6).
 
 ## 2. Cílová skupina a platforma
 
@@ -25,7 +26,7 @@ aplikovaný na sci-fi/space téma.
   (jednotky minut) víckrát denně — typicky širší demografie, ne jen
   "hardcore" gameři
 - Distribuce: silně závislá na Telegram sociálních kanálech (sdílení do
-  chatů/skupin, referral) — viz sekce 8
+  chatů/skupin, referral) — viz sekce 10
 
 ## 3. Příběh a narativní rámec
 
@@ -45,9 +46,6 @@ prozkoumat.
 **Zárodek kapitoly 2 (detaily zatím neřešíme):** cílem kapitoly 2 je
 dostat se blíž k signálu — vesmírná stanice, kterou hráč staví, slouží
 jako základna/odpalovací bod pro tuhle cestu, ne jako samoúčelný cíl.
-Tohle sjednocuje dřívější pitch ("budování stanice") s novým narativním
-hákem ("let za signálem") — stanice je prostředek k cíli, ne cíl sám o
-sobě.
 
 - **TODO:** přesná povaha mise, kvůli které hráč na planetě byl
 - **TODO:** kdo/co je AI lodi (jméno, osobnost, tón dialogů)
@@ -55,11 +53,12 @@ sobě.
 
 ## 4. Core loop
 
-1. Hráč odehraje match-3 level → získá Mince, v množství podle výkonu
-   (viz 5.3)
-2. Mince utrácí v **obchodě** za konkrétní suroviny (viz 5.4)
-3. Suroviny investuje do opravy **libovolné odemčené součásti** rakety —
-   hráč si vybírá podle toho, na co má nastřádáno (viz 5.5)
+1. Hráč jde do sekce **Hrát** a odehraje match-3 level → získá Mince, v
+   množství podle výkonu (viz 5.3)
+2. V **Obchodě** mince utrácí za konkrétní suroviny (viz 5.4)
+3. Na hlavní obrazovce **Raketa** investuje suroviny do opravy libovolné
+   odemčené součásti — hráč si vybírá podle toho, na co má nastřádáno
+   (viz 5.5)
 4. Vizuální i narativní odměna — viditelný kus rakety se opraví, AI/loď
    prozradí kus příběhu (viz 3)
 5. Po opravě všech "volitelných" součástí se odemkne finální, dříve
@@ -71,6 +70,10 @@ sobě.
 8. Opakuje se, dokud není raketa kompletně opravená — **teprve pak se
    odemyká kapitola 2** (žádný postup dál bez kompletní opravy)
 
+Tyhle tři kroky (1–3) jsou tři samostatné, nezávislé obrazovky/smyčky —
+viz sekce 6 pro detailní UX rozpad a důležitou opravu (levely nejsou
+vázané na konkrétní opravovanou součást).
+
 ## 5. Herní mechaniky
 
 ### 5.1 Match-3 jádro
@@ -81,9 +84,9 @@ sousedních políček).
 **Zdůvodnění:** pro webový/Telegram Mini App vývoj existuje víc hotových
 open-source/HTML5 knihoven a referenčních implementací pro swap mechaniku
 než pro tap/blast styl (Toon Blast), balancing desky je předvídatelnější a
-hráči mechanismus dobře znají — bez učicí křivky. Tap/blast zůstává
-možnost pro pozdější odlišení (např. jako varianta v kapitole 2), ale pro
-MVP dává swap nejrychlejší cestu k hratelné verzi.
+hráči mechanismus dobře znají — bez učicí křivky. Swap se navíc dobře
+parametrizuje pro procedurální generaci (viz sekce 8). Tap/blast zůstává
+možnost pro pozdější odlišení (např. jako varianta v kapitole 2).
 
 ### 5.2 Energie (životy)
 
@@ -100,6 +103,9 @@ MVP dává swap nejrychlejší cestu k hratelné verzi.
     pro hráče, kteří nechtějí čekat ani sledovat reklamy. Žádná
     samostatná "prémiová měna" (diamanty apod.) — Stars tuhle roli plní
     přímo.
+- Energie se váže **výhradně na hraní levelů** (obrazovka Hrát) — samotná
+  oprava součásti (útrata surovin) je okamžitá a zdarma, energii
+  nespotřebovává.
 
 - **TODO:** přesný denní limit reklam, cena Stars za okamžité doplnění
 
@@ -119,7 +125,7 @@ nedá):
 
 | Fáze | Cílová úspěšnost na 1. pokus |
 |---|---|
-| Tutoriál (viz 6) | ~95–100 % — téměř nejde prohrát |
+| Tutoriál (viz 7) | ~95–100 % — téměř nejde prohrát |
 | Volná fáze (výběr součástí) | ~70–80 %, s občasným těžším levelem pro pocit výzvy (pilovité tempo, ne monotónní nárůst) |
 | Finále (reaktor) | ~50–60 % — náročnější, ale ne "pay wall" |
 
@@ -133,7 +139,8 @@ nedá):
 **Rozhodnuto:** dvouvrstvá ekonomika — jednoduchá měna pro monetizaci,
 suroviny pro herní hloubku.
 
-1. Match-3 level → **Mince**, množství podle výkonu (viz 5.3)
+1. Match-3 level (obrazovka Hrát) → **Mince**, množství podle výkonu
+   (viz 5.3) — **obecný mix, nezávislý na tom, co hráč zrovna opravuje**
 2. Mince se utrácí v **obchodě** za konkrétní suroviny — **pevná
    nabídka**: všechny suroviny jsou vždy dostupné za pevnou cenu v
    mincích (zvoleno kvůli jednoduchosti pro MVP; rotující/omezená
@@ -143,8 +150,10 @@ suroviny pro herní hloubku.
 
 **Zdůvodnění:** spojuje výhody obou dřívějších variant — monetizace
 zůstává jednoduchá (jediná nakupitelná věc za Telegram Stars jsou Mince,
-viz sekce 7), ale nákupní rozhodování a strategická hloubka (co koupit
-teď, na co šetřit) se vrací díky víc druhům surovin v obchodě.
+viz sekce 9), ale nákupní rozhodování a strategická hloubka (co koupit
+teď, na co šetřit) se vrací díky víc druhům surovin v obchodě. Oddělení
+od konkrétních levelů (viz sekce 6) drží ekonomiku jednoduchou na
+balancing — jedna křivka odměn, ne desítky tematických variant.
 
 **Suroviny:**
 
@@ -168,20 +177,27 @@ musí být opravená (všech 5 součástí), než se odemkne kapitola 2** — v
 rámci kapitoly 1 je volnost jen v pořadí, ne v tom, jestli se něco dá
 přeskočit.
 
-**Návrh struktury součástí a receptů (k potvrzení, množství jsou zástupná):**
+**Struktura součástí a podsoučástí (5×3):**
 
-1. **Plášť** — hliník + šrot
-2. **Pohon/motor** — deuterium + šrot
-3. **Navigace** — elektronika + šrot
-4. **Kokpit** — hliník + elektronika + šrot (kombinace — konstrukčně i
-   elektronicky náročnější)
-5. **Reaktor / řídicí systém** *(zamčeno, odemkne se až po dokončení 1–4)*
-   — potřebuje všechny 3 specializované suroviny + víc šrotu — finální,
-   nejnáročnější součást; po jejím dokončení je raketa opravená a
-   odhalí se signál (viz 3)
+| Součást | Podsoučásti | Orientační "levely" (viz poznámka níže) |
+|---|---|---|
+| **Plášť** | Vnější obšívka, tepelný štít, poklopy a okna | 5 |
+| **Navigace** | Senzory/radar, palubní počítač, komunikační anténa | 6 |
+| **Pohon/motor** | Palivové nádrže, tryska/spalovací komora, chladicí systém | 7 |
+| **Kokpit** | Podpora života, sedačky, přístrojová deska | 6 |
+| **Reaktor** *(zamčeno, odemkne se až po dokončení ostatních 4)* | Jádro reaktoru, chlazení reaktoru, hlavní řídicí jednotka | 7 |
 
-- **TODO:** potvrdit/upravit seznam součástí výše
-- **TODO:** přesná množství surovin v receptu každé součásti
+> Zamčený je pouze **Reaktor** — ostatní 4 součásti (plášť, navigace,
+> pohon, kokpit) jsou od začátku volně dostupné v libovolném pořadí.
+
+**Důležitá poznámka k číslům:** sloupec "orientační levely" je odhad,
+kolik odehraných levelů (kdekoliv na cestě, viz sekce 6–7) v průměru
+vygeneruje dost mincí na danou podsoučást — je to ekonomický/tuning
+odhad (kolikrát si hráč v průměru "zahraje", ne konkrétní přiřazené
+levely). Levely samotné nejsou vázané na konkrétní podsoučást — viz
+sekce 6.
+
+- **TODO:** přesná množství surovin v receptu každé podsoučásti
 
 ### 5.6 Denní výzva — "transportní raketa"
 
@@ -199,25 +215,113 @@ přeskočit.
 - **TODO:** frekvenční limit (kolikrát denně lze reklamu takhle použít
   na mince, odděleně od limitu na životy)
 
-## 6. Mapa levelů kapitoly 1
+## 6. UI/UX a struktura obrazovek
 
-**Rozhodnuto:** cílem je cca **30 match-3 levelů** na kompletní opravu
-rakety (orientační tuning cíl, ne tvrdé pravidlo — reálný počet závisí na
-tom, jak se doladí ceny surovin a odměny v mincích).
+**Rozhodnuto — orientace:** na výšku (portrait). Telegram Mini Apps se
+prakticky vždy hrají na výšku (otevírají se jako sheet uvnitř Telegram
+appky, hraje se jednou rukou mezi chatováním) a je to i genre standard
+(Candy Crush, Homescapes, Toon Blast). Tvar rakety (vysoká, úzká) navíc
+portrétu přirozeně sedí — jde ukázat celou od trysek po špičku.
 
-| Krok | Co se děje | Orientační počet levelů | Volnost |
-|---|---|---|---|
-| 0. Havárie / tutoriál | Lineární, učí mechaniku match-3, žádný výběr | 2–3 | Ne (povinné, lineární) |
-| 1–4. Volný výběr | Plášť, Pohon, Navigace, Kokpit — hráč volí pořadí podle nastřádaných surovin | ~20 (rozložení mezi součásti nemusí být rovnoměrné — např. plášť kratší, pohon/kokpit delší) | Ano, plná volnost pořadí |
-| 5. Reaktor (finále) | Odemkne se až po dokončení 1–4, nejnáročnější, potřebuje všechny suroviny | ~5–7 | Ne (zamčeno do splnění předchozích) |
-| 6. Přechod do kapitoly 2 | Narativní beat — odhalení signálu (viz 3) | 0 (cutscene/dialog, ne level) | — |
+**Rozhodnuto — vizuální styl:** holografické schéma/blueprint — svítící
+linky na tmavém pozadí. Poškození = praskliny/přerušené obvody/červené
+varovné symboly; oprava = plynule svítící čisté linky. Levnější a
+konzistentnější na produkci než malovaná ilustrace (jeden vektorový styl,
+"poškození" jako přidané/odebrané vrstvy nad základní kresbou, ne
+kompletně nové obrázky pro každý stav).
 
-Poznámka: protože ekonomika jde přes mince→obchod→suroviny (ne přímý
-drop na součást), "počet levelů na součást" je orientační — reálně jde o
-to, kolik levelů v průměru vygeneruje dost mincí na potřebné suroviny.
-Přesné rozložení je věc tuningu, ne herního designu jako takového.
+**Rozhodnuto — tři nezávislé obrazovky** (stejný princip jako u
+Homescapes/Gardenscapes — cesta levelů je vizuálně i mechanicky oddělená
+od domu/rakety):
 
-## 7. Monetizace
+1. **Raketa (hub)** — izometrický/průřezový holografický pohled na
+   raketu. Tapnutím na součást/podsoučást se otevře **karta s receptem**
+   (potřebné suroviny, co hráč má, tlačítko "Opravit" — aktivní jen při
+   dostatku surovin). **Žádná minihra se odsud nespouští.** Oprava je
+   okamžitá a zdarma. Po opravě všech podsoučástí dané součásti se
+   aktualizuje i celkový pohled na raketu (dvojitá vizuální odměna —
+   detail i celek).
+2. **Hrát** — persistentní záložka/tlačítko vedoucí na **cestu levelů**,
+   vizuálně nezávislou na raketě (např. "cesta troskami/okolím
+   havárie" s očíslovanými zastávkami). Kosmic prostředí v pozadí se
+   mění podle **pozice na cestě** (časná zastávka = trosky/kráter,
+   pozdější = hlouběji v troskách lodi) — **ne podle toho, co hráč zrovna
+   opravuje** (taková vazba by naznačovala, že levely jsou tematické,
+   což neplatí, viz 5.4). Levely jsou opakovaně hratelné — po dohrání
+   cesty do konce lze tapnout na libovolný starší level a zahrát si ho
+   znovu pro další mince (viz sekce 8).
+3. **Obchod** — mince se tu mění za suroviny (pevná nabídka, viz 5.4).
+
+**Tok hráče:** vidím raketu → chci ji opravit → jdu **vydělávat**
+(Hrát) → jdu **nakoupit** (Obchod) → vrátím se na **Raketu** a opravím
+(instantní akce).
+
+- **TODO:** zvážit rychlou zkratku z karty receptu na raketě přímo do
+  Hrát/Obchod (např. tlačítko "Chybí suroviny → jít nakoupit/vydělat")
+- **TODO:** kdo/co bude grafiku vyrábět (AI generování, freelancer,
+  hotové assety) — ovlivní tempo produkce, ne design samotný
+
+## 7. Obsah a tempo kapitoly 1
+
+**Rozhodnuto — cílové tempo:** cca **1–2 týdny** běžné, neplacené,
+přiměřeně aktivní hraní na kompletní opravu rakety (celá kapitola 1).
+Tohle je hlavní tuning cíl, podle kterého se nastavují ceny surovin a
+výdělek mincí — ne počet levelů.
+
+**Klíčový princip:** velikost obsahové knihovny (kolik unikátních levelů
+existuje) **není totéž** co délka hry. Levely jsou opakovaně hratelné —
+30+ levelů (viz tabulka v 5.5, součet ≈ 31 + tutoriál) je odhad, kolikrát
+si hráč average v průměru "zahraje" (včetně opakování), ne strop na
+počet odehrání. Skutečné tempo řídí tři páky dohromady:
+
+1. **Energie** (5 životů, ~30 min/život) — fyzický limit, kolik levelů
+   lze odehrát za hodinu/den bez reklam/Stars
+2. **Ceny surovin v obchodě** vs. **průměrný výdělek mincí za level**
+3. **Denní transport** — malý trvalý přísun zdarma, motivuje k
+   pravidelnému návratu, ale sám o sobě postup nevyřeší
+
+## 8. Generování levelů a obtížnost
+
+**Rozhodnuto:** levely se negenerují ručně jeden po druhém do
+nekonečna — použije se **generátor s křivkou obtížnosti**, parametrizovaný
+podle pozice na cestě (viz sekce 6). Tohle škáluje bez problémů i na
+stovky levelů a na budoucí kapitoly, bez lineárního nárůstu práce.
+
+**Rozdělení:**
+
+- **Prvních ~10–15 levelů** (tutoriál + začátek volné fáze) — **ručně
+  navržené a doladěné**. Kvalita první zkušenosti je kritická, generátor
+  by mohl náhodou vyprodukovat něco nezáživného nebo frustrujícího hned
+  na startu.
+- **Vše za tím** — **generované** podle křivky obtížnosti.
+
+**Parametry generátoru** (rostou postupně s pozicí na cestě):
+
+- Velikost/tvar herní desky
+- Počet barev/typů políček (víc typů = těžší)
+- Počet tahů vůči cíli (přísnější limit = těžší)
+- Překážky (blokovaná políčka, "led", vícevrstvé kameny...) — přidávají
+  se postupně, ne od začátku
+- Typ cíle (posbírej N políček, vyčisti překážky, dosáhni skóre...) —
+  střídání typů drží levely rozmanité
+
+**"Hard" levely:** stejný generátor, tvrdší preset (víc typů políček,
+přísnější limit tahů), **násobič odměny v mincích** (~1,5–2×). Nabízené
+jako explicitní volitelná odbočka na cestě levelů (ne povinná) — pro
+hráče, co chtějí risknout těžší výzvu za lepší výdělek.
+
+**Technická poznámka pro `architecture.md`:** generátor musí mít
+kontrolu řešitelnosti — vygenerovaná deska musí mít zaručeně aspoň jeden
+platný tah a jít dohrát, jinak riskujeme "mrtvé" levely. Běžný,
+zdokumentovaný problém u match-3 generátorů, řešit až při implementaci.
+
+- **TODO:** přesná tabulka/vzorec křivky obtížnosti (jaké parametry se
+  mění na jaké pozici)
+- **TODO:** frekvence/umístění hard levelů na cestě
+- **TODO:** stejný přístup (ruční start + generátor) potvrdit i pro
+  budoucí kapitoly
+
+## 9. Monetizace
 
 - Primárně: **Mince nakupitelné za Telegram Stars** — přímé
   mikrotransakce, balíčky mincí různé velikosti. Jediný bod přímého
@@ -230,7 +334,7 @@ Přesné rozložení je věc tuningu, ne herního designu jako takového.
 - **TODO:** směnný kurz Stars → Mince a velikosti balíčků
 - **TODO:** kosmetika / skip timerů za Stars zvážit pro post-MVP
 
-## 8. Sociální/virální prvky *(mimo MVP, ale architektura by s tím měla počítat)*
+## 10. Sociální/virální prvky *(mimo MVP, ale architektura by s tím měla počítat)*
 
 Telegram je silný virální kanál (viz např. Hamster Kombat) — sdílení do
 chatů/skupin a referral fungují nativně bez app store friction. Kandidáti
@@ -240,41 +344,44 @@ pro post-MVP:
 - Darování mincí/surovin příteli
 - Žebříček mezi přáteli (kdo má víc opravenou raketu)
 
-## 9. MVP scope
+## 11. MVP scope
 
-**Rozhodnuto:** MVP obsahuje pouze kapitolu 1 (oprava rakety, cca 30
-levelů dle mapy v sekci 6), s nelineárním výběrem součástí a dvouvrstvou
-ekonomikou (mince → obchod s pevnou nabídkou → suroviny → oprava podle
-receptu). Kapitola 1 musí být kompletně dokončená (všech 5 součástí),
-než se odemkne kapitola 2 — ta je zatím jen narativní zárodek (viz 3),
-detaily (budování stanice, cesta za signálem) se řeší až později.
+**Rozhodnuto:** MVP obsahuje pouze kapitolu 1 (oprava rakety, cílové
+tempo ~1–2 týdny, viz sekce 7), s nelineárním výběrem součástí,
+dvouvrstvou ekonomikou (mince → obchod s pevnou nabídkou → suroviny →
+oprava podle receptu) a třemi nezávislými obrazovkami (Raketa/Hrát/
+Obchod, viz sekce 6). Levelový obsah: ~10–15 ručně navržených + generátor
+pro zbytek (viz sekce 8) — nepotřebujeme ručně navrhovat desítky/stovky
+levelů předem. Kapitola 1 musí být kompletně dokončená (všech 5
+součástí), než se odemkne kapitola 2 — ta je zatím jen narativní zárodek
+(viz 3), detaily se řeší až později.
 
 Rotující/omezená nabídka obchodu a tematické levely vázané na konkrétní
 surovinu jsou mimo MVP — kandidáti na pozdější retention/strategickou
 hloubku.
 
-Sociální/virální vrstva (sekce 8) je mimo MVP, ale technická architektura
-(datový model uživatele, friend/referral hooks) by s ní měla počítat
-dopředu, ať se nepřidává narychlo.
+Sociální/virální vrstva (sekce 10) je mimo MVP, ale technická
+architektura (datový model uživatele, friend/referral hooks) by s ní
+měla počítat dopředu, ať se nepřidává narychlo.
 
-## 10. Otevřené otázky
+## 12. Otevřené otázky
 
-- Potvrdit/upravit návrh 5 součástí rakety a jejich recepty (5.5)
-- Přesná množství surovin v receptu každé součásti (5.5)
+- Přesná množství surovin v receptu každé podsoučásti (5.5)
 - Ceny surovin v obchodě, v mincích (5.4)
 - Přesné prahy hvězdičkového hodnocení výkonu → mince (5.3)
 - Finální název herní měny (5.4)
 - Přesný denní limit reklam (na mince i na životy zvlášť), cena Stars za
   okamžité doplnění životů (5.2, 5.7)
 - Globální vs. lokální čas denní výzvy, řešení zmeškání (5.6)
-- Vizuální styl a způsob narativní prezentace (statické ilustrace vs.
-  animace vs. postupně se měnící scéna)
-- Směnný kurz Stars → Mince, velikosti balíčků (7)
+- Rychlá zkratka z karty receptu do Hrát/Obchod (6)
+- Kdo/co bude vyrábět grafiku (6)
+- Přesná tabulka/vzorec křivky obtížnosti, frekvence hard levelů (8)
+- Směnný kurz Stars → Mince, velikosti balíčků (9)
 - Přesná povaha mise hráče, osobnost AI lodi (3)
 - Detaily kapitoly 2 (budování stanice, cesta za signálem) — odloženo,
   řešíme až po dokončení kapitoly 1
 
-## 11. Změny a historie
+## 13. Změny a historie
 
 - 2026-08-24: založen skeleton dokumentu
 - 2026-08-24: doplněn core loop, rozhodnutí o match-3 typu (swap),
@@ -295,3 +402,12 @@ dopředu, ať se nepřidává narychlo.
   přechod); cílový rámec obtížnosti (95–100 % / 70–80 % / 50–60 %);
   finalizace ekonomiky životů (5 životů, ~30 min/život, reklama nebo
   Stars pro rychlejší doplnění — bez nové "prémiové" měny)
+- 2026-08-24: **UI/UX a obsah** — orientace na výšku, holografický
+  blueprint styl, rozdělení na 3 nezávislé obrazovky (Raketa/Hrát/
+  Obchod) s opravou nekonzistence (levely nejsou vázané na konkrétní
+  součást, tapnutí na součást otevírá jen kartu receptu, ne minihru);
+  5×3 struktura podsoučástí; cílové tempo kapitoly 1 ~1–2 týdny jako
+  hlavní tuning KPI; princip "obsahová knihovna ≠ délka hry"; generování
+  levelů (ručně prvních ~10–15, pak generátor s křivkou obtížnosti),
+  hard levely s násobičem odměny, poznámka o kontrole řešitelnosti pro
+  architecture.md
