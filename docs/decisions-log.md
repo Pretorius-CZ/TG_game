@@ -408,3 +408,54 @@ předělávat zpětně.
 technické rozpracování (jak přesně adaptér vypadá, výběr Capacitor vs.
 alternativy) patří do `architecture.md` — zatím jen zaznamenáno jako
 otevřená otázka tam.
+
+---
+
+## 2026-08-26 — Pivot na jednodušší cestu levelů (branch `simple-path`)
+
+**Rozhodnutí:** Vytvořena nová git větev `simple-path`, ve které se dál
+vyvíjí **zásadně zjednodušená verze hry** — lineární cesta levelů ve
+stylu Candy Crush, sci-fi téma, **bez** interaktivního hubu, ekonomiky
+položek a druhé (progresní) měny. Struktura: **60 levelů / 12
+tematických zón** po 5 levelech (stejná jména a pořadí jako místnosti na
+`main` — Plášť → ... → Komunikace — recyklovaná jako čistě kosmetický
+motiv zóny, ne jako nákupní systém), poslední level každé zóny je boss
+level (~30–35 % úspěšnost). Jediná měna: **Mince**, výhradně na 3 typy
+boosterů (extra tahy, odstranění políčka, zamíchání), jednotná cena 1
+Mince/použití. UI zjednodušeno na dvě obrazovky — **Cesta** (aktivní
+hraní) a **Loď** (pasivní, jen vizuální/narativní odměna po dokončení
+zóny — hologram s odebíratelnými vrstvami poškození, 13 stavů). Řešení
+vylepšení místností (5.9 na `main`) se pro tuhle verzi ruší — bez
+interaktivního hubu nedává smysl.
+
+Zásadní historie ale **zůstává zachovaná beze změny na větvi `main`** —
+místnosti jako interaktivní hub, Kredity+Mince ekonomika, cheap/
+expensive varianty, boss levely jako nákupní brána, room upgrades. Tenhle
+model je kandidát na budoucí, komplexnější/ambicióznější titul (možná i
+navazující kapitola, nebo úplně jiná hra), ne zahozený nápad.
+
+Při diskuzi vyplynula i důležitá oprava mechaniky energie: **život se
+ztrácí jen při neúspěchu levelu, ne za každý odehraný pokus** (žánrový
+standard, stejný jako Candy Crush/Homescapes) — dřívější ladicí tabulka
+(`ekonomika-mistnosti.xlsx` na `main`) počítala nesprávně s modelem, kde
+energii stojí každý pokus. Tohle vysvětluje i dřív zaznamenané otevřené
+riziko "hra se subjektivně zdá krátká i při matematicky V CÍLI tempu" —
+u fail-only modelu energie tempo skoro neřídí, hlavní pákou je počet
+levelů a obtížnostní křivka, ne ceny/odměny.
+
+**Kontext/důvod:** Autor dělá svůj první herní projekt, sólo, s
+omezeným rozpočtem. Cíl je vydat jednodušší, dobře prošlapanou a levnou
+na výrobu mechaniku (žádné animace, hotové knihovny pro swap match-3,
+žádná komplexní ekonomika k vyladění), naučit se na tom stavět a vydat
+hru, a komplexnější meta-progresní model nechat na příště, až bude
+zkušenost i případně rozpočet. Zvažováno bylo i srovnání s Candy Crush
+(dnes tisíce levelů) — vyjasněno, že to je výsledek let přídavků po
+launchi, ne startovní rozsah; díky procedurálnímu generátoru (viz GDD
+sekce 8) je škálování nad rámec 60 autorských levelů prakticky bez
+dalších nákladů na ruční práci.
+
+**Dopad:** Nový, výrazně přepsaný `game-design.md` na větvi `simple-path`
+(sekce 1–13 přepsané nebo upravené — ekonomika, struktura zón, UI,
+tempo, generování levelů). `architecture.md` a poznámka o portabilitě
+zůstávají platné beze změny. `main` zůstává nedotčená jako záznam
+původního, komplexnějšího návrhu.

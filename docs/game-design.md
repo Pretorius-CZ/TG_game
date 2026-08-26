@@ -4,24 +4,36 @@
 > v tomhle chatu, nebo jinde). Cíl: kdykoliv otevřu novou session, mám tu
 > celý aktuální stav rozhodnutí — nemusím nic dolovat ze staré konverzace.
 >
+> **Větev `simple-path`:** tenhle dokument popisuje zjednodušenou verzi
+> hry (viz sekce 1, 13). Původní, komplexnější návrh (místnosti jako
+> interaktivní hub, ekonomika Kredity+Mince, nákup položek) zůstává beze
+> změny na větvi `main` a v `decisions-log.md` — nezahazuje se, jen se
+> teď nepoužívá. Důvod větvení: viz `decisions-log.md`, záznam
+> "Pivot na jednodušší cestu levelů (branch `simple-path`)".
+>
 > **Aktuální fokus:** kapitola 1 (oprava rakety). Kapitola 2 má zatím jen
 > narativní zárodek (viz sekce 3), detaily se řeší až později.
 
 ## 1. Elevator pitch
 
-Sci-fi meta-progresní hra pro Telegram: hráč začíná u ztroskotané rakety na
-cizí planetě a pomocí match-3 miniher ji postupně opravuje — místnost po
-místnosti, od pláště po komunikační vysílač. Za odehrané levely se získávají
-**Kredity**, kterými se rovnou platí konkrétní součásti v dané místnosti;
-poslední součást každé místnosti ale nejde koupit — musí se **vyhrát**
-v těžším, povinném "boss levelu". Po opravě rakety hráč pokračuje
-budováním vesmírné stanice jako základny pro cestu za tajemným signálem,
-který se odhalí na konci kapitoly 1 (kapitola 2, mimo MVP). Hra kombinuje
-jednoduchou, přímou match-3 ekonomiku (žádný obchod, žádné suroviny) s
-vizuální meta-progresí (raketa se hráči doslova "staví před očima",
-místnost po místnosti) — ověřený vzorec ve stylu Homescapes/Gardenscapes,
-aplikovaný na sci-fi/space téma, s holografickým/blueprint vizuálním
-stylem (viz sekce 6).
+Sci-fi match-3 hra pro Telegram ve stylu Candy Crush — hráč prochází
+lineární cestu levelů a průběžně sleduje, jak se v pozadí opravuje
+ztroskotaná raketa. Žádný obchod, žádná ekonomika položek — čistě
+"odehraj level → postup dál", s boostery (Mince) jako jedinou herní
+pomocí. Cesta je rozdělená do 12 tematických zón (podle částí rakety),
+každá zóna končí těžším "boss levelem"; po dokončení zóny se na
+samostatné, čistě pasivní obrazovce Loď viditelně opraví další kus
+rakety a odemkne se kus příběhu. Po dokončení všech 12 zón (kapitola 1)
+se odhalí tajemný signál a hra pokračuje kapitolou 2 (mimo MVP).
+
+**Kontext rozhodnutí (viz 13):** tohle je autorův první herní projekt,
+sólo, s omezeným rozpočtem. Cíl je vydat jednoduchou, dobře prošlapanou
+mechaniku (žánr match-3 s cestou levelů je nasycený, ale funkční a
+levný na výrobu — žádné animace, jednoduchý vizuál, hotové knihovny pro
+swap mechaniku), naučit se na tom stavět a vydávat hru, a **komplexnější
+meta-progresní model** (místnosti jako interaktivní hub, ekonomika
+položek — navržený a zachovaný na větvi `main`) nechat na budoucí,
+ambicióznější titul.
 
 ## 2. Cílová skupina a platforma
 
@@ -36,71 +48,56 @@ stylem (viz sekce 6).
   vrstvy (Web App SDK, Stars platby, Telegram auth) tenkým adaptérem, aby
   případný budoucí port na Google Play/App Store (přes Capacitor nebo
   podobný WebView wrapper) nevyžadoval přepis hry — jen výměnu adaptéru.
-  Detaily viz `architecture.md`. Nemění to nic na designu teď, jen na tom,
-  jak se to structuruje technicky.
+  Detaily viz `architecture.md`.
 
 ## 3. Příběh a narativní rámec
 
 **Rozhodnuto:** Hráč je pilot/průzkumník na misi (přesná povaha mise —
-TODO, např. sledování starého nouzového signálu, průzkum neprobádaného
-systému), jehož loď havaruje na neznámé planetě. Motivace opravit raketu
-není jen "chci pryč" — palubní AI/systémy lodi se s opravou **každé
-místnosti** částečně "probouzí" a průběžně odhalují útržky příběhu
-(levný, ale účinný způsob narativní odměny bez animací — text/dialog
-navázaný na dokončení každé místnosti, případně i na jednotlivé boss
-levely jako silnější narativní beat).
+TODO), jehož loď havaruje na neznámé planetě. Palubní AI/systémy lodi se
+s dokončením **každé zóny** (viz 5.5) částečně "probouzí" a odhalují
+útržky příběhu — krátký text/dialog navázaný na dokončení zóny,
+zobrazený na obrazovce Loď (viz 6).
 
 **Denní transport a Komunikace:** od prvního dne funguje slabý "základní
-maják" — zdrojem denní výzvy (transportní rakety, viz 5.6) i bez opravené
-komunikace. Až se opraví místnost **Komunikace** (poslední místnost, viz
-5.5), maják se vylepší — silnější/spolehlivější denní transport a zároveň
-se přes něj naplno odhalí signál (viz níže). Komunikace tak má dvojí
-funkci: narativní vyvrcholení i mechanický upgrade existující smyčky, ne
-novou mechaniku odnikud.
+maják" — zdroj denní výzvy (viz 5.6) i bez opravené komunikace. Až se
+dokončí zóna **Komunikace** (poslední, viz 5.5), maják se vylepší a
+zároveň se přes něj naplno odhalí signál (viz níže).
 
-**Vyvrcholení kapitoly 1:** po opravě poslední místnosti (Komunikace,
+**Vyvrcholení kapitoly 1:** po dokončení poslední zóny (Komunikace,
 včetně jejího boss levelu) se senzory/AI naplno aktivují a odhalí
 **neznámý signál** odjinud z vesmíru. Místo prostého odletu domů se hráč
 (spolu s AI) rozhodne signál prozkoumat.
 
 **Zárodek kapitoly 2 (detaily zatím neřešíme):** cílem kapitoly 2 je
-dostat se blíž k signálu — vesmírná stanice, kterou hráč staví (případně
-navazující na volitelná vylepšení místností, viz 5.9, např. hibernační
-kapsle pro dlouhý let), slouží jako základna/odpalovací bod pro tuhle
-cestu, ne jako samoúčelný cíl.
+dostat se blíž k signálu. Detailní návrh (např. vesmírná stanice,
+vylepšení lodi) je zatím jen zárodek — bude se řešit až po MVP, případně
+navazovat na komplexnější model z větve `main`.
 
 - **TODO:** přesná povaha mise, kvůli které hráč na planetě byl
 - **TODO:** kdo/co je AI lodi (jméno, osobnost, tón dialogů)
-- **TODO:** detaily kapitoly 2 — řešit až po dokončení návrhu kapitoly 1
+- **TODO:** detaily kapitoly 2
 
 ## 4. Core loop
 
-1. Hráč jde do sekce **Hrát** a odehraje match-3 level → normální level
-   dá **Kredity**, v množství podle výkonu (viz 5.3); boss level (viz 5.8)
-   při výhře odemkne poslední položku aktuální místnosti + bonus Kredity
-2. Na hlavní obrazovce **Raketa** (room hub) hráč vidí aktuální místnost a
-   utrácí Kredity na opravu jejích položek (4 normální + 1 boss, viz 5.5)
-   — nákup normální položky je okamžitý a zdarma na energii
-3. Poslední položku místnosti (boss) nejde koupit za Kredity — musí se
-   nejdřív vyhrát boss level (viz 5.8); je to podmínka dokončení místnosti,
-   ne alternativa k normálnímu hraní
-4. Po dokončení všech 5 položek se místnost odemkne jako **hotová** —
-   vizuální i narativní odměna (viz 3), a odemkne se **další místnost v
-   pořadí** (viz 5.5 — postup je lineární, místnost od místnosti)
-5. Volitelně: dokončenou místnost lze později **vylepšit** (viz 5.9) —
-   čistě volitelný sink, ne podmínka postupu dál
+1. Hráč otevře obrazovku **Cesta** a vidí svou pozici na lineární cestě
+   levelů (viz 6)
+2. Odehraje další level na cestě — klasický swap match-3 (viz 5.1),
+   volitelně použije booster za Mince (viz 5.4)
+3. Výhra → postup na další level, drobná odměna (hvězdy za výkon,
+   šance na Minci, viz 5.3–5.4). Neúspěch → ztráta 1 života, level lze
+   zopakovat (viz 5.2), postup se nemění
+4. Každý 5. level v zóně je **boss level** — těžší preset, nižší
+   úspěšnost (viz 5.8). Jeho výhra dokončí zónu
+5. Po dokončení zóny (5 levelů, poslední = boss) se na obrazovce **Loď**
+   viditelně opraví další kus rakety a odemkne se krátký narativní beat
+   (viz 3, 6) — čistě pasivní, žádná interakce/nákup
 6. Energie dojde → hráč čeká na doplnění, sleduje denní výzvu, nebo
    dobije energii za reklamu/Stars (viz 5.2)
-7. V daný čas dne: denní výzva ("transportní raketa") — zdarma balíček
-   Kreditů, motivace vrátit se v konkrétní čas; po opravě Komunikace
-   silnější (viz 3, 5.6)
-8. Opakuje se, dokud není opravena poslední místnost (Komunikace) — **teprve
-   pak se odemyká kapitola 2** (žádný postup dál bez kompletní opravy
-   všech 12 místností)
-
-Kroky 1 a 2 jsou dvě samostatné, nezávislé obrazovky — viz sekce 6 pro
-detailní UX rozpad (levely nejsou tematicky vázané na konkrétní
-opravovanou položku).
+7. V daný čas dne: denní výzva ("transportní raketa") — malá odměna
+   zdarma (Mince, případně život), motivace vrátit se v konkrétní čas
+8. Opakuje se, dokud není dokončena poslední zóna (Komunikace) — pak se
+   odemyká kapitola 2. Za hranicí 12 zón (60 levelů) cesta pokračuje
+   generovanými levely bez omezení (viz 8), pro hráče, co chtějí hrát dál
 
 ## 5. Herní mechaniky
 
@@ -109,106 +106,92 @@ opravovanou položku).
 **Rozhodnuto:** klasický swap match-3 (styl Candy Crush — prohazování
 sousedních políček).
 
-**Zdůvodnění:** pro webový/Telegram Mini App vývoj existuje víc hotových
-open-source/HTML5 knihoven a referenčních implementací pro swap mechaniku
-než pro tap/blast styl (Toon Blast), balancing desky je předvídatelnější a
-hráči mechanismus dobře znají — bez učicí křivky. Swap se navíc dobře
-parametrizuje pro procedurální generaci (viz sekce 8). Tap/blast zůstává
-možnost pro pozdější odlišení (např. jako varianta v kapitole 2).
+**Zdůvodnění:** existuje víc hotových open-source/HTML5 knihoven a
+referenčních implementací pro swap mechaniku než pro tap/blast styl,
+balancing desky je předvídatelnější, hráči mechanismus dobře znají a
+dobře se parametrizuje pro procedurální generaci (viz sekce 8) — důležité
+i vzhledem k omezenému rozpočtu a sólo vývoji.
 
 ### 5.2 Energie (životy)
 
-**Rozhodnuto:**
+**Rozhodnuto a upřesněno:** Max **5 životů**, doplňování časem (~30
+minut/život, plné doplnění z nuly ≈ 2,5 hodiny). Rychlejší doplnění:
+odměněná reklama (+1 život, denní limit) nebo Telegram Stars (okamžité
+doplnění všech, za reálné peníze) — žádná samostatná "prémiová měna".
 
-- Max **5 životů**.
-- Doplňování časem: cca **30 minut/život** (návrh, doladit podle
-  playtestů), plné doplnění z nuly ≈ 2,5 hodiny.
-- Doplnění dřív, dvě cesty (žádná nová měna, jen alternativní přístup k
-  téže věci):
-  - **Odměněná reklama** → okamžitě +1 život, s denním limitem (např.
-    3–5×), ať to nevede k nekonečnému sledování reklam.
-  - **Telegram Stars** → okamžité doplnění všech životů za reálné peníze,
-    pro hráče, kteří nechtějí čekat ani sledovat reklamy. Žádná
-    samostatná "prémiová měna" (diamanty apod.) — Stars tuhle roli plní
-    přímo.
-- Energie se váže **výhradně na hraní levelů** (obrazovka Hrát, normální
-  i boss levely stejně) — samotná oprava položky za Kredity (obrazovka
-  Raketa) je okamžitá a zdarma, energii nespotřebovává.
+**Klíčové upřesnění mechaniky (žánrový standard, stejný jako Candy
+Crush/Homescapes):** **život se ztrácí jen při neúspěchu** (dojdou tahy
+bez splnění cíle) — **výhra život nestojí**, hráč pokračuje na další
+level bez čekání. Tohle je vědomé rozhodnutí, ne detail: znamená to, že
+energie funguje hlavně jako pojistka proti smolným sériím a jako
+skutečná brzda u těžších (boss) levelů, ne jako plošný strop na počet
+odehraných levelů denně — viz sekce 7 pro dopad na tempo hry.
 
-- **TODO:** přesný denní limit reklam, cena Stars za okamžité doplnění
-
-### 5.3 Fail state, hodnocení výkonu a cílová obtížnost
+### 5.3 Fail state a hodnocení výkonu
 
 - Levely mají omezený počet tahů. Dojdou tahy bez splnění cíle = level
-  neúspěšný, spotřebuje se 1 život, level lze zopakovat.
-- Odměna v Kreditech se odstupňuje podle výkonu — čím víc tahů zbyde při
-  splnění cíle, tím víc Kreditů (obdoba "hvězdičkového" hodnocení z
-  klasických match-3 her, jen napojená přímo na měnu místo na hvězdičky).
-  I těsné dokončení dá aspoň základní odměnu, ať to nepůsobí trestajícím
-  dojmem.
+  neúspěšný, ztráta 1 života, level lze zopakovat.
+- Výkon při výhře se hodnotí **hvězdami (1–3)** podle zbývajících tahů —
+  standardní žánrová konvence. Hvězdy zatím neslouží k odemykání ničeho
+  (žádná ekonomika, viz 5.4) — jsou to primárně motivace hrát level znovu
+  pro lepší skóre a základ pro budoucí sociální prvky (žebříčky, viz 10).
+  3hvězdičková výhra dává o něco vyšší šanci na drop Mince (viz 5.4).
 
 **Rozhodnuto — cílový rámec obtížnosti** (startovní odhad k doladění po
-playtestech, ne finální čísla — přesně se to bez reálných dat nastavit
-nedá):
+playtestech):
 
 | Typ levelu | Cílová úspěšnost na 1. pokus |
 |---|---|
-| Tutoriál (viz 7) | ~95–100 % — téměř nejde prohrát |
-| Normální level (4 kupované položky místnosti) | ~60 % — výchozí hodnota v ladicí tabulce (viz 7.1); záměrně sníženo z původních 70 %, ať se energie skutečně spotřebovává |
-| Volitelný Hard level (viz 8) | o něco níž než normální, s vyšší odměnou — přesné číslo TODO |
-| **Boss level** (poslední položka místnosti, viz 5.8) | **~30–35 %** — výrazně těžší, povinná výzva |
+| Tutoriál (viz 8) | ~95–100 % |
+| Normální level | ~60–70 % |
+| Volitelný Hard level (viz 8) | o něco níž než normální, vyšší odměna |
+| **Boss level** (5. level každé zóny, viz 5.8) | **~30–35 %** |
 
 - **TODO:** přesné prahy hvězdičkového hodnocení (kolik zbývajících
-  tahů = jaký bonus Kreditů)
-- **TODO:** rozhodnout, jestli je v MVP i nabídka "pokračovat za pár
-  tahů navíc" (za reklamu/nákup) při neúspěchu — u boss levelů zvlášť
-  citlivé rozhodnutí, protože by mohlo oslabit smysl gate mechaniky
+  tahů = kolik hvězd)
 
-### 5.4 Ekonomika: Kredity + Mince
+### 5.4 Ekonomika: jediná měna — Mince (boostery)
 
-**Rozhodnuto:** jednovrstvá ekonomika, žádný obchod, žádné suroviny —
-platí pro **celou hru**, ne jen kapitolu 1. Dvě oddělené měny s jasně
-odlišenou rolí:
+**Rozhodnuto:** žádný obchod, žádná položková ekonomika, žádná druhá
+(progresní) měna. **Mince** jsou jediná herní měna, výhradně na
+**boostery** použitelné uvnitř libovolného levelu (normálního i boss).
 
-- **Kredity** — hlavní progresní měna. Match-3 level (obrazovka Hrát) dá
-  Kredity, v množství podle výkonu (viz 5.3) — obecný výdělek, nezávislý
-  na tom, kterou položku hráč zrovna opravuje. Kredity se utrácí přímo v
-  **Raketě** za konkrétní položku (levná/drahá varianta, viz 5.5) —
-  žádný mezikrok přes obchod nebo suroviny.
-- **Mince** — samostatná měna výhradně pro **boostery** uvnitř match-3
-  levelu (extra tahy, speciální políčka na začátek, apod.). Nemá vliv na
-  postup v opravě rakety, je to čistě volitelná pomoc při hraní. **Detaily
-  zatím nenavržené** — viz TODO níže.
+**Boostery (návrh, 3 typy, jednotná cena 1 Mince/použití):**
 
-**Zdůvodnění:** dřívější dvouvrstvý model (mince → obchod s pevnou
-nabídkou → suroviny → oprava) přidával krok navíc bez jasné herní hodnoty
-— hráč beztak nakupoval "všechno postupně", takže obchod byl v praxi jen
-extra klikání. Přímé Kredity zjednodušují smyčku (odehraj → oprav) a
-zároveň jasně oddělují progresní měnu (Kredity) od volitelné herní pomoci
-(Mince), takže se dvě různé motivace nepletou do jedné měny.
+| Booster | Efekt |
+|---|---|
+| Dodatečný impulz | +5 tahů navíc |
+| Plazmový řezač | odstraní 1 zvolené políčko/překážku |
+| Rekalibrace pole | zamíchá desku |
 
-- **TODO:** ekonomika Mincí — jak se získávají (drop z levelů? denní
-  výzva? Stars?), ceny jednotlivých boosterů, od jaké fáze hry se
-  odemykají (orientačně kolem ~10. levelu, k potvrzení)
-- **Otevřené k rozhodnutí:** bonus Kredity za výhru boss levelu (viz 5.8)
-  je kandidát na částečné financování Mincí místo čistě informativní
-  odměny — zatím nerozhodnuto, viz `docs/ekonomika-mistnosti.xlsx`
+**Zdroje Mincí (hybrid):**
 
-### 5.5 Oprava rakety — místnosti (meta-progrese kapitoly 1)
+- Malá šance (~10–15 %) na +1 Minci za vyhraný level, vyšší šance při
+  3hvězdičkové výhře (viz 5.3)
+- Denní transport — pevná malá dávka (viz 5.6)
+- Odměněná reklama (viz 5.7)
+- Telegram Stars — přímý nákup balíčků Mincí
 
-**Rozhodnuto:** oprava je strukturovaná jako průchod **12 místnostmi v
-pevném pořadí** (room-by-room, ve stylu Homescapes/Gardenscapes) —
-nahrazuje dřívější model 5 volně vybíraných součástí. Hráč vidí a
-opravuje aktuální místnost; další místnost se odemkne až po kompletním
-dokončení té předchozí. V rámci jedné místnosti je pořadí 4 normálních
-položek volné, poslední (5.) položka je vždy povinný **boss level** (viz
-5.8).
+**Odemyká se:** po prvním boss levelu (konec zóny Plášť) — hráč tou
+dobou přesně pozná, k čemu boostery jsou.
 
-**Pořadí místností (12, potvrzeno):**
+- **TODO:** přesná pravděpodobnost dropu, ceny balíčků za Stars, jestli
+  bonus za výhru boss levelu (viz 5.8) dává Mince navíc
 
-| # | Místnost | Fáze |
+### 5.5 Zóny — struktura cesty (meta-vrstva kapitoly 1)
+
+**Rozhodnuto:** cesta kapitoly 1 má **60 levelů, rozdělených do 12 zón
+po 5 levelech**. Zóny jsou čistě **kosmetické/narativní** — každá má
+vlastní pozadí a tematické dlaždice (viz 6), ale žádnou ekonomiku ani
+nákup. Poslední (5.) level každé zóny je vždy **boss level** (viz 5.8);
+jeho výhra dokončí zónu a spustí update na obrazovce Loď (viz 3, 6).
+
+**Pořadí zón (stejné jako navržená struktura místností na `main`,
+recyklováno jako kosmetické téma):**
+
+| # | Zóna | Fáze |
 |---|---|---|
-| 1 | Plášť *(obal, okna, dveře, přetlaková komora — první, "objevovací" místnost)* | Survival |
+| 1 | Plášť | Survival |
 | 2 | Ubikace | Survival |
 | 3 | Koupelny | Survival |
 | 4 | Jídelna a kuchyň | Survival |
@@ -219,407 +202,219 @@ položek volné, poslední (5.) položka je vždy povinný **boss level** (viz
 | 9 | Strojovna | Funkčnost |
 | 10 | Sklad paliva | Funkčnost |
 | 11 | Serverovna / jádro AI | Vrchol |
-| 12 | Komunikace *(poslední — odemyká vylepšený maják a odhaluje signál, viz 3)* | Vrchol |
+| 12 | Komunikace | Vrchol |
 
-Fáze (Survival → Funkčnost → Vrchol) jsou narativní/tempová seskupení,
-ne herní mechanika samotná — používají se pro barevné odlišení v
-ladicí tabulce (viz 7.1) a pro postupné zvyšování cen/obtížnosti.
-
-**60 položek celkem** (12 místností × 5 položek = 48 normálních + 12
-boss). Konkrétní jména položek za jednotlivé místnosti (5 na místnost, 4
-normální + 1 boss) jsou spočítaná a uložená v
-[`docs/ekonomika-mistnosti.xlsx`](./ekonomika-mistnosti.xlsx) (list
-Položky) — tabulka je od teď **autoritativní zdroj** pro jména a přesné
-ceny položek, v GDD se drží jen struktura a principy.
-
-**Levná/drahá varianta:** každá **normální** položka má dvě varianty
-opravy — levnou (základní vzhled) a drahou (vizuálně odlišná, dražší).
-Drahá varianta = levná × konfigurovatelný násobič (výchozí **1,6**, viz
-tabulka). Čistě kosmetická volba, nemá vliv na postup. Boss položky
-variantu nemají (nejdou koupit vůbec, viz 5.8).
-
-**Důležitá poznámka k číslům:** "orientační počet levelů/pokusů" v
-tabulce je odhad, kolikrát si hráč v průměru zahraje (normální i boss
-level), aby na danou položku vydělal/vyhrál — ekonomický/tuning odhad,
-ne konkrétní přiřazené levely. Levely samotné nejsou tematicky vázané na
-konkrétní položku — viz sekce 6.
+Za 60. levelem (konec zóny Komunikace) cesta pokračuje **generovanými
+levely bez omezení** (viz 8), vizuálně recyklujícími téma poslední zóny
+— pro hráče, kteří chtějí hrát dál, aniž by to vyžadovalo další ruční
+obsah předem.
 
 ### 5.6 Denní výzva — "transportní raketa"
 
-- V pevně daný čas dne se objeví časově omezená událost s balíčkem
-  Kreditů zdarma.
+- V pevně daný čas dne se objeví časově omezená událost s malou odměnou
+  zdarma (Mince, případně život).
 - Od začátku hry funguje přes **základní maják** (slabší verze); po
-  opravě místnosti Komunikace se vylepší (viz 3) — přesný rozdíl
-  (větší balíček? kratší interval? i Mince?) — **TODO**.
-- **TODO:** globální pevný čas (např. 18:00 UTC) vs. čas odvozený od
-  časového pásma hráče?
-- **TODO:** co se stane při zmeškání — propadá se, nebo je možné dohnat?
-- Technická poznámka: Telegram bot může poslat notifikaci přímo do chatu
-  jako připomínku — netřeba spoléhat na OS push.
+  dokončení zóny Komunikace se vylepší (viz 3).
+- **TODO:** globální pevný čas vs. čas dle časového pásma hráče, řešení
+  zmeškání, přesný rozdíl mezi základním a vylepšeným majákem
 
 ### 5.7 Odměněná reklama
 
-- Sledování reklamy → odměna (Kredity, nebo +1 život — viz 5.2).
-- **TODO:** frekvenční limit (kolikrát denně lze reklamu takhle použít
-  na Kredity, odděleně od limitu na životy)
+- Sledování reklamy → odměna (Mince, nebo +1 život — viz 5.2, 5.4).
+- **TODO:** frekvenční limit (na Mince, odděleně od limitu na životy)
 
-### 5.8 Boss levely (povinná brána)
+### 5.8 Boss levely
 
-**Rozhodnuto:** poslední položka **každé** z 12 místností (12 boss
-položek celkem) se **nedá koupit za Kredity vůbec** — jedinou cestou k
-jejímu získání je vyhrát dedikovaný, výrazně těžší level (viz 5.3, ~30–35
-% úspěšnost). Tohle je **striktní, neobejitelná podmínka** dokončení
-místnosti — explicitně NENÍ možné ji obejít grindem normálních (lehčích)
-levelů, ať už jich hráč odehraje jakkoli mnoho. Boss level tedy funguje
-jako skutečná brána, ne jako drahá alternativa.
+**Rozhodnuto:** poslední (5.) level každé ze 12 zón je **boss level** —
+samostatný, výrazně těžší preset (cíl ~30–35 % úspěšnost). Protože je
+cesta striktně lineární (musíš vyhrát level, abys postoupil na další —
+platí pro všechny levely, ne jen boss), boss level nepotřebuje žádnou
+zvláštní "gate" logiku navíc oproti běžnému postupu — je to prostě
+výrazný obtížnostní vrchol na konci každé zóny, který dokončí zónu a
+spustí update Lodi (viz 3, 6).
 
-- Výhra boss levelu přímo odemyká danou boss položku (místnost je tím
-  hotová, pokud jsou hotové i zbylé 4 normální položky) **a** k tomu dá
-  **bonusovou odměnu Kreditů** navíc (výchozí násobič **2×** průměrné
-  odměny za normální level, viz tabulka) — tenhle bonus se zatím počítá
-  jako informativní "kapesné", **neodečítá se** z ceny/tempa kapitoly 1.
-  Je kandidát na budoucí financování Mincí (viz 5.4).
-- Boss levely jsou mechanicky odlišené od volitelných Hard levelů (viz
-  8) — Hard levely jsou nepovinná odbočka pro lepší odměnu, boss levely
-  jsou povinná brána na konci každé místnosti.
+- **TODO:** bonusová odměna za výhru boss levelu (extra Mince?
+  silnější narativní beat?) — k doladění
 
-**Zdůvodnění:** čistě cenová/energetická ekonomika (jak fungovala do
-teď) dávala hráči teoretickou možnost "prostě si to odehrát/vydělat", což
-oslabovalo pocit výzvy u vrcholu každé místnosti. Boss level přidává
-druhý typ friction (dovednost/štěstí u těžšího levelu), nezávislý na
-tom, kolik má hráč Kreditů — a dělá z konce každé místnosti skutečný,
-zapamatovatelný beat, ne jen další nákup.
+### 5.9 Hvězdy, skóre a opakovatelnost
 
-- **TODO:** finální hodnoty win rate (výchozí 35 %) a bonus násobiče
-  (výchozí 2×) — čekají na doladění v `docs/ekonomika-mistnosti.xlsx`
-- **TODO:** rozhodnout, zda a jak boss level souvisí s narativním beatem
-  dané místnosti (viz 3) — silnější dialog/odhalení při výhře?
-
-### 5.9 Vylepšení místností (volitelný post-completion sink)
-
-**Rozhodnuto — explicitní součást MVP** (ne odloženo na později): po
-kompletním dokončení místnosti (všech 5 položek včetně boss) se hráč
-může k místnosti kdykoliv vrátit a **volitelně ji vylepšit** — např.
-hibernační kapsle v Ubikacích pro budoucí dlouhý let. Čistě volitelné,
-nepodmiňuje postup do další místnosti ani do kapitoly 2.
-
-**Účel:**
-
-1. **Retention buffer** — dává hráči co dělat i po dokončení viditelné
-   části obsahu, aniž by se musel zvyšovat počet povinných položek.
-2. **Narativní most ke kapitole 2** — vylepšení místností (zejména
-   Ubikace/hibernace) připravují loď na cestu za signálem, takže
-   navazují přímo na zárodek kapitoly 2 (viz 3) a případně nahrazují/
-   sjednocují s dřívější myšlenkou "budovat vesmírnou stanici".
-
-- **TODO:** konkrétní seznam vylepšení (které místnosti, kolik úrovní
-  vylepšení, za jakou měnu — Kredity, nebo nová sink měna?)
-- **TODO:** vizuální odlišení vylepšené místnosti v hubu
+Levely jsou opakovaně hratelné i po prvním dokončení — hráč se může
+vrátit a zahrát si starší level znovu pro lepší hvězdičkové hodnocení
+nebo drop Mincí (viz 5.3–5.4). Základ pro budoucí sociální prvky
+(žebříčky mezi přáteli, viz 10).
 
 ## 6. UI/UX a struktura obrazovek
 
-**Rozhodnuto — orientace:** na výšku (portrait). Telegram Mini Apps se
-prakticky vždy hrají na výšku (otevírají se jako sheet uvnitř Telegram
-appky, hraje se jednou rukou mezi chatováním) a je to i genre standard
-(Candy Crush, Homescapes, Toon Blast). Tvar rakety (vysoká, úzká) navíc
-portrétu přirozeně sedí — jde ukázat celou od trysek po špičku.
+**Rozhodnuto — orientace:** na výšku (portrait) — genre standard pro
+Telegram Mini Apps.
 
-**Rozhodnuto — vizuální styl:** holografické schéma/blueprint — svítící
-linky na tmavém pozadí, statické, "komixové" podání (bez animace,
-narativní beaty jako komixové bubliny). Poškození = praskliny/přerušené
-obvody/červené varovné symboly; oprava = plynule svítící čisté linky.
-Levnější a konzistentnější na produkci než malovaná ilustrace nebo
-animace (jeden vektorový styl, "poškození" jako přidané/odebrané vrstvy
-nad základní kresbou, ne kompletně nové obrázky pro každý stav).
+**Rozhodnuto — dvě obrazovky, jedna aktivní a jedna pasivní:**
 
-**Rozhodnuto — dvě nezávislé obrazovky** (Obchod jako samostatná
-obrazovka je **zrušen** — viz 5.4, revize ekonomiky):
+1. **Cesta** — hlavní, aktivní obrazovka. Lineární cesta levelů s
+   očíslovanými zastávkami, galaxie/hvězdné pole v pozadí, měnící se
+   podle **pozice na cestě / aktuální zóny**. Boss levely vizuálně
+   odlišené (např. výraznější ikona zastávky). Volitelné Hard levely
+   jako odbočka mimo hlavní linii (viz 8).
+2. **Loď** — pasivní, sekundární obrazovka. Holografický/blueprint
+   pohled na raketu (viz níže), který se **aktualizuje po dokončení
+   každé zóny** (13 stavů: start + 12 zón) — poškození jako odebíratelná
+   vrstva nad jedním základním obrázkem (levnější na výrobu než 13
+   samostatných kreseb). Tap na obrazovku zobrazí narativní text/dialog
+   navázaný na dokončenou zónu (viz 3). Žádná interakce/nákup zde neprobíhá.
 
-1. **Raketa (room hub)** — izometrický/průřezový holografický pohled na
-   raketu, teď strukturovaný podle **aktuální místnosti** (viz 5.5), ne
-   podle volně vybíraných součástí. Tapnutím na položku se otevře
-   **karta s cenou** (levná/drahá varianta, tlačítko "Opravit" — aktivní
-   jen při dostatku Kreditů), boss položka místo ceny ukazuje odkaz na
-   boss level. **Žádná minihra se odsud nespouští přímo** — nákup je
-   okamžitý a zdarma, boss položka odkazuje na Hrát. Po opravě všech
-   položek se aktualizuje i celkový pohled na raketu (dvojitá vizuální
-   odměna — detail i celek), dokončené místnosti jsou dostupné zpětně
-   pro volitelné vylepšení (viz 5.9).
-2. **Hrát** — persistentní záložka/tlačítko vedoucí na **cestu levelů**,
-   vizuálně nezávislou na raketě (např. "cesta troskami/okolím
-   havárie" s očíslovanými zastávkami). Kosmic prostředí v pozadí se
-   mění podle **pozice na cestě** (časná zastávka = trosky/kráter,
-   pozdější = hlouběji v troskách lodi) — **ne podle toho, co hráč zrovna
-   opravuje** (taková vazba by naznačovala, že levely jsou tematické,
-   což neplatí, viz 5.4). Normální levely, volitelné Hard levely a
-   povinné boss levely (viz 5.8) jsou na téže cestě, boss levely vizuálně
-   odlišené. Levely jsou opakovaně hratelné — po dohrání cesty do konce
-   lze tapnout na libovolný starší level a zahrát si ho znovu pro další
-   Kredity (viz sekce 8).
+**Rozhodnuto — vizuální styl:**
 
-**Tok hráče:** vidím aktuální místnost → chci ji dokončit → jdu
-**vydělávat** (Hrát) → vrátím se na **Raketu** a opravím (instantní
-akce) → u poslední položky jdu **porazit boss level** (Hrát) → místnost
-hotová → odemkne se další.
+- **UI chrome a Loď:** holografické schéma/blueprint — svítící linky na
+  tmavém pozadí, statické, "komixové" podání (bez animace), poškození
+  jako praskliny/přerušené obvody, oprava jako čisté svítící linky.
+- **Herní dlaždice (na desce):** samostatný styl od holografického UI —
+  potřebují být barevně odlišné a čitelné na první pohled (žánrová
+  nutnost pro match-3, hologram-linky by se špatně rozlišovaly). Návrh
+  (k doladění s grafikem/AI generováním): energetický krystal, kovový
+  šrot, plazmová koule, ledový krystal, obvodový čip, hvězdné jádro —
+  6 typů, ploché vektorové ikony, bez animace.
 
-- **TODO:** zvážit rychlou zkratku z karty položky na Raketě přímo do
-  Hrát (např. tlačítko "Chybí Kredity → jít vydělat", nebo přímo "Hrát
-  boss level" u poslední položky)
+**Tok hráče:** otevřu appku → **Cesta** → hraju další level → příležitostně
+mrknu na **Loď**, jak to vypadá a co se dozvím → zpátky na Cestu.
+
 - **TODO:** kdo/co bude grafiku vyrábět (AI generování, freelancer,
-  hotové assety) — ovlivní tempo produkce, ne design samotný
+  hotové assety)
+- **TODO:** finální sada tematických dlaždic a jejich vazba na zóny
+  (mění se dlaždice podle zóny, nebo zůstávají stejné celou kapitolu 1?)
 
 ## 7. Obsah a tempo kapitoly 1
 
 **Rozhodnuto — cílové tempo:** cca **1–2 týdny** běžné, neplacené,
-přiměřeně aktivní hraní na kompletní opravu rakety (celá kapitola 1,
-všech 12 místností). Tohle je hlavní tuning cíl, podle kterého se
-nastavují ceny položek a výdělek Kreditů — ne počet levelů.
+přiměřeně aktivní hraní na dokončení všech 12 zón (60 levelů).
 
-**Klíčový princip:** velikost obsahové knihovny (kolik unikátních levelů
-existuje) **není totéž** co délka hry. Levely jsou opakovaně hratelné.
-Skutečné tempo řídí čtyři páky dohromady (poslední dvě nově, po zavedení
-boss levelů):
+**Jak tempo skutečně vzniká (viz 5.2):** protože energie se ztrácí jen
+při neúspěchu, není hlavní pákou tempa — je to spíš pojistka. Skutečné
+tempo řídí kombinace:
 
-1. **Energie** (5 životů, ~30 min/život) — fyzický limit, kolik levelů
-   lze odehrát za hodinu/den bez reklam/Stars
-2. **Ceny položek** vs. **průměrný výdělek Kreditů za normální level**
-3. **Úspěšnost normálních levelů** (výchozí 60 %) — kolik energie se
-   reálně "spotřebuje" i na neúspěšné pokusy
-4. **Povinné boss levely** (výchozí ~35% úspěšnost, 12 celkem) — přidávají
-   samostatný, neobejitelný blok pokusů navíc na konci každé místnosti
+1. **Celkový počet levelů** (60 pro kapitolu 1) — hlavní páka, stejná
+   jako u referenčních her (Candy Crush, Toon Blast)
+2. **Realistický denní herní návyk** — běžný hráč přirozeně přestává hrát
+   z vlastní vůle (jiná aktivita) dávno předtím, než by mu reálně došlo
+   všech 5 životů — energie tohle nijak nezrychluje ani nezpomaluje u
+   normálních levelů
+3. **Boss levely** (12, ~30–35 % úspěšnost) — tady energie skutečně
+   reálně dochází. Odhad: cca 12% šance na vyčerpání všech 5 životů u
+   jednoho konkrétního boss levelu → v průměru 1–2 opravdové "musím
+   počkat" momenty za celou kapitolu 1, soustředěné přesně tam, kde to
+   dává smysl (konec zóny)
 
-### 7.1 Konkrétní čísla — ceny položek a výsledné tempo
+**Otevřené riziko (přeneseno z dřívějšího modelu, přeformulováno):**
+bez skutečného playtestu nejde spolehlivě odhadnout, jestli 60 levelů +
+12 boss zastávek dá pocitově 1–2 týdny, nebo je to málo/moc — hlavní
+pákou k doladění je tady **počet levelů**, ne ceny/odměny (ty už v
+tomhle modelu neexistují).
 
-**Rozhodnuto:** aktuální pracovní čísla pro cenu všech 48 normálních
-položek a mechaniku 12 boss levelů jsou spočítaná a uložená jako živá
-ladicí tabulka: [`docs/ekonomika-mistnosti.xlsx`](./ekonomika-mistnosti.xlsx).
-Tenhle soubor je **autoritativní zdroj přesných čísel** (ceny, win rate,
-výsledné tempo) — v GDD držíme jen shrnutí a principy.
-
-**Shrnutí aktuálního výchozího nastavení (list Ekonomika v tabulce):**
-
-| Vstup | Výchozí hodnota |
-|---|---|
-| Průměr Kreditů za vyhraný normální level | 15 |
-| Úspěšnost normálního levelu | 60 % |
-| Úspěšnost boss levelu | 35 % |
-| Bonus násobič odměny za výhru boss levelu | 2,0× (informativní, nezapočítáno do tempa) |
-| Násobič drahé varianty | 1,6× |
-| Pokusů o level / den | 8 |
-
-**Výsledek:** cena 48 normálních položek celkem = **550 Kreditů** → ~61
-pokusů na normální levely (při 60% win rate) + ~34 očekávaných pokusů na
-12 boss levelů (při 35% win rate) = **~95,4 pokusů celkem → ~11,9 dne →
-~1,7 týdne** při 8 pokusech/den. Padá do cíleného rozmezí 1–2 týdny —
-tabulka to vyhodnocuje jako "V CÍLI".
-
-Rozpad podle místností (list Místnosti v tabulce) — cena 4 normálních
-položek roste s fází, od 28 Kreditů (Ubikace) po 80 Kreditů (Komunikace);
-každá místnost má navíc svůj povinný boss level.
-
-### 7.2 Otevřené riziko — subjektivní vnímání délky hry
-
-Dřívější model (15 podsoučástí, 5 součástí) měl u autora designu
-subjektivní pocit krátké hry i přes matematicky "V CÍLI" tempo. Přechod
-na 12 místností / 60 položek (výrazně jemnější dělení) a zavedení
-povinných boss levelů tenhle pocit částečně řeší tím, že postup je vidět
-po menších, četnějších krocích a na konci každé místnosti je
-zapamatovatelná výzva navíc — ale **bez skutečného playtestu se to
-nedá spolehlivě potvrdit jen na papíře**, riziko zůstává otevřené.
-
-- **TODO:** zahrát referenční hry (Homescapes, Toon Blast a podobné) a
-  porovnat subjektivní pocit délky/tempa s tímhle modelem
-- **TODO:** po prvním hratelném prototypu ověřit, jestli 12
-  místností/60 položek + boss levely řeší pocit tempa, nebo jestli je
-  potřeba dál upravovat ceny/win rate (7.1) nebo strukturu (8)
+- **TODO:** po prvním hratelném prototypu ověřit skutečné tempo a podle
+  potřeby upravit počet zón/levelů, nebo win rate
 
 ## 8. Generování levelů a obtížnost
 
-**Rozhodnuto:** levely se negenerují ručně jeden po druhém do
-nekonečna — použije se **generátor s křivkou obtížnosti**, parametrizovaný
-podle pozice na cestě (viz sekce 6). Tohle škáluje bez problémů i na
-stovky levelů a na budoucí kapitoly, bez lineárního nárůstu práce.
+**Rozhodnuto:** levely se negenerují ručně donekonečna — **generátor s
+křivkou obtížnosti**, parametrizovaný podle pozice na cestě.
 
 **Rozdělení:**
 
-- **Prvních ~10–15 levelů** (tutoriál + začátek první místnosti) —
-  **ručně navržené a doladěné**. Kvalita první zkušenosti je kritická,
-  generátor by mohl náhodou vyprodukovat něco nezáživného nebo
-  frustrujícího hned na startu.
-- **Vše za tím** — **generované** podle křivky obtížnosti, včetně boss
-  levelů (těžší preset, viz níže).
+- **Prvních ~10–15 levelů** (tutoriál + začátek zóny Plášť) — ručně
+  navržené a doladěné.
+- **Zbytek prvních 60 levelů** (zóny 1–12) — generované podle křivky
+  obtížnosti, s tematickým vizuálem podle příslušné zóny.
+- **Nad 60. levelem** — generátor pokračuje **bez omezení**, recykluje
+  vizuál poslední zóny (Komunikace/hluboký vesmír). Tohle je klíčové pro
+  škálovatelnost bez lineárního nárůstu práce — jednou hotový generátor
+  umí produkovat stovky až tisíce levelů prakticky zadarmo (na rozdíl od
+  ručně tvořeného obsahu). Referenční hry (Candy Crush) mají dnes
+  tisíce levelů, ale to je výsledek let průběžných přídavků po launchi,
+  ne startovní rozsah — stejný přístup (vydat s pevným, zvládnutelným
+  obsahem + generátor jako pojistka, případně přidávat nové tematické
+  epizody později) sedí i sem.
 
-**Parametry generátoru** (rostou postupně s pozicí na cestě):
+**Parametry generátoru** (rostou postupně s pozicí na cestě): velikost/
+tvar desky, počet typů políček, počet tahů vůči cíli, překážky, typ cíle.
 
-- Velikost/tvar herní desky
-- Počet barev/typů políček (víc typů = těžší)
-- Počet tahů vůči cíli (přísnější limit = těžší)
-- Překážky (blokovaná políčka, "led", vícevrstvé kameny...) — přidávají
-  se postupně, ne od začátku
-- Typ cíle (posbírej N políček, vyčisti překážky, dosáhni skóre...) —
-  střídání typů drží levely rozmanité
+**Dva typy těžších levelů:**
 
-**Dva odlišné typy těžších levelů (neplést dohromady):**
+- **Hard levely** — volitelná odbočka mimo hlavní linii cesty, tvrdší
+  preset, násobič odměny (Mince, ~1,5–2×)
+- **Boss levely** (viz 5.8) — na hlavní linii, povinné, 5. level každé
+  zóny, ještě tvrdší preset (~30–35 % win rate)
 
-- **"Hard" levely** — stejný generátor, tvrdší preset (víc typů políček,
-  přísnější limit tahů), **násobič odměny v Kreditech** (~1,5–2×).
-  Nabízené jako explicitní **volitelná** odbočka na cestě levelů — pro
-  hráče, co chtějí risknout těžší výzvu za lepší výdělek. Nesouvisí s
-  žádnou konkrétní položkou.
-- **Boss levely** (viz 5.8) — samostatný, ještě tvrdší preset (cíl ~30–35%
-  win rate, výrazně přísnější než Hard), **povinné** pro dokončení
-  poslední položky každé místnosti, ne volitelná odbočka. Odemyká se
-  automaticky po dokončení zbylých 4 normálních položek dané místnosti.
+**Technická poznámka pro `architecture.md`:** generátor musí garantovat
+řešitelnost vygenerované desky (aspoň 1 platný tah, dohratelnost) — i u
+těžších presetů (Hard, Boss).
 
-**Technická poznámka pro `architecture.md`:** generátor musí mít
-kontrolu řešitelnosti — vygenerovaná deska musí mít zaručeně aspoň jeden
-platný tah a jít dohrát, jinak riskujeme "mrtvé" levely. Běžný,
-zdokumentovaný problém u match-3 generátorů, řešit až při implementaci.
-Týká se i boss levelů — i "nefér těžký" level musí být teoreticky
-dohratelný, jinak jde o čistě frustrující bránu, ne o výzvu.
-
-- **TODO:** přesná tabulka/vzorec křivky obtížnosti (jaké parametry se
-  mění na jaké pozici, včetně boss presetu)
+- **TODO:** přesná tabulka/vzorec křivky obtížnosti, včetně boss/hard
+  presetů
 - **TODO:** frekvence/umístění Hard levelů na cestě
-- **TODO:** stejný přístup (ruční start + generátor, boss preset) potvrdit
-  i pro budoucí kapitoly
 
 ## 9. Monetizace
 
-- Primárně: **Kredity nakupitelné za Telegram Stars** — přímé
-  mikrotransakce, balíčky Kreditů různé velikosti. Platí jen pro
-  **normální** položky — boss položky nejdou koupit ani za Kredity
-  získané tímhle způsobem, takže monetizace neobchází povinnou bránu
-  (viz 5.8), jen zrychluje nákup normálních položek.
-- **Telegram Stars také přímo za okamžité doplnění životů** (viz 5.2) —
-  alternativa ke sledování reklamy, ne nová měna.
-- **Mince (boostery)** — samostatný, zatím nenavržený monetizační/
-  free-to-play kanál, viz 5.4 TODO.
-- Sekundárně: odměněné reklamy (viz 5.7) jako free-to-play cesta ke
-  Kreditům/životům.
-- **TODO:** směnný kurz Stars → Kredity a velikosti balíčků
-- **TODO:** ekonomika Mincí (viz 5.4) — zdroj, ceny, Stars kanál
-- **TODO:** kosmetika / skip timerů za Stars zvážit pro post-MVP
+- **Mince nakupitelné za Telegram Stars** — balíčky různé velikosti,
+  jediný přímý mikrotransakční kanál na boostery.
+- **Telegram Stars také přímo za okamžité doplnění životů** (viz 5.2).
+- Sekundárně: odměněné reklamy (viz 5.7) jako free-to-play cesta k
+  Mincím/životům.
+- **TODO:** směnný kurz Stars → Mince, velikosti balíčků
 
-## 10. Sociální/virální prvky *(mimo MVP, ale architektura by s tím měla počítat)*
+## 10. Sociální/virální prvky *(mimo MVP, architektura by s tím měla počítat)*
 
-Telegram je silný virální kanál (viz např. Hamster Kombat) — sdílení do
-chatů/skupin a referral fungují nativně bez app store friction. Kandidáti
-pro post-MVP:
-
-- Pozvání přátel → bonus Kreditů
-- Darování Kreditů/Mincí příteli
-- Žebříček mezi přáteli (kdo má víc opravenou raketu)
+- Pozvání přátel → bonus Mincí
+- Darování Mincí příteli
+- Žebříček mezi přáteli (kdo je dál na cestě, kdo má víc hvězd)
 
 ## 11. MVP scope
 
-**Rozhodnuto:** MVP obsahuje pouze kapitolu 1 (oprava rakety, cílové
-tempo ~1–2 týdny, viz sekce 7), se strukturou **12 místností v pevném
-pořadí** (60 položek: 48 normálních + 12 povinných boss, viz 5.5),
-jednovrstvou ekonomikou **Kredity** (přímý nákup normálních položek,
-žádný obchod, žádné suroviny) + samostatnou, zatím nenavrženou boosterovou
-měnou **Mince** (viz 5.4), a **povinnou boss-level bránou** na konci
-každé místnosti (viz 5.8). Volitelná **vylepšení dokončených místností**
-(viz 5.9) jsou explicitní součást MVP jako retention buffer a narativní
-most ke kapitole 2. UI: dvě nezávislé obrazovky (Raketa/Hrát, viz 6) —
-Obchod jako samostatná obrazovka odpadá. Levelový obsah: ~10–15 ručně
-navržených + generátor pro zbytek, včetně boss presetu (viz sekce 8) —
-nepotřebujeme ručně navrhovat desítky/stovky levelů předem. Kapitola 1
-musí být kompletně dokončená (všech 12 místností), než se odemkne
-kapitola 2 — ta je zatím jen narativní zárodek (viz 3), detaily se řeší
-až později.
+**Rozhodnuto:** MVP obsahuje kapitolu 1 jako **lineární cestu 60 levelů
+(12 tematických zón po 5, poslední vždy boss level)**, s **jedinou
+měnou Mince** výhradně na boostery (žádný obchod, žádná ekonomika
+položek). UI: dvě obrazovky — **Cesta** (aktivní, hraní) a **Loď**
+(pasivní, vizuální/narativní odměna). Levelový obsah: ~10–15 ručně
+navržených + generátor pro zbytek (viz 8), aktivní i nad 60. levelem
+bez omezení. Kapitola 1 musí být kompletně dokončená (všech 12 zón), než
+se odemkne kapitola 2 — ta zůstává jen narativní zárodek.
 
-Rotující/omezená nabídka a tematické levely vázané na konkrétní položku
-jsou mimo MVP — kandidáti na pozdější retention/strategickou hloubku.
-
-Sociální/virální vrstva (sekce 10) je mimo MVP, ale technická
-architektura (datový model uživatele, friend/referral hooks) by s ní
-měla počítat dopředu, ať se nepřidává narychlo. Stejně tak platformní
-portabilita (viz sekce 1, 2) — jádro hry odděleně od Telegram adaptéru —
-je architektonické rozhodnutí pro MVP, i když samotný port není součástí
-MVP scope.
+Tohle je vědomě **zjednodušený first-project scope** — komplexnější
+meta-progresní model (interaktivní hub, ekonomika položek, room
+upgrades) zůstává navržený a zachovaný na větvi `main` jako kandidát
+na budoucí, ambicióznější titul, ne jako součást tohohle MVP.
 
 ## 12. Otevřené otázky
 
-- Ekonomika Mincí (boosterová měna) — zdroj, ceny, kdy se odemyká (5.4, 9)
-- Finální hodnoty win rate boss levelu (35 %) a bonus násobiče (2×) —
-  potvrdit po dalším ladění v `docs/ekonomika-mistnosti.xlsx` (5.8, 7.1)
-- Má bonus Kreditů z boss levelů částečně financovat Mince, nebo zůstat
-  čistě informativní odměna? (5.4, 5.8)
-- Subjektivní pocit délky hry — nový model (60 položek, boss levely)
-  pravděpodobně pomáhá, ale bez playtestu nepotvrzeno (7.2)
-- Konkrétní seznam a ceny vylepšení místností (5.9)
-- Souvislost boss levelu s narativním beatem dané místnosti — silnější
-  dialog při výhře? (5.8)
-- Přesné prahy hvězdičkového hodnocení výkonu → Kredity (5.3)
-- Přesný denní limit reklam (na Kredity i na životy zvlášť), cena Stars
-  za okamžité doplnění životů (5.2, 5.7)
-- Globální vs. lokální čas denní výzvy, řešení zmeškání, přesný rozdíl
-  mezi základním majákem a vylepšeným po Komunikaci (5.6)
-- Rychlá zkratka z karty položky do Hrát (6)
+- Skutečné tempo 60 levelů / 12 boss zastávek — ověřit až po prvním
+  hratelném prototypu (7)
+- Přesná pravděpodobnost dropu Mincí, ceny balíčků za Stars (5.4, 9)
+- Bonusová odměna za výhru boss levelu (5.8)
+- Přesné prahy hvězdičkového hodnocení (5.3)
+- Finální sada tematických dlaždic, jejich vazba na zóny (6)
 - Kdo/co bude vyrábět grafiku (6)
-- Přesná tabulka/vzorec křivky obtížnosti, frekvence Hard levelů, přesný
-  boss preset (8)
-- Směnný kurz Stars → Kredity, velikosti balíčků (9)
+- Přesná tabulka/vzorec křivky obtížnosti, frekvence Hard levelů (8)
+- Přesný denní limit reklam, cena Stars za doplnění životů (5.2, 5.7)
+- Globální vs. lokální čas denní výzvy, rozdíl mezi základním a
+  vylepšeným majákem (5.6)
 - Přesná povaha mise hráče, osobnost AI lodi (3)
-- Detaily kapitoly 2 (budování stanice, cesta za signálem) — odloženo,
-  řešíme až po dokončení kapitoly 1
+- Detaily kapitoly 2 (3, 11)
 
 ## 13. Změny a historie
 
-- 2026-08-24: založen skeleton dokumentu
-- 2026-08-24: doplněn core loop, rozhodnutí o match-3 typu (swap),
-  energii, fail state a MVP scope (jen kapitola 1 — oprava rakety);
-  přidány sociální/virální nápady jako post-MVP backlog
-- 2026-08-24: nelineární oprava rakety, 4 druhy surovin (hliník,
-  deuterium, elektronika, šrot), obecný mix dropu pro MVP, návrh 5
-  součástí rakety s jednou zamčenou finální součástí
-- 2026-08-24: revize — 4 suroviny dočasně nahrazeny jednotnou herní
-  měnou (Mince)
-- 2026-08-24: finální revize ekonomiky (v2) — dvouvrstvý model mince →
-  obchod (pevná nabídka) → suroviny → oprava podle receptu; odměna v
-  mincích odstupňovaná podle výkonu (zbývající tahy)
-- 2026-08-24: přidán narativní rámec (havárie, AI lodi, odhalení signálu
-  jako vyvrcholení kapitoly 1, zárodek kapitoly 2 = cesta za signálem,
-  stanice jako prostředek k cíli); mapa levelů kapitoly 1 (~30 levelů:
-  tutoriál → volný výběr 4 součástí → zamčené finále → narativní
-  přechod); cílový rámec obtížnosti (95–100 % / 70–80 % / 50–60 %);
-  finalizace ekonomiky životů (5 životů, ~30 min/život, reklama nebo
-  Stars pro rychlejší doplnění — bez nové "prémiové" měny)
-- 2026-08-24: **UI/UX a obsah** — orientace na výšku, holografický
-  blueprint styl, rozdělení na 3 nezávislé obrazovky (Raketa/Hrát/
-  Obchod) s opravou nekonzistence (levely nejsou vázané na konkrétní
-  součást, tapnutí na součást otevírá jen kartu receptu, ne minihru);
-  5×3 struktura podsoučástí; cílové tempo kapitoly 1 ~1–2 týdny jako
-  hlavní tuning KPI; princip "obsahová knihovna ≠ délka hry"; generování
-  levelů (ručně prvních ~10–15, pak generátor s křivkou obtížnosti),
-  hard levely s násobičem odměny, poznámka o kontrole řešitelnosti pro
-  architecture.md
-- 2026-08-24: **konkrétní čísla ekonomiky (v1)** — ceny surovin a
-  recepty všech 15 podsoučástí spočítané v `docs/ekonomika-oprav.xlsx`
-  (živá ladicí tabulka); výchozí nastavení dává celkovou cenu kapitoly 1
-  = 607,5 mincí, ~7,2 dne při výchozích předpokladech; zaznamenáno
-  otevřené riziko — subjektivní pocit krátké hry i přes matematicky
-  "V CÍLI" tempo, čeká na ověření proti referenčním hrám
-- 2026-08-26: **zásadní pivot — místnosti, Kredity+Mince, povinné boss
-  levely.** Ekonomika přepsána na jednovrstvý model (Kredity = hlavní
-  progresní měna, přímý nákup položek, žádný obchod, žádné suroviny;
-  Mince = samostatná boosterová měna, zatím nenavržená) — platí pro
-  celou hru. Oprava rakety přestrukturována z 5 volně vybíraných
-  součástí na **12 místností v pevném pořadí** (Plášť → Ubikace →
-  Koupelny → Jídelna a kuchyň → Ošetřovna → Kokpit → Navigace →
-  Nákladový prostor → Strojovna → Sklad paliva → Serverovna/jádro AI →
-  Komunikace), **60 položek** (48 normálních + 12 povinných). Poslední
-  položka každé místnosti je **boss level** — nedá se koupit za Kredity,
-  musí se vyhrát (výchozí ~35% úspěšnost), striktně neobejitelný grindem;
-  výhra dá i bonus Kreditů (informativní, zatím nezapočítáno do tempa).
-  Levná/drahá varianta zavedena u normálních položek (násobič 1,6×).
-  Volitelná **vylepšení dokončených místností** potvrzena jako explicitní
-  MVP scope (retention buffer + narativní most ke kapitole 2). Obchod
-  jako samostatná obrazovka zrušen — zůstávají dvě obrazovky (Raketa/
-  Hrát). Denní transport (5.6) propojen s Komunikací jako upgrade
-  existujícího "základního majáku", ne nová mechanika. Zaznamenána
-  poznámka k architektuře — jádro hry oddělené od Telegram adaptéru pro
-  budoucí portabilitu na Google Play/App Store. Nová ladicí tabulka
-  `docs/ekonomika-mistnosti.xlsx` (v3) — výsledné tempo při výchozích
-  hodnotách ~11,9 dne / ~1,7 týdne, "V CÍLI".
+> Historie před pivotem na `simple-path` (místnosti, Kredity+Mince,
+> ekonomika položek, boss levely jako nákupní brána) je beze změny
+> zachovaná v `decisions-log.md` a na větvi `main` — zde pokračuje jen
+> historie relevantní pro tuhle, zjednodušenou verzi.
+
+- 2026-08-26: **pivot na `simple-path`.** Po zvážení, že autor dělá svůj
+  první herní projekt sólo s omezeným rozpočtem, se ekonomika položek a
+  interaktivní hub (místnosti, Kredity, nákup, cheap/expensive varianty,
+  room upgrades) nahrazují lineární cestou levelů ve stylu Candy Crush —
+  60 levelů / 12 tematických zón (recyklované jméno a pořadí z modelu
+  na `main`), poslední level zóny vždy boss level. Ekonomika se scvrkla
+  na jedinou měnu (Mince) čistě na boostery. Upřesněn a opraven model
+  energie — život se ztrácí jen při neúspěchu (žánrový standard), ne za
+  každý pokus; tempo hry teď primárně řídí počet levelů a boss zastávky,
+  ne ceny. Přidána pasivní obrazovka Loď (13 vizuálních stavů, vrstvený
+  hologram) místo interaktivního hubu. Generátor levelů potvrzen jako
+  klíčový nástroj pro škálování nad 60 levelů bez lineárního nárůstu
+  práce. Detailní zdůvodnění a alternativy viz `decisions-log.md`.

@@ -10,8 +10,16 @@
 Telegram hra (Telegram Mini App) — webová aplikace běžící uvnitř Telegramu
 přes Telegram Web App API.
 
-**TODO:** až domluvíme herní koncept, doplň sem 2–3 věty: o jakou hru jde,
-pro koho, jaký je hlavní herní smyčka (core loop).
+**Koncept (větev `simple-path`, aktuální MVP):** sci-fi match-3 ve stylu
+Candy Crush — lineární cesta 60 levelů (12 tematických zón po 5, poslední
+vždy boss level), v pozadí se postupně opravuje ztroskotaná raketa
+(pasivní obrazovka Loď). Jediná měna: Mince na boostery. Detaily viz
+`docs/game-design.md`.
+
+**Poznámka:** komplexnější meta-progresní verze (interaktivní hub
+místností, ekonomika Kredity+Mince, nákup položek) je zachovaná na
+větvi `main` jako kandidát na budoucí, ambicióznější titul — `main` a
+`simple-path` jsou dvě odlišné koncepce, ne postupný vývoj jedné.
 
 ## Tech stack
 
