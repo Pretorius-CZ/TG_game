@@ -459,3 +459,62 @@ dalších nákladů na ruční práci.
 tempo, generování levelů). `architecture.md` a poznámka o portabilitě
 zůstávají platné beze změny. `main` zůstává nedotčená jako záznam
 původního, komplexnějšího návrhu.
+
+---
+
+## 2026-08-26 — Doladění simple-path a přerámování na galaxii/alianci
+
+**Rozhodnutí:**
+
+- **Tutoriál = 1 level** s kontextovou nápovědou (nápovědy za chodu
+  podle herní situace), ne blok 10–15 ručně dělaných levelů. Generátor
+  může nastoupit hned od 2. levelu s jemným startem obtížnosti.
+- **Obtížnost je pilovitá, ne monotónně rostoucí** — liché levely v
+  zóně/soustavě lehčí (~65–70 %), sudé těžší (~45–55 %), s celkově
+  rostoucím trendem, boss/vyjednávací level na konci (~30–35 %).
+- **Boostery se odemykají postupně**, jeden po druhém na konkrétních
+  levelech (návrh: 3., 8., 13.), ne všechny najednou po prvním bossovi.
+  Odemčený booster jde koupit za Mince, nebo **rovnou přímo za Stars**
+  (bez nutnosti napřed směnit na Mince).
+- **Odměněná reklama zjednodušena zpět na čistě +1 život** (jako v
+  původním plánu z `main`) — Mince se z reklam nezískávají, jen z
+  drobného dropu za výhru, denního transportu a Stars.
+- **Zásadní přerámování tématu:** samostatná pasivní obrazovka Loď se
+  **ruší úplně**. Nový model: **level = planeta, zóna (5 levelů) =
+  planetární soustava, kapitola = galaxie**. Odměna za dokončení
+  soustavy/galaxie se zobrazuje přímo na mapě cesty (spojenecké
+  planety/soustavy zůstávají viditelně odlišené) — jediná hlavní
+  obrazovka Cesta, ne dvě.
+- **Tón přerámován z "dobývání" na vyjednávání/alianci** — výhra v
+  levelu = úspěšné vyjednání, planeta se **přidá k alianci** (ne
+  "dobyta" násilím). Boss level = obzvlášť nedůvěřivá/opatrná
+  civilizace, ne obrana. Signál na konci kapitoly 1 objevuje spojená
+  aliance celé galaxie — silnější, zasloužilejší pointa.
+- **Název hry** (padly návrhy Galaxia, Galaxies) zůstává **otevřený** —
+  obě varianty jsou obsazené existujícími aplikacemi (ověřeno
+  vyhledáváním), řeší se později.
+- Provedena rychlá tržní kontrola (viz `game-design.md` sekce 2) —
+  širší žánr je nasycený, ale Telegram Mini App prostředí je pro
+  klasický match-3 srovnatelně neobsazené a obchází problém drahé
+  placené akvizice hráčů díky virální distribuci zdarma. Podobné hry
+  (space match-3 s galaxiemi, např. Space Matchers) existují, ale jsou
+  malé — koncept je ověřený funkční vzorec, ne originální, ale ani
+  přeplněný.
+
+**Kontext/důvod:** Nápad "dobývání galaxie" vzešel z toho, že
+"opravovaná loď v pozadí" byla tematicky málo propojená s tím, co
+level skutečně dělá (levely nejsou tematicky vázané na konkrétní
+opravu, což jsme řešili už u staršího modelu na `main`) — mapování
+level=planeta/zóna=soustava/kapitola=galaxie tohle řeší přirozeně a
+zároveň ruší potřebu samostatné obrazovky Loď (méně obrazovek, méně
+grafiky, levnější na výrobu — sedí k cíli "první, sólo, levný projekt").
+Vyjednávání místo dobývání zvoleno kvůli smířlivějšímu, méně
+konfliktnímu tónu, který lépe sedí k neagresivnímu, komixovému
+vizuálnímu stylu už dřív odsouhlasenému, a dává hezčí narativní pointu
+na konci kapitoly (spojená aliance, ne "dobyté území").
+
+**Dopad:** Významně přepsán `game-design.md` na větvi `simple-path` —
+sekce 1 (pitch), 2 (tržní kontrola), 3 (příběh), 4 (core loop), 5.3–5.9
+(obtížnost, ekonomika, struktura soustav, reklama, boss levely), 6
+(UI — jediná obrazovka), 8 (tutoriál), 11 (MVP scope), 12 (otevřené
+otázky). Nová otevřená otázka: finální jména galaxie/soustav/hry.
