@@ -271,3 +271,140 @@ zkušenost s referenčními hrami.
 **Dopad:** Aktualizuje `game-design.md` sekce 7 (nová 7.1 a 7.2), sekce
 12 (Otevřené otázky). Nový soubor `docs/ekonomika-oprav.xlsx` uložen do
 repozitáře jako trvalý nástroj pro budoucí ladění (i pro další kapitoly).
+
+---
+
+## 2026-08-26 — Revize ekonomiky pro celou hru: Kredity + Mince, zrušení obchodu a surovin
+
+**Rozhodnutí:** Dvouvrstvý model mince → obchod → suroviny (viz předchozí
+záznamy) se **ruší a nahrazuje** jednovrstvým modelem se dvěma oddělenými
+měnami — rozhodnutí platí pro **celou hru**, ne jen kapitolu 1:
+
+- **Kredity** — hlavní progresní měna. Match-3 level dá Kredity přímo,
+  Kredity se přímo utrácí za opravu položky rakety. Žádný obchod, žádné
+  suroviny, žádný mezikrok.
+- **Mince** — nová, samostatná měna výhradně pro boostery uvnitř
+  match-3 levelu (extra tahy apod.). Nemá vliv na postup opravy rakety.
+  Ekonomika Mincí (zdroj, ceny) zatím není navržená — TODO.
+
+Obchod jako samostatná UI obrazovka odpadá — zůstávají dvě nezávislé
+obrazovky (Raketa, Hrát) místo tří.
+
+**Kontext/důvod:** Po zahrání referenčních her (Homescapes apod.) autor
+designu usoudil, že model byl navrhovaný zbytečně složitě — obchod s
+pevnou nabídkou v praxi nepřidával rozhodování (hráč stejně nakupoval
+postupně všechno), jen extra klikání navíc. Oddělení progresní měny
+(Kredity) od volitelné herní pomoci (Mince, boostery) je čitelnější a
+odpovídá běžnému vzorci žánru (Homescapes apod. mají typicky přesně
+tohle rozdělení: postupová měna + herní boostery).
+
+**Dopad:** Zásadně přepisuje `game-design.md` sekci 5.4 (Ekonomika) a
+navazující sekce (6 UI/UX, 9 Monetizace, 11 MVP scope). Platí pro celou
+hru, ne jen kapitolu 1.
+
+---
+
+## 2026-08-26 — Struktura místností: 12 místností, 60 položek, room-by-room postup
+
+**Rozhodnutí:** Model 5 volně vybíraných součástí (viz dřívější
+záznamy) se ruší a nahrazuje **12 místnostmi v pevném pořadí**
+(room-by-room, styl Homescapes/Gardenscapes): Plášť → Ubikace →
+Koupelny → Jídelna a kuchyň → Ošetřovna → Kokpit → Navigace →
+Nákladový prostor → Strojovna → Sklad paliva → Serverovna/jádro AI →
+Komunikace. Každá místnost má 5 položek (celkem **60 položek**), další
+místnost se odemyká až po kompletním dokončení té předchozí — v rámci
+místnosti je pořadí položek volné. Zavedena levná/drahá varianta opravy
+u normálních položek (drahá = levná × 1,6, kosmetická volba).
+
+Plášť zvolen jako první místnost (objevovací, "co je vidět zvenku
+první"), Komunikace jako poslední (narativně navazuje na odhalení
+signálu a upgrade denního transportu, viz níže).
+
+**Kontext/důvod:** Volný výběr mezi 5 součástmi nedával hráči přirozený
+pocit postupu ani vizuální strukturu na úrovni typické pro žánr (kde se
+prochází dům/loď pokoj po pokoji). Room-by-room struktura navíc řeší
+škálovatelnost obsahu — jemnější dělení (60 položek místo 15) dává
+menší, četnější kroky postupu, což cílí na dřív zaznamenané otevřené
+riziko subjektivně krátké hry (viz záznam z 2026-08-24). Stejný celkový
+tuning rozpočet (cena kapitoly 1), jen jemněji rozdělený mezi víc
+položek.
+
+**Dopad:** Zásadně přepisuje `game-design.md` sekci 5.5 (nová struktura
+místností), sekci 6 (Raketa jako room hub), sekci 7 (nová tabulka
+`docs/ekonomika-mistnosti.xlsx`).
+
+---
+
+## 2026-08-26 — Vylepšení místností jako explicitní MVP scope
+
+**Rozhodnutí:** Volitelné vylepšení dokončených místností (např.
+hibernační kapsle v Ubikacích) je **explicitní součást MVP**, ne
+odloženo na post-MVP. Čistě volitelný sink, nepodmiňuje postup dál.
+
+**Kontext/důvod:** Slouží jako retention buffer po dokončení viditelné
+části obsahu a zároveň jako narativní most ke kapitole 2 — vylepšení
+lodi na budoucí dlouhý let za signálem, potenciálně nahrazující/
+sjednocující s dřívější myšlenkou "budovat vesmírnou stanici" jako
+samostatnou fázi.
+
+**Dopad:** Nová sekce 5.9 v `game-design.md`. Detailní seznam vylepšení
+a jejich cena zůstávají TODO.
+
+---
+
+## 2026-08-26 — Povinné boss levely jako brána na konci každé místnosti
+
+**Rozhodnutí:** Poslední (5.) položka každé ze 12 místností se **nedá
+koupit za Kredity vůbec** — jde získat jen výhrou dedikovaného, výrazně
+těžšího "boss levelu" (výchozí cíl ~30–35% úspěšnost, vs. ~60 % u
+normálních levelů). Tohle je **striktní, neobejitelná podmínka**
+dokončení místnosti — explicitně NENÍ možné ji nahradit grindem
+libovolného množství normálních levelů. Výhra boss levelu dá navíc
+bonusovou odměnu Kreditů (výchozí násobič 2× průměrné odměny za
+normální level) — zatím čistě informativní "kapesné", nezapočítané do
+výpočtu tempa kapitoly 1.
+
+Boss levely jsou mechanicky odlišené od dřív zavedených volitelných
+Hard levelů (nepovinná odbočka s lepší odměnou) — boss levely jsou
+povinné, Hard levely ne.
+
+**Kontext/důvod:** Autor designu zvažoval nejdřív měkčí variantu (boss
+level jako alternativní cestu k odemčení vedle Kreditů), ale explicitně
+ji zamítl — cílem je skutečná, neobejitelná brána na konci každé
+místnosti, ne jen další způsob, jak "koupit" poslední položku. Přidává
+to druhý typ friction (dovednost/štěstí), nezávislý na tom, kolik má
+hráč Kreditů, a dělá z konce místnosti zapamatovatelný beat.
+
+**Dopad:** Nová sekce 5.8 v `game-design.md`, aktualizace 5.3
+(obtížnost), 5.5 (struktura položek), 7.1 (tabulka), 8 (generování —
+boss preset odlišen od Hard levelů). Nová ladicí tabulka
+`docs/ekonomika-mistnosti.xlsx` (v3, nahrazuje v2) — 48 normálních + 12
+boss položek; při výchozích hodnotách (15 Kreditů/level, 60% win rate
+normal, 8 pokusů/den, 35% win rate boss, cena normálních položek 550
+Kreditů) vychází kompletní oprava na ~95,4 pokusů → ~11,9 dne → ~1,7
+týdne — v cíleném rozmezí 1–2 týdny ("V CÍLI"). Otevřeno: finální
+hodnoty win rate/bonusu, a jestli bonus Kreditů z boss výher má
+financovat budoucí Mince (viz záznam o ekonomice výše) místo zůstat
+čistě informativní.
+
+---
+
+## 2026-08-26 — Poznámka k architektuře: platformní portabilita
+
+**Rozhodnutí:** Zaznamenána dlouhodobá architektonická preference (ne
+MVP scope, ale rozhodnutí ovlivňující strukturu kódu od začátku): jádro
+hry (herní logika, stav, UI) by mělo být oddělené od Telegram-specifické
+vrstvy (Web App SDK, Stars platby, Telegram auth) tenkým adaptérem, aby
+budoucí port na Google Play/App Store (přes Capacitor nebo podobný
+WebView wrapper) při úspěchu hry nevyžadoval přepis, jen výměnu
+adaptéru.
+
+**Kontext/důvod:** Autor designu se ptal na proveditelnost budoucího
+portu mimo Telegram "jen k zamyšlení" — nejde o okamžitou prioritu, ale
+o rozhodnutí, které je výrazně levnější udělat správně od začátku než
+předělávat zpětně.
+
+**Dopad:** Poznámka doplněna do `game-design.md` sekce 1. Detailní
+technické rozpracování (jak přesně adaptér vypadá, výběr Capacitor vs.
+alternativy) patří do `architecture.md` — zatím jen zaznamenáno jako
+otevřená otázka tam.
