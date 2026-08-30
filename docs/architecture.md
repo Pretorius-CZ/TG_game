@@ -64,3 +64,18 @@ Telegram Bot API.
 - Platformní portabilita — viz sekce 2 výše (adaptérová vrstva pro
   Telegram, budoucí Capacitor port).
 - Tvar `TelegramAdapter` rozhraní (platby, auth, storage) — viz sekce 2.
+
+## 9. Assety (obrázky)
+
+- **Rozhodnuto (2026-08-30):** herní obrázky (dlaždice, později
+  pozadí/ikony) žijí v `Images/` v kořeni repa, mimo `/src` (tam se
+  přesunou/zoptimalizují až při zakládání app scaffoldu). Struktura:
+  - `Images/tiles/` — schválené finální assety, trackované v gitu
+  - `Images/raw-ai-generations/` — syrové/zamítnuté AI výstupy,
+    negitované (`.gitignore`)
+  - Detaily a workflow viz `Images/README.md`.
+- **TODO:** krok pro zmenšení/kompresi zdrojových PNG (dnes 1024–2048 px)
+  na reálnou velikost použitou ve hře — řešit při zakládání build
+  pipeline, ne teď.
+- **TODO:** pokud `Images/tiles/` časem výrazně nabobtná (desítky/stovky
+  MB), zvážit Git LFS — zatím zbytečné.
