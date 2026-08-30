@@ -518,3 +518,14 @@ sekce 1 (pitch), 2 (tržní kontrola), 3 (příběh), 4 (core loop), 5.3–5.9
 (obtížnost, ekonomika, struktura soustav, reklama, boss levely), 6
 (UI — jediná obrazovka), 8 (tutoriál), 11 (MVP scope), 12 (otevřené
 otázky). Nová otevřená otázka: finální jména galaxie/soustav/hry.
+
+## 2026-08-30: Nápad k mechanice speciální dlaždice "impulzní paprsek"
+
+Při tvorbě grafiky pro speciální dlaždice (vznikají ze 4+ v řadě/L/T
+tvaru/5 v řadě) vznesen nápad: co kdyby "impulzní paprsek" (ze 4 v
+řadě) po aktivaci nevyčistil jen jeden řádek nebo sloupec (klasika z
+Candy Crush), ale **řádek i sloupec současně** na místě, kde se
+nachází? Zapsáno jako otevřená otázka (viz `game-design.md` sekce 12) —
+**nerozhodnuto**, potřeba vyzkoušet na prototypu, jestli síla efektu
+sedí k obtížnostní křivce (5.3) a nedělá vyjednávací levely (5.8)
+zbytečně snadné.

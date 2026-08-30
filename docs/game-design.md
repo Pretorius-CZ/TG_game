@@ -376,6 +376,11 @@ kandidát na budoucí, ambicióznější titul.
   vylepšeným majákem (5.6)
 - Přesná povaha mise hráče (3)
 - Detaily kapitoly 2 (3, 11)
+- Mechanika speciální dlaždice "impulzní paprsek" (vzniká ze 4 stejných
+  v řadě) — zvážit variantu, kdy po aktivaci vyčistí **řádek i sloupec
+  současně** (ne jen jeden směr jako klasická "pruhovaná" dlaždice v
+  Candy Crush). Nerozhodnuto, ověřit až při hraní prototypu, jestli je
+  to příjemně silné nebo to boří obtížnostní křivku (5.3, 5.8).
 
 ## 13. Změny a historie
 
