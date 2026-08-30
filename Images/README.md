@@ -15,6 +15,18 @@
   před ořezáním. Slouží jen jako pracovní/referenční archiv →
   **negitované** (viz `.gitignore` v kořeni repa), ať se historie repa
   zbytečně nenafukuje.
+- **`vfx/`** — znovupoužitelné procedurální VFX částice (jiskra, rázová
+  vlna, úlomek) pro efekty speciálních dlaždic. Na rozdíl od ostatních
+  assetů nejsou generované AI, ale skriptem (Python/PIL) — neutrální
+  bílé/šedé, myšlené na přebarvení a škálování v kódu (CSS filter/tint).
+  Trackované v gitu.
+- **`pozadi/`** — atmosférická pozadí za hrací deskou, jedno "hero"
+  pozadí na soustavu (12 celkem, `pozadi_01_...` až `pozadi_12_...`).
+  Portrétová orientace (~9:16), s vinětou zatmívající střed rámu (kam
+  padne hrací deska). Berou se jako referenční verze doladěné až s
+  reálnou deskou v kódu (viz `docs/decisions-log.md`). V kódu se budou
+  procedurálně variovat (tint/pan/zoom) pro víc unikátních levelů z
+  jedné hero verze. Trackované v gitu.
 
 ## Proč takhle
 

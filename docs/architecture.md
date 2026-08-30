@@ -70,7 +70,13 @@ Telegram Bot API.
 - **Rozhodnuto (2026-08-30):** herní obrázky (dlaždice, později
   pozadí/ikony) žijí v `Images/` v kořeni repa, mimo `/src` (tam se
   přesunou/zoptimalizují až při zakládání app scaffoldu). Struktura:
-  - `Images/tiles/` — schválené finální assety, trackované v gitu
+  - `Images/tiles/` — schválené finální assety (dlaždice, speciální
+    dlaždice, překážky), trackované v gitu
+  - `Images/vfx/` — procedurální (ne-AI) VFX částice pro efekty
+    speciálních dlaždic, trackované v gitu
+  - `Images/pozadi/` — 12 hand-made atmosférických pozadí (jedno na
+    soustavu), trackované v gitu; procedurální per-level variace
+    (tint/pan/zoom) přijde až v kódu
   - `Images/raw-ai-generations/` — syrové/zamítnuté AI výstupy,
     negitované (`.gitignore`)
   - Detaily a workflow viz `Images/README.md`.
