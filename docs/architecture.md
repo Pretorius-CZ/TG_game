@@ -85,3 +85,31 @@ Telegram Bot API.
   pipeline, ne teď.
 - **TODO:** pokud `Images/tiles/` časem výrazně nabobtná (desítky/stovky
   MB), zvážit Git LFS — zatím zbytečné.
+
+## 10. Aktuální architektonický směr — 2026-09-10
+
+Tato sekce má přednost před staršími předpoklady výše. Herní design
+je nově oprava lodi bez měny, viz `game-design.md`.
+
+- React + Vite zůstává webovou aplikací. CSS / Web Animations API
+  animují vrstvy scény i dlaždice; herní logiku a sekvenci řídí JavaScript.
+- Postup ukládat externě; preferována Supabase (PostgreSQL).
+  Placený tarif je přijatelný, konkrétní tarif ani projekt nejsou založené.
+- Návrh dat: hráč, dokončené levely, aktivní kapitola a dokončené opravy.
+  Bez zůstatků měny, inventáře surovin a kosmetických variant.
+- Backend ověří Telegram `initData` a naváže identitu na hráče.
+  Konkrétní propojení se Supabase autentizací je implementační úkol.
+- Přístup chránit oprávněními / RLS. Privilegované klíče pouze na serveru.
+  RLS samo neověřuje legitimitu herní výhry.
+- Dokončení levelu ukládat idempotentně: opakovaný požadavek nesmí
+  přidat druhou odměnu. Rozsah serverového ověřování výsledků doladit.
+- Lokální kopie a opakování požadavků mohou pomoci při výpadku sítě;
+  úplný offline režim zatím není slíbený.
+- Kapitoly a levely definovat daty, ukládaný stav verzovat pro budoucí rozšíření.
+- Telegram adaptér zachovat oddělený od herního jádra.
+- Hosting, konkrétní SDK, autentizace a CI/CD zůstávají otevřené.
+
+Technické reference:
+- https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Using_the_Web_Animations_API
+- https://core.telegram.org/bots/webapps#validating-data-received-via-the-mini-app
+- https://supabase.com/docs/guides/database/postgres/row-level-security

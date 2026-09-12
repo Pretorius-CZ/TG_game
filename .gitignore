@@ -1,2 +1,9 @@
 # AI-generation working files — not needed in history, kept locally only
 Images/raw-ai-generations/
+
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+.local/

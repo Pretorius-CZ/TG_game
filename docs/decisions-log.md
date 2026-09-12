@@ -529,3 +529,92 @@ nachází? Zapsáno jako otevřená otázka (viz `game-design.md` sekce 12) —
 **nerozhodnuto**, potřeba vyzkoušet na prototypu, jestli síla efektu
 sedí k obtížnostní křivce (5.3) a nedělá vyjednávací levely (5.8)
 zbytečně snadné.
+
+---
+
+## 2026-09-10 — Oprava lodi, postup bez měny a externí ukládání
+
+**Schváleno uživatelem:**
+- Zachovat sci-fi match-3 s postupem jako webovou Telegram Mini App.
+- Použít webové animace v HTML/CSS/JavaScriptu.
+- První kapitola: oprava lodi, následně cesta ke hvězdám.
+- Zrušit měnu včetně Mincí; žádné suroviny ani obchod.
+  Opravy jsou přímé odměny za dohrané levely.
+- Zatím žádná vzhledová variabilita oprav.
+- Ukládat postup do externí databáze, preferována Supabase;
+  placená služba je přijatelná, konkrétní tarif není vybraný.
+
+**Důvod:** Zachovat motivaci viditelnou obnovou prostředí po vzoru
+Gardenscapes, ale bez složité ekonomiky a nadměrného rozsahu výroby.
+Kapitoly mají používat stejný systém a rozšiřovat se novým obsahem.
+
+**Návrhy, nikoli uzavřená rozhodnutí:** přesné etapy oprav, tlačítko
+pro spuštění opravy, prototyp 12–15 levelů / pět oprav, příběh signálu
+ani další stanice a základny. Životy, boostery a monetizace jsou otevřené.
+
+**Dopad:** Přepsán aktuální `game-design.md`, předchozí znění zachováno
+v `game-design-simple-path.md`. Doplněna architektura a aktualizovány
+AGENTS.md i CLAUDE.md. Pracovní větev `codex/game-adjustments` vychází
+ze `simple-path`; starší větve zůstávají zachované. Aplikace ani databáze
+zatím nejsou implementované. Starý rozsah 60 planet / 12 soustav a
+ekonomika Mincí nejsou závazné pro nový koncept.
+
+## 2026-09-10 — Vstup z exteriéru do kokpitu, portrétový prototyp
+
+Schváleno: první kapitola má venkovní scénu poškozené lodi a jeden
+interiér (kokpit). Klepnutím na loď se vstupuje dovnitř; přechod tvoří
+přiblížení, zatmavení a odhalení interiéru. Z budoucího match-3 levelu
+se hráč vrací přímo do kokpitu, nemusí znovu procházet exteriérem.
+Hra zůstává na výšku pro telefon; orientace se nemění.
+
+Implementováno: React/Vite prototyp obou scén, navigace, dialog první
+opravy a výslovně označená dočasná ukázka rozsvícení. Dvojice portrétových
+AI ilustrací v `public/scenes/`; původní široké koncepty jsou tam také.
+Zatím monolitické obrázky s CSS efektem, ne finální samostatné vrstvy.
+Match-3, Telegram a Supabase nejsou implementované; stav jen v paměti.
+Pracovní název „Ke hvězdám“, pět oprav a text příběhu nejsou finální obsah.
+
+Budoucí Android: zachovat platformně nezávislé jádro a interní identitu
+hráče oddělenou od Telegram ID. Capacitor je doporučená cesta pro pozdější
+ověření, nikoli aktuálně přidaná závislost nebo hotový Android port.
+
+## 2026-09-10 — První hratelná výuková minihra
+
+Implementován anglický tutoriál nad kokpitem: deska 6 × 6, čtyři typy
+odlišené barvou i tvarem, cíl 18 spojených kamenů, bez boosterů, bez
+limitu tahů a času. Platí vodorovné/svislé spojení 3+, sousední výměna
+klepnutím nebo tažením, návrat neplatné výměny, kaskády a doplnění.
+První pár je zvýrazněný, další nápověda tlačítkem. Pokud není platný
+tah, vznikne nová deska při zachování nasbíraného postupu.
+
+Po skutečném splnění cíle tlačítko Restore power zavře level a rozsvítí
+kokpit. Odchod před dokončením opravu nedá; opakování již dokončené
+lekce nepřidává další opravu. Zatím pouze stav v paměti, bez Supabase.
+Napájení je stále jednoduchý CSS efekt; výraznější grafické proměny
+po opravách jsou další návrhový úkol.
+
+Veškeré hráčské texty jsou anglicky; dokumentace a diskuze česky.
+Pravidla jsou oddělena v src/match3.js. Podporují proměnlivé rozměry
+a masku polí; díry oddělují gravitační úseky. Aktuální UI používá
+jediný plný obdélníkový tutoriál, nové tvary nejsou ještě herním obsahem.
+Čísla 6 × 6 a 18 jsou testovací nastavení, ne finální balancing.
+
+Kontroly: node --test tests/match3.test.js; npm run build; prohlížečový
+průchod od vstupu do lodi přes reálné výměny až po opravu, replay a
+odchod. Testováno na mobilních šířkách 320, 390 a 430 px.
+
+## 2026-09-12 — První etapa kokpitu a vývojový checkpoint
+
+Kokpit je pouze první etapa opravy celé lodi. Implementované pořadí:
+1. Emergency lights — spojit 18 libovolných kamenů, rozsvícení stropních světel.
+2. Window seals — spojit 12 modrých čtverců, zmizení prasklin a obnovení těsnění.
+3. Flight computer — spojit 15 zelených kruhů, zapnutí centrálního displeje.
+4. Ship diagnostics — spojit 30 libovolných kamenů, zapnutí bočních panelů.
+
+Aktivní oprava má bod ve scéně; přehled Repairs ukazuje hotové, dostupné
+a zamčené kroky. Odchod z levelu neodemyká opravu. Opakování hotové opravy
+neposouvá pořadí. Dokončení kokpitu ukáže příští etapu pláště, zatím nehratelnou.
+Plášť, obytné zázemí, jídlo, navigace, palivo a motory patří do dalších etap;
+loď po kokpitu neodlétá. Veškeré změny jsou zatím vrstvy CSS/SVG nad ilustrací.
+Hraní stále bez boosterů a limitů; stav pouze v paměti, Supabase chybí.
+Pracovní checkpoint se ukládá na větev codex/cockpit-stage.

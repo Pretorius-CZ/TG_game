@@ -1,4 +1,4 @@
-# CLAUDE.md — kontext projektu pro Claude Code
+# AGENTS.md — kontext projektu pro Codex
 
 ## Projekt a aktuální směr (2026-09-10)
 
