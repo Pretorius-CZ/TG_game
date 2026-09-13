@@ -6,6 +6,7 @@ export const repairs = [
     result: 'The ceiling lights are on. Now you can see the damaged window seals.',
     lesson: 'A spark of hope', objective: 'Match any 18 pieces to charge the lights.',
     target: 18, targetType: null, action: 'Switch on the lights',
+    level: { rows: 6, cols: 6, types: 4 },
   },
   {
     id: 'windows', name: 'Window seals', icon: '◇', x: 30, y: 38,
@@ -13,6 +14,7 @@ export const repairs = [
     result: 'Cracks are patched and the cockpit window seals are secure.',
     lesson: 'A clearer view', objective: 'Match 12 blue squares to repair the window seals.',
     target: 12, targetType: 2, action: 'Seal the windows',
+    level: { rows: 6, cols: 6, types: 4, mask: Array.from({length: 36}, (_, i) => ![0, 5, 30, 35].includes(i)) },
   },
   {
     id: 'computer', name: 'Flight computer', icon: '▣', x: 50, y: 45,
@@ -20,6 +22,7 @@ export const repairs = [
     result: 'The central display is online. Ship systems can now be checked.',
     lesson: 'Back online', objective: 'Match 15 mint circles to reboot the flight computer.',
     target: 15, targetType: 1, action: 'Boot the computer',
+    level: { rows: 6, cols: 5, types: 4 },
   },
   {
     id: 'diagnostics', name: 'Ship diagnostics', icon: '◎', x: 71, y: 48,
@@ -27,6 +30,7 @@ export const repairs = [
     result: 'Damage scan complete. Cockpit restored; hull, living quarters, supplies, navigation, fuel and engines still need repairs.',
     lesson: 'What lies ahead', objective: 'Match any 30 pieces to run the ship diagnostics.',
     target: 30, targetType: null, action: 'Run diagnostics',
+    level: { rows: 6, cols: 6, types: 4, mask: Array.from({length: 36}, (_, i) => ![14, 15, 20, 21].includes(i)) },
   },
 ];
 

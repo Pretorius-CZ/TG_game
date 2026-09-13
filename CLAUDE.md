@@ -38,7 +38,7 @@ varianty se zatím neřeší. Podrobnosti: `docs/game-design.md`.
 - [x] Vytvořena a publikována větev `codex/game-adjustments`.
 - [x] Existují grafické podklady pro match-3, nikoli hotová hra.
 - [ ] Doladit opravy a rozsah první kapitoly; čísla v GDD jsou návrhy.
-- [ ] Připravit vrstvy grafiky lodi.
+- [x] Připravit obrazové stavy všech čtyř oprav kokpitu a osvětlený exteriér.
 - [x] Založit React/Vite aplikaci a interaktivní prototyp scén na výšku.
 - [x] Implementovat výukové match-3 6 × 6 a propojit výhru s napájením.
 - [ ] Nastavit Supabase, autentizaci a ukládání postupu.
@@ -49,7 +49,7 @@ Po větší práci aktualizovat tento kontext; detaily patří do dokumentace.
 starou ekonomiku nebo rozsah 60 planet / 12 soustav.
 
 První scény: klepnutí na loď otevře kokpit, návrat ven navigací.
-Oprava se odemyká výhrou v tutoriálu, zatím bez trvalého ukládání. Finální vrstvy lodi chybí.
+Oprava se odemyká výhrou v tutoriálu, zatím bez trvalého ukládání. Kokpit má samostatné obrazové stavy oprav; další oblasti lodi chybí.
 Na telefonu i desktopovém náhledu zachovat portrétový formát.
 
 Herní UI anglicky, dokumentace a diskuze česky. Tutoriál bez boosterů
@@ -58,3 +58,21 @@ a limitu tahů; cíl 18 kamenů. Pravidla src/match3.js, testy tests/match3.test
 Aktuálně čtyři postupné opravy kokpitu: světla, okna, počítač, diagnostika.
 Konfigurace src/repairs.js, cíle 18 všech / 12 modrých / 15 zelených / 30 všech.
 Kokpit je pouze první etapa celé lodi; plášť a ostatní etapy zatím nehratelné.
+
+Aktuální dokončený kokpit: čtyři různě tvarované levely, čtyři výrazné
+obrazové opravy, odhalení opravy a See your ship. Rozsvícený exteriér až po
+4/4 opravách; plášť i motory stále poškozené. Optimalizované WebP scény.
+Kontroly: npm test (7 testů) a npm run build. Postup je stále jen v paměti.
+
+Porovnání před/po bylo odstraněno. docs/story-proposal.md obsahuje
+schválenou logiku lodního deníku (2026-09-12); deník je implementovaný pro čtyři opravy kokpitu.
+
+Příběh schválen: pilot zásobovací lodi, odbočení za majákem ztracené výpravy,
+nouzové přistání chránící pilota. Opravy odhalují deník; později živá odpověď
+a odlet za signálem. Kapitola 1 vysvětlí havárii, kapitola 2 hledá vysílajícího.
+Další úpravy příběhu pouze kosmetické, základní logiku znovu neotevírat.
+
+Lodní deník: Ship log pod navigací, New log entry po opravě. Čtyři anglické
+zápisy, zamčené budoucí útržky, nepřečtené značky a nepovinné čtení.
+Data src/logEntries.js, UI src/ShipLog.jsx. Odemykání plyne z oprav; replay
+zápisy neduplikuje. Čtení ani přeskočení nemění postup. Stav jen v paměti.

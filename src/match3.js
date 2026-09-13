@@ -1,5 +1,8 @@
 // Pure game rules. Null mask cells split gravity into independent segments.
 export const tutorial = { rows: 6, cols: 6, target: 18, types: 4 };
+export function objectiveCount(board, cleared, targetType) {
+  return cleared.filter(i => board[i] != null && (targetType == null || board[i] === targetType)).length;
+}
 export function matches(board, cols) {
   const result = new Set();
   for (let i = 0; i < board.length; i++) {

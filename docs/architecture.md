@@ -113,3 +113,36 @@ Technické reference:
 - https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Using_the_Web_Animations_API
 - https://core.telegram.org/bots/webapps#validating-data-received-via-the-mini-app
 - https://supabase.com/docs/guides/database/postgres/row-level-security
+
+## 2026-09-12 — Kompletní viditelné opravy kokpitu
+
+Dokončen průchod všemi čtyřmi opravami. Každá má samostatný obrazový
+stav, nikoli jen drobný CSS efekt: opravená stropní světla a kabely,
+obnovené rámy/těsnění oken, zapnutý centrální počítač, zapnuté boční
+diagnostické panely a zakryté kabely. Obrázky se prolínají; po opravě
+se ukáže panel Before / After a hráč pokračuje vlastním tlačítkem.
+Hotové opravy lze z přehledu znovu prohlédnout i přehrát jejich level.
+
+Navázané levely bez boosterů a limitů:
+- Světla: plná deska 6 × 6, 18 libovolných kamenů.
+- Okna: 6 × 6 s vykrojenými rohy, 12 modrých čtverců.
+- Počítač: užší deska 6 řádků × 5 sloupců, 15 zelených kruhů.
+- Diagnostika: 6 × 6 s otvorem 2 × 2 uprostřed, 30 libovolných kamenů.
+Díry oddělují gravitační úseky, nejsou klikatelné; ostatní kameny se
+normálně spojují, ale u barevných cílů neplní požadovaný počet.
+
+Po diagnostice See your ship otevře exteriér s jasně osvětleným
+kokpitem. Tento stav je dostupný pouze při všech 4 hotových opravách.
+Venkovní Before / After dovoluje porovnání bez změny skutečného postupu.
+Plášť zůstává poškozený a motory vypnuté, další etapa stále není hratelná.
+
+Grafika: zdrojové PNG a optimalizované WebP v public/scenes/. Prohlížeč
+používá 7 WebP (celkem přibližně 2,1 MB); všechny předem načítá pro
+plynulé přechody. Respektuje omezení pohybu v systému.
+Postup stále pouze v paměti, Supabase ani ukládání účtu zatím nejsou hotové.
+
+Ověření: build, 7 automatických testů (včetně 400 generovaných desek
+konkrétních oprav, správného barevného cíle a ochrany pořadí/opakování),
+prohlížečový průchod skutečnými tahy všemi levely, odchod bez odměny,
+porovnání obrazových stavů, osvětlení exteriéru až po finále, replay,
+načtení všech obrázků a mobilní rozložení.

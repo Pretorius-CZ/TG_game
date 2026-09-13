@@ -1,43 +1,61 @@
-# To the Stars — pracovní prototyp
+# To the Stars — první etapa kokpitu
 
-React + Vite, webová hra na výšku. Název je pracovní. Hra anglicky,
-dokumentace česky. Spuštění: `npm install`, potom `npm run dev`.
-Kontroly: `npm run build`, `node --test tests/match3.test.js`.
+React + Vite, hra na výšku. Herní texty anglicky, dokumentace česky.
+Pracovní název; Supabase a Telegram přihlášení zatím nejsou připojené.
 
-## Co vyzkoušet
+## Spuštění a ověření
 
-Vstup do lodi → Inspect repair → Play. Tutoriál: spoj 18 kamenů na
-desce 6 × 6. Klepni postupně na dva sousední kameny nebo táhni prstem.
-Spoj alespoň tři stejné do řady/sloupce. První tah je zvýrazněn;
-Show a hint nabídne další. Bez boosterů a limitu času/tahů.
-Po výhře Restore power rozsvítí kokpit. Lekci lze opakovat.
-Při odchodu před výhrou nevznikne oprava. Stav přežije přepínání scén,
-ale ne obnovení stránky. Supabase a Telegram přihlášení zatím chybí.
+```sh
+npm install
+npm run dev
+npm test
+npm run build
+```
 
-## Soubory
+## Průchod kokpitem
 
-- `src/main.jsx`: exteriér, kokpit, oprava a návaznost na level.
-- `src/MiniGame.jsx`: tutoriál a animace, modální deska nad kokpitem.
-- `src/match3.js`: nezávislá pravidla; rozměry a masky pro budoucí levely.
-- `tests/match3.test.js`: generování, spojení, gravitační úseky.
-- `public/scenes/`: AI koncepty scén; aktivní jsou portrétové verze.
-- `Images/`: původní podklady; tutoriál nyní používá vlastní jednoduché tvary.
+Enter the ship → Inspect repair → Play. Čtyři opravy v pevném pořadí:
 
-Proměna opravy je zatím CSS rozsvícení, finální vrstvy scén chybí.
-Detaily a plán: `docs/game-design.md`, `docs/architecture.md`.
+| Oprava | Deska | Cíl | Viditelný výsledek |
+|---|---|---|---|
+| Emergency lights | 6 × 6 | 18 všech | Osvětlený strop a opravené kabely |
+| Window seals | Vykrojené rohy | 12 modrých | Obnovené rámy a těsnění |
+| Flight computer | 6 řádků × 5 sloupců | 15 zelených | Centrální displej online |
+| Ship diagnostics | Otvor uprostřed | 30 všech | Boční displeje a zakryté kabely |
 
-## 2026-09-12 — První etapa kokpitu a vývojový checkpoint
+Výměna sousedů klepnutím nebo tažením. Spojení tří a více v řadě či
+sloupci. Nápověda, kaskády a doplnění; bez boosterů, bez limitu tahů/času.
+Po splnění cíle tlačítko opravy zobrazí změnu scény s tlačítkem pokračování.
+Po poslední opravě See your ship ukáže osvětlený kokpit zvenku.
+Motory se nezapnou a poškozený plášť zůstává pro budoucí etapu.
 
-Kokpit je pouze první etapa opravy celé lodi. Implementované pořadí:
-1. Emergency lights — spojit 18 libovolných kamenů, rozsvícení stropních světel.
-2. Window seals — spojit 12 modrých čtverců, zmizení prasklin a obnovení těsnění.
-3. Flight computer — spojit 15 zelených kruhů, zapnutí centrálního displeje.
-4. Ship diagnostics — spojit 30 libovolných kamenů, zapnutí bočních panelů.
+Repairs otevře přehled hotových, dostupných a zamčených oprav. Dokončené
+opravy lze prohlížet a minihry opakovat bez přidání další odměny.
+Odchod před výhrou opravu nedá. Obnovení stránky resetuje postup:
+ukládání do databáze ještě není implementované.
 
-Aktivní oprava má bod ve scéně; přehled Repairs ukazuje hotové, dostupné
-a zamčené kroky. Odchod z levelu neodemyká opravu. Opakování hotové opravy
-neposouvá pořadí. Dokončení kokpitu ukáže příští etapu pláště, zatím nehratelnou.
-Plášť, obytné zázemí, jídlo, navigace, palivo a motory patří do dalších etap;
-loď po kokpitu neodlétá. Veškeré změny jsou zatím vrstvy CSS/SVG nad ilustrací.
-Hraní stále bez boosterů a limitů; stav pouze v paměti, Supabase chybí.
-Pracovní checkpoint se ukládá na větev codex/cockpit-stage.
+## Struktura
+
+- `src/main.jsx`: scény, přehled oprav a jejich vizuální odměny.
+- `src/MiniGame.jsx`: parametrizovaný match-3 level.
+- `src/match3.js`: nezávislá pravidla včetně masek a gravitačních úseků.
+- `src/repairs.js`: pořadí oprav a konfigurace jednotlivých levelů.
+- `tests/`: pravidla, konkrétní desky oprav, barevné cíle a ochrana postupu.
+- `public/scenes/`: PNG návrhy a sedm optimalizovaných WebP stavů pro hru.
+- `Images/`: původní grafické podklady.
+
+Kokpit je pouze první etapa opravy celé lodi. Další etapa pláště není
+hratelná. Historie a plán jsou v `docs/game-design.md` a `docs/decisions-log.md`.
+
+Porovnání před/po bylo odstraněno. docs/story-proposal.md obsahuje
+schválenou logiku lodního deníku (2026-09-12); deník je implementovaný pro čtyři opravy kokpitu.
+
+Příběh schválen: pilot zásobovací lodi, odbočení za majákem ztracené výpravy,
+nouzové přistání chránící pilota. Opravy odhalují deník; později živá odpověď
+a odlet za signálem. Kapitola 1 vysvětlí havárii, kapitola 2 hledá vysílajícího.
+Další úpravy příběhu pouze kosmetické, základní logiku znovu neotevírat.
+
+Lodní deník: Ship log pod navigací, New log entry po opravě. Čtyři anglické
+zápisy, zamčené budoucí útržky, nepřečtené značky a nepovinné čtení.
+Data src/logEntries.js, UI src/ShipLog.jsx. Odemykání plyne z oprav; replay
+zápisy neduplikuje. Čtení ani přeskočení nemění postup. Stav jen v paměti.
