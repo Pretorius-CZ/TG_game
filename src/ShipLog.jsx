@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { logEntries } from './logEntries.js';
 
-export default function ShipLog({ completed, readIds, initialId, onRead, onClose }) {
+export default function ShipLog({ completed, readIds, initialId, onRead, onClose, entries }) {
+  const items = entries ?? logEntries.map(e=>({...e,available:e.unlockAt<=completed}));
+  const availableCount = items.filter(e=>e.available).length;
   const [selected, setSelected] = useState(initialId ?? null);
   const dialog = useRef(null);
   const heading = useRef(null);
-  const entry = logEntries.find(item => item.id === selected && item.unlockAt <= completed);
+  const entry = items.find(item => item.id === selected && item.available);
   useEffect(() => { dialog.current.showModal(); }, []);
   useEffect(() => {
     if (entry) onRead(entry.id);
@@ -25,13 +27,13 @@ export default function ShipLog({ completed, readIds, initialId, onRead, onClose
         <button className="primary" onClick={onClose}>Back to the ship <span>→</span></button>
       </article> : <>
         <p className="log-intro">A few words. A little more of the story.</p>
-        <span className="log-count">{Math.min(completed, logEntries.length)} / {logEntries.length} fragments available</span>
-        {completed === 0 && <p className="log-empty">The archive is quiet. Restore the emergency lights to begin your first entry.</p>}
-        <ol className="log-entries">{logEntries.map(item => {
-          const locked = item.unlockAt > completed;
+        <span className="log-count">{availableCount} / {items.length} fragments available</span>
+        {availableCount === 0 && <p className="log-empty">The archive is quiet. Restore the emergency lights to begin your first entry.</p>}
+        <ol className="log-entries">{items.map(item => {
+          const locked = !item.available;
           return <li key={item.id}><button disabled={locked} onClick={() => setSelected(item.id)}>
             <span className="log-index">{String(item.unlockAt).padStart(2, '0')}</span>
-            <span><strong>{locked ? 'Unrecovered fragment' : item.title}</strong><small>{locked ? 'Continue repairing the cockpit' : item.source}</small></span>
+            <span><strong>{locked ? 'Unrecovered fragment' : item.title}</strong><small>{locked ? 'Continue repairing the ship' : item.source}</small></span>
             {!locked && !readIds.includes(item.id) && <span className="unread-tag">NEW</span>}
             {locked && <span aria-label="Locked">· · ·</span>}
           </button></li>;

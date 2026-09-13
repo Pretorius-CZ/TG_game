@@ -80,7 +80,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     return { transform: `translate(${(j % level.cols - i % level.cols) * 100}%, ${(Math.floor(j / level.cols) - Math.floor(i / level.cols)) * 100}%)`, zIndex: 2 };
   }
   return <dialog className="mini-dialog" ref={dialog} aria-labelledby="level-title" onCancel={event => { event.preventDefault(); if (!busy) setConfirmQuit(true); }}>
-    <div className="mini-header"><span className="eyebrow">COCKPIT / REPAIR LESSON</span><button className="close" aria-label="Leave level" disabled={busy} onClick={() => setConfirmQuit(true)}>×</button><h2 id="level-title">{repair.lesson}</h2><p>{repair.objective}</p></div>
+    <div className="mini-header"><span className="eyebrow">{repair.room ?? 'COCKPIT'} / REPAIR LESSON</span><button className="close" aria-label="Leave level" disabled={busy} onClick={() => setConfirmQuit(true)}>×</button><h2 id="level-title">{repair.lesson}</h2><p>{repair.objective}</p></div>
     <div className="charge"><span>{repair.icon} {repair.name.toUpperCase()}</span><strong>{Math.min(score, repair.target)} / {repair.target}</strong><progress aria-label="Repair progress" max={repair.target} value={Math.min(score, repair.target)}/></div>
     {!won ? <>
       <div className="board" style={{ '--cols': level.cols }} aria-label="Match three board" aria-busy={busy}>
@@ -92,6 +92,6 @@ export default function MiniGame({ onWin, onQuit, repair }) {
       <div className="mini-actions"><span>{moves} moves · No time limit</span><button disabled={busy} onClick={() => {setHint(findMove(board, level.cols)); setMessage('Swap the two glowing pieces. Match lines can go across or down.');}}>Show a hint</button></div>
       <p className="gentle">Take your time. There is no move limit in this lesson.</p>
     </> : <div className="win-panel"><span className="win-spark">✦</span><h3>Ready to repair.</h3><p>You have completed the objective.<br/>Now bring your ship back to life.</p><button className="primary" disabled={busy} onClick={onWin}>{repair.action} <span>→</span></button></div>}
-    <AudioControls/>{confirmQuit && <div className="quit-panel"><h3>Back to the cockpit?</h3><p>This attempt will not be saved.</p><button className="primary" onClick={onQuit}>Leave level</button><button className="keep-playing" onClick={() => setConfirmQuit(false)}>Keep playing</button></div>}
+    <AudioControls/>{confirmQuit && <div className="quit-panel"><h3>Back to the ship?</h3><p>This attempt will not be saved.</p><button className="primary" onClick={onQuit}>Leave level</button><button className="keep-playing" onClick={() => setConfirmQuit(false)}>Keep playing</button></div>}
   </dialog>;
 }

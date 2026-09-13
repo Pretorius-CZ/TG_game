@@ -71,3 +71,5 @@ diagnostika plných 6 sloupců × 7 řádků a pět typů. Ostatní levely čty�
 Cíle oken a počítače jsou 12 komet a 15 krystalů. Šestý orb připraven pro později.
 
 Plán dalších místností a oprav: [roadmapa lodi](docs/roadmap-ship.md).
+
+Crew Quarters jsou hratelné po dokončení kokpitu: vstup přes levé dveře chodby. Čtyři opravy, desky 7×7, deník a tyrkysový rám po dokončení. Viz [podrobnosti](docs/crew-quarters.md). Komora zatím nemá hratelné opravy.
