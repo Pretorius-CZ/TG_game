@@ -62,7 +62,7 @@ Kokpit je pouze první etapa celé lodi; plášť a ostatní etapy zatím nehrat
 Aktuální dokončený kokpit: čtyři různě tvarované levely, čtyři výrazné
 obrazové opravy, odhalení opravy a See your ship. Rozsvícený exteriér až po
 4/4 opravách; plášť i motory stále poškozené. Optimalizované WebP scény.
-Kontroly: npm test (7 testů) a npm run build. Postup je stále jen v paměti.
+Kontroly: npm test (9 testů) a npm run build. Postup je stále jen v paměti.
 
 Porovnání před/po bylo odstraněno. docs/story-proposal.md obsahuje
 schválenou logiku lodního deníku (2026-09-12); deník je implementovaný pro čtyři opravy kokpitu.
@@ -76,3 +76,21 @@ Lodní deník: Ship log pod navigací, New log entry po opravě. Čtyři anglick
 zápisy, zamčené budoucí útržky, nepřečtené značky a nepovinné čtení.
 Data src/logEntries.js, UI src/ShipLog.jsx. Odemykání plyne z oprav; replay
 zápisy neduplikuje. Čtení ani přeskočení nemění postup. Stav jen v paměti.
+
+Před opravou se nad kokpitem otevře komiksová bublina pilota s krátkou
+anglickou myšlenkou, cílem a tlačítkem Play. Dostupná přes zařízení i přehled
+oprav; replay používá kratší text. Odhalení příběhu zůstává v deníku po výhře.
+Komponenta src/RepairBubble.jsx, texty v src/repairs.js.
+
+Aktualizace 2026-09-13: vesmírné PNG dlaždice v public/tiles (prompty v README).
+První tři desky mají 6 sloupců × 6 řádků (okna mají vykrojené rohy),
+diagnostika plných 6 sloupců × 7 řádků a pět typů. Ostatní levely čtyři typy.
+Cíle oken a počítače jsou 12 komet a 15 krystalů. Šestý orb připraven pro později.
+
+Zvuk (2026-09-13): src/audio.js generuje jemný ambient a efekty přes Web Audio. První interakce aktivuje zvuk, minihra ztiší hudbu, skrytá karta pozastaví audio. Music a Sounds se vypínají zvlášť; preference v localStorage, herní postup stále pouze v paměti.
+
+Roadmapa pokračování: docs/roadmap-ship.md (2026-09-13). Po kokpitu následuje komora/plášť, ubikace, kuchyňka/zásoby, spojení/navigace v kokpitu, strojovna/palivo/motory a odlet. Pracovní rozsah 25 levelů včetně 4 hotových. Nejprve zobecnit etapy a ukládání, potom dokončit levely 5–8. Další etapy jsou plán, nikoli implementace.
+
+Připravené podklady etapy 2: docs/airlock-stage.md — čtyři opravy, cíle miniher, anglické bubliny a deník. Grafika public/scenes/airlock-0-damaged.png (imagegen). Jde o výchozí poškozenou scénu a návrh obsahu, zatím nezapojeno do hry; opravené varianty chybí.
+
+Navigace 2026-09-13: exteriér → přechodová komora → kokpit; návrat stejnou cestou. Komora je přístupné rozcestí už před opravou kokpitu, její vlastní opravy zatím nejsou hratelné. Ubikace, kuchyňka a strojovna jsou označené jako zamčené. Dokončení kokpitu vrací do komory, odkud lze ven. Grafika airlock-0-damaged.webp zapojená. Ověřen mobilní průchod tam/zpět a spuštění minihry.

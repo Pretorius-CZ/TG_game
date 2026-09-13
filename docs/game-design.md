@@ -228,3 +228,17 @@ Ověřen průchod všemi čtyřmi levely, zamykání/odemykání, nepřečtené
 značky, přeskočení a návrat k zápisům, návrat do oprav a replay.
 Mobilní vzhled zkontrolován. Supabase a trvalé ukládání stále chybí;
 při obnovení stránky se resetují opravy i stav přečtení.
+
+### Příběh před opravou (implementováno 2026-09-13)
+Klepnutí na dostupné zařízení zobrazí nad kokpitem krátkou komiksovou
+bublinu pilota. Jedna až dvě věty motivují opravu; následuje cíl a Play.
+Nové informace o havárii se odemknou až po výhře v lodním deníku.
+Opakování hotového levelu používá kratší text bez nové příběhové odměny.
+
+Aktualizace 2026-09-13: vesmírné PNG dlaždice v public/tiles (prompty v README).
+První tři desky mají 6 sloupců × 6 řádků (okna mají vykrojené rohy),
+diagnostika plných 6 sloupců × 7 řádků a pět typů. Ostatní levely čtyři typy.
+Cíle oken a počítače jsou 12 komet a 15 krystalů. Šestý orb připraven pro později.
+
+## Roadmapa pokračování
+Aktuální plán dalších etap, oprav, grafických změn a miniher je v [roadmap-ship.md](roadmap-ship.md). Jde o pracovní plán; implementovaný zůstává kokpit.

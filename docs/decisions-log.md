@@ -688,3 +688,26 @@ Ověřen průchod všemi čtyřmi levely, zamykání/odemykání, nepřečtené
 značky, přeskočení a návrat k zápisům, návrat do oprav a replay.
 Mobilní vzhled zkontrolován. Supabase a trvalé ukládání stále chybí;
 při obnovení stránky se resetují opravy i stav přečtení.
+
+## 2026-09-13 — Příběhová bublina před opravou
+
+Implementovaná krátká myšlenka pilota pro každou ze čtyř oprav. Bublina
+nahrazuje detail dostupné opravy a přímo spouští level tlačítkem Play.
+Kokpit zůstává viditelný na pozadí; rozložení respektuje portrét telefonu.
+Motivace před hrou neprozrazuje záznam odemčený výhrou. Hotové opravy mají
+stručný replay text. Deník a pořadí oprav se nemění.
+Ověření: devět testů, build a průchod čtyřmi levely v prohlížeči; otevření,
+Escape a umístění bubliny na mobilních i desktopových šířkách.
+
+Aktualizace 2026-09-13: vesmírné PNG dlaždice v public/tiles (prompty v README).
+První tři desky mají 6 sloupců × 6 řádků (okna mají vykrojené rohy),
+diagnostika plných 6 sloupců × 7 řádků a pět typů. Ostatní levely čtyři typy.
+Cíle oken a počítače jsou 12 komet a 15 krystalů. Šestý orb připraven pro později.
+
+Zvuk (2026-09-13): src/audio.js generuje jemný ambient a efekty přes Web Audio. První interakce aktivuje zvuk, minihra ztiší hudbu, skrytá karta pozastaví audio. Music a Sounds se vypínají zvlášť; preference v localStorage, herní postup stále pouze v paměti.
+
+Roadmapa pokračování: docs/roadmap-ship.md (2026-09-13). Po kokpitu následuje komora/plášť, ubikace, kuchyňka/zásoby, spojení/navigace v kokpitu, strojovna/palivo/motory a odlet. Pracovní rozsah 25 levelů včetně 4 hotových. Nejprve zobecnit etapy a ukládání, potom dokončit levely 5–8. Další etapy jsou plán, nikoli implementace.
+
+Připravené podklady etapy 2: docs/airlock-stage.md — čtyři opravy, cíle miniher, anglické bubliny a deník. Grafika public/scenes/airlock-0-damaged.png (imagegen). Jde o výchozí poškozenou scénu a návrh obsahu, zatím nezapojeno do hry; opravené varianty chybí.
+
+Navigace 2026-09-13: exteriér → přechodová komora → kokpit; návrat stejnou cestou. Komora je přístupné rozcestí už před opravou kokpitu, její vlastní opravy zatím nejsou hratelné. Ubikace, kuchyňka a strojovna jsou označené jako zamčené. Dokončení kokpitu vrací do komory, odkud lze ven. Grafika airlock-0-damaged.webp zapojená. Ověřen mobilní průchod tam/zpět a spuštění minihry.

@@ -146,3 +146,7 @@ konkrétních oprav, správného barevného cíle a ochrany pořadí/opakování
 prohlížečový průchod skutečnými tahy všemi levely, odchod bez odměny,
 porovnání obrazových stavů, osvětlení exteriéru až po finále, replay,
 načtení všech obrázků a mobilní rozložení.
+
+Příběhový vstup do levelu: src/RepairBubble.jsx používá nativní dialog,
+jehož umístění sleduje rozměry scény. Text thought je součástí konfigurace
+opravy v src/repairs.js. Zavření vrací fokus, Play předává opravu minihře.

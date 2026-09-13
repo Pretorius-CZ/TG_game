@@ -14,19 +14,19 @@ npm run build
 
 ## Průchod kokpitem
 
-Enter the ship → Inspect repair → Play. Čtyři opravy v pevném pořadí:
+Enter the ship → Airlock → Enter cockpit → Inspect repair → Play. Čtyři opravy v pevném pořadí:
 
 | Oprava | Deska | Cíl | Viditelný výsledek |
 |---|---|---|---|
 | Emergency lights | 6 × 6 | 18 všech | Osvětlený strop a opravené kabely |
-| Window seals | Vykrojené rohy | 12 modrých | Obnovené rámy a těsnění |
-| Flight computer | 6 řádků × 5 sloupců | 15 zelených | Centrální displej online |
-| Ship diagnostics | Otvor uprostřed | 30 všech | Boční displeje a zakryté kabely |
+| Window seals | Vykrojené rohy | 12 komet | Obnovené rámy a těsnění |
+| Flight computer | 6 × 6 | 15 krystalů | Centrální displej online |
+| Ship diagnostics | 6 sloupců × 7 řádků | 30 všech | Boční displeje a zakryté kabely |
 
 Výměna sousedů klepnutím nebo tažením. Spojení tří a více v řadě či
 sloupci. Nápověda, kaskády a doplnění; bez boosterů, bez limitu tahů/času.
 Po splnění cíle tlačítko opravy zobrazí změnu scény s tlačítkem pokračování.
-Po poslední opravě See your ship ukáže osvětlený kokpit zvenku.
+Po poslední opravě Return to airlock vrátí do komory; přes Exterior lze vidět osvětlený kokpit zvenku.
 Motory se nezapnou a poškozený plášť zůstává pro budoucí etapu.
 
 Repairs otevře přehled hotových, dostupných a zamčených oprav. Dokončené
@@ -59,3 +59,15 @@ Lodní deník: Ship log pod navigací, New log entry po opravě. Čtyři anglick
 zápisy, zamčené budoucí útržky, nepřečtené značky a nepovinné čtení.
 Data src/logEntries.js, UI src/ShipLog.jsx. Odemykání plyne z oprav; replay
 zápisy neduplikuje. Čtení ani přeskočení nemění postup. Stav jen v paměti.
+
+Před opravou se nad kokpitem otevře komiksová bublina pilota s krátkou
+anglickou myšlenkou, cílem a tlačítkem Play. Dostupná přes zařízení i přehled
+oprav; replay používá kratší text. Odhalení příběhu zůstává v deníku po výhře.
+Komponenta src/RepairBubble.jsx, texty v src/repairs.js.
+
+Aktualizace 2026-09-13: vesmírné PNG dlaždice v public/tiles (prompty v README).
+První tři desky mají 6 sloupců × 6 řádků (okna mají vykrojené rohy),
+diagnostika plných 6 sloupců × 7 řádků a pět typů. Ostatní levely čtyři typy.
+Cíle oken a počítače jsou 12 komet a 15 krystalů. Šestý orb připraven pro později.
+
+Plán dalších místností a oprav: [roadmapa lodi](docs/roadmap-ship.md).

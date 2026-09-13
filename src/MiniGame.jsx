@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { adjacent, findMove, makeBoard, matches, refill, swap, objectiveCount } from './match3';
 
-const names = ['Amber diamond', 'Mint circle', 'Blue square', 'Pink triangle'];
-const symbols = ['◆', '●', '■', '▲'];
+import AudioControls from './AudioControls.jsx';
+import { sound } from './audio.js';
+const names = ['Fuel cell', 'Energy crystal', 'Blue comet', 'Asteroid', 'Star', 'Energy orb'];
+const sprites = ['fuel', 'crystal', 'comet', 'asteroid', 'star', 'orb'];
 
 export default function MiniGame({ onWin, onQuit, repair }) {
   const level = repair.level;
@@ -28,17 +30,17 @@ export default function MiniGame({ onWin, onQuit, repair }) {
 
   async function play(a, b) {
     if (board[a] == null || board[b] == null || lock.current || won || !adjacent(a, b, level.cols)) return;
-    lock.current = true; setBusy(true); setSelected(null); setHint(null); setMoving([a, b]);
+    sound('swap'); lock.current = true; setBusy(true); setSelected(null); setHint(null); setMoving([a, b]);
     await wait(220); if (!alive.current) return;
     let next = swap(board, a, b); let found = matches(next, level.cols);
-    if (!found.length) {
+    if (!found.length) { sound('invalid');
       setMoving(null); setMessage('Almost! A swap needs to make a line of 3 matching pieces.');
       await wait(220); if (!alive.current) return;
     } else {
       setBoard(next); setMoving(null); setMoves(n => n + 1);
       let total = score; let cascades = 0;
       while (found.length && total < repair.target) {
-        setCleared(found); setMessage(cascades ? 'Chain reaction! Falling pieces can make new matches.' : 'Nice match! Check the objective to see which pieces count.');
+        sound('match', cascades); setCleared(found); setMessage(cascades ? 'Chain reaction! Falling pieces can make new matches.' : 'Nice match! Check the objective to see which pieces count.');
         await wait(320); if (!alive.current) return;
         total += objectiveCount(next, found, repair.targetType); setScore(total);
         // Animate the cells at or above a cleared tile in each column.
@@ -48,6 +50,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
         setFalling([]);
         found = matches(next, level.cols); cascades++;
       }
+      if (total >= repair.target) sound('win');
       if (total < repair.target && !findMove(next, level.cols)) {
         next = makeBoard(level); setBoard(next); setMessage('No moves left on this board. A fresh board is ready — your progress is safe.');
       }
@@ -57,6 +60,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   function choose(i) {
     if (suppressClick.current) { suppressClick.current = false; return; }
     if (busy || won) return;
+    sound('select');
     if (selected === i) setSelected(null);
     else if (selected != null && adjacent(selected, i, level.cols)) play(selected, i);
     else setSelected(i);
@@ -81,13 +85,13 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     {!won ? <>
       <div className="board" style={{ '--cols': level.cols }} aria-label="Match three board" aria-busy={busy}>
         {board.map((type, i) => type == null ? <span key={i} className="board-hole" aria-hidden="true"/> : <button key={i} data-cell={i} data-type={type} data-hint={hint?.includes(i) || undefined} className={`cell ${selected === i ? 'selected' : ''} ${hint?.includes(i) ? 'hinted' : ''}`} disabled={busy || confirmQuit} aria-label={`${names[type]}, row ${Math.floor(i / level.cols) + 1}, column ${i % level.cols + 1}`} aria-pressed={selected === i} onClick={() => choose(i)} onPointerDown={e => { suppressClick.current = false; pointer.current = { i, x: e.clientX, y: e.clientY }; e.currentTarget.setPointerCapture(e.pointerId); }} onPointerUp={endSwipe} onPointerCancel={() => {pointer.current = null;}}>
-          <span style={tileStyle(i)} className={`gem gem-${type} ${cleared.includes(i) ? 'clearing' : ''} ${falling.includes(i) ? 'falling' : ''}`}>{symbols[type]}</span>
+          <span style={tileStyle(i)} className={`gem gem-${type} ${cleared.includes(i) ? 'clearing' : ''} ${falling.includes(i) ? 'falling' : ''}`}><img src={`/tiles/${sprites[type]}.png`} alt="" draggable="false"/></span>
         </button>)}
       </div>
       <p className="lesson" role="status">{message}</p>
       <div className="mini-actions"><span>{moves} moves · No time limit</span><button disabled={busy} onClick={() => {setHint(findMove(board, level.cols)); setMessage('Swap the two glowing pieces. Match lines can go across or down.');}}>Show a hint</button></div>
       <p className="gentle">Take your time. There is no move limit in this lesson.</p>
     </> : <div className="win-panel"><span className="win-spark">✦</span><h3>Ready to repair.</h3><p>You have completed the objective.<br/>Now bring your ship back to life.</p><button className="primary" disabled={busy} onClick={onWin}>{repair.action} <span>→</span></button></div>}
-    {confirmQuit && <div className="quit-panel"><h3>Back to the cockpit?</h3><p>This attempt will not be saved.</p><button className="primary" onClick={onQuit}>Leave level</button><button className="keep-playing" onClick={() => setConfirmQuit(false)}>Keep playing</button></div>}
+    <AudioControls/>{confirmQuit && <div className="quit-panel"><h3>Back to the cockpit?</h3><p>This attempt will not be saved.</p><button className="primary" onClick={onQuit}>Leave level</button><button className="keep-playing" onClick={() => setConfirmQuit(false)}>Keep playing</button></div>}
   </dialog>;
 }
