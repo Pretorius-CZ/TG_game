@@ -73,3 +73,7 @@ Cíle oken a počítače jsou 12 komet a 15 krystalů. Šestý orb připraven pr
 Plán dalších místností a oprav: [roadmapa lodi](docs/roadmap-ship.md).
 
 Crew Quarters jsou hratelné po dokončení kokpitu: vstup přes levé dveře chodby. Čtyři opravy, desky 7×7, deník a tyrkysový rám po dokončení. Viz [podrobnosti](docs/crew-quarters.md). Komora zatím nemá hratelné opravy.
+
+Kuchyňka Galley je hratelná souběžně s ubikacemi po kokpitu: voda, chladicí box, police, jídlo. Čtyři nezávislé opravy a deník, pět obrazových stavů, 7×7 a od druhého levelu šest typů včetně červeného orbu. Dokončení rozsvítí jantarový rám, ne tyrkysový ani strop. Sdílený průběh CrewQuarters.jsx má parametr room. Viz docs/galley.md. Refresh stále resetuje postup.
+
+Strojovna (2026-09-14): pět hratelných oprav a zápisů, šest obrazových stavů, desky 7×8/6 typů. Přístup po kokpitu v libovolném pořadí s ubikacemi/kuchyňkou. Dokončení rozsvítí červený rám; teprve všechny tři místnosti rozsvítí strop chodby. Systems test není povolení odletu, plášť/navigace dosud chybí. Viz docs/engine-room.md. Počítadlo nepřečtených zápisů nyní zahrnuje všechny místnosti.

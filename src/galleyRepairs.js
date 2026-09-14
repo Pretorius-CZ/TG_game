@@ -1,0 +1,14 @@
+const full={rows:7,cols:7,types:5};
+const six={...full,types:6};
+export const galleyRepairs=[
+ {id:'galley-water',room:'GALLEY',name:'Water system',icon:'◇',x:20,y:23,thought:"That leak is wasting our reserve. I'll seal the pipe and restore the clean-water tank.",lesson:'Every drop matters',objective:'Match 18 blue comets to restore the water system.',target:18,targetType:2,action:'Restore the water system',result:'The pipe is sealed and the clean-water tank is ready.',level:full},
+ {id:'galley-cold',room:'GALLEY',name:'Cold storage',icon:'▣',x:78,y:25,thought:"The cold-storage door will not seal. Let's straighten the frame and get the cooling unit running.",lesson:'Keep it fresh',objective:'Match any 42 pieces. Red energy orbs now join the board.',target:42,targetType:null,action:'Restore cold storage',result:'The cold-storage box is sealed and cooling again.',level:six},
+ {id:'galley-racks',room:'GALLEY',name:'Supply racks',icon:'▱',x:24,y:46,thought:"Most of the sealed supplies survived. They need secure shelves before this ship moves again.",lesson:'A place for everything',objective:'Match 18 red energy orbs to secure the supply racks.',target:18,targetType:5,action:'Secure the supply racks',result:'The racks are upright and the supplies are safely stowed.',level:six},
+ {id:'galley-food',room:'GALLEY',name:'Food station',icon:'ϟ',x:80,y:47,thought:"Water, cooling and supplies are ready. One working cooker, and I can finally make a proper meal.",lesson:'Something warm',objective:'Match any 48 pieces to restore the food station.',target:48,targetType:null,action:'Restore the food station',result:'The galley is ready. Its amber doorway now shines in the corridor.',level:{...six,mask:Array.from({length:49},(_,i)=>![0,6,42,48].includes(i))}},
+];
+export const galleyLogs=[
+ {id:'galley-drops',repair:'galley-water',title:'A small reserve',text:"The leak has stopped. There is enough clean water for the next part of the journey. One less uncertainty to carry."},
+ {id:'galley-cool',repair:'galley-cold',title:'A familiar hum',text:"The cooling unit has settled into its familiar hum. The sealed containers are back where they belong. A supply ship should be able to look after its supplies."},
+ {id:'galley-cargo',repair:'galley-racks',title:'A different delivery',text:"These boxes were meant for an ordinary delivery. If someone is waiting at that old beacon, perhaps part of the cargo can still reach someone who needs it."},
+ {id:'galley-meal',repair:'galley-food',title:'The first warm meal',text:"A warm meal, at last. Outside the window, the moon is as silent as ever. Inside, the ship smells a little less like damaged wiring and a little more like home."},
+].map((e,i)=>({...e,source:'Personal log',time:`After landing / Galley ${i+1}`,unlockAt:i+1}));
