@@ -1,8 +1,8 @@
 # Etapa 2 — Airlock & Hull
 
-Podklady pro další implementaci, 2026-09-13. Nová portrétová scéna:
-`public/scenes/airlock-0-damaged.png`. Vytvořeno vestavěným imagegen.
-Jde o poškozený výchozí stav; opravené varianty a zapojení do hry ještě chybí.
+Implementováno 2026-09-14. Výchozí scéna `public/scenes/airlock-0.webp`
+vychází z komory s dveřmi COCKPIT a CORRIDOR. Čtyři opravy, minihry,
+bubliny, deník a dva nové exteriéry jsou zapojené. Grafika: vestavěný imagegen.
 Navazuje na dokončení čtyř oprav kokpitu, viz roadmap-ship.md.
 
 ## Grafika a orientace
@@ -95,7 +95,7 @@ provizorně izolovat už před etapou, opravou získají plnou funkčnost.
 
 **Tlačítko opravy:** Seal the airlock
 
-**Výsledek:** “Pressure test passed. Airlock and hull secured. The crew quarters are next.”
+**Výsledek:** “Pressure test passed. Airlock and hull secured. Choose your next room.”
 
 **Deník — Holding steady**
 - ID: airlock-pressure-safe
@@ -103,7 +103,7 @@ provizorně izolovat už před etapou, opravou získají plnou funkčnost.
 - Čas: After landing / 08
 - Odemčení: airlock-seals
 
-“Pressure is holding. The ship has a skin again, even if its engines are still silent. Next, I need somewhere to rest—and air worth breathing.”
+“Pressure is holding. The ship has a skin again. Whatever remains on the repair list, the cold outside can stay outside. One more step toward following that signal.”
 
 ## Další grafické stavy pro realizaci
 
@@ -116,8 +116,8 @@ Zachovat přesně kameru a geometrii výchozí scény při tvorbě variant:
    vypnutými motory. Nevyměňovat již hotový kokpit za původní poškozený stav.
 
 Zápisy odemykat podle ID opravy, nikoli lokálního počtu oprav nové místnosti.
-Budoucí obsah zůstává skrytý. Závěrečná oprava odemkne Crew Quarters,
-nikoli odlet. Nezavádět zatím povlaky ani šestý typ kamenů.
+Budoucí obsah zůstává skrytý. Po kokpitu jsou opravy komory i všechny
+místnosti chodby dostupné souběžně. Dokončení komory neodemkne odlet. Nezavádět zatím povlaky ani šestý typ kamenů.
 
 ## Generační zadání grafiky
 
@@ -132,3 +132,38 @@ gasket and amber emergency rim. Dim emergency lighting. Quiet ceiling in top
 seats, star map or powered engines. Single full scene, not a collage.
 
 Navigace 2026-09-13: exteriér → přechodová komora → kokpit; návrat stejnou cestou. Komora je přístupné rozcestí už před opravou kokpitu, její vlastní opravy zatím nejsou hratelné. Ubikace, kuchyňka a strojovna jsou označené jako zamčené. Dokončení kokpitu vrací do komory, odkud lze ven. Grafika airlock-0-damaged.webp zapojená. Ověřen mobilní průchod tam/zpět a spuštění minihry.
+
+
+## Realizace 2026-09-14 (nahrazuje staré poznámky o nezapojené komoře)
+
+- Z rozcestí komory tlačítko Repair airlock & hull, po dokončení kokpitu.
+  Dveře do kokpitu a chodby zůstávají přístupné. Opravy mají vlastní obrazovku
+  nad stejnou scénou a návrat do rozcestí. Rozcestí zobrazuje aktuální opravy.
+- `src/airlockRepairs.js`: čtyři konfigurace a čtyři osobní zápisy, 6 × 7 / 5 typů.
+- `public/scenes/airlock-0.webp` a `airlock-1` až `airlock-4` (PNG + WebP).
+- `exterior-hull` a `exterior-sealed` (PNG + WebP): po 3. opravě opravená příď,
+  po 4. zavřený opravený průlez se zeleným indikátorem a uklizený spodní panel.
+  Kokpit zůstává osvětlený, motory bez tahu, loď na zemi.
+- Po posledních dvou opravách See your ship přepne odměnu na exteriér.
+  Stejný stav je při běžné návštěvě venku. Nejde o porovnání před/po.
+- Čítač komory nepřepisuje jiné místnosti ani jejich osvětlení chodby.
+  Replay ani opuštění minihry neudělují další opravy. Refresh stále resetuje postup.
+
+### Zadání nových obrazových variant (vestavěný imagegen)
+
+Společné: editovat předchozí portrét 9:16, zachovat přesnou kameru,
+polohu dveří, značení COCKPIT/CORRIDOR, žádní lidé ani UI.
+1. Service power: zakrýt levé kabely panely, aktivní cyan displej, jasná bílá
+   pracovní světla; ostatní poškození ponechat, chodba tmavá.
+2. Inner hatch: narovnat a opravit levé dveře a rám, cyan kontrolka,
+   odstranit opřený panel a trosky u prahu; zachovat první opravu.
+3. Hull panels: opravit pravé servisní rameno a konzoli, cyan schéma pláště
+   a světla kloubů, odstranit trosky vpravo; hlavní průlez stále poškozený.
+4. Seals: nový nepoškozený hlavní průlez a černé těsnění, zelená tlaková
+   kontrolka a tenký zelený lem, opravená podlaha; všechny předchozí opravy.
+5. Exterior hull: z osvětleného exteriéru nahradit proražený plášť pod kokpitem
+   celistvými slonovinovými panely s oranžovým pruhem. Zachovat krajinu,
+   loď, osvětlený kokpit, otevřený vstup a motory bez tahu.
+6. Exterior sealed: zavřít vstup opraveným průlezem s oválným okénkem,
+   zelenou kontrolkou a lemem, zasunout schůdky a zarovnat spodní panel.
+   Zachovat osvětlený kokpit, opravený plášť a ostatní scénu.

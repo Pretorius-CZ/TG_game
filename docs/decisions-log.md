@@ -723,3 +723,60 @@ Schválený postup: čtyři opravy kokpitu tvoří povinný tutoriál. Poté vol
 Kuchyňka Galley je hratelná souběžně s ubikacemi po kokpitu: voda, chladicí box, police, jídlo. Čtyři nezávislé opravy a deník, pět obrazových stavů, 7×7 a od druhého levelu šest typů včetně červeného orbu. Dokončení rozsvítí jantarový rám, ne tyrkysový ani strop. Sdílený průběh CrewQuarters.jsx má parametr room. Viz docs/galley.md. Refresh stále resetuje postup.
 
 Strojovna (2026-09-14): pět hratelných oprav a zápisů, šest obrazových stavů, desky 7×8/6 typů. Přístup po kokpitu v libovolném pořadí s ubikacemi/kuchyňkou. Dokončení rozsvítí červený rám; teprve všechny tři místnosti rozsvítí strop chodby. Systems test není povolení odletu, plášť/navigace dosud chybí. Viz docs/engine-room.md. Počítadlo nepřečtených zápisů nyní zahrnuje všechny místnosti.
+
+
+Aktualizace 2026-09-14 — komora a plášť jsou hratelné: čtyři opravy
+(napájení, vnitřní průlez, plášť, těsnění), čtyři desky 6 × 7 / 5 typů,
+čtyři bubliny a zápisy deníku. Opravy dostupné z komory po kokpitu,
+souběžně s místnostmi chodby. Pět stavů interiéru a dva nové exteriéry;
+3. oprava uzavře trhlinu pod kokpitem, 4. obnoví vnější průlez se zelenou
+kontrolkou. Kokpit zůstává osvětlený. Rozcestí používá aktuální obraz komory.
+Celkem 21 hratelných oprav (kokpit4, komora4, ubikace4, kuchyňka4, strojovna5).
+Zbývá spojení/navigace a odlet; dokončení komory samo odlet nespouští.
+Postup stále v paměti. Podrobnosti docs/airlock-stage.md.
+
+## 2026-09-15 — Schváleno: limit tahů, reklamy a budování základny
+
+- Minihry budou mít omezený počet tahů. Po jeho vyčerpání počítáme
+  s dobrovolným zhlédnutím reklamy za další tahy a pokračování v levelu.
+  Konkrétní limity, počet přidaných tahů, opakování nabídky a poskytovatel
+  reklam se doladí později. Případná výjimka pro úvodní tutoriál je otevřená.
+- Jednou z budoucích etap po opravě lodi bude výstavba vesmírné stanice
+  nebo velké základny. Přesná podoba a zařazení do příběhu nejsou rozhodnuté.
+  Jde o další využití match-3 postupu s viditelnou výstavbou; samotné schválení
+  nezavádí měnu, surovinovou ekonomiku ani obchod.
+- Toto rozhodnutí nahrazuje dřívější otevřenou otázku limitu tahů a reklam.
+  V současném prototypu stále nejsou limity ani reklamy implementované.
+  Nyní je požadováno zaznamenání směru, nikoli jeho implementace.
+
+## 2026-09-15 — Design nejbližší etapy
+
+Další část: Communications & Navigation v opraveném kokpitu. Pracovní
+návrh je v docs/navigation-stage.md: anténa, přijímač s živou odpovědí,
+hvězdná mapa, ověřený kurz, čtyři minihry a deník. Dostupné po tutoriálu
+souběžně s ostatními místnostmi; odlet až po všech 25 opravách. Anténa
+mění exteriér nezávisle na opravách pláště. Dokument rozpracovává také
+limit tahů / reklamy a návaznost na budoucí stanici. Zatím design,
+ne implementace; konkrétní obtížnost a reklamní odměny nejsou schválené.
+
+Aktualizace 2026-09-15: Communications & Navigation implementované
+(src/navigationRepairs.js, src/NavigationArt.jsx), vstup z opraveného kokpitu.
+Čtyři nové minihry a deník; anténa nezávislá na plášti, živá odpověď,
+mapa, kurz. Přehled připravenosti všech šesti oblastí v kokpitu.
+Celkem 25 oprav. Zbývá vzlet, ukládání a pravidla limitu tahů/reklam.
+Viz docs/navigation-stage.md; starší zmínka o pouze navržené etapě již neplatí.
+
+2026-09-15 — Vývojový náhled: tlačítko Complete level v úvodní bublině
+opravy a během minihry okamžitě provede standardní výhru, proměnu scény,
+deník a další krok. Dostupné pro všech 25 oprav při npm run dev
+(import.meta.env.DEV), v produkčním buildu skryté. Bublina replay nabídku
+nemá; opakované dokončení minihry nezvyšuje postup. Během animace tahu
+je tlačítko zakázané. Ukládání postupu zatím stále chybí.
+
+2026-09-15 — Návaznost navigace: po kokpitu 4/4 hlavní karta přímo ve
+scéně nabízí aktuální úkol navigace. Po kurzu 4/4 vypíše zbývající oblasti
+lodi a vede na další nedokončenou oblast. Při 25/25 nabídne prohlédnutí
+kurzu, odlet zůstává připravovaný. Zobrazuje se postup navigace i celé lodi.
+Živá odpověď přijímače nyní přichází po krátkém čekání (2,2 s), lze ji
+okamžitě zobrazit přes Show reply; při omezených animacích je okamžitá.
+Zápis v deníku je kompletní a není závislý na době čekání.

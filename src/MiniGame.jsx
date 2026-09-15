@@ -92,6 +92,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
       <div className="mini-actions"><span>{moves} moves · No time limit</span><button disabled={busy} onClick={() => {setHint(findMove(board, level.cols)); setMessage('Swap the two glowing pieces. Match lines can go across or down.');}}>Show a hint</button></div>
       <p className="gentle">Take your time. There is no move limit in this lesson.</p>
     </> : <div className="win-panel"><span className="win-spark">✦</span><h3>Ready to repair.</h3><p>You have completed the objective.<br/>Now bring your ship back to life.</p><button className="primary" disabled={busy} onClick={onWin}>{repair.action} <span>→</span></button></div>}
+    {import.meta.env.DEV&&!won&&!confirmQuit&&<button className="preview-complete" disabled={busy} onClick={()=>{if(lock.current)return;lock.current=true;onWin();}}>✓ Complete level <small>Preview · skip match-3</small></button>}
     <AudioControls/>{confirmQuit && <div className="quit-panel"><h3>Back to the ship?</h3><p>This attempt will not be saved.</p><button className="primary" onClick={onQuit}>Leave level</button><button className="keep-playing" onClick={() => setConfirmQuit(false)}>Keep playing</button></div>}
   </dialog>;
 }

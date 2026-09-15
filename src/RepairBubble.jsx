@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef } from 'react';
 
-export default function RepairBubble({ repair, replay, sceneRef, onClose, onPlay }) {
+export default function RepairBubble({ repair, replay, sceneRef, onClose, onPlay, onComplete }) {
   const dialog = useRef(null);
   useLayoutEffect(() => {
     const element = dialog.current;
@@ -27,6 +27,7 @@ export default function RepairBubble({ repair, replay, sceneRef, onClose, onPlay
       <p id="bubble-story">{replay ? 'This system is already restored. A little more practice before the next repair?' : repair.thought}</p>
       <div className="bubble-objective">{repair.objective}</div>
       <button className="primary" onClick={onPlay}>{replay ? 'Replay lesson' : 'Play'} <span>→</span></button>
+      {import.meta.env.DEV&&onComplete&&!replay&&<button className="preview-complete" onClick={onComplete}>✓ Complete level <small>Preview · skip match-3</small></button>}
     </div>
   </dialog>;
 }

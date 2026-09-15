@@ -168,3 +168,45 @@ levely 5–8. Nové místnosti mají rozšiřovat stejnou hru, ne zavádět novo
 Crew Quarters: hratelné čtyři opravy (ventilace, filtr, lůžko, obytný modul), 7×7 / 5 typů, pět obrazových stavů a čtyři zápisy. Vstup z levých dveří chodby po dokončení kokpitu; komora je v prototypu dočasně přeskočena, finální roadmapa beze změny. Dokončení rozsvítí pouze tyrkysový rám. Postup oddělený od kokpitu, zachován při navigaci, nikoli refreshi. Podrobnosti docs/crew-quarters.md.
 
 Schválený postup: čtyři opravy kokpitu tvoří povinný tutoriál. Poté volný výběr všech implementovaných místností chodby, postup oprav uvnitř každé zůstává pevný. Odlet vyžaduje všechny opravy celé lodi včetně pláště, navigace, paliva a motorů. Zásadní příběhové události navázat na společné milníky; osobní zápisy na místní opravy. Nahrazuje dřívější pevné pořadí místností. Nehotové místnosti zatím označit jako připravované.
+
+
+Aktualizace 2026-09-14 — komora a plášť jsou hratelné: čtyři opravy
+(napájení, vnitřní průlez, plášť, těsnění), čtyři desky 6 × 7 / 5 typů,
+čtyři bubliny a zápisy deníku. Opravy dostupné z komory po kokpitu,
+souběžně s místnostmi chodby. Pět stavů interiéru a dva nové exteriéry;
+3. oprava uzavře trhlinu pod kokpitem, 4. obnoví vnější průlez se zelenou
+kontrolkou. Kokpit zůstává osvětlený. Rozcestí používá aktuální obraz komory.
+Celkem 21 hratelných oprav (kokpit4, komora4, ubikace4, kuchyňka4, strojovna5).
+Zbývá spojení/navigace a odlet; dokončení komory samo odlet nespouští.
+Postup stále v paměti. Podrobnosti docs/airlock-stage.md.
+
+## 2026-09-15 — Schváleno: limit tahů, reklamy a budování základny
+
+- Minihry budou mít omezený počet tahů. Po jeho vyčerpání počítáme
+  s dobrovolným zhlédnutím reklamy za další tahy a pokračování v levelu.
+  Konkrétní limity, počet přidaných tahů, opakování nabídky a poskytovatel
+  reklam se doladí později. Případná výjimka pro úvodní tutoriál je otevřená.
+- Jednou z budoucích etap po opravě lodi bude výstavba vesmírné stanice
+  nebo velké základny. Přesná podoba a zařazení do příběhu nejsou rozhodnuté.
+  Jde o další využití match-3 postupu s viditelnou výstavbou; samotné schválení
+  nezavádí měnu, surovinovou ekonomiku ani obchod.
+- Toto rozhodnutí nahrazuje dřívější otevřenou otázku limitu tahů a reklam.
+  V současném prototypu stále nejsou limity ani reklamy implementované.
+  Nyní je požadováno zaznamenání směru, nikoli jeho implementace.
+
+## 2026-09-15 — Design nejbližší etapy
+
+Další část: Communications & Navigation v opraveném kokpitu. Pracovní
+návrh je v docs/navigation-stage.md: anténa, přijímač s živou odpovědí,
+hvězdná mapa, ověřený kurz, čtyři minihry a deník. Dostupné po tutoriálu
+souběžně s ostatními místnostmi; odlet až po všech 25 opravách. Anténa
+mění exteriér nezávisle na opravách pláště. Dokument rozpracovává také
+limit tahů / reklamy a návaznost na budoucí stanici. Zatím design,
+ne implementace; konkrétní obtížnost a reklamní odměny nejsou schválené.
+
+Aktualizace 2026-09-15: Communications & Navigation implementované
+(src/navigationRepairs.js, src/NavigationArt.jsx), vstup z opraveného kokpitu.
+Čtyři nové minihry a deník; anténa nezávislá na plášti, živá odpověď,
+mapa, kurz. Přehled připravenosti všech šesti oblastí v kokpitu.
+Celkem 25 oprav. Zbývá vzlet, ukládání a pravidla limitu tahů/reklam.
+Viz docs/navigation-stage.md; starší zmínka o pouze navržené etapě již neplatí.

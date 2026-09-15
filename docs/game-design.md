@@ -242,3 +242,17 @@ Cíle oken a počítače jsou 12 komet a 15 krystalů. Šestý orb připraven pr
 
 ## Roadmapa pokračování
 Aktuální plán dalších etap, oprav, grafických změn a miniher je v [roadmap-ship.md](roadmap-ship.md). Jde o pracovní plán; implementovaný zůstává kokpit.
+
+## 2026-09-15 — Schváleno: limit tahů, reklamy a budování základny
+
+- Minihry budou mít omezený počet tahů. Po jeho vyčerpání počítáme
+  s dobrovolným zhlédnutím reklamy za další tahy a pokračování v levelu.
+  Konkrétní limity, počet přidaných tahů, opakování nabídky a poskytovatel
+  reklam se doladí později. Případná výjimka pro úvodní tutoriál je otevřená.
+- Jednou z budoucích etap po opravě lodi bude výstavba vesmírné stanice
+  nebo velké základny. Přesná podoba a zařazení do příběhu nejsou rozhodnuté.
+  Jde o další využití match-3 postupu s viditelnou výstavbou; samotné schválení
+  nezavádí měnu, surovinovou ekonomiku ani obchod.
+- Toto rozhodnutí nahrazuje dřívější otevřenou otázku limitu tahů a reklam.
+  V současném prototypu stále nejsou limity ani reklamy implementované.
+  Nyní je požadováno zaznamenání směru, nikoli jeho implementace.
