@@ -18,7 +18,7 @@ export default function CrewQuarters({completed,onCompleted,onBack,onLog,room='c
   const [outside,setOutside]=useState(false);
   const scene=useRef(null),action=useRef(null);
   const finished=completed===tasks.length,current=tasks[completed];
-  const roomScenes=navigation?['/scenes/navigation-console.webp']:Array.from({length:tasks.length+1},(_,i)=>`/scenes/${room}-${i}.webp`);
+  const roomScenes=navigation?['./scenes/navigation-console.webp']:Array.from({length:tasks.length+1},(_,i)=>`./scenes/${room}-${i}.webp`);
   useEffect(()=>{let alive=true;setFailed(false);Promise.all(roomScenes.map(src=>new Promise((resolve,reject)=>{const img=new Image();img.onload=resolve;img.onerror=reject;img.src=src;}))).then(()=>alive&&setLoaded(true)).catch(()=>alive&&setFailed(true));return()=>{alive=false;};},[attempt]);
   useEffect(()=>{duckMusic(Boolean(playing));return()=>duckMusic(false);},[playing]);
   function closeBubble(){setBubble(null);requestAnimationFrame(()=>action.current?.focus());}

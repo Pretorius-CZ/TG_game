@@ -200,3 +200,8 @@ Krytý kámen nelze přesouvat a při rozbití se nesbírá, zůstane pro dalš�
 Výrazný počet tahů nad deskou, posledních 5 jantarově. Limity upraveny,
 finále 70 kamenů / 8 krytů / 48 tahů. Viz docs/levels-and-finale.md.
 Životy již nemají srdce: pět energetických článků, pravidla obnovy beze změny.
+
+2026-09-16: Připraven GitHub Pages workflow pro codex/cockpit-stage; publikuje
+sestavený dist, ne zdrojový kořen. Pages Source musí být GitHub Actions.
+Relativní cesty obrázků a Vite base ./ podporují /TG_game/ i lokální náhled.
+Produkční sestavení ověřeno v prohlížeči pod /TG_game/ včetně obrázků.

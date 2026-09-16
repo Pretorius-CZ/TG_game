@@ -77,3 +77,12 @@ Crew Quarters jsou hratelné po dokončení kokpitu: vstup přes levé dveře ch
 Kuchyňka Galley je hratelná souběžně s ubikacemi po kokpitu: voda, chladicí box, police, jídlo. Čtyři nezávislé opravy a deník, pět obrazových stavů, 7×7 a od druhého levelu šest typů včetně červeného orbu. Dokončení rozsvítí jantarový rám, ne tyrkysový ani strop. Sdílený průběh CrewQuarters.jsx má parametr room. Viz docs/galley.md. Refresh stále resetuje postup.
 
 Strojovna (2026-09-14): pět hratelných oprav a zápisů, šest obrazových stavů, desky 7×8/6 typů. Přístup po kokpitu v libovolném pořadí s ubikacemi/kuchyňkou. Dokončení rozsvítí červený rám; teprve všechny tři místnosti rozsvítí strop chodby. Systems test není povolení odletu, plášť/navigace dosud chybí. Viz docs/engine-room.md. Počítadlo nepřečtených zápisů nyní zahrnuje všechny místnosti.
+
+## GitHub Pages
+
+V Settings → Pages nastavte Source na GitHub Actions (nikoli Deploy from a branch).
+Workflow .github/workflows/pages.yml sestaví a publikuje dist po pushi do
+codex/cockpit-stage; lze jej spustit také ručně přes Actions → Deploy game to
+GitHub Pages → Run workflow. Vite a obrazové assety používají relativní cesty,
+aby aplikace fungovala na https://pretorius-cz.github.io/TG_game/.
+Produkční verze neobsahuje vývojová tlačítka Complete level ani doplnění energie.

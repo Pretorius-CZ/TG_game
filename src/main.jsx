@@ -19,10 +19,10 @@ import ShipLog from './ShipLog.jsx';
 import { logEntries, unlockedLogs } from './logEntries.js';
 import { repairs, repairState, completeRepair } from './repairs';
 
-const cockpitScenes = ['cockpit-portrait', 'cockpit-1-lights', 'cockpit-2-windows', 'cockpit-3-computer', 'cockpit-4-diagnostics'].map(name => `/scenes/${name}.webp`);
-const exteriorScenes = ['/scenes/exterior-portrait.webp', '/scenes/exterior-cockpit-lit.webp','/scenes/exterior-hull.webp','/scenes/exterior-sealed.webp'];
-const airlockScenes = Array.from({length:5},(_,i)=>`/scenes/airlock-${i}.webp`);
-const allScenes = [...cockpitScenes, ...exteriorScenes, ...airlockScenes, '/scenes/corridor-dark.webp', '/scenes/corridor-concept.webp'];
+const cockpitScenes = ['cockpit-portrait', 'cockpit-1-lights', 'cockpit-2-windows', 'cockpit-3-computer', 'cockpit-4-diagnostics'].map(name => `./scenes/${name}.webp`);
+const exteriorScenes = ['./scenes/exterior-portrait.webp', './scenes/exterior-cockpit-lit.webp','./scenes/exterior-hull.webp','./scenes/exterior-sealed.webp'];
+const airlockScenes = Array.from({length:5},(_,i)=>`./scenes/airlock-${i}.webp`);
+const allScenes = [...cockpitScenes, ...exteriorScenes, ...airlockScenes, './scenes/corridor-dark.webp', './scenes/corridor-concept.webp'];
 
 function SceneArt({ inside, airlock, completed, airlockCompleted, navigationCompleted=0 }) {
   const scenes = airlock ? airlockScenes : inside ? cockpitScenes : exteriorScenes;

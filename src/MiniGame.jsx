@@ -99,7 +99,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     {!admitted ? <><NoLives/>{lives.count>0&&<button className="primary" onClick={()=>setAdmitted(true)}>Start level</button>}</> : !won ? <>
       <div className="board" style={{ '--cols': level.cols }} aria-label="Match three board" aria-busy={busy}>
         {board.map((type, i) => type == null ? <span key={i} className="board-hole" aria-hidden="true"/> : <button key={i} data-cell={i} data-type={type} data-hint={hint?.includes(i) || undefined} className={`cell ${ice.includes(i)?'frozen-cell':''} ${selected === i ? 'selected' : ''} ${hint?.includes(i) ? 'hinted' : ''}`} disabled={busy || confirmQuit || exhausted || ice.includes(i)} aria-label={`${ice.includes(i)?'Covered ':''}${names[type]}, row ${Math.floor(i / level.cols) + 1}, column ${i % level.cols + 1}`} aria-pressed={selected === i} onClick={() => choose(i)} onPointerDown={e => { suppressClick.current = false; pointer.current = { i, x: e.clientX, y: e.clientY }; e.currentTarget.setPointerCapture(e.pointerId); }} onPointerUp={endSwipe} onPointerCancel={() => {pointer.current = null;}}>
-          <span style={tileStyle(i)} className={`gem gem-${type} ${cleared.includes(i) ? 'clearing' : ''} ${falling.includes(i) ? 'falling' : ''}`}><img src={`/tiles/${sprites[type]}.png`} alt="" draggable="false"/></span>
+          <span style={tileStyle(i)} className={`gem gem-${type} ${cleared.includes(i) ? 'clearing' : ''} ${falling.includes(i) ? 'falling' : ''}`}><img src={`./tiles/${sprites[type]}.png`} alt="" draggable="false"/></span>
         </button>)}
       </div>
       <p className="lesson" role="status">{message}</p>
