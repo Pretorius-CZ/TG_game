@@ -1,3 +1,4 @@
+import {moveBudget,initialIce} from './levelRules.js';
 import React, { useLayoutEffect, useRef } from 'react';
 
 export default function RepairBubble({ repair, replay, sceneRef, onClose, onPlay, onComplete }) {
@@ -25,7 +26,7 @@ export default function RepairBubble({ repair, replay, sceneRef, onClose, onPlay
       <div className="bubble-speaker"><span className="pilot-emblem" aria-hidden="true">✦</span><span>PILOT<small>{replay ? 'BACK AT THE CONSOLE' : 'PERSONAL LOG / PRESENT'}</small></span></div>
       <h2 id="bubble-title">{repair.name}</h2>
       <p id="bubble-story">{replay ? 'This system is already restored. A little more practice before the next repair?' : repair.thought}</p>
-      <div className="bubble-objective">{repair.objective}</div>
+      <div className="bubble-objective">{repair.objective}<br/>{moveBudget(repair)} moves{initialIce(repair).length?` · ${initialIce(repair).length} protective covers`:null}</div>
       <button className="primary" onClick={onPlay}>{replay ? 'Replay lesson' : 'Play'} <span>→</span></button>
       {import.meta.env.DEV&&onComplete&&!replay&&<button className="preview-complete" onClick={onComplete}>✓ Complete level <small>Preview · skip match-3</small></button>}
     </div>

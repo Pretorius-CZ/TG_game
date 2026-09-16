@@ -210,3 +210,11 @@ Aktualizace 2026-09-15: Communications & Navigation implementované
 mapa, kurz. Přehled připravenosti všech šesti oblastí v kokpitu.
 Celkem 25 oprav. Zbývá vzlet, ukládání a pravidla limitu tahů/reklam.
 Viz docs/navigation-stage.md; starší zmínka o pouze navržené etapě již neplatí.
+
+Aktualizace 2026-09-15: textová navigace pod scénou odstraněna; ve scéně
+ikony Zpět/Mapa/Deník a replay. Všechny minihry mají limity tahů, opakování
+a dočasně zdarma +5 tahů. Led zaveden v Galley cold storage (4) a finálním
+HARD levelu (8): rozbíjí se sousedním spojením, pak lze spojit uvolněný kámen.
+Finále až po všech 25 opravách: 70 kamenů / 18 tahů, výhra i po rozbití všeho
+ledu. Odletová animace zbývá. Supabase/ukládání uživatel výslovně odložil
+na konec po designu a logice. Podrobnosti docs/levels-and-finale.md.

@@ -780,3 +780,33 @@ kurzu, odlet zůstává připravovaný. Zobrazuje se postup navigace i celé lod
 Živá odpověď přijímače nyní přichází po krátkém čekání (2,2 s), lze ji
 okamžitě zobrazit přes Show reply; při omezených animacích je okamžitá.
 Zápis v deníku je kompletní a není závislý na době čekání.
+
+Aktualizace 2026-09-15: textová navigace pod scénou odstraněna; ve scéně
+ikony Zpět/Mapa/Deník a replay. Všechny minihry mají limity tahů, opakování
+a dočasně zdarma +5 tahů. Led zaveden v Galley cold storage (4) a finálním
+HARD levelu (8): rozbíjí se sousedním spojením, pak lze spojit uvolněný kámen.
+Finále až po všech 25 opravách: 70 kamenů / 18 tahů, výhra i po rozbití všeho
+ledu. Odletová animace zbývá. Supabase/ukládání uživatel výslovně odložil
+na konec po designu a logice. Podrobnosti docs/levels-and-finale.md.
+
+## 2026-09-15 — Životy a další ladění
+
+Led až při třetí opravě: crew-bunk, galley-racks, engine-power,
+airlock-hull-panels, nav-chart (4 bloky). Kokpit bez ledu. Galley cold
+storage jej už nemá. Finále nadále osm bloků.
+
+Maximálně 5 životů, srdce přímo ve scéně i minihře. Výhra neodebírá život.
+Vyčerpání tahů odebere jeden; následný odchod jej neodebere podruhé.
+Odchod po alespoň jednom platném tahu také jeden, před prvním tahem žádný.
+Na nule nelze začít nový pokus, retry je zamčené. Výchozí návrh obnovy:
+jeden život / 30 minut, max.5, odpočet viditelný. Životy a čas obnovy se
+ukládají lokálně i přes refresh (opravy stále ne). Nákup/refill připraven
+jako nedostupná možnost bez ceny a bez falešné platby; platební služba chybí.
+Dev náhled má explicitní Preview refill a +5 moves; produkce ne.
+
+Limity pevné podle levelu, ne podle nákupů. Simulace 100 her/level:
+tutoriál 100 %, běžné 81–100 %, strojovna s barevnými cíli 87–92 %,
+navigační mapa 88 %, finále 78 %. Automat hodnotí okamžitý zisk/led;
+nejde o garantovanou lidskou úspěšnost. Čísla dál ladit hraním.
+Ověřeno 22 unit testů, build, pět proher → 0 životů, zákaz retry na nule,
+persistování životů přes refresh. Obnovu v čase ověřují unit testy.

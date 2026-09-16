@@ -256,3 +256,11 @@ Aktuální plán dalších etap, oprav, grafických změn a miniher je v [roadma
 - Toto rozhodnutí nahrazuje dřívější otevřenou otázku limitu tahů a reklam.
   V současném prototypu stále nejsou limity ani reklamy implementované.
   Nyní je požadováno zaznamenání směru, nikoli jeho implementace.
+
+Aktualizace 2026-09-15: textová navigace pod scénou odstraněna; ve scéně
+ikony Zpět/Mapa/Deník a replay. Všechny minihry mají limity tahů, opakování
+a dočasně zdarma +5 tahů. Led zaveden v Galley cold storage (4) a finálním
+HARD levelu (8): rozbíjí se sousedním spojením, pak lze spojit uvolněný kámen.
+Finále až po všech 25 opravách: 70 kamenů / 18 tahů, výhra i po rozbití všeho
+ledu. Odletová animace zbývá. Supabase/ukládání uživatel výslovně odložil
+na konec po designu a logice. Podrobnosti docs/levels-and-finale.md.
