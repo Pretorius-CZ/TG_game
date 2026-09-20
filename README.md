@@ -86,3 +86,16 @@ codex/cockpit-stage; lze jej spustit také ručně přes Actions → Deploy game
 GitHub Pages → Run workflow. Vite a obrazové assety používají relativní cesty,
 aby aplikace fungovala na https://pretorius-cz.github.io/TG_game/.
 Produkční verze neobsahuje vývojová tlačítka Complete level ani doplnění energie.
+
+## Ukládání postupu
+
+Hra automaticky ukládá dokončené opravy, natankování, finále, přečtené
+zápisy deníku a poslední místnost do tohoto prohlížeče. Po zavření a novém
+otevření pokračuje z uložené místnosti. Rozehraná minihra se neobnovuje.
+Energie a zvukové preference se ukládají samostatně jako dříve.
+Stav ukládání je v patičce. Pokud prohlížeč přístup k úložišti zamítne,
+hra ukáže varování a pokračuje pouze v paměti.
+
+Localhost a GitHub Pages mají oddělené uložené hry; jiný prohlížeč nebo
+zařízení je také nesdílí. Vymazání dat webu odstraní i místní postup.
+Přihlášení a cloudové ukládání budou následovat.

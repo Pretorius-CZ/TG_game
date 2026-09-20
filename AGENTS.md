@@ -205,3 +205,82 @@ finále 70 kamenů / 8 krytů / 48 tahů. Viz docs/levels-and-finale.md.
 sestavený dist, ne zdrojový kořen. Pages Source musí být GitHub Actions.
 Relativní cesty obrázků a Vite base ./ podporují /TG_game/ i lokální náhled.
 Produkční sestavení ověřeno v prohlížeči pod /TG_game/ včetně obrázků.
+
+## Nejbližší pokračování — mobilní test 2026-09-16
+
+Uživatel potvrdil funkčnost hry na mobilu. Na příště: snížit příliš štědré
+limity tahů kokpitu; cíleně prověřit desku bez platného tahu (automatická
+obnova už v MiniGame.jsx existuje, včetně kontroly krytů); odstranit
+zbývající textové vstupy do místností v koridoru a nechat klikací dveře.
+Promyslet speciální kameny pro další etapu, např. 4 v řadě → bomba;
+konkrétní pravidla a význam „v koridoru“ ještě upřesnit. Neimplementováno.
+Podrobnosti a pořadí práce: docs/decisions-log.md, mobilní test 2026-09-16.
+
+## 2026-09-19 — Kokpit, koridor a další pořadí práce
+
+Limity kokpitu sníženy na 10/16/18/14 (světla/okna/počítač/diagnostika).
+Simulace 500 her na úkol: 500/498/500/500 výher jednoduchého automatu;
+nejde o lidskou úspěšnost. Koridor nemá spodní textové vstupy ani návrat,
+používá klikací dveře a horní ovládání. Před kokpitem informuje o uzamčení.
+Obnova desky bez tahu vyčleněna do ensurePlayableBoard a ověřena testem
+s kryty i bez, včetně děr masky. Skóre/tahy/kryty obnova neodebírá.
+Návrh speciálních kamenů: docs/special-pieces-proposal.md, zatím neschválený.
+Uživatel určil návaznost: po herních úpravách ukládání pro další spuštění
++ přihlášení, pak teprve další levely. Ukládání nyní není implementované.
+
+2026-09-19: Dílčí rozsvícení dveří koridoru nyní odhaluje maskou skutečné
+světelné prvky z corridor-concept.webp, nikoli náhradní SVG neonové čáry.
+Stejný tvar, přerušení a barvy jako finální chodba; strop zůstává zhasnutý
+až do dokončení všech tří místností. Ověřen build a mobilní náhled strojovny.
+
+2026-09-19: Sjednocení scénového ovládání. Komora a její opravy jsou jedna
+scéna (CrewQuarters room=airlock), dveře do kokpitu/chodby stále dostupné.
+Starý cíl airlock-work z mapy se překládá na airlock. Opravy komory až po
+kokpitu; všechny opravy přes hotspot zařízení, navigace přes konzoli.
+Spodní akční karty nahrazeny neinteraktivním stavem/nápovědou. Po odhalení
+opravy Continue pouze zavře odměnu, hráč zůstane v místnosti. Finále má
+v kokpitu vlastní hotspot Launch check, dostupný až po všech 25 opravách.
+Ověřeno všech 25 oprav a finále přes preview, přímé dveře komory a konzole,
+24 unit testů a build. Změny zatím lokální, nejsou pushnuté.
+
+2026-09-19 — Oprava návaznosti: značka další opravy se ve sdílených
+místnostech zobrazuje už během karty předchozí výhry (kromě prohlídky
+exteriéru); kliknutí kartu zavře a otevře další úkol. Inner hatch je tedy
+přístupný ihned po Service power bez odchodu z komory. Po potvrzení
+poslední opravy crew/galley/engine se hráč opět vrací do chodby, navigace
+do kokpitu. Komora zůstává sama rozcestím. Nahrazuje předchozí obecné
+pravidlo zůstat po dokončení celé místnosti. Build a cílený mobilní průchod
+energie → dveře bez odchodu a dokončené ubikace → chodba ověřeny.
+
+2026-09-19: Návrh exteriéru public/scenes/exterior-landing-gear-concept.png
+(imagegen, reference exterior-sealed.webp): integrovaná anténa a vysunuté
+hydraulické nohy. Zatím nezapojeno do hry. Podvozek navržen jako pozdní
+oprava před odletem; přesný úkol a počet levelů otevřený. Při zapojení
+zachovat nezávislé stavy antény, pláště a podvozku, neodhalit opravy předčasně.
+
+## 2026-09-20 — Exteriér implementovaný
+
+Venkovní pohled má tři hratelné opravy přes hotspoty: plášť, vnější kryty
+motorů/trysky, podvozek. Vlastní bubliny, minihry, deník a obrazové stavy.
+Plášť přesunut z komory; komora nově 3 úkoly (obrazy 0,1,2,4). Celkem
+27 oprav, readiness vyžaduje i exterior3. Anténa nezávislá, nyní raster
+z generované grafiky místo kresleného SVG; těsnění také nezávislé.
+ExteriorArt.jsx sdílí aktuální exteriér pro venkovní scénu i odměny.
+Podrobnosti docs/exterior-stage.md. Ověřeno 25 testů, build a průchod
+všemi opravami/finále v obou pořadích navigace/komora/exteriér.
+Změny jsou lokální, bez commitu/pushe. Příští práce stále ukládání,
+přihlášení a poté další levely; speciální kameny zatím pouze návrh.
+
+2026-09-20: Přidán 4. venkovní úkol Emergency fuel depot (24 fuel / 38 tahů).
+Odemkne se po podvozku a engine-fuel (strojovna >=2). Stanice vedle lodi,
+opravený stav a tok hadicí po výhře, vlastní deník. Finále nově vyžaduje
+28 oprav včetně natankování (exterior4). Viz docs/exterior-stage.md.
+
+2026-09-20: Místní ukládání implementované. src/progressStorage.js +
+useProgressSave.js: verze1 localStorage to-the-stars-progress-v1,
+automaticky všechny opravy (včetně tankování), finále, čtený deník a scéna.
+Rozehraná minihra ne. Životy/audio mají dosavadní vlastní ukládání.
+Footer zobrazuje stav uložení, chyby nejsou vydávané za úspěch.
+Validace a sloučení vyššího postupu při souběhu karet. Přihlášení/cloud
+stále nejsou implementované. Nápad na odměňovanou reklamu za nápovědu
+zapsán v decisions-log; současná nápověda zdarma se nemění.

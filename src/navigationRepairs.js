@@ -15,5 +15,5 @@ export const navigationLogs=[
 ].map((e,i)=>({...e,time:`After landing / Navigation ${i+1}`,unlockAt:i+1}));
 
 export function shipReadiness(progress){
- return [['cockpit','Cockpit',4],['airlock-work','Airlock & hull',4],['crew','Crew quarters',4],['galley','Galley & supplies',4],['engine','Engine room',5],['navigation','Navigation',4]].map(([id,name,total])=>({id,name,total,completed:progress[id]??0,ready:progress[id]===total}));
+ return [['cockpit','Cockpit',4],['airlock-work','Airlock',3],['exterior','Exterior & fuel',4],['crew','Crew quarters',4],['galley','Galley & supplies',4],['engine','Engine room',5],['navigation','Navigation',4]].map(([id,name,total])=>({id,name,total,completed:progress[id]??0,ready:progress[id]===total}));
 }

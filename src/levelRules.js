@@ -1,8 +1,8 @@
 import {adjacent,matches,swap,refill,makeBoard} from './match3.js';
-const thirdRepairs=['crew-bunk','galley-racks','engine-power','airlock-hull-panels','nav-chart'];
+const thirdRepairs=['crew-bunk','galley-racks','engine-power','airlock-seals','exterior-landing-gear','nav-chart'];
 export function moveBudget(repair){
  if(repair.moves!=null)return repair.moves;
- const tuned={'crew-bunk':33,'galley-racks':38,'engine-cooling':36,'engine-fuel':37,'engine-power':44,'engine-drive':41,'nav-antenna':36,'nav-chart':44};
+ const tuned={lights:10,windows:16,computer:18,diagnostics:14,'crew-bunk':33,'galley-racks':38,'engine-cooling':36,'engine-fuel':37,'engine-power':44,'engine-drive':41,'nav-antenna':36,'nav-chart':44};
  if(tuned[repair.id])return tuned[repair.id];
  if(['lights','windows','computer','diagnostics'].includes(repair.id))return repair.targetType==null?Math.ceil(repair.target/2)+10:Math.ceil(repair.target*1.5)+12;
  return repair.targetType==null?Math.ceil(repair.target/3)+7:Math.ceil(repair.target*1.05)+8;
@@ -20,3 +20,9 @@ export const finaleRepair={id:'launch-check',room:'FINAL CHALLENGE',name:'Launch
 
 export function makeIceBoard(level,ice=[],random=Math.random){for(let n=0;n<1000;n++){const board=makeBoard(level,random);if(iceMove(board,level.cols,ice))return board;}throw new Error('No playable board with this ice layout.');}
 
+
+// Recover only settled dead boards; callers retain score, moves and covers.
+export function ensurePlayableBoard(board,level,ice=[],random=Math.random){
+ if(iceMove(board,level.cols,ice))return {board,reshuffled:false};
+ return {board:makeIceBoard(level,ice,random),reshuffled:true};
+}

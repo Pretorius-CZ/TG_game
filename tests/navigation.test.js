@@ -11,7 +11,7 @@ test('navigation targets and masks remain playable',()=>{
  }});
 });
 test('every system is required regardless of completion order',()=>{
- const ready={cockpit:4,'airlock-work':4,crew:4,galley:4,engine:5,navigation:4};
+ const ready={cockpit:4,'airlock-work':3,exterior:4,crew:4,galley:4,engine:5,navigation:4};
  assert.ok(shipReadiness(ready).every(r=>r.ready));
  for(const id of Object.keys(ready))assert.equal(shipReadiness({...ready,[id]:ready[id]-1}).every(r=>r.ready),false);
  assert.equal(shipReadiness({navigation:4}).filter(r=>r.ready).length,1);

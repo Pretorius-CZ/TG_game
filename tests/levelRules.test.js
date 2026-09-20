@@ -16,3 +16,20 @@ test('covered pieces cannot be swapped; final boards have playable starts',()=>{
  for(let i=0;i<100;i++){const b=makeIceBoard(finaleRepair.level,finaleRepair.ice,random);const move=iceMove(b,7,finaleRepair.ice);assert.ok(move);assert.ok(move.every(n=>!finaleRepair.ice.includes(n)));assert.deepEqual(iceMatches(b,7,finaleRepair.ice),[]);}
  assert.ok(moveBudget(finaleRepair)>0);
 });
+import {ensurePlayableBoard} from '../src/levelRules.js';
+test('dead boards recover with and without covers and keep holes and cover positions usable',()=>{
+ const level={rows:6,cols:6,types:4,mask:Array.from({length:36},(_,i)=>![0,5,30,35].includes(i))};
+ const dead=level.mask.map((v,i)=>v?(Math.floor(i/6)+i%6)%4:null);
+ let seed=12;const random=()=>((seed=(seed*1664525+1013904223)>>>0)/4294967296);
+ for(const covers of [[],[14,16,26,28]]){
+  assert.equal(iceMove(dead,6,covers),null);
+  const original=[...dead],saved=[...covers];
+  const result=ensurePlayableBoard(dead,level,covers,random);
+  assert.equal(result.reshuffled,true);assert.ok(iceMove(result.board,6,covers));
+  assert.deepEqual(iceMatches(result.board,6,covers),[]);
+  assert.deepEqual(dead,original);assert.deepEqual(covers,saved);
+  assert.deepEqual(result.board.map(v=>v!==null),level.mask);
+  covers.forEach(i=>assert.notEqual(result.board[i],null));
+  assert.equal(ensurePlayableBoard(result.board,level,covers).board,result.board);
+ }
+});

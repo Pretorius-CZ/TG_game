@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { adjacent, swap, objectiveCount } from './match3';
 
-import {moveBudget,initialIce,iceMatches,iceMove,resolveIce,makeIceBoard} from './levelRules.js';
+import {moveBudget,initialIce,iceMatches,iceMove,resolveIce,makeIceBoard,ensurePlayableBoard} from './levelRules.js';
 import {useLives,LivesBar,NoLives} from './Lives.jsx';
 import AudioControls from './AudioControls.jsx';
 import { sound } from './audio.js';
@@ -64,8 +64,9 @@ export default function MiniGame({ onWin, onQuit, repair }) {
         found = iceMatches(next, level.cols,frozen); cascades++;
       }
       if (total >= repair.target && !frozen.length) sound('win');
-      if ((total < repair.target||frozen.length) && !iceMove(next, level.cols,frozen)) {
-        next = makeIceBoard(level,frozen); setBoard(next); setMessage('No moves left on this board. A fresh board is ready — your progress is safe.');
+      if (total < repair.target || frozen.length) {
+        const recovery=ensurePlayableBoard(next,level,frozen);
+        if(recovery.reshuffled){next=recovery.board;setBoard(next);setMessage('No possible matches. Board refreshed — no extra move or energy used.');}
       }
     }
     lock.current = false; setBusy(false);

@@ -810,3 +810,95 @@ navigační mapa 88 %, finále 78 %. Automat hodnotí okamžitý zisk/led;
 nejde o garantovanou lidskou úspěšnost. Čísla dál ladit hraním.
 Ověřeno 22 unit testů, build, pět proher → 0 životů, zákaz retry na nule,
 persistování životů přes refresh. Obnovu v čase ověřují unit testy.
+
+## 2026-09-16 — Poznámky z mobilního testování, další práce
+
+Uživatel potvrdil, že zveřejněná hra na mobilu funguje.
+Následující body jsou zadání na příště, nikoli již provedené změny:
+
+1. Snížit počet tahů v kokpitu. Současné rezervy jsou příliš velké;
+   uživatel uvádí, že na úkoly nepotřebujeme 25 tahů. Konkrétní nové
+   limity určit po jednotlivých úkolech, zachovat snadné naučení pravidel.
+2. Ověřit situaci, kdy na desce není žádný platný tah, včetně krytých
+   kamenů. Kontrola už v src/MiniGame.jsx existuje: po dokončení kaskád
+   volá iceMove a při chybějícím tahu vytvoří novou hratelnou desku přes
+   makeIceBoard. Zachová skóre, spotřebované tahy a pozice zbývajících krytů;
+   samotná obnova další tah ani energii neodebírá. Start je také kontrolovaný.
+   Zbývá cíleně ověřit tento průchod v UI a s kryty, případné chyby opravit.
+   Nejde o garanci dokončitelnosti cíle ve zbývajících tazích.
+3. Odstranit zbývající textovou navigaci do místností v koridoru.
+   Vstupy do místností ponechat pouze přes klikací dveře v grafice;
+   zachovat čitelnost, dostupnost na telefonu a stav dokončení místností.
+4. Promyslet speciální kameny/boosty pro etapu místností za koridorem:
+   například čtyři stejné v řadě vytvoří bombu. Přesný typ odměny,
+   účinek, kombinace a úvod do pravidel zatím nejsou schválené.
+   Upřesnit, zda uživatel myslí minihry těchto místností; nezavádět
+   automaticky boostery do úvodního tutoriálu ani placený obchod.
+
+Priorita příští práce: limity kokpitu, kontrola zablokované desky,
+čistě grafické vstupy koridoru; následně návrh speciálních kamenů.
+
+## 2026-09-19 — Realizace poznámek a návaznost
+
+Kokpit nově 10/16/18/14 tahů; koridor pouze grafické vstupy do místností.
+Automatická obnova nehratelné desky používá testovanou ensurePlayableBoard,
+zachovává skóre, počet spotřebovaných tahů a zbývající kryty. Testováno
+s děravou deskou s kryty i bez. Návrh náloží za 4 v řadě je samostatně
+v docs/special-pieces-proposal.md; nejde o implementovanou funkci.
+Další pořadí schválené uživatelem: dokončit herní úpravy, ukládání výsledků
+na další spuštění a přihlašování, potom další levely.
+
+## 2026-09-19 — Jednotné ovládání ve scénách
+
+Dveře/průlez slouží k pohybu, hotspot zařízení otevře bublinu a minihru.
+Komora je zároveň rozcestí a opravitelná místnost; samostatný textový vstup
+na její opravy odstraněn. Anténa/navigace přístupné přes konzoli kokpitu.
+Spodní textová tlačítka odstraněna i z ostatních pokojů a exteriéru.
+Mapa a deník zůstávají pomocné přehledy. Po opravě hráč zůstává na místě,
+nový úkol se zvýrazní. Finále dostupné hotspotem po dokončení všech systémů.
+
+## 2026-09-19 — Exteriér: anténa a podvozek
+
+Uživatel odmítá současnou přimalovanou SVG anténu. Připravujeme obrazový
+návrh opraveného exteriéru s realisticky začleněnou komunikační anténou
+a hydraulickými přistávacími nohami. Loď po opravách nemá ležet na břiše.
+Návrh návaznosti: oprava/vysunutí podvozku jako viditelný úkol před odletem.
+Zařazení a počet levelů zatím nerozhodnuty; nezměněn rozsah 25 oprav.
+Při implementaci zachovat nezávislé pořadí oprav: anténa po nav-antenna,
+plášť a těsnění podle komory, nohy až po příslušné opravě. Jediný finální
+obrázek nesmí předčasně ukázat všechny opravy. Nová grafika je zatím návrh.
+
+## 2026-09-20 — Vnější opravy lodi
+
+Realizován schválený přesun pláště ven a nové úkoly motorových krytů
+s tryskami a podvozku. Komora3 + exteriér3, celkem27 oprav před finále.
+Každý venkovní krok mění obraz. Anténa používá generovaný rastrový detail,
+odemyká se samostatně; není předčasně součástí všech opravených stavů.
+Implementace, parametry a grafické zdroje: docs/exterior-stage.md.
+
+## 2026-09-20 — Schválené tankování realizováno
+
+Nouzový palivový zásobník s čerpadlem vedle lodi jako 4. venkovní minihra.
+Po opravě vnitřních rozvodů a podvozku oprava pumpy přímo natankuje loď.
+Bez surovinové ekonomiky. Viditelná oprava, krátký efekt přečerpání,
+stav Tanks full a lodní deník. Natankování je podmínkou finále, celkem28.
+
+## 2026-09-20 — Místní ukládání a nápověda
+
+Implementováno automatické ukládání do localStorage pod klíčem
+`to-the-stars-progress-v1`: počty dokončených oprav všech sedmi oblastí,
+natankování jako exterior4, finále, přečtený deník a poslední scéna.
+Obnova při dalším spuštění, bez účtu. Životy/čas obnovy a audio nadále
+používají své dosavadní klíče. Rozehraná deska, otevřené bubliny a odměnová
+animace se neukládají; návrat vede do místnosti. Neukládají se kredenciály.
+Kontrola verze a rozsahů dat, ochrana neznámé verze a poškozeného záznamu
+před přepsáním, zachování vyššího postupu a přečtených záznamů při souběhu
+karet stejného původu. Footer hlásí úspěšné uložení nebo problém.
+Data jsou v konkrétním prohlížeči a původu (localhost a GitHub Pages zvlášť).
+Vymazání dat webu je smaže. Nejde o cloudovou synchronizaci ani přihlášení.
+
+Nový nápad k pozdějšímu návrhu: dobrovolná odměňovaná reklama za nápovědu,
+když hráč neví jak dál. Rozhodnout, zda jde o zvýraznění nejlepšího tahu
+v minihře nebo nasměrování na další opravu lodi; cenu/počet/reklamní službu
+zatím neřešit implementací. Současné Show a hint zůstává zdarma. Nápověda
+nenahrazuje bezplatné automatické řešení desky bez možného tahu.
