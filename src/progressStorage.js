@@ -1,3 +1,4 @@
+import {departureLog} from './departure.js';
 import {shipReadiness} from './navigationRepairs.js';
 import {logEntries} from './logEntries.js';
 import {crewLogs} from './crewRepairs.js';
@@ -18,12 +19,14 @@ export function normalizeProgress(value={}){
  const unlocked=Object.entries(groups).flatMap(([key,entries])=>entries.slice(0,save[key]).map(e=>e.id));
  save.readIds=[...new Set(Array.isArray(value?.readIds)?value.readIds.filter(id=>unlocked.includes(id)):[])];
  save.finaleDone=value?.finaleDone===true&&shipReadiness({cockpit:save.completed,crew:save.crewCompleted,galley:save.galleyCompleted,engine:save.engineCompleted,'airlock-work':save.airlockCompleted,navigation:save.navigationCompleted,exterior:save.exteriorCompleted}).every(r=>r.ready);
+ save.launchDone=value?.launchDone===true&&save.finaleDone;
+ if(save.launchDone&&value?.readIds?.includes(departureLog.id))save.readIds.push(departureLog.id);
  save.scene=scenes.includes(value?.scene)?value.scene:'exterior';
  if(save.completed<4&&['crew','galley','engine','navigation'].includes(save.scene))save.scene='exterior';
  return save;
 }
 export function mergeProgress(local,stored){
- const merged={...local,readIds:[...local.readIds,...stored.readIds],finaleDone:local.finaleDone||stored.finaleDone};
+ const merged={...local,readIds:[...local.readIds,...stored.readIds],finaleDone:local.finaleDone||stored.finaleDone,launchDone:local.launchDone||stored.launchDone};
  for(const key of Object.keys(limits))merged[key]=Math.max(local[key],stored[key]);
  return normalizeProgress(merged);
 }

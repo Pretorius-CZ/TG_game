@@ -67,3 +67,23 @@
 .account-control>button {color:#cde8e6;background:#152d39;border:1px solid #41626c;border-radius:20px;padding:8px 12px;cursor:pointer}
 .account-panel {position:absolute;right:0;top:40px;width:min(320px,80vw);padding:20px;background:#10232f;border:1px solid #527381;border-radius:16px;box-shadow:0 15px 60px #000;color:#e5efed;line-height:1.5}
 .account-panel h2 {font-size:22px}.account-panel button {margin:6px 0}.account-panel p {overflow-wrap:anywhere}
+.departure-invite{margin:16px 0;padding:24px;border:1px solid #5c797e;border-radius:20px;background:linear-gradient(135deg,#173743,#0d1925)}
+.departure-invite h2{font-size:26px}.departure-invite p{line-height:1.6;color:#cee0df}.departure-invite button{margin:8px 8px 0 0}
+.departure-dialog{padding:0;width:min(100vw,520px);max-width:100vw;height:min(100dvh,924px);max-height:100dvh;border:1px solid #45616d;border-radius:18px;overflow:hidden;background:#06121d;color:#edf8f7}
+.departure-dialog::backdrop{background:#01060eee}
+.departure-cinema{position:relative;width:100%;height:100%;overflow:hidden}
+.departure-ground,.departure-flight{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity 1.4s ease,transform 6s ease}
+.departure-ground .exterior-art{position:absolute;inset:0}
+.departure-ground .fuel-hose,.departure-ground .fuel-flow{animation:disconnect-hose 2s ease forwards;transform-origin:75% 72%}
+.departure-ground .fuel-indicator{opacity:0}
+.departure-flight{opacity:0;transform:scale(1.05) translateY(4%)}
+.departure-stage-2 .departure-flight,.departure-stage-3 .departure-flight{opacity:1;transform:scale(1.14) translateY(-3%)}
+.departure-stage-2 .departure-ground,.departure-stage-3 .departure-ground{opacity:0}
+.departure-ignition{position:absolute;inset:40% -10% 25% 65%;background:radial-gradient(ellipse,#adffffaa,transparent 68%);opacity:0;transition:opacity 1s;pointer-events:none}
+.departure-stage-1 .departure-ignition{opacity:1}
+.departure-heading{position:absolute;top:0;left:0;right:0;padding:32px 24px 80px;background:linear-gradient(#071320e6,transparent)}
+.departure-heading h2{font-size:38px;margin:12px 0}.departure-heading p{color:#c8ecec}
+.departure-controls{position:absolute;bottom:0;left:0;right:0;padding:50px 24px 24px;display:grid;gap:12px;background:linear-gradient(transparent,#06121df5)}
+.departure-controls>button:not(.primary){background:transparent;border:0;color:#d1e6e6;padding:12px;cursor:pointer}
+@keyframes disconnect-hose{to{opacity:0;transform:translate(4%,5%) scale(.85)}}
+@media(prefers-reduced-motion:reduce){.departure-ground,.departure-flight,.departure-ignition{transition:none;transform:none}.departure-ground .fuel-hose,.departure-ground .fuel-flow{animation:none;opacity:0}}

@@ -33,6 +33,7 @@ export default function useProgressSave(progress,restore){
     const {data,error}=await supabase.rpc('sync_game_progress',{incoming:normalizeProgress(latest.current)}).abortSignal(AbortSignal.timeout(12000));
     if(error)throw error;
     if(data?.version!==1)throw new Error('Unsupported cloud save');
+    if(latest.current.launchDone && !data.launchDone)throw new Error('Departure migration required');
     if(!stopped){restore(current=>mergeProgress(current,normalizeProgress(data)));setCloud('saved');}
    }catch{if(!stopped)setCloud('offline');}
    finally{running=false;}

@@ -299,3 +299,7 @@ Postup správce: docs/supabase-setup.md. Živé přihlášení zatím neověřen
 2026-09-20: Uživatel dokončil nastavení Supabase a Googlu a ověřil cloudový postup mezi anonymním oknem a Chromem. Přihlášení, uložení levelu a obnovení na stejném účtu fungují. Nahrazuje předchozí poznámku o neověřeném živém přihlášení.
 
 2026-09-20: MiniGame zobrazí výhru až po dokončení všech kaskád a animací posledního tahu (busy=false). Ověřeno v prohlížeči s běžnými i omezenými animacemi, včetně výhry posledním tahem a aktivního potvrzení opravy.
+
+2026-09-20: Odlet implementován (src/Departure.jsx), po finále Launch v kokpitu, přeskočení/replay, reduced-motion, závěrečný deník a lokální launchDone. Cloud vyžaduje spuštění supabase/002_departure.sql; zatím na serveru neprovedeno. Podrobnosti docs/departure.md.
+
+2026-09-20: Uživatel potvrdil spuštění supabase/002_departure.sql. Migrace pro cloudové uložení odletu je podle jeho potvrzení nasazena; přenos odletu na druhé zařízení ještě samostatně neověřen.

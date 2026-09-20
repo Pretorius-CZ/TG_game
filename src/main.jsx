@@ -1,3 +1,5 @@
+import Departure from './Departure.jsx';
+import {departureLog} from './departure.js';
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './style.css';
@@ -38,7 +40,8 @@ function App() {
   const {user}=useAccount();
   const [progress,setProgress]=useState(()=>initialProgress(user?.id));
   const saveStatus=useProgressSave(progress,setProgress);
-  const {finaleDone,scene,readIds,completed,crewCompleted,galleyCompleted,engineCompleted,airlockCompleted,exteriorCompleted,navigationCompleted}=progress;
+  const [launching,setLaunching]=useState(false);
+  const {launchDone,finaleDone,scene,readIds,completed,crewCompleted,galleyCompleted,engineCompleted,airlockCompleted,exteriorCompleted,navigationCompleted}=progress;
   const setter=key=>value=>setProgress(previous=>({...previous,[key]:typeof value==='function'?value(previous[key]):value}));
   const setFinaleDone=setter('finaleDone'),setScene=setter('scene'),setReadIds=setter('readIds'),setCompleted=setter('completed'),setCrewCompleted=setter('crewCompleted'),setGalleyCompleted=setter('galleyCompleted'),setEngineCompleted=setter('engineCompleted'),setAirlockCompleted=setter('airlockCompleted'),setExteriorCompleted=setter('exteriorCompleted'),setNavigationCompleted=setter('navigationCompleted');
   const [mapOpen,setMapOpen]=useState(false);
@@ -75,7 +78,7 @@ function App() {
   const allSystemsReady=readiness.every(r=>r.ready);
   const nextSystem=readiness.find(r=>!r.ready);
   const allRoomsDone=crewCompleted===4&&galleyCompleted===4&&engineCompleted===5;
-  const archive = [...logEntries.map(e=>({...e,available:e.unlockAt<=completed})),...crewLogs.map(e=>({...e,available:e.unlockAt<=crewCompleted,unlockAt:e.unlockAt+4})),...galleyLogs.map(e=>({...e,available:e.unlockAt<=galleyCompleted,unlockAt:e.unlockAt+8})),...engineLogs.map(e=>({...e,available:e.unlockAt<=engineCompleted,unlockAt:e.unlockAt+12})),...airlockLogs.map(e=>({...e,available:e.unlockAt<=airlockCompleted,unlockAt:e.unlockAt+17})),...exteriorLogs.map(e=>({...e,available:e.unlockAt<=exteriorCompleted,unlockAt:e.unlockAt+24})),...navigationLogs.map(e=>({...e,available:e.unlockAt<=navigationCompleted,unlockAt:e.unlockAt+20}))];
+  const archive = [{...departureLog,available:launchDone},...logEntries.map(e=>({...e,available:e.unlockAt<=completed})),...crewLogs.map(e=>({...e,available:e.unlockAt<=crewCompleted,unlockAt:e.unlockAt+4})),...galleyLogs.map(e=>({...e,available:e.unlockAt<=galleyCompleted,unlockAt:e.unlockAt+8})),...engineLogs.map(e=>({...e,available:e.unlockAt<=engineCompleted,unlockAt:e.unlockAt+12})),...airlockLogs.map(e=>({...e,available:e.unlockAt<=airlockCompleted,unlockAt:e.unlockAt+17})),...exteriorLogs.map(e=>({...e,available:e.unlockAt<=exteriorCompleted,unlockAt:e.unlockAt+24})),...navigationLogs.map(e=>({...e,available:e.unlockAt<=navigationCompleted,unlockAt:e.unlockAt+20}))];
   // Each room owns its completion; corridor lighting never follows total repair count.
   const completedRoomIds = [...finishedRoomIds(completed),...(crewCompleted===4?['crew-quarters']:[]),...(galleyCompleted===4?['galley']:[]),...(engineCompleted===5?['engine-room']:[])];
   const finished = completed === repairs.length;
@@ -147,6 +150,7 @@ function App() {
         <button className="primary" onClick={() => setCelebration(null)}>Continue <span>→</span></button>
       </div>}
       <div className="scene-bottom scene-caption" role="status">{corridor ? (finished?'Tap a doorway to explore.':'Restore the cockpit to unlock these doors.') : inside ? (finished ? (finaleDone?'Launch check complete. Chapter one restored.':allSystemsReady?'All systems ready. Activate the launch controls.':'Navigation console online. Explore the ship at your own pace.') : `${completed}/4 systems online · Tap the highlighted device.`) : 'Tap the hatch to board the ship.'}</div>
+      {inside&&finaleDone&&!celebration&&<button className="hotspot" style={{left:'35%',top:'57%'}} onClick={()=>setLaunching(true)}><span className="target">✦</span><span className="hotspot-label">{launchDone?'Replay departure':'Launch'}</span></button>}
       {inside&&allSystemsReady&&!finaleDone&&!celebration&&<button className="hotspot" style={{left:'35%',top:'57%'}} aria-label="Start final launch challenge" onClick={()=>setPlaying(finaleRepair)}><span className="target">✦</span><span className="hotspot-label">Launch check · HARD</span></button>}
       <div className="curtain" aria-hidden="true"/>
       {!loaded && <div className="loading" role="status">{error ? <><p>The scene could not be loaded.</p><button className="primary" onClick={() => setAttempt(a => a + 1)}>Try again</button></> : 'Preparing the landing site…'}</div>}
@@ -154,6 +158,8 @@ function App() {
     </>}
     </div>
     {mapOpen&&<div className="ship-map-backdrop" onClick={()=>setMapOpen(false)}><dialog ref={mapDialog} className="ship-map" onCancel={()=>setMapOpen(false)} aria-label="Ship map" onClick={e=>e.stopPropagation()}><button className="close" autoFocus onClick={()=>setMapOpen(false)}>×</button><h2>Ship map</h2><div className="readiness-list">{readiness.map(r=><button key={r.id} disabled={r.id!=='cockpit'&&!finished} data-system={r.id} data-ready={r.ready} onClick={()=>{setMapOpen(false);goTo(r.id);}}><span>{r.ready?'✓':'○'} {r.name}</span><b>{r.completed}/{r.total}</b></button>)}</div><button className="primary" onClick={()=>{setMapOpen(false);goTo('exterior');}}>View ship</button></dialog></div>}
+    {finaleDone&&!launching&&<section className="departure-invite"><span className="eyebrow">{launchDone?'CHAPTER ONE COMPLETE':'ALL SYSTEMS READY'}</span><h2>{launchDone?'Beyond the distress signal':'Your ship is ready to fly.'}</h2><p>{launchDone?'The signal leads onward. Chapter two is coming next. You can revisit your restored ship.':'Repairs complete. Tanks full. A voice among the stars is waiting.'}</p><button className="primary" onClick={()=>setLaunching(true)}>{launchDone?'Replay departure':'Launch'} →</button>{launchDone&&<button onClick={()=>setLogView({id:departureLog.id})}>Read departure log</button>}</section>}
+    {launching&&<Departure onClose={()=>setLaunching(false)} onComplete={()=>{setProgress(current=>({...current,launchDone:true}));setLaunching(false);setLogView({id:departureLog.id});}}/>}
     <AudioControls/>
     <footer><span>01 — A SHIP THAT WILL FLY AGAIN</span><span role="status">{saveStatus.local==='unavailable'?'Device saving unavailable':saveStatus.local==='unsupported'?'Save from a newer version — update the game':saveStatus.cloud==='saved'?'Progress saved online':saveStatus.cloud==='syncing'?'Syncing progress…':saveStatus.cloud==='offline'?'Cloud unavailable — saved locally; retrying':saveStatus.local==='saved'?'Progress saved on this device':saveStatus.local==='unsupported'?'Save from a newer version — update the game':'Saving unavailable — progress may be lost'}</span></footer>
     <dialog ref={dialog} aria-labelledby="repair-title" onClose={() => opener.current?.focus()} onClick={e => {if(e.target === dialog.current) closeRepair();}}><div className="repair-panel"><button className="close" aria-label="Close" onClick={closeRepair}>×</button><span className="eyebrow">CHAPTER 01 / COCKPIT</span>
