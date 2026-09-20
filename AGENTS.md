@@ -284,3 +284,16 @@ Footer zobrazuje stav uložení, chyby nejsou vydávané za úspěch.
 Validace a sloučení vyššího postupu při souběhu karet. Přihlášení/cloud
 stále nejsou implementované. Nápad na odměňovanou reklamu za nápovědu
 zapsán v decisions-log; současná nápověda zdarma se nemění.
+
+2026-09-20: Aktuální roadmapa pokračování je docs/roadmap-next.md.
+Pouze plán, bez implementace: vyhodnocení testerů, přihlášení/cloudové
+ukládání, odlet, speciální kameny, malá druhá kapitola, dobrovolné reklamy,
+později Android. Podrobné návrhy nejsou automaticky schválené funkce.
+
+## 2026-09-20 — Supabase připojení připravené
+Přidán Google OAuth klient a oddělené místní kopie účtů; hosta lze výslovně importovat.
+Cloud slučuje opravy/deník/finále přes atomickou SQL funkci. Energie zůstává místní.
+Nastavení serveru ještě vyžaduje spuštění supabase/001_game_progress.sql a Google provider.
+Postup správce: docs/supabase-setup.md. Živé přihlášení zatím neověřeno.
+
+2026-09-20: Uživatel dokončil nastavení Supabase a Googlu a ověřil cloudový postup mezi anonymním oknem a Chromem. Přihlášení, uložení levelu a obnovení na stejném účtu fungují. Nahrazuje předchozí poznámku o neověřeném živém přihlášení.

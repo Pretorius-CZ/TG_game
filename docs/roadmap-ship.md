@@ -218,3 +218,10 @@ HARD levelu (8): rozbíjí se sousedním spojením, pak lze spojit uvolněný k�
 Finále až po všech 25 opravách: 70 kamenů / 18 tahů, výhra i po rozbití všeho
 ledu. Odletová animace zbývá. Supabase/ukládání uživatel výslovně odložil
 na konec po designu a logice. Podrobnosti docs/levels-and-finale.md.
+
+## Aktuální plán pokračování (2026-09-20)
+
+Viz docs/roadmap-next.md: testování → účet/cloud → odlet → speciální kameny
+→ první celek další kapitoly → dobrovolné reklamy → samostatná mobilní app.
+Současný stav: 28 oprav, místní ukládání, venkovní tankování; starší počty
+oprav a poznámky o chybějícím místním ukládání výše jsou historické.

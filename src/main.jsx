@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './style.css';
 import useProgressSave,{initialProgress} from './useProgressSave.js';
+import {AccountProvider,AccountButton,useAccount} from './Account.jsx';
+import {mergeProgress} from './progressStorage.js';
 import {finaleRepair} from './levelRules.js';
 import {LivesProvider,LivesBar} from './Lives.jsx';
 import MiniGame from './MiniGame';
@@ -33,7 +35,8 @@ function SceneArt({inside,airlock,completed,airlockCompleted}) {
 function finishedRoomIds(cockpitRepairs) { return cockpitRepairs === repairs.length ? ['cockpit'] : []; }
 function App() {
   useEffect(mountAudio, []);
-  const [progress,setProgress]=useState(initialProgress);
+  const {user}=useAccount();
+  const [progress,setProgress]=useState(()=>initialProgress(user?.id));
   const saveStatus=useProgressSave(progress,setProgress);
   const {finaleDone,scene,readIds,completed,crewCompleted,galleyCompleted,engineCompleted,airlockCompleted,exteriorCompleted,navigationCompleted}=progress;
   const setter=key=>value=>setProgress(previous=>({...previous,[key]:typeof value==='function'?value(previous[key]):value}));
@@ -120,7 +123,7 @@ function App() {
   }
 
   return <main className="shell">
-    <header className="masthead"><a className="brand" href="#" onClick={e => {e.preventDefault(); goTo(navigation?'cockpit':airlockWork?'airlock':crew || galley || engine ? 'corridor' : inside || corridor ? 'airlock' : 'exterior');}}><span className="brand-mark">✦</span> TO THE STARS</a><span className="prototype">PLAYABLE PROTOTYPE <i/></span></header>
+    <header className="masthead"><a className="brand" href="#" onClick={e => {e.preventDefault(); goTo(navigation?'cockpit':airlockWork?'airlock':crew || galley || engine ? 'corridor' : inside || corridor ? 'airlock' : 'exterior');}}><span className="brand-mark">✦</span> TO THE STARS</a><AccountButton onImport={()=>setProgress(current=>mergeProgress(current,initialProgress()))}/></header>
     <div className="play-area"><nav className="scene-tools" aria-label="Scene controls"><button aria-label="Go back" disabled={transition} onClick={()=>goTo(navigation?'cockpit':airlockWork?'airlock':crew||galley||engine?'corridor':inside||corridor?'airlock':airlock?'exterior':'airlock')}>←</button><button aria-label="Open ship map" onClick={()=>setMapOpen(true)}>▦</button><button aria-label="Open ship log" onClick={e=>openLog(e)}>▤</button></nav><div className="scene-lives"><LivesBar/></div>
     {crew || galley || engine || airlock || airlockWork || navigation || exterior ? <CrewQuarters key={scene} room={airlock||airlockWork?'airlock':scene} repairsUnlocked={finished} engineCompleted={engineCompleted} onNavigate={goTo} completed={exterior?exteriorCompleted:navigation?navigationCompleted:airlock||airlockWork?airlockCompleted:engine?engineCompleted:galley?galleyCompleted:crewCompleted} onCompleted={exterior?setExteriorCompleted:navigation?setNavigationCompleted:airlock||airlockWork?setAirlockCompleted:engine?setEngineCompleted:galley?setGalleyCompleted:setCrewCompleted} onBack={()=>goTo(navigation?'cockpit':airlockWork?'airlock':'corridor')} exteriorView={<ExteriorArt cockpit={completed} completed={exteriorCompleted} seals={airlockCompleted===3} antenna={navigationCompleted>0}/>} onLog={id=>setLogView({id})}/> : <>
     <section ref={sceneRef} className={`game ${bubble != null ? 'story-open' : ''} ${corridor ? 'corridor' : airlock ? 'airlock' : inside ? 'inside' : 'outside'} ${celebration ? 'show-repair' : ''} ${transition ? 'travel' : ''}`} aria-label="Chapter one: the damaged ship" aria-busy={transition}>
@@ -152,7 +155,7 @@ function App() {
     </div>
     {mapOpen&&<div className="ship-map-backdrop" onClick={()=>setMapOpen(false)}><dialog ref={mapDialog} className="ship-map" onCancel={()=>setMapOpen(false)} aria-label="Ship map" onClick={e=>e.stopPropagation()}><button className="close" autoFocus onClick={()=>setMapOpen(false)}>×</button><h2>Ship map</h2><div className="readiness-list">{readiness.map(r=><button key={r.id} disabled={r.id!=='cockpit'&&!finished} data-system={r.id} data-ready={r.ready} onClick={()=>{setMapOpen(false);goTo(r.id);}}><span>{r.ready?'✓':'○'} {r.name}</span><b>{r.completed}/{r.total}</b></button>)}</div><button className="primary" onClick={()=>{setMapOpen(false);goTo('exterior');}}>View ship</button></dialog></div>}
     <AudioControls/>
-    <footer><span>01 — A SHIP THAT WILL FLY AGAIN</span><span role="status">{saveStatus==='saved'?'Progress saved on this device':saveStatus==='unsupported'?'Save from a newer version — update the game':'Saving unavailable — progress may be lost'}</span></footer>
+    <footer><span>01 — A SHIP THAT WILL FLY AGAIN</span><span role="status">{saveStatus.local==='unavailable'?'Device saving unavailable':saveStatus.local==='unsupported'?'Save from a newer version — update the game':saveStatus.cloud==='saved'?'Progress saved online':saveStatus.cloud==='syncing'?'Syncing progress…':saveStatus.cloud==='offline'?'Cloud unavailable — saved locally; retrying':saveStatus.local==='saved'?'Progress saved on this device':saveStatus.local==='unsupported'?'Save from a newer version — update the game':'Saving unavailable — progress may be lost'}</span></footer>
     <dialog ref={dialog} aria-labelledby="repair-title" onClose={() => opener.current?.focus()} onClick={e => {if(e.target === dialog.current) closeRepair();}}><div className="repair-panel"><button className="close" aria-label="Close" onClick={closeRepair}>×</button><span className="eyebrow">CHAPTER 01 / COCKPIT</span>
       {showList ? <><h2 id="repair-title">Four steps to life.</h2><p>Repair these systems in order. This is just the first stage of restoring the whole ship.</p><ol className="repair-list">{repairs.map((repair, i) => <li key={repair.id}><button onClick={e => openRepair(e, i)}><span className={`repair-badge ${repairState(i,completed)}`}>{i < completed ? '✓' : i + 1}</span><span><strong>{repair.name}</strong><small>{repairState(i,completed) === 'complete' ? 'Restored · view or replay' : i === completed ? 'Ready to repair' : `Requires ${repairs[i - 1].name.toLowerCase()}`}</small></span><span>→</span></button></li>)}</ol><div className="demo-note">After the cockpit: hull, living quarters, supplies, navigation, fuel and engines. Departure comes at the end of the ship chapter.</div></> : <>
         <div className="repair-symbol">{detail.icon}</div><h2 id="repair-title">{detail.name}</h2><p>{detailState === 'complete' ? detail.result : detail.description}</p>
@@ -167,4 +170,4 @@ function App() {
     <span className="sr-only" role="status" aria-live="polite">{corridor ? 'Inside the corridor. Emergency lighting only.' : airlock ? 'Inside the airlock.' : inside ? 'Inside the cockpit.' : 'Outside the damaged ship.'} {completed} of {repairs.length} cockpit repairs complete.</span>
   </main>;
 }
-createRoot(document.getElementById('root')).render(<LivesProvider><App/></LivesProvider>);
+createRoot(document.getElementById('root')).render(<LivesProvider><AccountProvider><App/></AccountProvider></LivesProvider>);
