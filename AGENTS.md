@@ -297,3 +297,5 @@ Nastavení serveru ještě vyžaduje spuštění supabase/001_game_progress.sql 
 Postup správce: docs/supabase-setup.md. Živé přihlášení zatím neověřeno.
 
 2026-09-20: Uživatel dokončil nastavení Supabase a Googlu a ověřil cloudový postup mezi anonymním oknem a Chromem. Přihlášení, uložení levelu a obnovení na stejném účtu fungují. Nahrazuje předchozí poznámku o neověřeném živém přihlášení.
+
+2026-09-20: MiniGame zobrazí výhru až po dokončení všech kaskád a animací posledního tahu (busy=false). Ověřeno v prohlížeči s běžnými i omezenými animacemi, včetně výhry posledním tahem a aktivního potvrzení opravy.

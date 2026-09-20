@@ -32,7 +32,8 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   const alive = useRef(true);
   const pointer = useRef(null);
   const suppressClick = useRef(false);
-  const won = score >= repair.target && ice.length===0;
+  // Keep the board visible until the entire cascade and its animations settle.
+  const won = score >= repair.target && ice.length===0 && !busy;
   const exhausted=moves>=limit&&!won&&!busy;
   useEffect(()=>{if(exhausted&&!spent.current){spent.current=true;lives.spend();}},[exhausted]);
   function leave(){if(moves>0&&!won&&!spent.current){spent.current=true;lives.spend();}onQuit();}
