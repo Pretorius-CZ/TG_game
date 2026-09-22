@@ -33,9 +33,9 @@ export function findMove(board, cols) {
   }
   return null;
 }
-export function makeBoard(level = tutorial, random = Math.random) {
+export function makeBoard(level = tutorial, random = Math.random, maxAttempts = 1000) {
   const mask = level.mask ?? Array(level.rows * level.cols).fill(true);
-  for (let attempt = 0; attempt < 1000; attempt++) {
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
     const board = mask.map(() => null);
     for (let i = 0; i < board.length; i++) {
       if (!mask[i]) continue;

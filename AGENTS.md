@@ -303,3 +303,7 @@ Postup správce: docs/supabase-setup.md. Živé přihlášení zatím neověřen
 2026-09-20: Odlet implementován (src/Departure.jsx), po finále Launch v kokpitu, přeskočení/replay, reduced-motion, závěrečný deník a lokální launchDone. Cloud vyžaduje spuštění supabase/002_departure.sql; zatím na serveru neprovedeno. Podrobnosti docs/departure.md.
 
 2026-09-20: Uživatel potvrdil spuštění supabase/002_departure.sql. Migrace pro cloudové uložení odletu je podle jeho potvrzení nasazena; přenos odletu na druhé zařízení ještě samostatně neověřen.
+
+2026-09-22: Odlet nově animuje zatažení antény před zážehem, čímž navazuje na letovou grafiku bez antény. Běžný exteriér beze změny.
+
+2026-09-22: Bezpečná obnova MiniGame: Recalibrating board před obnovou bez platného tahu, sdílený limit 128 generování, pojistka 40 kaskád / 60 s aktivní karty. Chyba generování/vyhodnocení nabízí restart a návrat bez odečtu energie; neprovádí se předčasná prohra podle šance na splnění cíle. Poslední tah se vyhodnotí až po kaskádách.

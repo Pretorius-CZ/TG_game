@@ -13,7 +13,7 @@ export default function ExteriorArt({cockpit=0,completed=0,seals=false,antenna=f
     <mask id={`${id}-antenna`} maskUnits="userSpaceOnUse" x="0" y="0" width="941" height="1672"><path d="M365 658H463V755L445 768L397 753Z" fill="white" filter={`url(#${id}-edge)`}/></mask>
     <mask id={`${id}-hatch`} maskUnits="userSpaceOnUse" x="0" y="0" width="941" height="1672"><rect x="430" y="835" width="72" height="136" rx="8" fill="white" filter={`url(#${id}-edge)`}/></mask>
    </defs>
-   {antenna&&<image href="./scenes/exterior-antenna-source.webp" width="941" height="1672" mask={`url(#${id}-antenna)`}/>}
+   {antenna&&<g className="ship-antenna"><image href="./scenes/exterior-antenna-source.webp" width="941" height="1672" mask={`url(#${id}-antenna)`}/></g>}
    {cockpit>=4&&<image href={seals?'./scenes/exterior-sealed.webp':'./scenes/exterior-cockpit-lit.webp'} width="941" height="1672" mask={`url(#${id}-hatch)`}/>}
   </svg>
   <FuelDepot fueled={completed>=4}/>

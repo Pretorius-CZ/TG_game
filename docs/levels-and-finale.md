@@ -82,3 +82,6 @@ Finále má osm krytů, 70 kamenů a 48 tahů (nahrazuje původních 18).
 Simulace 100 her na level jednoduchým chamtivým automatem: třetí opravy
 76–88 %, samostatná simulace finále 57 %. Jde o orientační HARD obtížnost,
 nikoli lidskou úspěšnost nebo garanci řešení; dále ověřovat hraním.
+
+## Bezpečná obnova (2026-09-22)
+Při chybějícím platném tahu a zbývajících tazích se zobrazí Recalibrating board a zdarma obnoví deska. Skóre, tahy a zbývající kryty zůstávají. Generování má nejvýše 128 pokusů. Výjimka, 40 navazujících kaskád nebo 60 sekund vyhodnocování v aktivní kartě otevře Board recovery needed. Restart i návrat jsou bez nového odečtu energie; restart začne celý level znovu. Již odečtená energie za předchozí prohru se nevrací. Skrytá karta se do časové pojistky nepočítá. Po posledním tahu se zbytečně nemíchá deska; nejdřív doběhne kaskáda, pak výhra/prohra. Nejde o záruku výhry každého náhodného pokusu.

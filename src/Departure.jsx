@@ -1,7 +1,7 @@
 import React,{useEffect,useRef,useState} from 'react';
 import ExteriorArt from './ExteriorArt.jsx';
 import {sound} from './audio.js';
-const captions=['Disconnecting fuel line','Engines online','Leaving the surface','Following the signal'];
+const captions=['Retracting antenna · disconnecting fuel line','Engines online','Leaving the surface','Following the signal'];
 export default function Departure({onComplete,onClose}){
  const dialog=useRef(null),[stage,setStage]=useState(0),[ready,setReady]=useState(false),[error,setError]=useState(false);
  const complete=useRef(onComplete);complete.current=onComplete;
@@ -15,7 +15,7 @@ export default function Departure({onComplete,onClose}){
   return()=>timers.forEach(clearTimeout);
  },[ready]);
  return <dialog ref={dialog} className="departure-dialog" aria-label="Ship departure" onCancel={e=>{e.preventDefault();onClose();}}>
- <div className={`departure-cinema departure-stage-${stage}`}>
+ <div className={`departure-cinema departure-stage-${stage} ${ready?'departure-ready':' '}`}>
  <div className="departure-ground"><ExteriorArt cockpit={4} completed={4} seals antenna/></div>
  <img className="departure-flight" src="./scenes/departure-flight.webp" alt="The repaired supply ship lifting off with blue engine trails" onLoad={()=>setReady(true)} onError={()=>setError(true)}/>
  <div className="departure-ignition" aria-hidden="true"/>
@@ -23,4 +23,3 @@ export default function Departure({onComplete,onClose}){
  <div className="departure-controls"><button className="primary" onClick={onComplete}>Skip departure →</button><button onClick={onClose}>Back to ship</button></div>
  </div></dialog>;
 }
-

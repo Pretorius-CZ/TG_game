@@ -18,7 +18,14 @@ export function resolveIce(board,cleared,ice,level,random=Math.random){
 }
 export const finaleRepair={id:'launch-check',room:'FINAL CHALLENGE',name:'Launch sequence',icon:'✦',lesson:'One last push',thought:'The ship is repaired. Clear the sealed launch relays and bring every system into sync.',objective:'Break all 8 protective covers and match 70 pieces in 48 moves.',target:70,targetType:null,moves:48,ice:[16,18,22,26,29,33,37,39],action:'Complete the launch check',level:{rows:8,cols:7,types:6}};
 
-export function makeIceBoard(level,ice=[],random=Math.random){for(let n=0;n<1000;n++){const board=makeBoard(level,random);if(iceMove(board,level.cols,ice))return board;}throw new Error('No playable board with this ice layout.');}
+export function makeIceBoard(level,ice=[],random=Math.random){
+ // One shared bounded budget, not nested thousand-attempt loops.
+ for(let n=0;n<128;n++){
+  let board;try{board=makeBoard(level,random,1);}catch{continue;}
+  if(iceMove(board,level.cols,ice))return board;
+ }
+ throw new Error('No playable board with this cover layout.');
+}
 
 
 // Recover only settled dead boards; callers retain score, moves and covers.

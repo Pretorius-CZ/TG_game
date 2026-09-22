@@ -12,3 +12,5 @@ Vestavěný imagegen, reference public/scenes/exterior-gear.webp. Zdroj public/s
 Prompt: Create a polished portrait 9:16 game cinematic frame of THIS EXACT repaired white orange supply spaceship lifting off, same cockpit nose left and two engine pods on right, consistent painted realistic sci-fi game style and same planet and purple night sky. Ship airborne high above rocky landing site, nose angled slightly upward left, landing legs retracted, engines emit long brilliant cyan blue exhaust streaming down-right, atmospheric dust low below ship. Compact integrated communications antenna, sealed hatch, cockpit warm lit. Ship centered at 48% image height with generous starry sky above and dark landscape below for UI. No text no UI. Preserve recognizable ship design. Dramatic hopeful departure.
 
 Stav 2026-09-20: uživatel potvrdil spuštění migrace 002 v Supabase. Samostatný test odletu mezi zařízeními zbývá.
+
+2026-09-22: Před zážehem se anténa zasune do střešního uchycení během 1,9 s, souběžně s odpojením hadice. Animace pouze ve scéně odletu a až po načtení letového záběru; běžný exteriér zachovává vztyčenou anténu. Při reduced-motion se anténa skryje bez pohybu.
