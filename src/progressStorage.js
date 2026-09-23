@@ -12,7 +12,7 @@ const groups={completed:logEntries,crewCompleted:crewLogs,galleyCompleted:galley
 const limits={completed:4,crewCompleted:4,galleyCompleted:4,engineCompleted:5,airlockCompleted:3,navigationCompleted:4,exteriorCompleted:4};
 const scenes=['exterior','airlock','cockpit','corridor','crew','galley','engine','navigation'];
 export function normalizeProgress(value={}){
- const save={version:1};
+ const save={version:1,resetRevision:Number.isSafeInteger(value?.resetRevision)&&value.resetRevision>=0?value.resetRevision:0};
  for(const [key,max] of Object.entries(limits))save[key]=Number.isInteger(value?.[key])?Math.max(0,Math.min(max,value[key])):0;
  if(save.completed<4)for(const key of Object.keys(limits))if(key!=='completed')save[key]=0;
  if(save.engineCompleted<2)save.exteriorCompleted=Math.min(3,save.exteriorCompleted);
@@ -26,6 +26,7 @@ export function normalizeProgress(value={}){
  return save;
 }
 export function mergeProgress(local,stored){
+ if((local.resetRevision??0)!==(stored.resetRevision??0))return normalizeProgress((local.resetRevision??0)>(stored.resetRevision??0)?local:stored);
  const merged={...local,readIds:[...local.readIds,...stored.readIds],finaleDone:local.finaleDone||stored.finaleDone,launchDone:local.launchDone||stored.launchDone};
  for(const key of Object.keys(limits))merged[key]=Math.max(local[key],stored[key]);
  return normalizeProgress(merged);

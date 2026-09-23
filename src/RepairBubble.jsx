@@ -1,3 +1,4 @@
+import {boostersEnabled} from './boosters.js';
 import {moveBudget,initialIce} from './levelRules.js';
 import React, { useLayoutEffect, useRef } from 'react';
 
@@ -27,6 +28,7 @@ export default function RepairBubble({ repair, replay, sceneRef, onClose, onPlay
       <h2 id="bubble-title">{repair.name}</h2>
       <p id="bubble-story">{replay ? 'This system is already restored. A little more practice before the next repair?' : repair.thought}</p>
       <div className="bubble-objective">{repair.objective}<br/>{moveBudget(repair)} moves{initialIce(repair).length?` · ${initialIce(repair).length} protective covers`:null}</div>
+      {boostersEnabled(repair)&&<p className="booster-guide">Make 4 in a line or a T/L for a Pulse charge. Make 5 in a line for a Nova cross. Tap a charge to fire it for one move.</p>}
       <button className="primary" onClick={onPlay}>{replay ? 'Replay lesson' : 'Play'} <span>→</span></button>
       {import.meta.env.DEV&&onComplete&&!replay&&<button className="preview-complete" onClick={onComplete}>✓ Complete level <small>Preview · skip match-3</small></button>}
     </div>

@@ -307,3 +307,14 @@ Postup správce: docs/supabase-setup.md. Živé přihlášení zatím neověřen
 2026-09-22: Odlet nově animuje zatažení antény před zážehem, čímž navazuje na letovou grafiku bez antény. Běžný exteriér beze změny.
 
 2026-09-22: Bezpečná obnova MiniGame: Recalibrating board před obnovou bez platného tahu, sdílený limit 128 generování, pojistka 40 kaskád / 60 s aktivní karty. Chyba generování/vyhodnocení nabízí restart a návrat bez odečtu energie; neprovádí se předčasná prohra podle šance na splnění cíle. Poslední tah se vyhodnotí až po kaskádách.
+
+2026-09-22: Restart game v nabídce účtu s potvrzením. Host lokálně, účet přes reset RPC; resetRevision chrání před obnovou starým zařízením. Obnoví 5 místních energií, zachová přihlášení/zvuk a ostatní profily. Vyžaduje novou migraci supabase/003_restart_game.sql, zatím neprovedena. Viz docs/restart-game.md.
+
+2026-09-23: Nabídka účtu přejmenována na Settings i pro hosta; Restart entire game je výrazné první tlačítko panelu. Potvrzení stále nutné. Restart a oprava viditelnosti Replay jsou dosud lokální; migrace 003 dosud uživatelem nepotvrzena.
+
+2026-09-23: Pilot obtížnosti v ubikacích: cíle barev, dva současné cíle ve filtrech a obytném modulu, kryty od třetí opravy (4/6), limity 17/17/23/26. MiniGame podporuje goals přes src/objectives.js, ostatní levely zachovány. Speciální nálože zatím odložené. Simulace scripts/balance-crew.mjs a výsledky docs/crew-balance.md. Dokončený postup se nemění, testovat přes Replay. Změny lokální.
+
+2026-09-23: Nálože implementované mimo úvodní kokpit: 4 nebo T/L → Pulse 3×3, 5+ → Nova řádek/sloupec. Tap za tah, řetězení zdarma, kryty se pouze rozbijí, nálože jsou platná akce proti obnově desky. Src/boosters.js. Ubikace přitvrzeny na 15/15/18/20 tahů, cíle 21 krystalů / 18+18 / 24 krystalů+4 kryty / 24+24+6 krytů. Simulace s náložemi: cílený automat 82/80/74/55 %, 300 pokusů. Ostatní místnosti nové limity zatím nemají. 44 testů; mobilní vznik, aktivace posledním tahem a výhra po kaskádách ověřeny pro běžné i omezené animace. Lokální, bez pushe.
+`n2026-09-23: Další jemné přitvrzení ubikací: limity 14/14/17/19, cíle i boosty zachovány. Stejná simulace 300 pokusů: cílený automat 72/69/65/49 % (dříve 82/80/74/55 %). Podrobnosti docs/crew-balance.md. Build ověřen, změny lokální.
+
+2026-09-23: MiniGame má SVG/CSS exploze Pulse a Nova včetně řetězených náloží. Efekty před pádem kamenů, vyčištění při chybě/retry, reduced-motion respektován. Build a mobilní aktivace posledním tahem ověřeny. Lokální změny.

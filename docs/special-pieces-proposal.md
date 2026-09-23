@@ -1,3 +1,27 @@
+# Speciální kameny — implementace 2026-09-23
+
+Uživatel schválil zavedení boosterů a další přitvrzení. Následující pravidla
+nahrazují původní návrh níže:
+
+- 4 v řadě nebo T/L: Pulse charge, exploze 3 × 3.
+- 5 a více v řadě: Nova cross, celý řádek a sloupec.
+- Jedno propojené spojení vytvoří jednu nálož. Přednost má cílové políčko
+  přesunu, pak výchozí; kaskády používají deterministické pořadí.
+- Nálož se nepřesouvá ani nespojuje jako barva, aktivuje se klepnutím za tah.
+  Zasažené nálože spustí řetěz bez dalších tahů. Každé pole se započte jednou
+  v rámci stejné exploze. Díry se zachovají, Nova zasáhne i část za dírou.
+- Kryt praskne, kámen zůstane; další kaskáda jej již může běžně sebrat.
+- Kámen přeměněný na nálož se při vytvoření nepočítá do barevného cíle.
+  Samotné nálože se nepočítají do sběru kamenů, jejich zásahy ano.
+- Výhra i vyčerpání tahů čekají na dokončení celé reakce. Dostupná nálož
+  brání zbytečné obnově desky bez tahu. Retry vytvoří čistou desku.
+- Kokpit bez náloží; ostatní úkoly včetně finále s náložemi. Návod je
+  v úvodní bublině i minihře, nezávisle na pořadí návštěv místností.
+- Implementace src/boosters.js, testy tests/boosters.test.js.
+  Nové vyvážení zatím pouze ubikace, viz docs/crew-balance.md.
+
+## Archiv původního návrhu
+
 # Speciální kameny — návrh 2026-09-19
 
 Návrh k odsouhlasení, zatím není implementovaný. Týká se miniher
@@ -37,3 +61,5 @@ s možností odpálit nálož, aby se deska zbytečně neobnovovala.
    energii/čas obnovy a verzi uložených dat. Konkrétní přihlášení vybrat
    podle webu/Telegramu; Telegram ověřovat na backendu.
 3. Až potom další levely a kapitoly.
+
+2026-09-23: Vizuální efekty boosterů: Pulse má rozpínající se kruhy, jiskry a rozsvícení zasažených polí; Nova výboj přes řádek/sloupec. Každá nálož v řetězci má vlastní efekt. SVG vrstva neblokuje dotyk, animace trvá 620 ms před doplněním desky; reduced-motion bez prodlevy a pohybu. Herní pravidla a limity beze změn.
