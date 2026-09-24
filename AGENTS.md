@@ -326,3 +326,16 @@ Uživatel po pushi ffb0b02 potvrdil provedení supabase/003_restart_game.sql bez
 2026-09-24: Na přání uživatele rozšířen obsah bez ladění obtížnosti: Icebound Relay a Drifting Archive, každá 6 miniher, 6 zápisů, dvě vlastní generované scény a obrazové opravy. Odemknuté po skeneru, pořadí volné. Obě 6/6 odhalí Haven a společný deník; stanice ještě nehratelná. Src/destinations.js, sdílené Exploration.jsx, docs/planet-expeditions.md. Zásilky z nových lokací: energie/data a materiál/data, replay je neduplikuje. Ukládání iceCompleted/wreckCompleted, SQL005 zahrnuje004; živé provedení nepotvrzené. Lokální změny.
 
 Ověření dvou expedic: 50 testů a build prošly. Mobilní průchod ice→wreck i wreck→ice přes preview, všech 12 miniher/krytů/deníků, Haven až po obou, reload a replay ověřeny; mapa 320/390 px bez překryvu. SQL005 na serveru dosud nepotvrzené.
+
+2026-09-24 — Haven a brána mezi soustavami implementované. Šest oprav
+(dok, energie, prstenec, propojení, souřadnice, HARD stabilizace), dvě nové
+generované scény, postupné proměny, šest deníků, průlet a deník příletu.
+Odemčení po ice6/wreck6; pevné zásilky použity jednou, opakované průlety
+zdarma. Mapa Aster Veil s návratem do Haven; její planetární mise jsou
+zatím Coming next. Save havenCompleted/jumpDone, reset a validace rozšířené.
+Cloud vyžaduje SQL006 (zahrnuje004/005), na serveru zatím nepotvrzené.
+Podrobnosti docs/haven-gate.md. Lokální změny, zatím bez pushe.
+Ověřeno 54 testů, build a izolovaný mobilní průchod všech šesti úkolů,
+průlet (cancel/skip/automat/reduced-motion), návrat a reload. Opravená
+klikatelnost tlačítek v scene-caption; mapy 320/390 bez překryvu ovládání.
+2026-09-24: GateTransit nově perspektivní Canvas warp (~7 s): nabití, hvězdné stopy, zpomalení. Bez kreslené lodičky. Skip/cancel a reduced-motion zachovány; lokální náhled, bez pushe.

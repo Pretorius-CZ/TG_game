@@ -180,3 +180,29 @@ button.planet-node:hover,button.planet-node:focus-visible { background:#5fd4e51c
 .expedition-replays,.expedition-replays[open]{top:82px!important}
 .expedition-replays summary{width:76px;min-height:32px;height:32px;font-size:11px}
 .mine-site .scene-top .eyebrow{font-size:7px;letter-spacing:1px}
+.haven-discovery .primary + .primary { margin-top:9px; }
+.gate-aperture { pointer-events:none;position:absolute;left:60%;width:28%;top:calc(110px + (100% - 110px)*.145);height:calc((100% - 110px)*.27);border-radius:50%;background:radial-gradient(ellipse,#c9ffffcc,#52c8e18c 42%,#15344e88 70%,#7ff5ff);box-shadow:inset 0 0 16px #d6ffff,0 0 20px #55dcff80;animation:gate-breathe 4s ease-in-out infinite alternate; }
+@keyframes gate-breathe { to { filter:brightness(1.3);opacity:.8; } }
+.aster-chart { height:870px; }
+.aster-chart .system-space { background-color:#181a34; }
+.aster-chart .system-sun { background:#d4f7ff;box-shadow:0 0 40px #88c5ff,0 0 120px #8871d766; }
+.aster-chart .origin-node { top:242px; }.aster-chart .wreck-node { top:237px; }.aster-chart .mine-node { top:370px; }.aster-chart .ice-node { top:432px; }
+.gate-planet { width:42px;height:58px;background:radial-gradient(ellipse,#142439 40%,#97f8ed 51%,#567980 60%,#1b2c3b 69%);box-shadow:0 0 16px #68bacc55; }
+.buoy-planet { width:35px;height:42px;border-radius:20%;background:linear-gradient(90deg,#82939e,#eff2d6 45%,#d8a569 53%,#314b60); }
+.fractured-planet { background:linear-gradient(115deg,#7791a5 42%,#102136 43% 49%,#a5b4bd 50%); }
+.garden-planet { width:50px;height:50px;background:radial-gradient(ellipse at 35% 25%,#adca8b,transparent 40%),linear-gradient(40deg,#2a6a89,#38726b 40%,#83a685 45%,#245567 75%); }
+/* Cinematic forward-facing warp, framed for portrait displays. */
+.transit-dialog { padding:0;width:min(100vw,560px);max-width:560px;max-height:100dvh;border:1px solid #46627a;border-radius:16px;background:#020610;color:#e7f4f8; }
+.transit-dialog::backdrop { background:#01040af5; }
+.transit-cinema { height:min(820px,94dvh);min-height:360px;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:40px 20px 24px;background:#020610; }
+.warp-field,.warp-vignette { position:absolute;inset:0;width:100%;height:100%;pointer-events:none; }
+.warp-vignette { background:linear-gradient(#020610e8,transparent 29%,transparent 62%,#020610f5),radial-gradient(ellipse,transparent 25%,#01040a88 100%); }
+.transit-copy { text-align:center;z-index:2; }.transit-copy .eyebrow { font-size:8px;letter-spacing:2.5px;color:#94bed3; }.transit-copy h2 { font:300 clamp(25px,6vw,34px)/1.2 Georgia,serif;margin:18px 0 12px;letter-spacing:.5px;text-shadow:0 2px 20px #000; }.transit-copy p { font-size:11px;color:#a0bbcd;line-height:1.6; }
+.transit-actions { z-index:2;display:flex;gap:18px;align-items:center;justify-content:center;width:100%; }.transit-actions .primary { background:#142537b3;color:#c5e7f4;border:1px solid #7595ad66;min-height:44px;padding:10px 16px;font-size:11px; }.transit-actions .keep-playing { color:#9db2c3;background:transparent;border:0;font-size:11px;min-height:44px; }
+.warp-gate { position:absolute;left:15%;top:24%;width:70%;height:46%;border-radius:50%;border:2px solid #7db6d6;box-shadow:0 0 20px #77bfff66,inset 0 0 18px #568df055;opacity:.55;transform:scale(.68);animation:warp-entry 2.6s cubic-bezier(.55,0,.85,.4) forwards;pointer-events:none; }
+@keyframes warp-entry { 0%{transform:scale(.68);opacity:.15} 48%{transform:scale(.85);opacity:.7} 100%{transform:scale(5);opacity:0} }
+.warp-telemetry { position:absolute;bottom:108px;left:15%;width:70%;display:grid;gap:12px;text-align:center;font-size:8px;letter-spacing:2px;color:#94bbd0; }.warp-telemetry small { font-size:7px;opacity:.6; }.warp-telemetry i { height:1px;background:linear-gradient(90deg,transparent,#77caee,transparent);transform:scaleX(.1);animation:warp-charge 1.5s ease-out forwards; }
+@keyframes warp-charge { to{transform:scaleX(1)} }
+.transit-phase-1 .warp-telemetry { color:#bbdce9; }.transit-phase-2 .warp-telemetry { color:#afe2d8; }
+@media(prefers-reduced-motion:reduce){.gate-aperture,.warp-gate,.warp-telemetry i{animation:none}.warp-gate{display:none}.warp-telemetry i{transform:none}}
+.expedition .scene-caption button { pointer-events:auto; }.mine-background { pointer-events:none; }

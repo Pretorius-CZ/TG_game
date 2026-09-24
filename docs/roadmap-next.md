@@ -130,3 +130,14 @@ Tento krok nevyžaduje nyní přepisovat hru mimo webové technologie.
 4. Dokončit odlet; pak speciální kameny a malý celek další kapitoly.
 
 Bez pevných termínů: rozsah odhadnout po vyhodnocení testů a volbě přihlášení.
+
+## Aktualizace 2026-09-24 — Haven
+
+Hratelná stanice Haven a skoková brána navazují na obě dokončené expedice.
+Šest oprav, závěrečný HARD level, průlet a návrat zdarma jsou implementované.
+Viz [Haven a cesta mezi soustavami](haven-gate.md).
+Nejbližší práce: nasadit SQL006 a ověřit cloud na druhém zařízení,
+poté první hratelný průzkum Survey buoy v Aster Veil. Následují
+Shattered moon a Verdant world; současná mapa je označuje Coming next.
+Obtížnost ladit následně podle hraní, předchozí pořadí cloud/odlet/boostery
+v tomto historickém dokumentu už není aktuálním seznamem nedodělků.

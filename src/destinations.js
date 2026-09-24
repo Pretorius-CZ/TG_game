@@ -1,3 +1,4 @@
+import {havenDestination} from './haven.js';
 import {mineRepairs,mineLogs} from './exploration.js';
 
 const grid={rows:7,cols:7,types:6};
@@ -73,11 +74,12 @@ export const wreckLogs=logs('wreck','Drifting Archive',wreckContent,42);
 export const havenLog={id:'haven-coordinates-log',title:'Haven',source:'Expedition log',time:'Two bearings / One destination',unlockAt:48,text:'The two records align. Beyond the asteroid belt, an orbital station moves through the shadow of the outer planet. Haven. Its main systems are dark, but a light is blinking at the dock. Then the receiver wakes: "You found the way. We will need your help."'};
 export const havenLocated=p=>p.scannerInstalled&&p.iceCompleted===6&&p.wreckCompleted===6;
 export function completeDestination(completed,id,repairs){return repairs[completed]?.id===id?completed+1:completed;}
-export function systemCargo(p){return {materials:(p.mineCompleted===6&&!p.scannerInstalled?1:0)+(p.wreckCompleted===6?1:0),data:(p.mineCompleted>=5&&!p.scannerInstalled?1:0)+(p.iceCompleted===6?1:0)+(p.wreckCompleted===6?1:0),energy:p.iceCompleted===6?1:0};}
+export function systemCargo(p){return {materials:(p.mineCompleted===6&&!p.scannerInstalled?1:0)+(p.wreckCompleted===6&&!(p.havenCompleted>=1)?1:0),data:(p.mineCompleted>=5&&!p.scannerInstalled?1:0)+(p.iceCompleted===6&&!(p.havenCompleted>=5)?1:0)+(p.wreckCompleted===6&&!(p.havenCompleted>=5)?1:0),energy:p.iceCompleted===6&&!(p.havenCompleted>=2)?1:0};}
 const mineClips=['polygon(0% 50%,60% 50%,60% 76%,0% 80%)','polygon(0% 30%,40% 30%,44% 49%,0% 50%)','polygon(55% 37%,100% 37%,100% 57%,57% 55%)','polygon(60% 8%,100% 8%,100% 37%,60% 38%)','polygon(27% 16%,60% 16%,62% 34%,27% 33%)','polygon(60% 57%,100% 57%,100% 92%,60% 90%)'];
 const iceClips=['polygon(0% 64%,53% 64%,53% 94%,0% 94%)','polygon(0% 38%,48% 38%,48% 63%,0% 63%)','polygon(58% 34%,100% 34%,100% 64%,58% 64%)','polygon(8% 14%,59% 14%,59% 36%,8% 36%)','polygon(60% 10%,100% 10%,100% 35%,60% 35%)','polygon(57% 65%,100% 65%,100% 94%,57% 94%)'];
 const wreckClips=['polygon(0% 57%,49% 57%,49% 95%,0% 95%)','polygon(0% 34%,32% 34%,32% 58%,0% 58%)','polygon(62% 37%,100% 37%,100% 61%,62% 61%)','polygon(12% 17%,61% 17%,61% 36%,12% 36%)','polygon(62% 10%,100% 10%,100% 36%,62% 36%)','polygon(55% 61%,100% 61%,100% 88%,55% 88%)'];
 export const destinations={
+ haven:havenDestination,
  mine:{title:'The Silent Mine',key:'mineCompleted',repairs:mineRepairs,logs:mineLogs,image:'silent-mine',clips:mineClips,complete:'A shipment secured. A trail uncovered.'},
  ice:{title:'Icebound Relay',key:'iceCompleted',repairs:iceRepairs,logs:iceLogs,image:'icebound-relay',clips:iceClips,complete:'Reserve cells secured. A bearing recovered.'},
  wreck:{title:'Drifting Archive',key:'wreckCompleted',repairs:wreckRepairs,logs:wreckLogs,image:'drifting-archive',clips:wreckClips,complete:'Archive recovered. Haven has a name.'},
