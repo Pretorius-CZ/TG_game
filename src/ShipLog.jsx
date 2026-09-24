@@ -16,7 +16,7 @@ export default function ShipLog({ completed, readIds, initialId, onRead, onClose
   return <dialog ref={dialog} className="ship-log" aria-labelledby="log-title" onCancel={e => {e.preventDefault();onClose();}}>
     <div className="log-content">
       <button className="close" aria-label="Close ship log" onClick={onClose}>×</button>
-      <span className="eyebrow">SHIP ARCHIVE / CHAPTER 01</span>
+      <span className="eyebrow">SHIP ARCHIVE / EXPEDITION RECORDS</span>
       <h2 id="log-title" ref={heading} tabIndex={-1}>Ship log</h2>
       {entry ? <article className="log-page">
         <div className="log-meta"><span>{entry.source}</span><span>{entry.time}</span></div>
@@ -33,7 +33,7 @@ export default function ShipLog({ completed, readIds, initialId, onRead, onClose
           const locked = !item.available;
           return <li key={item.id}><button disabled={locked} onClick={() => setSelected(item.id)}>
             <span className="log-index">{String(item.unlockAt).padStart(2, '0')}</span>
-            <span><strong>{locked ? 'Unrecovered fragment' : item.title}</strong><small>{locked ? 'Continue repairing the ship' : item.source}</small></span>
+            <span><strong>{locked ? 'Unrecovered fragment' : item.title}</strong><small>{locked ? 'Continue your journey' : item.source}</small></span>
             {!locked && !readIds.includes(item.id) && <span className="unread-tag">NEW</span>}
             {locked && <span aria-label="Locked">· · ·</span>}
           </button></li>;

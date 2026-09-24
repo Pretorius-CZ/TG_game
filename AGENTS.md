@@ -318,3 +318,11 @@ Postup správce: docs/supabase-setup.md. Živé přihlášení zatím neověřen
 `n2026-09-23: Další jemné přitvrzení ubikací: limity 14/14/17/19, cíle i boosty zachovány. Stejná simulace 300 pokusů: cílený automat 72/69/65/49 % (dříve 82/80/74/55 %). Podrobnosti docs/crew-balance.md. Build ověřen, změny lokální.
 
 2026-09-23: MiniGame má SVG/CSS exploze Pulse a Nova včetně řetězených náloží. Efekty před pádem kamenů, vyčištění při chybě/retry, reduced-motion respektován. Build a mobilní aktivace posledním tahem ověřeny. Lokální změny.
+
+Uživatel po pushi ffb0b02 potvrdil provedení supabase/003_restart_game.sql bez chyb. Migrace restartu účtu je podle jeho potvrzení nasazena; samotný cloudový reset a jeho převzetí druhým zařízením zbývá ověřit.
+
+2026-09-24: Uživatel potvrdil funkčnost cloudového restartu po SQL003. Schválil průzkum fiktivní soustavy, pevné zásilky a následné budování stanice. Implementována mapa po odletu (horní hvězda), Tichý důl se 6 úkoly, dvě generované scény a postupné obrazové opravy, deník, replay, materiál/data a instalace skeneru. Další dvě destinace pouze souřadnice Coming next. Data src/exploration.js, UI Exploration.jsx, roadmapa docs/exploration-roadmap.md. Ukládání rozšířeno o mineCompleted/scannerInstalled; SQL004 nutno nasadit, zatím nepotvrzeno. 47 testů, build a mobilní průchod ověřeny. Lokální, nepushnuto.
+
+2026-09-24: Na přání uživatele rozšířen obsah bez ladění obtížnosti: Icebound Relay a Drifting Archive, každá 6 miniher, 6 zápisů, dvě vlastní generované scény a obrazové opravy. Odemknuté po skeneru, pořadí volné. Obě 6/6 odhalí Haven a společný deník; stanice ještě nehratelná. Src/destinations.js, sdílené Exploration.jsx, docs/planet-expeditions.md. Zásilky z nových lokací: energie/data a materiál/data, replay je neduplikuje. Ukládání iceCompleted/wreckCompleted, SQL005 zahrnuje004; živé provedení nepotvrzené. Lokální změny.
+
+Ověření dvou expedic: 50 testů a build prošly. Mobilní průchod ice→wreck i wreck→ice přes preview, všech 12 miniher/krytů/deníků, Haven až po obou, reload a replay ověřeny; mapa 320/390 px bez překryvu. SQL005 na serveru dosud nepotvrzené.

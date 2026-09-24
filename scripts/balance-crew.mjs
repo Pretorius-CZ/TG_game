@@ -1,10 +1,11 @@
+import {mineRepairs} from '../src/exploration.js';
 import {wave,blast,isBooster,rewards} from '../src/boosters.js';
 import {adjacent,swap} from '../src/match3.js';
 import {moveBudget,initialIce,iceMatches,resolveIce,makeIceBoard,ensurePlayableBoard} from '../src/levelRules.js';
 import {goalsFor,collectGoals,goalsComplete} from '../src/objectives.js';
 import {crewRepairs} from '../src/crewRepairs.js';
 const samples=Number(process.argv[2]??300);
-for(const repair of crewRepairs){
+for(const repair of (process.argv[3]==='mine'?mineRepairs:crewRepairs)){
   const result={id:repair.id,moves:moveBudget(repair),samples};
   for(const strategy of ['random','targeted']){
     let wins=0,left=0;

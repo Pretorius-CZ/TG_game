@@ -39,6 +39,8 @@ export default function useProgressSave(progress,restore){
     if(error)throw error;
     if(data?.version!==1)throw new Error('Unsupported cloud save');
     if((data.resetRevision??0)===(latest.current.resetRevision??0) && latest.current.launchDone && !data.launchDone)throw new Error('Departure migration required');
+    if((data.resetRevision??0)===(latest.current.resetRevision??0)&&((latest.current.mineCompleted??0)>(data.mineCompleted??0)||(latest.current.scannerInstalled&&!data.scannerInstalled)))throw new Error('Exploration migration required');
+    if((data.resetRevision??0)===(latest.current.resetRevision??0)&&['iceCompleted','wreckCompleted'].some(key=>(latest.current[key]??0)>(data[key]??0)))throw new Error('Planet expeditions migration required');
     if(!stopped&&!resetting.current){
      if((data.resetRevision??0)>(latest.current.resetRevision??0)){
       local.setItem(accountKey(id),JSON.stringify(normalizeProgress(data)));restartView();

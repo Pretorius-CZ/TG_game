@@ -126,3 +126,57 @@
 @keyframes blast-impact { 0%{opacity:0} 20%{opacity:.5} 100%{opacity:0} }
 @keyframes blast-spark { from{stroke-dashoffset:22;opacity:1} to{stroke-dashoffset:-100;opacity:0} }
 @media(prefers-reduced-motion:reduce){.blast-overlay *{animation:none!important;opacity:.3}.blast-spark,.blast-ring{display:none}}
+.expedition { isolation:isolate; min-height:740px; overflow:hidden; }
+.expedition .scene-top { top:112px; pointer-events:none; }
+.system-chart { background:#071725; }
+.system-space { position:absolute;inset:0;background:radial-gradient(ellipse at 10% 50%,#793c3838,transparent 55%),radial-gradient(ellipse at 90% 20%,#194d6138,transparent 60%),radial-gradient(circle at 18% 27%,#c2e7ff 0 1px,transparent 2px),radial-gradient(circle at 72% 43%,#c2e7ff 0 1px,transparent 2px);background-size:auto,auto,67px 91px,109px 137px; }
+.system-sun { position:absolute;width:90px;height:90px;left:-52px;top:49%;border-radius:50%;background:#fff0b6;box-shadow:0 0 35px #ffb458,0 0 110px #ee803f66; }
+.orbit { position:absolute;left:-50%;top:18%;width:110%;height:66%;border:1px solid #739eac33;border-radius:50%;transform:rotate(-20deg); }
+.orbit-two { width:160%;height:80%;top:12%; }.orbit-three { width:220%;height:100%;top:0; }
+.planet-node { position:absolute;z-index:2;border:0;background:transparent;color:#edf9ff;display:flex;align-items:center;flex-direction:column;gap:5px;text-align:center;max-width:46%;padding:8px;border-radius:18px; }
+button.planet-node:hover,button.planet-node:focus-visible { background:#5fd4e51c;outline:1px solid #90dce0; }
+.planet-node strong { font:17px Georgia,serif; }.planet-node small { font-size:10px;color:#b4d2de;line-height:1.5; }
+.planet { width:64px;height:64px;display:block;border-radius:50%;box-shadow:inset -16px -8px 15px #000b,0 0 20px #94cfd41c; }
+.origin-node { left:3%;top:32%; }.mine-node { right:5%;top:40%; }.ice-node { left:8%;top:54%; }.wreck-node { right:4%;top:23%; }
+.origin-planet { background:radial-gradient(circle at 34% 26%,#9dabb6,#536572 55%,#233240);width:40px;height:40px; }
+.mine-planet { background:repeating-linear-gradient(26deg,#956f4e,#b79876 10%,#635347 17%);border:1px solid #dfb77e; }
+.ice-planet { background:linear-gradient(34deg,#a4d5da,#ddeff0 30%,#6394b3 33%,#bed9e8 60%,#4a7699);width:49px;height:49px; }
+.wreck-planet { background:linear-gradient(40deg,#584d56,#afabb4,#594c59);width:42px;height:29px;border-radius:35% 65% 28% 42%; }
+.uncharted { opacity:.45; }.uncharted .planet { filter:grayscale(1); }
+.expedition-console { position:absolute;bottom:14px;left:14px;right:14px;background:#0a202eed;border:1px solid #60828d;border-radius:16px;padding:15px;z-index:3; }
+.expedition-console p { color:#b9d1da;font-size:12px;line-height:1.5;margin:10px 0; }
+.cargo-slots { display:flex;justify-content:space-between;gap:8px;font-size:10px;margin-top:12px;color:#b6d7df; }.cargo-slots b { color:#ffe1a6;padding-left:3px; }
+.scanner-display { border-top:1px solid #3d5966;margin-top:10px;padding-top:10px;color:#73909c;font-size:9px;letter-spacing:1px;display:flex;align-items:center;gap:4px; }
+.scanner-display i { display:block;width:4px;height:12px;background:#314954; }.scanner-display i:nth-child(2) { height:19px; }.scanner-display i:nth-child(3) { height:25px; }
+.scanner-online { color:#9af0d7; }.scanner-online i { background:#81e9d1;box-shadow:0 0 7px #56d2bc; }
+.mine-background { position:absolute;inset:0;background-color:#14212a;background-position:center;background-size:100% 100%;background-repeat:no-repeat; }
+.mine-site:after { content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(#0615229c,transparent 35%,transparent 78%,#061522b3);z-index:0; }
+.mine-restoration { position:absolute;inset:0;pointer-events:none; }.mine-restored-layer { position:absolute;inset:0;width:100%;height:100%;object-fit:fill;transition:opacity 1s; }
+.expedition .hotspot,.expedition .scene-top,.expedition .scene-bottom { z-index:3; }.expedition .repair-reveal { z-index:8; }
+.expedition-replays { top:94px!important;right:12px;z-index:6; }.expedition-replays button { display:block; }
+@media(max-width:360px){.expedition{min-height:710px}.planet-node strong{font-size:15px}.expedition-console{padding:11px}.cargo-slots{gap:4px;font-size:9px}}
+@media(prefers-reduced-motion:reduce){.mine-restored-layer{transition:none}}
+
+.expedition { width:100%;aspect-ratio:auto;height:740px; }
+.mine-background,.mine-restoration { top:110px; }
+.mine-site .scene-top { top:100px; }
+.mine-site .scene-top h1 { font-size:29px; }
+@media(max-width:360px){.expedition{height:710px}}
+
+.wreck-node{top:28%}.mine-node{top:44%}.ice-node{top:56%}
+.cockpit-navigation-console.scanner-upgraded{box-shadow:0 0 22px #70efd275;border-color:#96f8df}.scanner-upgraded svg{filter:drop-shadow(0 0 5px #80fddd)}
+@media(max-width:380px){.scene-tools:has([aria-label="Open system chart"]){gap:3px}.play-area:has([aria-label="Open system chart"]) .scene-lives .energy-module{width:106px}.play-area:has([aria-label="Open system chart"]) .energy-cells{gap:3px}}
+.system-chart .scene-top h1{font-size:clamp(26px,7vw,35px)}.wreck-node{top:31%}.mine-node{top:46%}
+.haven-discovery { margin-top:12px;padding:12px;border:1px solid #a8dfd1;border-radius:10px;background:#204b4a70; }
+.haven-discovery strong { color:#b5f4df;font-size:12px;letter-spacing:1.5px; }.haven-discovery small { display:block;margin-top:8px;color:#a8c6cf;font-size:10px; }
+.system-chart:has(.haven-discovery) { height:1060px; }
+.planet-node:disabled { cursor:default; }
+.system-chart:has(.haven-discovery){height:1000px}
+.system-chart:has(.haven-discovery) .origin-node{top:237px}
+.system-chart:has(.haven-discovery) .wreck-node{top:229px}
+.system-chart:has(.haven-discovery) .mine-node{top:340px}
+.system-chart:has(.haven-discovery) .ice-node{top:414px}
+.play-area .game.expedition.mine-site .scene-top{top:100px}
+.expedition-replays,.expedition-replays[open]{top:82px!important}
+.expedition-replays summary{width:76px;min-height:32px;height:32px;font-size:11px}
+.mine-site .scene-top .eyebrow{font-size:7px;letter-spacing:1px}

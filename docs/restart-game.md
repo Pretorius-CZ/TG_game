@@ -6,4 +6,4 @@ Host: okamžitý místní restart. Přihlášený účet: vyžaduje internet a �
 
 Před použitím s účtem spustit supabase/003_restart_game.sql v Supabase SQL Editoru. Zahrnuje aktuální sync i reset funkci; nemaže data při instalaci. Každý reset zvyšuje resetRevision. Sync starších generací pouze vrací aktuální stav, nikdy neobnoví staré opravy. Zámek účtu serializuje zápisy. Opakování stejného reset požadavku s expected_revision nezpůsobí další reset. Převzetí nové generace z jiné karty/zařízení obnoví i herní UI, aby nezůstala rozpracovaná stará minihra.
 
-SQL na živém serveru zatím neprovedeno ani živý cloudový restart netestován. Nikdy nespouštět starší migraci 001/002 po 003 (přepsala by synchronizační funkci). Po instalaci vyzkoušet restart na testovacím účtu a ověřit druhé zařízení. Energie zatím není cloudová.
+Uživatel potvrdil úspěšné provedení supabase/003_restart_game.sql bez chyb. Živý cloudový restart a přenos resetu na druhé zařízení ještě nebyly samostatně ověřeny. Nikdy nespouštět starší migraci 001/002 po 003 (přepsala by synchronizační funkci). Po instalaci vyzkoušet restart na testovacím účtu a ověřit druhé zařízení. Energie zatím není cloudová.
