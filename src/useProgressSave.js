@@ -38,6 +38,7 @@ export default function useProgressSave(progress,restore){
     const {data,error}=await supabase.rpc('sync_game_progress',{incoming:normalizeProgress(latest.current)}).abortSignal(AbortSignal.timeout(12000));
     if(error)throw error;
     if(data?.version!==1)throw new Error('Unsupported cloud save');
+    if((data.resetRevision??0)===(latest.current.resetRevision??0)&&(latest.current.airlockCompleted??0)>(data.airlockCompleted??0))throw new Error('Linear chapter migration required');
     if((data.resetRevision??0)===(latest.current.resetRevision??0) && latest.current.launchDone && !data.launchDone)throw new Error('Departure migration required');
     if((data.resetRevision??0)===(latest.current.resetRevision??0)&&((latest.current.mineCompleted??0)>(data.mineCompleted??0)||(latest.current.scannerInstalled&&!data.scannerInstalled)))throw new Error('Exploration migration required');
     if((data.resetRevision??0)===(latest.current.resetRevision??0)&&['iceCompleted','wreckCompleted','havenCompleted'].some(key=>(latest.current[key]??0)>(data[key]??0)))throw new Error('Planet expeditions migration required');

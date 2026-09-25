@@ -141,3 +141,53 @@ poté první hratelný průzkum Survey buoy v Aster Veil. Následují
 Shattered moon a Verdant world; současná mapa je označuje Coming next.
 Obtížnost ladit následně podle hraní, předchozí pořadí cloud/odlet/boostery
 v tomto historickém dokumentu už není aktuálním seznamem nedodělků.
+
+## Na příště — zadání uživatele 2026-09-24
+
+Dnešní práci ukončit; následující body jsou backlog, nikoli pokyn pokračovat dnes.
+
+1. **Dokončit soustavu Aster Veil**, do které jsme přiletěli: hratelný obsah
+   pro Survey buoy, Shattered moon a Verdant world, návazné úkoly,
+   obrazové změny, deník a ukládání postupu.
+2. **Zpětně upravit počty tahů podle dalších informací od uživatele.**
+   Začátek hry má podle jeho hraní absurdně mnoho tahů. Počkat na jeho
+   konkrétní zpětnou vazbu; nyní plošně neměnit limity.
+3. **Dodělat boosty:** vlastní zvukové efekty a boost za řadu pěti kamenů.
+   Technická poznámka pro navázání: src/boosters.js již obsahuje NOVA
+   pro 5+ v řadě (zásah řádku i sloupce), mimo čtyři úvodní kokpitové úkoly.
+   Při další práci prověřit vznik a čitelnost tohoto boostu v reálné hře,
+   dotáhnout jeho chování/podobu podle požadavku; neoznačovat bod za hotový
+   pouze proto, že existuje pravidlo v kódu. Zvuky patří k tomuto úkolu.
+
+Haven a warp byly pushnuté v commitu d367e58 na codex/cockpit-stage.
+Nasazení SQL006 uživatel zatím nepotvrdil; ponechat jako neověřenou položku.
+
+## 2026-09-25 — Mobilní opravy ovládání
+
+- Výsledek při vyčerpání tahů nahradí desku, s návratem scrollu a fokusu
+  nahoru. Retry a návrat jsou přímo ve výsledku.
+- Replay v komoře vlevo, pravé dveře Corridor mají volný prostor.
+- Horní ? a 3 nápovědy na pokus, obnovení při Retry. První výukové
+  zvýraznění kokpitu zdarma. Jde o výchozí nastavení pro testování;
+  neimplementuje reklamy ani nákup nápověd.
+
+Upřesnění uživatele 2026-09-25: běžná hra se má vejít na displej,
+posun delšího obsahu je přípustný. Nápověda pouze 1 zdarma na pokus,
+další za odměňovanou reklamu (nahrazuje návrh tří). Reklamní služba
+zatím nepřipojená, UI ji označuje coming soon a nepředstírá odměnu.
+
+## 2026-09-25 — Zpětná vazba: jednotná cesta lodí
+
+Implementované pevné pořadí celé první kapitoly viz [Pevný průchod](linear-chapter.md).
+Nahrazuje dřívější volný výběr místností. Před publikováním spustit SQL007
+pro ukládání komory před kokpitem; staré postupy se zachovají.
+Další obsah Aster Veil a ladění tahů podle hráče zůstávají v backlogu.
+
+2026-09-25: Počty tahů první kapitoly upravené podle konkrétního zadání;
+kokpit zvětšený, s boosty a novými cíli. Viz [Limity tahů](move-budgets-2026-09-25.md).
+Další krok v této oblasti: zpětná vazba uživatele na navržený kokpit.
+
+### EN/CZ — dokončeno 2026-09-25
+Přepínač v nastavení, místní uložení volby a překlad současného obsahu
+včetně deníku a expedic. Obrazové nápisy se nemění. Viz localization.md.
+Nový obsah doplňovat rovnou v obou jazycích; obtížnost tím není změněna.

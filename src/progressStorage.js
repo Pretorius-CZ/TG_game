@@ -17,7 +17,7 @@ const scenes=['exterior','airlock','cockpit','corridor','crew','galley','engine'
 export function normalizeProgress(value={}){
  const save={version:1,resetRevision:Number.isSafeInteger(value?.resetRevision)&&value.resetRevision>=0?value.resetRevision:0};
  for(const [key,max] of Object.entries(limits))save[key]=Number.isInteger(value?.[key])?Math.max(0,Math.min(max,value[key])):0;
- if(save.completed<4)for(const key of Object.keys(limits))if(key!=='completed')save[key]=0;
+ if(save.completed<4)for(const key of Object.keys(limits))if(key!=='completed'&&key!=='airlockCompleted')save[key]=0;
  if(save.engineCompleted<2)save.exteriorCompleted=Math.min(3,save.exteriorCompleted);
  save.finaleDone=value?.finaleDone===true&&shipReadiness({cockpit:save.completed,crew:save.crewCompleted,galley:save.galleyCompleted,engine:save.engineCompleted,'airlock-work':save.airlockCompleted,navigation:save.navigationCompleted,exterior:save.exteriorCompleted}).every(r=>r.ready);
  save.launchDone=value?.launchDone===true&&save.finaleDone;

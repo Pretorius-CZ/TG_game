@@ -1,8 +1,10 @@
+import {useLanguage} from './i18n/Language.jsx';
 import {boostersEnabled} from './boosters.js';
 import {moveBudget,initialIce} from './levelRules.js';
 import React, { useLayoutEffect, useRef } from 'react';
 
 export default function RepairBubble({ repair, replay, sceneRef, onClose, onPlay, onComplete }) {
+ const {t}=useLanguage();
   const dialog = useRef(null);
   useLayoutEffect(() => {
     const element = dialog.current;
@@ -23,14 +25,14 @@ export default function RepairBubble({ repair, replay, sceneRef, onClose, onPlay
   }, []);
   return <dialog ref={dialog} className="repair-bubble" style={{'--tail-x': `${repair.x}%`}} aria-labelledby="bubble-title" aria-describedby="bubble-story" onCancel={e => {e.preventDefault();onClose();}} onClick={e => {if(e.target === dialog.current) onClose();}}>
     <div className="bubble-inner">
-      <button className="close" aria-label="Close pilot thought" onClick={onClose}>×</button>
-      <div className="bubble-speaker"><span className="pilot-emblem" aria-hidden="true">✦</span><span>PILOT<small>{replay ? 'BACK AT THE CONSOLE' : 'PERSONAL LOG / PRESENT'}</small></span></div>
-      <h2 id="bubble-title">{repair.name}</h2>
-      <p id="bubble-story">{replay ? 'This system is already restored. A little more practice before the next repair?' : repair.thought}</p>
-      <div className="bubble-objective">{repair.objective}<br/>{moveBudget(repair)} moves{initialIce(repair).length?` · ${initialIce(repair).length} protective covers`:null}</div>
-      {boostersEnabled(repair)&&<p className="booster-guide">Make 4 in a line or a T/L for a Pulse charge. Make 5 in a line for a Nova cross. Tap a charge to fire it for one move.</p>}
-      <button className="primary" onClick={onPlay}>{replay ? 'Replay lesson' : 'Play'} <span>→</span></button>
-      {import.meta.env.DEV&&onComplete&&!replay&&<button className="preview-complete" onClick={onComplete}>✓ Complete level <small>Preview · skip match-3</small></button>}
+      <button className="close" aria-label={t("Close pilot thought")} onClick={onClose}>{t("×")}</button>
+      <div className="bubble-speaker"><span className="pilot-emblem" aria-hidden="true">{t("✦")}</span><span>{t("PILOT")}<small>{t(replay ? 'BACK AT THE CONSOLE' : 'PERSONAL LOG / PRESENT')}</small></span></div>
+      <h2 id="bubble-title">{t(repair.name)}</h2>
+      <p id="bubble-story">{t(replay ? 'This system is already restored. A little more practice before the next repair?' : repair.thought)}</p>
+      <div className="bubble-objective">{t(repair.objective)}<br/>{t(moveBudget(repair))}{t(" moves")}{t(initialIce(repair).length?` · ${initialIce(repair).length} protective covers`:null)}</div>
+      {t(boostersEnabled(repair)&&<p className="booster-guide">{t("Make 4 in a line or a T/L for a Pulse charge. Make 5 in a line for a Nova cross. Tap a charge to fire it for one move.")}</p>)}
+      <button className="primary" onClick={onPlay}>{t(replay ? 'Replay lesson' : 'Play')} <span>{t("→")}</span></button>
+      {t(import.meta.env.DEV&&onComplete&&!replay&&<button className="preview-complete" onClick={onComplete}>{t("✓ Complete level ")}<small>{t("Preview · skip match-3")}</small></button>)}
     </div>
   </dialog>;
 }

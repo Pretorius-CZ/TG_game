@@ -1,8 +1,10 @@
+import {useLanguage} from './i18n/Language.jsx';
 import React,{useEffect,useRef,useState} from 'react';
 import {sound} from './audio.js';
 
 // Perspective star field: particles approach the camera instead of rotating spokes.
 function WarpField(){
+ const {t}=useLanguage();
  const canvas=useRef(null);
  useEffect(()=>{
   const el=canvas.current,ctx=el.getContext('2d');
@@ -55,6 +57,7 @@ function WarpField(){
 }
 
 export default function GateTransit({onComplete,onCancel}){
+ const {t}=useLanguage();
  const dialog=useRef(null),finish=useRef(onComplete),[phase,setPhase]=useState(0),ended=useRef(false);
  finish.current=onComplete;
  function arrive(){if(ended.current)return;ended.current=true;finish.current();}
@@ -64,14 +67,14 @@ export default function GateTransit({onComplete,onCancel}){
   const timers=[setTimeout(()=>setPhase(1),reduced?200:1500),setTimeout(()=>setPhase(2),reduced?450:5300),setTimeout(arrive,reduced?900:6900)];
   return()=>timers.forEach(clearTimeout);
  },[]);
- return <dialog ref={dialog} className="transit-dialog" aria-label="Jump to Aster Veil" onCancel={e=>{e.preventDefault();onCancel();}}>
+ return <dialog ref={dialog} className="transit-dialog" aria-label={t("Jump to Aster Veil")} onCancel={e=>{e.preventDefault();onCancel();}}>
   <div className={`transit-cinema transit-phase-${phase}`}>
    <WarpField/>
    <div className="warp-vignette" aria-hidden="true"/>
    <div className="warp-gate" aria-hidden="true"/>
-   <div className="transit-copy"><span className="eyebrow">KEPLER REACH <span aria-hidden="true">⟶</span> ASTER VEIL</span><h2>{['Jump field charging','Warp transit','A different sky'][phase]}</h2><p role="status">{['Route locked · preparing to accelerate','Following the expedition’s coordinates','Decelerating · return passage established'][phase]}</p></div>
-   <div className="warp-telemetry" aria-hidden="true"><span>{['FIELD SYNCHRONIZATION','TRANSIT CORRIDOR STABLE','DESTINATION ACQUIRED'][phase]}</span><i/><small>HAVEN LINK / ONLINE</small></div>
-   <div className="transit-actions"><button className="primary" onClick={arrive}>Skip crossing →</button><button className="keep-playing" onClick={onCancel}>Stay at Haven</button></div>
+   <div className="transit-copy"><span className="eyebrow">{t("KEPLER REACH ")}<span aria-hidden="true">{t("⟶")}</span>{t(" ASTER VEIL")}</span><h2>{t(['Jump field charging','Warp transit','A different sky'][phase])}</h2><p role="status">{t(['Route locked · preparing to accelerate','Following the expedition’s coordinates','Decelerating · return passage established'][phase])}</p></div>
+   <div className="warp-telemetry" aria-hidden="true"><span>{t(['FIELD SYNCHRONIZATION','TRANSIT CORRIDOR STABLE','DESTINATION ACQUIRED'][phase])}</span><i/><small>{t("HAVEN LINK / ONLINE")}</small></div>
+   <div className="transit-actions"><button className="primary" onClick={arrive}>{t("Skip crossing →")}</button><button className="keep-playing" onClick={onCancel}>{t("Stay at Haven")}</button></div>
   </div>
  </dialog>;
 }

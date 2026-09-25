@@ -1,3 +1,4 @@
+import {useLanguage} from './i18n/Language.jsx';
 import React, { useId } from 'react';
 import { corridorLighting } from './corridor.js';
 
@@ -8,18 +9,19 @@ const fixtures = {
   'engine-room': 'M 373 603 L 387 586 M 414 584 L 522 584 M 550 587 L 562 602 M 373 636 L 373 708 M 373 724 L 373 893 M 563 637 L 563 891',
 };
 export default function CorridorArt({ completedRoomIds }) {
+ const {t}=useLanguage();
   const { doors, ceiling } = corridorLighting(completedRoomIds);
   const id=useId().replace(/:/g,'');
   return <div className="art corridor-art" aria-hidden="true" data-ceiling={ceiling}>
-    <img className="scene-image" src="./scenes/corridor-dark.webp" alt=""/>
+    <img className="scene-image" src="./scenes/corridor-dark.webp" alt={t("")}/>
     <svg className="corridor-fixtures" viewBox="0 0 941 1672" preserveAspectRatio="xMidYMid slice">
       <defs>
         <filter id={`${id}-soft`} x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="4"/></filter>
-        {Object.entries(fixtures).map(([room,d])=><mask key={room} id={`${id}-${room}`} maskUnits="userSpaceOnUse" x="0" y="0" width="941" height="1672"><path d={d} fill="none" stroke="white" strokeWidth="26" strokeLinecap="round" filter={`url(#${id}-soft)`}/></mask>)}
+        {t(Object.entries(fixtures).map(([room,d])=><mask key={room} id={`${id}-${room}`} maskUnits="userSpaceOnUse" x="0" y="0" width="941" height="1672"><path d={d} fill="none" stroke="white" strokeWidth="26" strokeLinecap="round" filter={`url(#${id}-soft)`}/></mask>))}
       </defs>
-      {Object.keys(fixtures).map(room=><image key={room} data-door-light={room} href="./scenes/corridor-concept.webp" width="941" height="1672" mask={`url(#${id}-${room})`} style={{opacity:doors.includes(room)?1:0}}/>)}
+      {t(Object.keys(fixtures).map(room=><image key={room} data-door-light={room} href="./scenes/corridor-concept.webp" width="941" height="1672" mask={`url(#${id}-${room})`} style={{opacity:doors.includes(room)?1:0}}/>))}
     </svg>
-    <img className="scene-image corridor-lit" src="./scenes/corridor-concept.webp" alt="" style={{opacity:ceiling ? 1 : 0}}/>
+    <img className="scene-image corridor-lit" src="./scenes/corridor-concept.webp" alt={t("")} style={{opacity:ceiling ? 1 : 0}}/>
     <div className="shade"/>
   </div>;
 }

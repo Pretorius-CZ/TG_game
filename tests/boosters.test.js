@@ -15,7 +15,7 @@ test('charges do not match by color and are a legal action on an otherwise dead 
   assert.deepEqual(matches(board,3),[]);
   assert.deepEqual(iceMove(board,3),[0,0]);
   assert.equal(ensurePlayableBoard(board,{rows:1,cols:3,types:4}).reshuffled,false);
-  assert.equal(boostersEnabled({id:'lights'}),false);
+  assert.equal(boostersEnabled({id:'lights'}),true);
 });
 test('chain blasts hit each cell once, preserve holes, and only strip covered pieces',()=>{
   const board=[0,1,null,2,PULSE,NOVA,3,2,1];

@@ -165,7 +165,7 @@ button.planet-node:hover,button.planet-node:focus-visible { background:#5fd4e51c
 
 .wreck-node{top:28%}.mine-node{top:44%}.ice-node{top:56%}
 .cockpit-navigation-console.scanner-upgraded{box-shadow:0 0 22px #70efd275;border-color:#96f8df}.scanner-upgraded svg{filter:drop-shadow(0 0 5px #80fddd)}
-@media(max-width:380px){.scene-tools:has([aria-label="Open system chart"]){gap:3px}.play-area:has([aria-label="Open system chart"]) .scene-lives .energy-module{width:106px}.play-area:has([aria-label="Open system chart"]) .energy-cells{gap:3px}}
+@media(max-width:380px){.scene-tools:has([aria-label="Open system chart"], [aria-label="Otevřít mapu soustavy"]){gap:3px}.play-area:has([aria-label="Open system chart"], [aria-label="Otevřít mapu soustavy"]) .scene-lives .energy-module{width:106px}.play-area:has([aria-label="Open system chart"], [aria-label="Otevřít mapu soustavy"]) .energy-cells{gap:3px}}
 .system-chart .scene-top h1{font-size:clamp(26px,7vw,35px)}.wreck-node{top:31%}.mine-node{top:46%}
 .haven-discovery { margin-top:12px;padding:12px;border:1px solid #a8dfd1;border-radius:10px;background:#204b4a70; }
 .haven-discovery strong { color:#b5f4df;font-size:12px;letter-spacing:1.5px; }.haven-discovery small { display:block;margin-top:8px;color:#a8c6cf;font-size:10px; }
@@ -206,3 +206,25 @@ button.planet-node:hover,button.planet-node:focus-visible { background:#5fd4e51c
 .transit-phase-1 .warp-telemetry { color:#bbdce9; }.transit-phase-2 .warp-telemetry { color:#afe2d8; }
 @media(prefers-reduced-motion:reduce){.gate-aperture,.warp-gate,.warp-telemetry i{animation:none}.warp-gate{display:none}.warp-telemetry i{transform:none}}
 .expedition .scene-caption button { pointer-events:auto; }.mine-background { pointer-events:none; }
+/* Keep mobile puzzle controls and terminal states within reach. */
+.mini-dialog .level-hud { position:sticky;top:-24px;z-index:8;background:#122535;padding:8px 0;margin:0 0 12px;gap:8px; }
+.hint-control { display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:48px;min-height:54px;border:1px solid #7ca9ba;border-radius:12px;background:#18394b;color:#d8f8ff; }
+.hint-control>span { font-size:24px;line-height:1; }.hint-control small { font-size:10px;font-variant-numeric:tabular-nums; }.hint-control:disabled { cursor:default;opacity:.45; }
+.mini-dialog .out-of-moves { display:flex;flex-direction:column;gap:10px; }.out-of-moves h3 { margin:4px 0; }.out-of-moves p { margin:4px 0;font-size:13px;line-height:1.5; }
+.airlock-room .scene-replays,.airlock-room .scene-replays[open] { top:84px;left:12px;right:auto; }.airlock-room .scene-replays[open] summary { margin-left:0; }
+@media(max-width:380px){.mini-dialog{padding:16px}.mini-dialog .level-hud{top:-16px}.mini-dialog .energy-module{width:106px}.mini-dialog .moves-counter{min-width:64px;padding:6px 8px}.mini-dialog .mini-header h2{font-size:24px}.mini-dialog .mini-header .close{right:-9px;top:0}}
+.mini-result .objective-list,.mini-result .mini-header p { display:none; }.mini-result .mini-header h2 { margin:10px 0 16px; }.mini-result .out-of-moves:focus,.mini-result .win-panel:focus { outline:none; }
+.play-area .airlock-room .scene-top { right:38%;top:142px;pointer-events:none;gap:6px; }.airlock-room .scene-top h1 { font-size:22px;line-height:1.1;margin:6px 0; }.airlock-room .scene-top p { font-size:10px;line-height:1.4; }.airlock-room .scene-top .eyebrow { font-size:7px;letter-spacing:1px; }
+/* Main scenes use the available phone height; dense charts may scroll. */
+@media(max-width:600px){
+ .game:not(.system-chart){height:clamp(550px,calc(100svh - 148px),820px);min-height:550px}
+ .mini-dialog{max-height:calc(100dvh - 16px);overscroll-behavior:contain}
+ .mini-header p{margin-bottom:10px}.mini-dialog .charge{margin-bottom:10px;gap:6px}
+ .mini-dialog .mini-header h2{margin:8px 0;font-size:24px}
+ .mini-dialog .lesson{margin:10px 0;font-size:11px;min-height:0}
+}
+@media(max-width:600px){.airlock-room .scene-top h1,.airlock-room .scene-top p{display:none}.play-area .airlock-room .scene-top{top:140px;right:24px}}
+.language-picker{border:1px solid #557682;border-radius:10px;padding:10px;display:flex;gap:8px;margin-bottom:18px}.language-picker legend{font-size:12px;padding:0 6px;color:#aecbd4}.language-picker button{flex:1;min-height:44px;border:1px solid #54717d;border-radius:6px;background:#142c3a;color:#dcebf1;padding:8px}.language-picker button[aria-pressed=true]{border-color:#e9c98e;background:#c39d6329;color:#ffe2b1}.account-panel{max-height:calc(100dvh - 88px);overflow-y:auto}.hotspot-label{max-width:min(220px,70vw);white-space:normal;text-align:center}.readiness-list button span{min-width:0}.mini-header h2{overflow-wrap:anywhere}.scene-top h1{overflow-wrap:break-word}
+
+.play-area .game{width:100%;max-width:100%;min-width:0}
+@media(max-width:380px){.scene-tools{gap:3px}.scene-tools button{width:34px;height:36px}.scene-lives .energy-module{width:106px}.scene-lives .energy-cells{gap:3px}}

@@ -1,5 +1,19 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {iceMatches,iceMove,resolveIce,makeIceBoard,finaleRepair,moveBudget} from '../src/levelRules.js';
+test('gravity flows through cover cells while covers stay in place',()=>{
+ const board=[0,1,2,3,4];
+ const result=resolveIce(board,[4],[2],{rows:5,cols:1,types:5},()=>0.8);
+ assert.deepEqual(result.board,[4,0,1,2,3]);
+ assert.deepEqual(result.ice,[2]);
+ assert.deepEqual(result.collected,[4]);
+ assert.deepEqual(board,[0,1,2,3,4]);
+});
+test('breaking a cover retains its piece in the falling column and preserves holes',()=>{
+ const result=resolveIce([0,1,2,null,3,4],[1,2,5],[1],{rows:6,cols:1,types:5},()=>0.8);
+ assert.deepEqual(result.board,[4,0,1,null,4,3]);
+ assert.deepEqual(result.ice,[]);
+ assert.deepEqual(result.collected,[2,5]);
+});
 test('covered pieces join matching lines, lose only their cover and remain uncollected',()=>{
  const level={rows:3,cols:3,types:4},board=[0,0,0,1,2,1,2,1,2];
  assert.deepEqual(iceMatches(board,3,[1]),[0,1,2]);

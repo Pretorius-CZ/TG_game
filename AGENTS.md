@@ -339,3 +339,73 @@ Ověřeno 54 testů, build a izolovaný mobilní průchod všech šesti úkolů,
 průlet (cancel/skip/automat/reduced-motion), návrat a reload. Opravená
 klikatelnost tlačítek v scene-caption; mapy 320/390 bez překryvu ovládání.
 2026-09-24: GateTransit nově perspektivní Canvas warp (~7 s): nabití, hvězdné stopy, zpomalení. Bez kreslené lodičky. Skip/cancel a reduced-motion zachovány; lokální náhled, bez pushe.
+
+## Na příště — poslední zadání 2026-09-24
+
+Dnes skončit, pouze zapsat backlog. Příště dokončit obsah Aster Veil
+(Survey buoy, Shattered moon, Verdant world). Po další zpětné vazbě
+uživatele zpětně snížit/upravit počty tahů, zvlášť na začátku hry,
+kde jich je podle něj absurdně moc; zatím limity neměnit.
+Dodělat boosty: zvuky a boost za pět kamenů v řadě. NOVA již v kódu
+existuje mimo úvodní kokpit; prověřit a dotáhnout hráčské fungování,
+nikoli jen znovu přidat duplicitní pravidlo. Detaily docs/roadmap-next.md.
+Haven a warp už pushnuté: d367e58, codex/cockpit-stage; starší poznámky
+„bez pushe“ pro tuto etapu neplatí. SQL006 na serveru nadále nepotvrzené.
+
+## 2026-09-25 — Mobilní ovládání miniher
+
+Vyčerpání tahů po doběhnutí kaskád nahrazuje desku výsledkovým panelem,
+resetuje scroll dialogu a přesouvá fokus na výsledek. Zkrácená hlavička
+nezakrývá Retry ani Back to ship; výsledek již není pod deskou.
+Stejné vrácení nahoru platí pro výhru a bezpečnou obnovu při chybě.
+Nápověda je v horním sticky HUD jako ? s počítadlem 3/3 na pokus.
+Platná nápověda odebere jedno použití, nikoli tah nebo energii. Během
+zvýrazněné nápovědy nelze opakovaně čerpat stejnou radu. Retry obnoví 3.
+Úvodní kokpit si ponechává bezplatné výukové zvýraznění prvního tahu.
+Reklamy za další nápovědu zatím nejsou zapojené.
+Replay v komoře přesunut doleva pod hlavní ovládání; titulek má omezenou
+šířku, aby nezasahoval do pravých dveří Corridor. Lokální změny, bez pushe.
+
+Upřesnění uživatele 2026-09-25: běžná hra se má vejít na displej,
+posun delšího obsahu je přípustný. Nápověda pouze 1 zdarma na pokus,
+další za odměňovanou reklamu (nahrazuje návrh tří). Reklamní služba
+zatím nepřipojená, UI ji označuje coming soon a nepředstírá odměnu.
+Ověřeno v izolovaném prohlížeči 320×568: kliknutí Corridor, jedna nápověda, výsledek bez desky a viditelné Retry/Back to ship, obnovení nápovědy při Retry. Build prošel. Mobilní komora má jen stručný horní štítek místo nadpisu přes hotspoty.
+
+## 2026-09-25 — Pevné pořadí první kapitoly (nahrazuje volný výběr)
+
+Uživatel schválil exteriér → komora3 → kokpit4 + navigace4 → koridor:
+ubikace4 → kuchyňka4 → strojovna5 → exteriér4 (plášť/motory/podvozek/palivo)
+→ HARD → Launch venku. Mapa před odletem jen přehled, jedna další etapa;
+koridor nabízí jediné aktivní dveře. Po odletu volné návraty zachované.
+Starý postup se nemaže; currentShipStage vybere první nedokončenou etapu.
+Komora se nově ukládá i před kokpitem. Cloud vyžaduje SQL007 (zahrnuje004–006),
+živé nasazení nepotvrzené. Viz docs/linear-chapter.md a src/chapterFlow.js.
+57 testů a izolovaný mobilní průchod všech28 oprav, HARD i Launch prošly.
+Změny zatím místní, bez pushe. Limity tahů se tímto neměnily.
+
+2026-09-25: Uživatel zadal nové limity první kapitoly: komora20/12/12,
+navigace20/12/30/12, crew10/14/16/18, galley12/10/20/13,
+engine15/20/22/25/13, exterior25/15/30/30, launch30. Nastaveno přímo
+v datech oprav; staré tuned výjimky v moveBudget odstraněné.
+Kokpit už není tutoriál: boostery povolené, 7×7 první tři a 7×8 finále,
+5/5/6/6 typů, cíle21krystalů /18komet+18hvězd /24krystalů+4kryty /
+24paliv+24komet+6krytů, návrh14/16/20/22 tahů. Podrobnosti
+ docs/move-budgets-2026-09-25.md. Uživatel obtížnost ještě osobně otestuje.
+ID a postup zachované, expedice beze změny. 57 testů a build prošly.
+2026-09-25: Další úprava kokpitu podle uživatele: limity nyní 14/16/24/24, diagnostika pouze 4 kryty [9,12,37,40]. Rozměry a barevné cíle zachované. Nahrazuje předchozí návrh 14/16/20/22 a šest krytů diagnostiky.
+
+## 2026-09-25 — Přepínání EN/CZ
+Hotový přepínač v nastavení; výchozí angličtina, čeština pokrývá UI,
+opravy, příběh a deník všech současných kapitol. Nápisy v obrázcích beze změny.
+Jazyk se ukládá místně odděleně od postupu; změna nerestartuje minihru.
+Podrobnosti a rozšíření katalogu: docs/localization.md. Opraveno také
+přetékání scén a překryv horních ikon s energií na úzkém telefonu.
+
+## 2026-09-25 — Pokračování pokusu a gravitace pod kryty
+Při vyčerpání tahů zůstává deska připojená, pouze skrytá za výsledkem;
++5 tahů obnoví stejnou desku bez nového vykreslení kamenů od začátku.
+Kryty jsou pevně na políčkách, ale kameny pod nimi nyní podléhají gravitaci.
+Zásah krytu stále pouze rozbije kryt a nesečte jeho kámen; tento kámen
+může propadnout spolu s ostatními. Díry v masce stále oddělují sloupce.
+Nahrazuje dřívější chování, kdy krytý kámen blokoval propad sloupce.

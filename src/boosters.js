@@ -3,7 +3,7 @@ import {resolveIce} from './levelRules.js';
 
 export const PULSE=10, NOVA=11;
 export const isBooster=value=>value===PULSE||value===NOVA;
-export const boostersEnabled=repair=>!['lights','windows','computer','diagnostics'].includes(repair.id);
+export const boostersEnabled=repair=>repair.boosters!==false;
 
 // One reward per connected matching group. Covered cells cannot host a reward.
 export function rewards(board,cols,ice=[],preferred=[]){
