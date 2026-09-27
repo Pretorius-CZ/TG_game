@@ -191,3 +191,15 @@ Další krok v této oblasti: zpětná vazba uživatele na navržený kokpit.
 Přepínač v nastavení, místní uložení volby a překlad současného obsahu
 včetně deníku a expedic. Obrazové nápisy se nemění. Viz localization.md.
 Nový obsah doplňovat rovnou v obou jazycích; obtížnost tím není změněna.
+
+### Aster Veil — obsah 2026-09-26
+Dokončena bóje a dvě výpravy (3+6+6 úkolů), dvě místní dlaždice, deník a
+obrazové opravy. Viz aster-veil.md. Následuje nasazení SQL008, ověření
+cloudového přenosu a lidské ladění obtížnosti. Další příběhový cíl po
+porovnání vzorků zatím pouze naznačen na mapě, není hratelný.
+
+## Elysium — navazující práce (2026-09-27)
+Přílet a první dvě etapy implementované; detaily docs/elysium.md.
+Následuje centrální prstenec, obytný sektor, biosféra a observatoř.
+Uživatel požádal zveřejnit testovatelný stav a poté pokračovat.
+Cloud nových kapitol vyžaduje SQL009, zatím nepotvrzeno.

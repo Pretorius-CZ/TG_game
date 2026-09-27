@@ -186,11 +186,8 @@ button.planet-node:hover,button.planet-node:focus-visible { background:#5fd4e51c
 .aster-chart { height:870px; }
 .aster-chart .system-space { background-color:#181a34; }
 .aster-chart .system-sun { background:#d4f7ff;box-shadow:0 0 40px #88c5ff,0 0 120px #8871d766; }
-.aster-chart .origin-node { top:242px; }.aster-chart .wreck-node { top:237px; }.aster-chart .mine-node { top:370px; }.aster-chart .ice-node { top:432px; }
+.aster-chart .origin-node { top:242px; }.aster-chart .wreck-node { top:220px; }.aster-chart .mine-node { top:390px; }.aster-chart .ice-node { top:432px; }
 .gate-planet { width:42px;height:58px;background:radial-gradient(ellipse,#142439 40%,#97f8ed 51%,#567980 60%,#1b2c3b 69%);box-shadow:0 0 16px #68bacc55; }
-.buoy-planet { width:35px;height:42px;border-radius:20%;background:linear-gradient(90deg,#82939e,#eff2d6 45%,#d8a569 53%,#314b60); }
-.fractured-planet { background:linear-gradient(115deg,#7791a5 42%,#102136 43% 49%,#a5b4bd 50%); }
-.garden-planet { width:50px;height:50px;background:radial-gradient(ellipse at 35% 25%,#adca8b,transparent 40%),linear-gradient(40deg,#2a6a89,#38726b 40%,#83a685 45%,#245567 75%); }
 /* Cinematic forward-facing warp, framed for portrait displays. */
 .transit-dialog { padding:0;width:min(100vw,560px);max-width:560px;max-height:100dvh;border:1px solid #46627a;border-radius:16px;background:#020610;color:#e7f4f8; }
 .transit-dialog::backdrop { background:#01040af5; }
@@ -228,3 +225,49 @@ button.planet-node:hover,button.planet-node:focus-visible { background:#5fd4e51c
 
 .play-area .game{width:100%;max-width:100%;min-width:0}
 @media(max-width:380px){.scene-tools{gap:3px}.scene-tools button{width:34px;height:36px}.scene-lives .energy-module{width:106px}.scene-lives .energy-cells{gap:3px}}
+
+/* Detailed Aster Veil map art stays decorative; the button names carry labels. */
+.aster-chart .map-site-art{width:88px;height:88px;object-fit:contain;border-radius:0;background:none;box-shadow:none;filter:drop-shadow(0 4px 8px #0008);transition:filter .2s ease}
+.aster-chart .planet-node:hover .map-site-art{filter:drop-shadow(0 0 10px #73c9e966)}
+@media(max-width:360px){.aster-chart .map-site-art{width:76px;height:76px}}
+
+/* Chapter-two illustrated destinations, with space reserved for cargo below. */
+.kepler-chart{height:900px}
+.kepler-chart:has(.haven-discovery){height:1130px}
+.kepler-chart .map-site-art{width:86px;height:86px;object-fit:contain;border-radius:0;background:none;border:0;box-shadow:none;filter:drop-shadow(0 4px 8px #0009)}
+.kepler-chart .planet-node{width:44%;max-width:44%}
+.kepler-chart .origin-node,.kepler-chart:has(.haven-discovery) .origin-node{left:3%;top:230px}
+.kepler-chart .wreck-node,.kepler-chart:has(.haven-discovery) .wreck-node{right:3%;top:230px}
+.kepler-chart .mine-node,.kepler-chart:has(.haven-discovery) .mine-node{right:3%;top:405px}
+.kepler-chart .ice-node,.kepler-chart:has(.haven-discovery) .ice-node{left:3%;top:405px}
+.kepler-chart .uncharted .map-site-art{filter:grayscale(1) brightness(.7)}
+.kepler-chart button.planet-node:not(:disabled):hover .map-site-art{filter:drop-shadow(0 0 10px #73c9e966)}
+@media(max-width:360px){.kepler-chart .map-site-art{width:76px;height:76px}}
+/* Elysium keeps its six sectors readable in the portrait scene. */
+.elysium-map{min-height:820px;height:calc(100svh - 100px);max-height:1100px;overflow:hidden;background:#060d17}
+.elysium-art{position:absolute;inset:150px 0 90px}
+.elysium-art img{position:absolute;width:100%;height:100%;object-fit:cover}
+.elysium-lit{animation:station-power 1.4s ease-out}
+.dock-lit{clip-path:polygon(0% 43%,48% 43%,48% 78%,0% 78%)}
+.core-lit{clip-path:polygon(58% 43%,100% 43%,100% 82%,58% 82%)}
+.elysium-map .scene-top{pointer-events:none}
+.elysium-map .scene-top h1{font-size:clamp(24px,6vw,34px)}
+.station-sector{position:absolute;transform:translate(-50%,-50%);display:grid;justify-items:center;gap:3px;background:none;border:0;padding:5px;width:125px;color:#c6d2db;text-align:center;z-index:3}
+.station-sector strong,.station-sector small{background:#091724e8;border:1px solid #506372;border-radius:5px;padding:4px 6px;font-size:11px}
+.station-sector small{font-size:10px;padding:2px 5px;color:#aab8c1}
+.station-sector:disabled{opacity:.8;cursor:default}
+.sector-marker{display:grid;place-items:center;width:30px;height:30px;border:1px solid #7896a6;border-radius:50%;background:#102332ba}
+.sector-open .sector-marker{width:38px;height:38px;color:#fff3da;border-color:#e9bc7e;background:#88653eaa;box-shadow:0 0 20px #e3b67b55}
+.elysium-map .scene-caption{bottom:14px;left:14px;right:14px;padding:12px;pointer-events:none}
+.elysium-map .scene-caption p{font-size:12px;margin-bottom:0}
+.elysium-ready{position:fixed;inset:0;margin:auto;width:min(420px,calc(100% - 32px));max-height:90svh}
+.elysium-ready .bubble-inner{display:grid;gap:14px}
+.elysium-emerging{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:elysium-approach 8s ease-out both}
+.elysium-dust{position:absolute;inset:-30%;background:radial-gradient(ellipse at 25% 40%,#62618adb,transparent 60%),radial-gradient(ellipse at 70% 55%,#a796a9e0,transparent 60%);animation:elysium-dust 8s ease-in-out both;pointer-events:none}
+.elysium-transit .transit-copy{z-index:2;text-shadow:0 2px 15px #000;background:linear-gradient(#071020c9,transparent);padding-bottom:35px}
+.elysium-transit .transit-actions{z-index:3}
+@keyframes elysium-approach{0%{transform:scale(.45);filter:brightness(.25) blur(3px);opacity:.25}55%{filter:brightness(.65) blur(0);opacity:1}100%{transform:scale(1);filter:brightness(1);opacity:1}}
+@keyframes elysium-dust{0%{opacity:1;transform:translateX(-7%)}70%{opacity:.25}100%{opacity:0;transform:translateX(20%)}}
+@keyframes station-power{from{opacity:0}to{opacity:1}}
+.aster-chart:has(.expedition-console button:nth-of-type(2)){min-height:950px}
+@media(prefers-reduced-motion:reduce){.elysium-emerging,.elysium-dust,.elysium-lit{animation:none}.elysium-dust{display:none}}

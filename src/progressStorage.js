@@ -1,3 +1,6 @@
+import {elysiumDestinations,elysiumScenes,canVisitElysium,elysiumRouteLog,elysiumArrivalLog} from './elysium.js';
+import {asterComplete} from './aster.js';
+import {asterDestinations,canVisitAster,asterScenes} from './aster.js';
 import {havenLogs,jumpLog,gateReady} from './haven.js';
 import {iceLogs,wreckLogs,havenLog,havenLocated} from './destinations.js';
 import {mineLogs} from './exploration.js';
@@ -11,9 +14,9 @@ import {airlockLogs} from './airlockRepairs.js';
 import {navigationLogs} from './navigationRepairs.js';
 import {exteriorLogs} from './exteriorRepairs.js';
 export const SAVE_KEY='to-the-stars-progress-v1';
-const groups={completed:logEntries,crewCompleted:crewLogs,galleyCompleted:galleyLogs,engineCompleted:engineLogs,airlockCompleted:airlockLogs,navigationCompleted:navigationLogs,exteriorCompleted:exteriorLogs,mineCompleted:mineLogs,iceCompleted:iceLogs,wreckCompleted:wreckLogs,havenCompleted:havenLogs};
-const limits={completed:4,crewCompleted:4,galleyCompleted:4,engineCompleted:5,airlockCompleted:3,navigationCompleted:4,exteriorCompleted:4,mineCompleted:6,iceCompleted:6,wreckCompleted:6,havenCompleted:6};
-const scenes=['exterior','airlock','cockpit','corridor','crew','galley','engine','navigation','system','mine','ice','wreck','haven','system2'];
+const groups={elysiumRouteCompleted:[elysiumRouteLog],elysiumArrival:[elysiumArrivalLog],...Object.fromEntries(Object.values(elysiumDestinations).map(s=>[s.key,s.logs])),...Object.fromEntries(Object.values(asterDestinations).map(s=>[s.key,s.logs])),completed:logEntries,crewCompleted:crewLogs,galleyCompleted:galleyLogs,engineCompleted:engineLogs,airlockCompleted:airlockLogs,navigationCompleted:navigationLogs,exteriorCompleted:exteriorLogs,mineCompleted:mineLogs,iceCompleted:iceLogs,wreckCompleted:wreckLogs,havenCompleted:havenLogs};
+const limits={elysiumRouteCompleted:1,elysiumArrival:1,elysiumDockCompleted:4,elysiumCoreCompleted:4,buoyCompleted:3,verdantCompleted:6,fractureCompleted:6,completed:4,crewCompleted:4,galleyCompleted:4,engineCompleted:5,airlockCompleted:3,navigationCompleted:4,exteriorCompleted:4,mineCompleted:6,iceCompleted:6,wreckCompleted:6,havenCompleted:6};
+const scenes=[...elysiumScenes,...asterScenes,'exterior','airlock','cockpit','corridor','crew','galley','engine','navigation','system','mine','ice','wreck','haven','system2'];
 export function normalizeProgress(value={}){
  const save={version:1,resetRevision:Number.isSafeInteger(value?.resetRevision)&&value.resetRevision>=0?value.resetRevision:0};
  for(const [key,max] of Object.entries(limits))save[key]=Number.isInteger(value?.[key])?Math.max(0,Math.min(max,value[key])):0;
@@ -26,6 +29,12 @@ export function normalizeProgress(value={}){
  if(!save.scannerInstalled){save.iceCompleted=0;save.wreckCompleted=0;}
  if(!havenLocated(save))save.havenCompleted=0;
  save.jumpDone=value?.jumpDone===true&&gateReady(save);
+ if(!save.jumpDone)save.buoyCompleted=0;
+ if(save.buoyCompleted<3){save.verdantCompleted=0;save.fractureCompleted=0;}
+ if(!asterComplete(save))save.elysiumRouteCompleted=0;
+ if(save.elysiumRouteCompleted<1)save.elysiumArrival=0;
+ if(save.elysiumArrival<1)save.elysiumDockCompleted=0;
+ if(save.elysiumDockCompleted<4)save.elysiumCoreCompleted=0;
  const unlocked=Object.entries(groups).flatMap(([key,entries])=>entries.slice(0,save[key]).map(e=>e.id));
  save.readIds=[...new Set(Array.isArray(value?.readIds)?value.readIds.filter(id=>unlocked.includes(id)):[])];
  if(save.launchDone&&value?.readIds?.includes(departureLog.id))save.readIds.push(departureLog.id);
@@ -37,6 +46,8 @@ export function normalizeProgress(value={}){
  if(!save.scannerInstalled&&['ice','wreck'].includes(save.scene))save.scene=save.launchDone?'system':'exterior';
  if(!save.launchDone&&['system','mine'].includes(save.scene))save.scene='exterior';
  if(save.completed<4&&['crew','galley','engine','navigation'].includes(save.scene))save.scene='exterior';
+ if(asterScenes.includes(save.scene)&&!canVisitAster(save,save.scene))save.scene=save.jumpDone?'system2':save.launchDone?'system':'exterior';
+ if(elysiumScenes.includes(save.scene)&&!canVisitElysium(save,save.scene))save.scene=save.jumpDone?'system2':save.launchDone?'system':'exterior';
  return save;
 }
 export function mergeProgress(local,stored){

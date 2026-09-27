@@ -1,3 +1,4 @@
+import {tileSetFor} from './tileSets.js';
 import {useLanguage} from './i18n/Language.jsx';
 import React, { useEffect, useRef, useState } from 'react';
 import { adjacent, swap } from './match3';
@@ -8,12 +9,12 @@ import AudioControls from './AudioControls.jsx';
 import { sound } from './audio.js';
 import {goalsFor,collectGoals,goalsComplete} from './objectives.js';
 import {isBooster,boostersEnabled,wave} from './boosters.js';
-const names = ['Fuel cell', 'Energy crystal', 'Blue comet', 'Asteroid', 'Star', 'Energy orb'];
-const sprites = ['fuel', 'crystal', 'comet', 'asteroid', 'star', 'orb'];
+
 
 export default function MiniGame({ onWin, onQuit, repair }) {
  const {t}=useLanguage();
   const level = repair.level;
+  const {names,sprites}=tileSetFor(repair);
   const goals = goalsFor(repair);
   const boosts = boostersEnabled(repair);
   const lives=useLives();
@@ -145,7 +146,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   return <dialog className={`mini-dialog ${exhausted||won||fault?'mini-result':''}`} ref={dialog} aria-labelledby="level-title" onCancel={event => { event.preventDefault(); if (!busy) setConfirmQuit(true); }}>
     <div className="level-hud"><LivesBar/><button className="hint-control" aria-label={t(`Show a hint, ${hintsLeft} remaining`)} title={t(hintsLeft?"One free hint per attempt":"More hints via rewarded ads — coming soon")} disabled={busy||exhausted||won||fault||!admitted||hintsLeft===0||Boolean(hint)} onClick={showHint}><span aria-hidden="true">{t("?")}</span><small>{t(hintsLeft?'1/1':'AD')}</small></button><div className={`moves-counter ${limit-moves<=5?'low-moves':''}`} role="status" aria-label={t(`${Math.max(0,limit-moves)} moves left`)}><span>{t("MOVES")}</span><strong>{t(Math.max(0,limit-moves))}</strong></div></div>
     <div className="mini-header"><span className="eyebrow">{t(repair.room ?? 'COCKPIT')}{t(" / REPAIR LESSON")}</span><button className="close" aria-label={t("Leave level")} disabled={busy} onClick={() => setConfirmQuit(true)}>{t("×")}</button><h2 id="level-title">{t(repair.lesson)}</h2><p>{t(repair.objective)}</p>{t(initialIce(repair).length>0&&<p className="ice-objective">{t("Also break all ")}{t(initialIce(repair).length)}{t(" protective covers by including their pieces in matching lines.")}</p>)}</div>
-    <div className="objective-list">{t(goals.map((goal,i)=><div className="charge" key={i}><span>{t(goal.type!=null&&<img className="objective-icon" src={`./tiles/${sprites[goal.type]}.png`} alt={t("")}/>)}{t(goal.label)}</span><strong>{t(counts[i])}{t(" / ")}{t(goal.target)}</strong><progress aria-label={t(goal.label)} max={goal.target} value={counts[i]}/></div>))}</div>
+    <div className="objective-list">{t(goals.map((goal,i)=><div className="charge" key={i}><span>{t(goal.type!=null&&<img className="objective-icon" src={`./tiles/${sprites[goal.type]}.png`} alt={t("")}/>)}{t(goal.label)}</span><strong translate="no" aria-live="polite" aria-atomic="true">{`${counts[i] ?? 0} / ${goal.target}`}</strong><progress aria-label={t(goal.label)} max={goal.target} value={counts[i]}/></div>))}</div>
 
     {t(exhausted&&<div className="out-of-moves" ref={resultPanel} tabIndex={-1} role="region" aria-label={t("Out of moves")}><h3>{t("Out of moves")}</h3><p>{t("Your repairs are safe. Try again or continue this attempt.")}</p><button className="primary" disabled={!import.meta.env.DEV} onClick={()=>setExtraMoves(n=>n+5)}>{t(import.meta.env.DEV?'Preview · +5 moves':'Extra moves · coming soon')}</button><small>{t(import.meta.env.DEV?'Test shortcut, no purchase':'Rewarded ads and purchases are not connected yet')}</small><button className="keep-playing" disabled={!lives.count} onClick={retry}>{t("Retry level")}</button><button className="keep-playing" onClick={onQuit}>{t("Back to ship")}</button>{t(!lives.count&&<NoLives/>)}</div>)}
     {t(fault ? <div className="out-of-moves" ref={resultPanel} tabIndex={-1} role="alert"><h3>{t("Board recovery needed")}</h3><p>{t("This puzzle could not continue safely. No energy was charged for this interrupted attempt.")}</p><button className="primary" onClick={retry}>{t("Restart level · free")}</button><button className="keep-playing" onClick={onQuit}>{t("Back to ship")}</button></div> : !admitted ? <><NoLives/>{t(lives.count>0&&<button className="primary" onClick={()=>setAdmitted(true)}>{t("Start level")}</button>)}</> : !won ? <div hidden={exhausted}>

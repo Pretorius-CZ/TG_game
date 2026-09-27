@@ -2,7 +2,7 @@ import catalog from './cs.json' with {type:'json'};
 export const LANGUAGE_KEY='to-the-stars-language';
 export const validLanguage=value=>value==='cs'?'cs':'en';
 const folded=new Map(Object.entries(catalog).map(([a,b])=>[a.toLowerCase(),b]));
-const tokens={ 'fuel cells':'palivových článků','energy crystals':'energetických krystalů','blue comets':'modrých komet','red energy orbs':'červených energetických koulí','energy orbs':'energetických koulí',crystals:'krystalů',comets:'komet',asteroids:'asteroidů',stars:'hvězd',pieces:'kamenů' };
+const tokens={ 'alien ore':'kusů mimozemské rudy','biological cores':'biologických jader', 'fuel cells':'palivových článků','energy crystals':'energetických krystalů','blue comets':'modrých komet','red energy orbs':'červených energetických koulí','energy orbs':'energetických koulí',crystals:'krystalů',comets:'komet',asteroids:'asteroidů',stars:'hvězd',pieces:'kamenů' };
 const sourceNames={'After landing':'Po přistání','Before landing':'Před přistáním','During landing':'Během přistání',recovered:'obnoveno','signal acquired':'signál zachycen',Survey:'Průzkum',Restoration:'Obnova',Arrival:'Přílet','Two bearings':'Dva směry','One destination':'Jeden cíl'};
 export const missingTranslations=new Set();
 export function translate(value,language='en'){
@@ -15,7 +15,7 @@ export function translate(value,language='en'){
  const tr=s=>translate(s,'cs');
  // Objectives keep their live numeric values, including future balance edits.
  if(/^(Match|Collect|Break) /.test(key)){
-  const quantities=[...key.matchAll(/(\d+) (?:any )?(fuel cells|energy crystals|blue comets|red energy orbs|energy orbs|crystals|comets|asteroids|stars|pieces)/g)];
+  const quantities=[...key.matchAll(/(\d+) (?:any )?(alien ore|biological cores|fuel cells|energy crystals|blue comets|red energy orbs|energy orbs|crystals|comets|asteroids|stars|pieces)/g)];
   if(quantities.length){let out='Nasbírej '+quantities.map(m=>m[1]+' '+tokens[m[2]]).join(' a ')+'.';
    const covers=key.match(/(?:all |release all |Break all )(\d+) protective covers/);if(covers)out+=' Rozbij všechny ochranné kryty ('+covers[1]+').';else if(/covers?|cover\./.test(key))out+=' Rozbij všechny ochranné kryty.';
    const moves=key.match(/in (\d+) moves/);if(moves)out+=' Limit: '+moves[1]+' tahů.';
@@ -38,7 +38,7 @@ export function translate(value,language='en'){
  if((m=key.match(/^Requires (.+)$/)))return apply('Vyžaduje: '+tr(m[1]));
  if((m=key.match(/^First restore (.+)\.$/)))return apply('Nejdřív oprav: '+tr(m[1])+'.');
  if((m=key.match(/^(\d+)\/4 systems online · Tap the highlighted device\.$/)))return apply(m[1]+'/4 systémů v provozu · Klepni na označené zařízení.');
- if((m=key.match(/^(\d+)\/6 tasks · Follow the signal into the outpost\.$/)))return apply(m[1]+'/6 úkolů · Sleduj signál do stanice.');
+ if((m=key.match(/^(\d+)\/(\d+) tasks · Follow the signal into the outpost\.$/)))return apply(m[1]+'/'+m[2]+' úkolů · Sleduj signál do stanice.');
  if((m=key.match(/^Explore · (.+)$/)))return apply('Prozkoumat · '+m[1]);
  if((m=key.match(/^Restore Haven · (.+)$/)))return apply('Obnovit Haven · '+m[1]);
  if((m=key.match(/^TAP TO CONNECT · (.+)$/)))return apply('KLEPNI PRO SPOJENÍ · '+m[1]);

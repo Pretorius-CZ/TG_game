@@ -4,7 +4,7 @@ import {translate,missingTranslations,validLanguage} from '../src/i18n/translate
 
 test('Czech covers repair and journal content across all chapters',async()=>{
   missingTranslations.clear();
-  for(const file of ['repairs','airlockRepairs','navigationRepairs','crewRepairs','galleyRepairs','engineRepairs','exteriorRepairs','exploration','destinations','haven','logEntries','departure']){
+  for(const file of ['repairs','airlockRepairs','navigationRepairs','crewRepairs','galleyRepairs','engineRepairs','exteriorRepairs','exploration','destinations','haven','logEntries','departure','aster']){
     const data=await import(`../src/${file}.js`);
     for(const [name,value] of Object.entries(data)){
       if(typeof value==='function'||!/repairs|logs|logEntries|Log$/i.test(name))continue;

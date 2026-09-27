@@ -409,3 +409,20 @@ Kryty jsou pevně na políčkách, ale kameny pod nimi nyní podléhají gravita
 Zásah krytu stále pouze rozbije kryt a nesečte jeho kámen; tento kámen
 může propadnout spolu s ostatními. Díry v masce stále oddělují sloupce.
 Nahrazuje dřívější chování, kdy krytý kámen blokoval propad sloupce.
+
+## 2026-09-26 — Aster Veil
+Hratelná bóje (3 opravy) a po ní dvě volitelné výpravy Zelený svět a
+Rozlámaný měsíc (6+6 oprav). Celkem 15 miniher a zápisů EN/CZ, generované
+obrazy s proměnami zařízení. Sada Aster nahrazuje asteroid rudou a orb
+biologickým jádrem; první soustava beze změny. Návrat po výpravách vede
+na mapu Aster Veil. Data src/aster.js, dokumentace docs/aster-veil.md.
+Lokální uložení, slučování a reset rozšířené. Pro cloud je nutné spustit
+supabase/008_aster_veil.sql — dosud nepotvrzeno. Zatím bez commitu/pushe.
+
+## 2026-09-27 — Elysium: přechod a první dvě části stanice
+Implementován závěrečný level Aster Veil, přílet k obří stanici Elysium,
+šest sektorů v celkovém pohledu a první dvě hratelné etapy: dok4/jádro4.
+Devět miniher, deset deníků, šest generovaných scén, EN/CZ, lokální postup.
+Další práce: centrální prstenec → obytný sektor → biosféra → observatoř.
+Cloud vyžaduje supabase/009_elysium.sql (zahrnuje 004–008), živé nasazení
+nepotvrzené. Viz docs/elysium.md. 68 testů a mobilní průchod ověřeny.
