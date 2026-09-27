@@ -279,3 +279,9 @@ button.planet-node:hover,button.planet-node:focus-visible { background:#5fd4e51c
 .scene-replays button{display:block;width:100%;min-height:44px;margin:5px 0 0;padding:10px 12px;border:1px solid #3e5c6b;border-radius:8px;background:#193442;color:#e0eef2;font:inherit;font-size:13px;line-height:1.4;letter-spacing:normal;text-align:left;white-space:normal;cursor:pointer}
 .scene-replays button:hover{background:#254956;border-color:#92bdc5}
 .scene-replays button:focus-visible{outline:2px solid #edc78c;outline-offset:2px}
+.homes-lit{mask-image:radial-gradient(ellipse 25% 18% at 20% 30%,#000 62%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 25% 18% at 20% 30%,#000 62%,transparent 100%)}
+.garden-lit{mask-image:radial-gradient(ellipse 23% 17% at 80% 32%,#000 65%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 23% 17% at 80% 32%,#000 65%,transparent 100%)}
+.elysium-map .scene-caption button{pointer-events:auto;width:100%;margin-top:10px;min-height:40px;font-size:12px}
+.elysium-complete .sector-marker{border-color:#95dfc7;color:#a9f3d9;background:#143e38dc}
+.mine-site .hotspot-label-above{flex-direction:column-reverse}
+.play-area .game.elysium-map{min-height:740px;height:max(740px,calc(100svh - 148px));max-height:1100px}

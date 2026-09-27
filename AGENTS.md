@@ -451,3 +451,13 @@ ne typová ID cílů, počty, tahy, kryty, boostery nebo uložený postup.
 čitelný font, ohraničený neprůhledný panel a klávesnicový fokus; nahrazuje
 výchozí šedá tlačítka prohlížeče. Chladicí okruh ve strojovně
 (engine-cooling) na přání uživatele zvýšen z15 na19tahů.
+
+## 2026-09-27 — Elysium kompletní lokálně
+Přidány zbývající3sektory: obytný, biosféra, observatoř, každý4opravy,
+4deníky EN/CZ a dvojice scén; navíc kompletně osvětlený exteriér.
+Postup pevně dok→jádro→prstenec→obytný→biosféra→observatoř.
+Po24opravách Probuzené město a odpověď Havenu; celkem25miniher s trasou.
+Data src/elysiumLater.js. Nová pole homes/garden/observatory (elysium...Completed).
+Cloud vyžaduje kumulativní SQL011, zatím živě nepotvrzeno. Viz docs/elysium-city.md.
+71testů, průchod12nových oprav/reload/deník a mobilní grafika ověřeny.
+Tato práce lokální, bez pushe; poslední publikovaná verze8b2a5c8.

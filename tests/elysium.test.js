@@ -18,12 +18,12 @@ test('station repairs persist, replay does not advance; reset generation wins',(
  let p=normalizeProgress({...base,elysiumRouteCompleted:1,elysiumArrival:1});
  for(const site of Object.values(elysiumDestinations))for(const repair of site.repairs){p[site.key]=completeDestination(p[site.key],repair.id,site.repairs);p=normalizeProgress(p);}
  const ids=[elysiumRouteLog,elysiumArrivalLog,...Object.values(elysiumDestinations).flatMap(s=>s.logs)].map(e=>e.id);
- p=normalizeProgress({...p,readIds:ids,scene:'elysium-core'});assert.equal(p.readIds.length,14);
- const merged=mergeProgress(normalizeProgress(base),JSON.parse(JSON.stringify(p)));assert.equal(merged.elysiumCoreCompleted,4);assert.equal(merged.readIds.length,14);
+ p=normalizeProgress({...p,readIds:ids,scene:'elysium-core'});assert.equal(p.readIds.length,26);
+ const merged=mergeProgress(normalizeProgress(base),JSON.parse(JSON.stringify(p)));assert.equal(merged.elysiumCoreCompleted,4);assert.equal(merged.readIds.length,26);
  assert.equal(completeDestination(4,elysiumDestinations['elysium-dock'].repairs[0].id,elysiumDestinations['elysium-dock'].repairs),4);
- const reset=mergeProgress(p,normalizeProgress({resetRevision:1}));for(const key of ['elysiumRouteCompleted','elysiumArrival','elysiumDockCompleted','elysiumCoreCompleted','elysiumRingCompleted'])assert.equal(reset[key],0);
+ const reset=mergeProgress(p,normalizeProgress({resetRevision:1}));for(const key of ['elysiumRouteCompleted','elysiumArrival','elysiumDockCompleted','elysiumCoreCompleted','elysiumRingCompleted','elysiumHomesCompleted','elysiumGardenCompleted','elysiumObservatoryCompleted'])assert.equal(reset[key],0);
 });
-test('all thirteen Elysium puzzles start playable; stories and goals are bilingual',()=>{
+test('all twenty-five Elysium puzzles start playable; stories and goals are bilingual',()=>{
  missingTranslations.clear();let seed=73;const random=()=>((seed=(seed*1664525+1013904223)>>>0)/4294967296);
  for(const r of [elysiumRoute,...Object.values(elysiumDestinations).flatMap(s=>s.repairs)]){
   for(let i=0;i<12;i++){const board=makeIceBoard(r.level,r.ice,random);assert.deepEqual(iceMatches(board,r.level.cols),[]);assert.ok(iceMove(board,r.level.cols,r.ice));}
@@ -42,4 +42,24 @@ test('central ring unlocks only after all core tasks and persists independently'
  }
  const site=elysiumDestinations['elysium-ring'];assert.equal(site.repairs.length,4);assert.equal(site.logs.length,4);
  assert.equal(completeDestination(0,site.repairs[2].id,site.repairs),0);
+});
+
+test('final three sectors unlock in order and only the last repair completes the city',async()=>{
+ const {elysiumComplete,elysiumSectorOrder}=await import('../src/elysium.js');
+ const start={...base,elysiumRouteCompleted:1,elysiumArrival:1,elysiumDockCompleted:4,elysiumCoreCompleted:4,elysiumRingCompleted:4};
+ let p=normalizeProgress(start);
+ for(const [index,id] of elysiumSectorOrder.slice(3).entries()){
+  assert.equal(canVisitElysium(p,id),true);
+  for(const future of elysiumSectorOrder.slice(4+index))assert.equal(canVisitElysium(p,future),false);
+  const site=elysiumDestinations[id];
+  for(const repair of site.repairs){assert.equal(elysiumComplete(p),false);p=normalizeProgress({...p,[site.key]:completeDestination(p[site.key],repair.id,site.repairs),scene:id});}
+  assert.equal(p.scene,id);assert.equal(p[site.key],4);
+ }
+ assert.equal(elysiumComplete(p),true);
+ const stale=mergeProgress(normalizeProgress(start),p);assert.equal(elysiumComplete(stale),true);
+ const reset=mergeProgress(stale,normalizeProgress({resetRevision:2}));assert.equal(elysiumComplete(reset),false);
+ for(const id of elysiumSectorOrder)assert.equal(reset[elysiumDestinations[id].key],0);
+ for(const key of ['elysiumRingCompleted','elysiumHomesCompleted','elysiumGardenCompleted']){
+  const broken=normalizeProgress({...p,[key]:3});assert.equal(broken.elysiumObservatoryCompleted,0);assert.equal(canVisitElysium(broken,'elysium-observatory'),false);
+ }
 });

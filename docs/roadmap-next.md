@@ -208,3 +208,10 @@ Aktualizace po pushi a6fa895: centrální prstenec je lokálně hotový
 (4úkoly a deník, rozsvícení venku). Pokračovat obytným sektorem,
 pak biosférou a observatoří. Publikovaná verze má zatím dok a jádro.
 SQL010 kumulativně pokrývá všechny lokální etapy, živě dosud nepotvrzeno.
+
+## Dokončení Elysia (2026-09-27)
+Všech6sektorů je nyní lokálně hratelných, včetně závěru kapitoly.
+Viz docs/elysium-city.md; SQL011 dosud na serveru nepotvrzeno.
+Další práce: testování nové kapitoly, doladění limitů podle hraní,
+a návrh pokračování až po zpětné vazbě. Obytný/biosféra/observatoř už
+nejsou plánované prázdné sektory. Nová práce zatím nepushnutá.

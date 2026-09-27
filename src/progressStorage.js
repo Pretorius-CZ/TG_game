@@ -15,7 +15,7 @@ import {navigationLogs} from './navigationRepairs.js';
 import {exteriorLogs} from './exteriorRepairs.js';
 export const SAVE_KEY='to-the-stars-progress-v1';
 const groups={elysiumRouteCompleted:[elysiumRouteLog],elysiumArrival:[elysiumArrivalLog],...Object.fromEntries(Object.values(elysiumDestinations).map(s=>[s.key,s.logs])),...Object.fromEntries(Object.values(asterDestinations).map(s=>[s.key,s.logs])),completed:logEntries,crewCompleted:crewLogs,galleyCompleted:galleyLogs,engineCompleted:engineLogs,airlockCompleted:airlockLogs,navigationCompleted:navigationLogs,exteriorCompleted:exteriorLogs,mineCompleted:mineLogs,iceCompleted:iceLogs,wreckCompleted:wreckLogs,havenCompleted:havenLogs};
-const limits={elysiumRouteCompleted:1,elysiumArrival:1,elysiumDockCompleted:4,elysiumCoreCompleted:4,elysiumRingCompleted:4,buoyCompleted:3,verdantCompleted:6,fractureCompleted:6,completed:4,crewCompleted:4,galleyCompleted:4,engineCompleted:5,airlockCompleted:3,navigationCompleted:4,exteriorCompleted:4,mineCompleted:6,iceCompleted:6,wreckCompleted:6,havenCompleted:6};
+const limits={elysiumRouteCompleted:1,elysiumArrival:1,elysiumDockCompleted:4,elysiumCoreCompleted:4,elysiumRingCompleted:4,elysiumHomesCompleted:4,elysiumGardenCompleted:4,elysiumObservatoryCompleted:4,buoyCompleted:3,verdantCompleted:6,fractureCompleted:6,completed:4,crewCompleted:4,galleyCompleted:4,engineCompleted:5,airlockCompleted:3,navigationCompleted:4,exteriorCompleted:4,mineCompleted:6,iceCompleted:6,wreckCompleted:6,havenCompleted:6};
 const scenes=[...elysiumScenes,...asterScenes,'exterior','airlock','cockpit','corridor','crew','galley','engine','navigation','system','mine','ice','wreck','haven','system2'];
 export function normalizeProgress(value={}){
  const save={version:1,resetRevision:Number.isSafeInteger(value?.resetRevision)&&value.resetRevision>=0?value.resetRevision:0};
@@ -36,6 +36,9 @@ export function normalizeProgress(value={}){
  if(save.elysiumArrival<1)save.elysiumDockCompleted=0;
  if(save.elysiumDockCompleted<4)save.elysiumCoreCompleted=0;
  if(save.elysiumCoreCompleted<4)save.elysiumRingCompleted=0;
+ if(save.elysiumRingCompleted<4)save.elysiumHomesCompleted=0;
+ if(save.elysiumHomesCompleted<4)save.elysiumGardenCompleted=0;
+ if(save.elysiumGardenCompleted<4)save.elysiumObservatoryCompleted=0;
  const unlocked=Object.entries(groups).flatMap(([key,entries])=>entries.slice(0,save[key]).map(e=>e.id));
  save.readIds=[...new Set(Array.isArray(value?.readIds)?value.readIds.filter(id=>unlocked.includes(id)):[])];
  if(save.launchDone&&value?.readIds?.includes(departureLog.id))save.readIds.push(departureLog.id);

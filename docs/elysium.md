@@ -67,3 +67,8 @@ Ověřeny obrazové stavy jádra1–4 a dílčí dok/prstenec v izolovaném proh
 ## Vlastní dlaždice stanice
 Sada součástek a zásob nahrazuje dosavadní vesmírné symboly uvnitř
 stanice. Podrobnosti docs/elysium-tiles.md. Obtížnost zachována.
+
+## Aktuální stav — všech šest sektorů hotových
+Dok/jádro/prstenec doplněné obytným sektorem, biosférou a observatoří.
+Nejnovější přehled a migrace SQL011: docs/elysium-city.md. Starší zmínky
+v tomto chronologickém dokumentu o nehratelných sektorech už neplatí.

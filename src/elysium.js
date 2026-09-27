@@ -1,3 +1,4 @@
+import {elysiumLaterDestinations} from './elysiumLater.js';
 import {asterComplete} from './aster.js';
 export const elysiumDestinations={
   "elysium-dock": {
@@ -641,7 +642,8 @@ export const elysiumDestinations={
       "radial-gradient(ellipse 17% 24% at 54% 43%, #000 45%, rgba(0,0,0,.88) 60%, rgba(0,0,0,.35) 80%, transparent 100%)",
       "radial-gradient(ellipse 28% 24% at 83% 76%, #000 45%, rgba(0,0,0,.88) 60%, rgba(0,0,0,.35) 80%, transparent 100%)"
     ]
-  }
+  },
+  ...elysiumLaterDestinations
 };
 export const elysiumRoute={
   "id": "elysium-route",
@@ -699,4 +701,10 @@ export const elysiumArrivalLog={
   "text": "Our ship is a speck beside the dock. Six great sectors surround a silent ring. A single beacon welcomes us. Haven, we have reached Elysium."
 };
 export const elysiumScenes=['elysium',...Object.keys(elysiumDestinations)];
-export const canVisitElysium=(p,scene)=>asterComplete(p)&&p.elysiumRouteCompleted===1&&p.elysiumArrival===1&&elysiumScenes.includes(scene)&&(scene!=='elysium-core'||p.elysiumDockCompleted===4)&&(scene!=='elysium-ring'||p.elysiumCoreCompleted===4);
+export const elysiumSectorOrder=Object.keys(elysiumDestinations);
+export const elysiumComplete=p=>Object.values(elysiumDestinations).every(s=>p[s.key]===s.repairs.length);
+export function canVisitElysium(p,scene){
+ if(!asterComplete(p)||p.elysiumRouteCompleted!==1||p.elysiumArrival!==1||!elysiumScenes.includes(scene))return false;
+ if(scene==='elysium')return true;
+ return elysiumSectorOrder.slice(0,elysiumSectorOrder.indexOf(scene)).every(id=>p[elysiumDestinations[id].key]===4);
+}
