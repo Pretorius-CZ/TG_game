@@ -272,3 +272,10 @@ button.planet-node:hover,button.planet-node:focus-visible { background:#5fd4e51c
 .aster-chart:has(.expedition-console button:nth-of-type(2)){min-height:950px}
 @media(prefers-reduced-motion:reduce){.elysium-emerging,.elysium-dust,.elysium-lit{animation:none}.elysium-dust{display:none}}
 .ring-lit{clip-path:polygon(12% 35%,79% 35%,88% 46%,80% 51%,21% 51%,12% 45%)}
+
+/* Replay choices share the scene UI instead of browser-default buttons. */
+.scene-replays[open]{width:min(260px,calc(100% - 24px));border:1px solid #52717f;background:#102432fa;padding:8px;box-shadow:0 12px 32px #0009}
+.scene-replays[open] summary{margin-bottom:8px}
+.scene-replays button{display:block;width:100%;min-height:44px;margin:5px 0 0;padding:10px 12px;border:1px solid #3e5c6b;border-radius:8px;background:#193442;color:#e0eef2;font:inherit;font-size:13px;line-height:1.4;letter-spacing:normal;text-align:left;white-space:normal;cursor:pointer}
+.scene-replays button:hover{background:#254956;border-color:#92bdc5}
+.scene-replays button:focus-visible{outline:2px solid #edc78c;outline-offset:2px}

@@ -446,3 +446,8 @@ světelný článek / biokapsle. Společná sada v doku, jádru i prstenci,
 přibližovací level ponechává Aster Veil. Mění se obrázky a EN/CZ texty,
 ne typová ID cílů, počty, tahy, kryty, boostery nebo uložený postup.
 Žádný nový inventář ani SQL. Viz docs/elysium-tiles.md. Změny lokální.
+
+2026-09-27: Nabídka opakování má sjednocená plnošířková tlačítka,
+čitelný font, ohraničený neprůhledný panel a klávesnicový fokus; nahrazuje
+výchozí šedá tlačítka prohlížeče. Chladicí okruh ve strojovně
+(engine-cooling) na přání uživatele zvýšen z15 na19tahů.
