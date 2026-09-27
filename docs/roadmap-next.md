@@ -203,3 +203,8 @@ Přílet a první dvě etapy implementované; detaily docs/elysium.md.
 Následuje centrální prstenec, obytný sektor, biosféra a observatoř.
 Uživatel požádal zveřejnit testovatelný stav a poté pokračovat.
 Cloud nových kapitol vyžaduje SQL009, zatím nepotvrzeno.
+
+Aktualizace po pushi a6fa895: centrální prstenec je lokálně hotový
+(4úkoly a deník, rozsvícení venku). Pokračovat obytným sektorem,
+pak biosférou a observatoří. Publikovaná verze má zatím dok a jádro.
+SQL010 kumulativně pokrývá všechny lokální etapy, živě dosud nepotvrzeno.

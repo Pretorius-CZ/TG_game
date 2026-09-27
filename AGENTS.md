@@ -426,3 +426,23 @@ Devět miniher, deset deníků, šest generovaných scén, EN/CZ, lokální post
 Další práce: centrální prstenec → obytný sektor → biosféra → observatoř.
 Cloud vyžaduje supabase/009_elysium.sql (zahrnuje 004–008), živé nasazení
 nepotvrzené. Viz docs/elysium.md. 68 testů a mobilní průchod ověřeny.
+
+2026-09-27: Push a6fa895 na codex/cockpit-stage a GitHub Pages nasazení
+ověřeny jako úspěšné. Poté lokálně přibyl centrální prstenec (4opravy,
+4deníky, 3obrazy včetně rozsvíceného exteriéru). Vstup až po jádru4.
+Nové elysiumRingCompleted; cloud SQL010 zahrnuje009 i předchozí migrace,
+živé provedení nepotvrzené. Prstenec zatím nepushnutý. 69testů, build,
+průchod13novými minihrami/reload/deník a320px ověřeny. Další: obytný
+sektor → biosféra → observatoř. Viz docs/elysium.md.
+
+2026-09-27: Na základě testu odstraněny ostré obdélníkové přechody mezi
+poškozenou a opravenou grafikou Elysia. src/elysium.js má restorationMasks
+s plynulým alfa okrajem; Exploration je respektuje, 4/4 ukazuje celou scénu.
+Dílčí jádro/dok/prstenec vizuálně ověřeny, oprava zatím lokální.
+
+2026-09-27: Schválena a zapojena vlastní šestice dlaždic Elysia:
+chladicí náplň / energetický modul / datový čip / slitinový díl /
+světelný článek / biokapsle. Společná sada v doku, jádru i prstenci,
+přibližovací level ponechává Aster Veil. Mění se obrázky a EN/CZ texty,
+ne typová ID cílů, počty, tahy, kryty, boostery nebo uložený postup.
+Žádný nový inventář ani SQL. Viz docs/elysium-tiles.md. Změny lokální.

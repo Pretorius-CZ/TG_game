@@ -271,3 +271,4 @@ button.planet-node:hover,button.planet-node:focus-visible { background:#5fd4e51c
 @keyframes station-power{from{opacity:0}to{opacity:1}}
 .aster-chart:has(.expedition-console button:nth-of-type(2)){min-height:950px}
 @media(prefers-reduced-motion:reduce){.elysium-emerging,.elysium-dust,.elysium-lit{animation:none}.elysium-dust{display:none}}
+.ring-lit{clip-path:polygon(12% 35%,79% 35%,88% 46%,80% 51%,21% 51%,12% 45%)}

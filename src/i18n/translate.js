@@ -2,7 +2,7 @@ import catalog from './cs.json' with {type:'json'};
 export const LANGUAGE_KEY='to-the-stars-language';
 export const validLanguage=value=>value==='cs'?'cs':'en';
 const folded=new Map(Object.entries(catalog).map(([a,b])=>[a.toLowerCase(),b]));
-const tokens={ 'alien ore':'kusů mimozemské rudy','biological cores':'biologických jader', 'fuel cells':'palivových článků','energy crystals':'energetických krystalů','blue comets':'modrých komet','red energy orbs':'červených energetických koulí','energy orbs':'energetických koulí',crystals:'krystalů',comets:'komet',asteroids:'asteroidů',stars:'hvězd',pieces:'kamenů' };
+const tokens={ 'coolant charges':'chladicích náplní','energy modules':'energetických modulů','data chips':'datových čipů','alloy components':'slitinových dílů','light cells':'světelných článků','biocapsules':'biokapslí', 'alien ore':'kusů mimozemské rudy','biological cores':'biologických jader', 'fuel cells':'palivových článků','energy crystals':'energetických krystalů','blue comets':'modrých komet','red energy orbs':'červených energetických koulí','energy orbs':'energetických koulí',crystals:'krystalů',comets:'komet',asteroids:'asteroidů',stars:'hvězd',pieces:'kamenů' };
 const sourceNames={'After landing':'Po přistání','Before landing':'Před přistáním','During landing':'Během přistání',recovered:'obnoveno','signal acquired':'signál zachycen',Survey:'Průzkum',Restoration:'Obnova',Arrival:'Přílet','Two bearings':'Dva směry','One destination':'Jeden cíl'};
 export const missingTranslations=new Set();
 export function translate(value,language='en'){
@@ -15,7 +15,7 @@ export function translate(value,language='en'){
  const tr=s=>translate(s,'cs');
  // Objectives keep their live numeric values, including future balance edits.
  if(/^(Match|Collect|Break) /.test(key)){
-  const quantities=[...key.matchAll(/(\d+) (?:any )?(alien ore|biological cores|fuel cells|energy crystals|blue comets|red energy orbs|energy orbs|crystals|comets|asteroids|stars|pieces)/g)];
+  const quantities=[...key.matchAll(/(\d+) (?:any )?(coolant charges|energy modules|data chips|alloy components|light cells|biocapsules|alien ore|biological cores|fuel cells|energy crystals|blue comets|red energy orbs|energy orbs|crystals|comets|asteroids|stars|pieces)/g)];
   if(quantities.length){let out='Nasbírej '+quantities.map(m=>m[1]+' '+tokens[m[2]]).join(' a ')+'.';
    const covers=key.match(/(?:all |release all |Break all )(\d+) protective covers/);if(covers)out+=' Rozbij všechny ochranné kryty ('+covers[1]+').';else if(/covers?|cover\./.test(key))out+=' Rozbij všechny ochranné kryty.';
    const moves=key.match(/in (\d+) moves/);if(moves)out+=' Limit: '+moves[1]+' tahů.';

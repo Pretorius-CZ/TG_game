@@ -39,3 +39,31 @@ nová pole ze starého serveru za úspěšné uložení, místní kopie zůstáv
 68 unit testů; izolovaný mobilní průchod: trasa, odložení příletu, obnovení,
 přílet, 4 opravy doku, 4 opravy jádra, návraty, reload, deník a načtení grafiky.
 Obsah EN/CZ. Nové limity jsou návrh k testování, staré levely se neměnily.
+
+## Doplnění po pushi — centrální prstenec
+Lokálně přibyla třetí hratelná etapa se čtyřmi opravami: přepážka,
+doprava, propojení sektorů, osvětlení promenády. Vlastní poškozená a
+opravená grafika, změna celkového pohledu stanice, čtyři deníky EN/CZ.
+Odemkne se po jádru4. Nové pole elysiumRingCompleted (0–4),
+**cloud vyžaduje supabase/010_elysium_ring.sql**, která zahrnuje i009.
+Pro všechny nynější lokální funkce tedy stačí spustit010, nikoli obě.
+
+Celkem je nyní lokálně 13 nových miniher a14 deníků (trasa+přílet+12oprav).
+Ověřeno69 unit testů, mobilní průchod všech13her včetně skutečného tahu,
+reload mezi sektory, žádné chybějící překlady ani grafika. Na320px ověřeno
+zrušení a přeskočení příletu, mapa a minihra bez vodorovného přetékání.
+Automatický přílet ověřen v režimu omezených animací.
+
+Zveřejněná verze a6fa895 obsahuje dok/jádro a Aster Veil; GitHub Pages
+nasazení úspěšné. Centrální prstenec vznikl až po tomto pushi a zatím
+zůstává lokálně. Obytný sektor, biosféra a observatoř jsou další práce.
+
+2026-09-27 — Oprava viditelných švů: dílčí stavy Elysia (dok/jádro/prstenec)
+používají měkké radiální alfa masky kolem jednotlivých zařízení místo ostrých
+polygonů. Odlišné nasvícení opraveného obrazu tak nevytváří obdélníkové hrany.
+Finální 4/4 nadále odhalí celý opravený obraz. Postup, cíle a obrázky beze změny.
+Ověřeny obrazové stavy jádra1–4 a dílčí dok/prstenec v izolovaném prohlížeči.
+
+## Vlastní dlaždice stanice
+Sada součástek a zásob nahrazuje dosavadní vesmírné symboly uvnitř
+stanice. Podrobnosti docs/elysium-tiles.md. Obtížnost zachována.

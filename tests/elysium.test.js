@@ -18,12 +18,12 @@ test('station repairs persist, replay does not advance; reset generation wins',(
  let p=normalizeProgress({...base,elysiumRouteCompleted:1,elysiumArrival:1});
  for(const site of Object.values(elysiumDestinations))for(const repair of site.repairs){p[site.key]=completeDestination(p[site.key],repair.id,site.repairs);p=normalizeProgress(p);}
  const ids=[elysiumRouteLog,elysiumArrivalLog,...Object.values(elysiumDestinations).flatMap(s=>s.logs)].map(e=>e.id);
- p=normalizeProgress({...p,readIds:ids,scene:'elysium-core'});assert.equal(p.readIds.length,10);
- const merged=mergeProgress(normalizeProgress(base),JSON.parse(JSON.stringify(p)));assert.equal(merged.elysiumCoreCompleted,4);assert.equal(merged.readIds.length,10);
+ p=normalizeProgress({...p,readIds:ids,scene:'elysium-core'});assert.equal(p.readIds.length,14);
+ const merged=mergeProgress(normalizeProgress(base),JSON.parse(JSON.stringify(p)));assert.equal(merged.elysiumCoreCompleted,4);assert.equal(merged.readIds.length,14);
  assert.equal(completeDestination(4,elysiumDestinations['elysium-dock'].repairs[0].id,elysiumDestinations['elysium-dock'].repairs),4);
- const reset=mergeProgress(p,normalizeProgress({resetRevision:1}));for(const key of ['elysiumRouteCompleted','elysiumArrival','elysiumDockCompleted','elysiumCoreCompleted'])assert.equal(reset[key],0);
+ const reset=mergeProgress(p,normalizeProgress({resetRevision:1}));for(const key of ['elysiumRouteCompleted','elysiumArrival','elysiumDockCompleted','elysiumCoreCompleted','elysiumRingCompleted'])assert.equal(reset[key],0);
 });
-test('all nine Elysium puzzles start playable; stories and goals are bilingual',()=>{
+test('all thirteen Elysium puzzles start playable; stories and goals are bilingual',()=>{
  missingTranslations.clear();let seed=73;const random=()=>((seed=(seed*1664525+1013904223)>>>0)/4294967296);
  for(const r of [elysiumRoute,...Object.values(elysiumDestinations).flatMap(s=>s.repairs)]){
   for(let i=0;i<12;i++){const board=makeIceBoard(r.level,r.ice,random);assert.deepEqual(iceMatches(board,r.level.cols),[]);assert.ok(iceMove(board,r.level.cols,r.ice));}
@@ -31,4 +31,15 @@ test('all nine Elysium puzzles start playable; stories and goals are bilingual',
  }
  for(const log of [elysiumRouteLog,elysiumArrivalLog,...Object.values(elysiumDestinations).flatMap(s=>s.logs)])for(const key of ['title','text','source','time'])translate(log[key],'cs');
  assert.deepEqual([...missingTranslations],[]);
+});
+
+test('central ring unlocks only after all core tasks and persists independently',()=>{
+ for(let core=0;core<=4;core++){
+  const p=normalizeProgress({...base,elysiumRouteCompleted:1,elysiumArrival:1,elysiumDockCompleted:4,elysiumCoreCompleted:core,elysiumRingCompleted:2,scene:'elysium-ring'});
+  assert.equal(canVisitElysium(p,'elysium-ring'),core===4);
+  assert.equal(p.elysiumRingCompleted,core===4?2:0);
+  assert.equal(p.scene,core===4?'elysium-ring':'system2');
+ }
+ const site=elysiumDestinations['elysium-ring'];assert.equal(site.repairs.length,4);assert.equal(site.logs.length,4);
+ assert.equal(completeDestination(0,site.repairs[2].id,site.repairs),0);
 });

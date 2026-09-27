@@ -14,3 +14,11 @@ Runtime WebP: 768 × 1365, quality87. Original PNGs remain in generated_images.
 Station has dock lower-left, reactor lower-right, residential upper-left,
 biosphere upper-right, central ring, observatory spire. Four future sectors
 remain dormant. Interiors reveal device-specific masks after repairs.
+
+Central ring addition (same camera/reference-preserving edit workflow):
+- elysium-ring: 5ed77b5b-5d4c-4062-a175-b10a3f077a35
+- elysium-ring-restored: 5819a199-db37-4223-98f3-1aa53873a0d1
+- elysium-ring-exterior: 369738af-093b-4bf7-8b5a-e33f9943291f
+Four devices: left pressure door, right transit platform, central network
+junction, lower-right lights. Only main ring lighting added to exterior;
+future homes, biosphere and observatory remain dormant.

@@ -16,7 +16,7 @@ export const elysiumDestinations={
         "x": 20,
         "y": 53,
         "moves": 25,
-        "tileSet": "aster",
+        "tileSet": "elysium",
         "ice": [],
         "level": {
           "rows": 7,
@@ -27,17 +27,17 @@ export const elysiumDestinations={
           {
             "type": 2,
             "target": 21,
-            "label": "Blue comets"
+            "label": "Data chips"
           },
           {
             "type": 4,
             "target": 18,
-            "label": "Stars"
+            "label": "Light cells"
           }
         ],
         "target": 39,
         "targetType": null,
-        "objective": "Collect 21 blue comets, 18 stars."
+        "objective": "Collect 21 data chips, 18 light cells."
       },
       {
         "id": "elysium-dock-tunnel",
@@ -51,7 +51,7 @@ export const elysiumDestinations={
         "x": 80,
         "y": 38,
         "moves": 26,
-        "tileSet": "aster",
+        "tileSet": "elysium",
         "ice": [],
         "level": {
           "rows": 7,
@@ -62,17 +62,17 @@ export const elysiumDestinations={
           {
             "type": 3,
             "target": 21,
-            "label": "Alien ore"
+            "label": "Alloy components"
           },
           {
             "type": 0,
             "target": 18,
-            "label": "Fuel cells"
+            "label": "Coolant charges"
           }
         ],
         "target": 39,
         "targetType": null,
-        "objective": "Collect 21 alien ore, 18 fuel cells."
+        "objective": "Collect 21 alloy components, 18 coolant charges."
       },
       {
         "id": "elysium-dock-pressure",
@@ -86,7 +86,7 @@ export const elysiumDestinations={
         "x": 24,
         "y": 83,
         "moves": 28,
-        "tileSet": "aster",
+        "tileSet": "elysium",
         "ice": [
           15,
           19,
@@ -102,17 +102,17 @@ export const elysiumDestinations={
           {
             "type": 1,
             "target": 24,
-            "label": "Energy crystals"
+            "label": "Energy modules"
           },
           {
             "type": 2,
             "target": 18,
-            "label": "Blue comets"
+            "label": "Data chips"
           }
         ],
         "target": 42,
         "targetType": null,
-        "objective": "Collect 24 energy crystals, 18 blue comets. Break all protective covers."
+        "objective": "Collect 24 energy modules, 18 data chips. Break all protective covers."
       },
       {
         "id": "elysium-dock-cargo",
@@ -126,7 +126,7 @@ export const elysiumDestinations={
         "x": 82,
         "y": 75,
         "moves": 29,
-        "tileSet": "aster",
+        "tileSet": "elysium",
         "ice": [
           15,
           19,
@@ -142,17 +142,17 @@ export const elysiumDestinations={
           {
             "type": 0,
             "target": 24,
-            "label": "Fuel cells"
+            "label": "Coolant charges"
           },
           {
             "type": 3,
             "target": 21,
-            "label": "Alien ore"
+            "label": "Alloy components"
           }
         ],
         "target": 45,
         "targetType": null,
-        "objective": "Collect 24 fuel cells, 21 alien ore. Break all protective covers."
+        "objective": "Collect 24 coolant charges, 21 alloy components. Break all protective covers."
       }
     ],
     "logs": [
@@ -202,6 +202,12 @@ export const elysiumDestinations={
       "polygon(55% 15%,100% 15%,100% 60%,55% 60%)",
       "polygon(0% 65%,50% 65%,50% 100%,0% 100%)",
       "polygon(50% 60%,100% 60%,100% 100%,50% 100%)"
+    ],
+    "restorationMasks": [
+      "radial-gradient(ellipse 27% 22% at 15% 52%, #000 45%, rgba(0,0,0,.88) 60%, rgba(0,0,0,.35) 80%, transparent 100%)",
+      "radial-gradient(ellipse 29% 24% at 83% 38%, #000 45%, rgba(0,0,0,.88) 60%, rgba(0,0,0,.35) 80%, transparent 100%)",
+      "radial-gradient(ellipse 32% 27% at 16% 83%, #000 45%, rgba(0,0,0,.88) 60%, rgba(0,0,0,.35) 80%, transparent 100%)",
+      "radial-gradient(ellipse 30% 25% at 86% 76%, #000 45%, rgba(0,0,0,.88) 60%, rgba(0,0,0,.35) 80%, transparent 100%)"
     ]
   },
   "elysium-core": {
@@ -220,7 +226,7 @@ export const elysiumDestinations={
         "x": 19,
         "y": 65,
         "moves": 27,
-        "tileSet": "aster",
+        "tileSet": "elysium",
         "ice": [],
         "level": {
           "rows": 7,
@@ -231,17 +237,17 @@ export const elysiumDestinations={
           {
             "type": 2,
             "target": 24,
-            "label": "Blue comets"
+            "label": "Data chips"
           },
           {
             "type": 0,
             "target": 18,
-            "label": "Fuel cells"
+            "label": "Coolant charges"
           }
         ],
         "target": 42,
         "targetType": null,
-        "objective": "Collect 24 blue comets, 18 fuel cells."
+        "objective": "Collect 24 data chips, 18 coolant charges."
       },
       {
         "id": "elysium-core-grid",
@@ -255,7 +261,7 @@ export const elysiumDestinations={
         "x": 85,
         "y": 44,
         "moves": 28,
-        "tileSet": "aster",
+        "tileSet": "elysium",
         "ice": [],
         "level": {
           "rows": 7,
@@ -266,17 +272,17 @@ export const elysiumDestinations={
           {
             "type": 1,
             "target": 24,
-            "label": "Energy crystals"
+            "label": "Energy modules"
           },
           {
             "type": 3,
             "target": 18,
-            "label": "Alien ore"
+            "label": "Alloy components"
           }
         ],
         "target": 42,
         "targetType": null,
-        "objective": "Collect 24 energy crystals, 18 alien ore."
+        "objective": "Collect 24 energy modules, 18 alloy components."
       },
       {
         "id": "elysium-core-ignition",
@@ -290,7 +296,7 @@ export const elysiumDestinations={
         "x": 50,
         "y": 35,
         "moves": 30,
-        "tileSet": "aster",
+        "tileSet": "elysium",
         "ice": [
           15,
           19,
@@ -306,17 +312,17 @@ export const elysiumDestinations={
           {
             "type": 1,
             "target": 27,
-            "label": "Energy crystals"
+            "label": "Energy modules"
           },
           {
             "type": 0,
             "target": 21,
-            "label": "Fuel cells"
+            "label": "Coolant charges"
           }
         ],
         "target": 48,
         "targetType": null,
-        "objective": "Collect 27 energy crystals, 21 fuel cells. Break all protective covers."
+        "objective": "Collect 27 energy modules, 21 coolant charges. Break all protective covers."
       },
       {
         "id": "elysium-core-safeguards",
@@ -330,7 +336,7 @@ export const elysiumDestinations={
         "x": 80,
         "y": 81,
         "moves": 33,
-        "tileSet": "aster",
+        "tileSet": "elysium",
         "ice": [
           15,
           19,
@@ -346,22 +352,22 @@ export const elysiumDestinations={
           {
             "type": 1,
             "target": 24,
-            "label": "Energy crystals"
+            "label": "Energy modules"
           },
           {
             "type": 4,
             "target": 24,
-            "label": "Stars"
+            "label": "Light cells"
           },
           {
             "type": 2,
             "target": 15,
-            "label": "Blue comets"
+            "label": "Data chips"
           }
         ],
         "target": 63,
         "targetType": null,
-        "objective": "Collect 24 energy crystals, 24 stars, 15 blue comets. Break all protective covers."
+        "objective": "Collect 24 energy modules, 24 light cells, 15 data chips. Break all protective covers."
       }
     ],
     "logs": [
@@ -411,6 +417,229 @@ export const elysiumDestinations={
       "polygon(70% 15%,100% 15%,100% 65%,70% 65%)",
       "polygon(32% 0%,70% 0%,70% 70%,32% 70%)",
       "polygon(50% 65%,100% 65%,100% 100%,50% 100%)"
+    ],
+    "restorationMasks": [
+      "radial-gradient(ellipse 27% 26% at 9% 65%, #000 45%, rgba(0,0,0,.88) 60%, rgba(0,0,0,.35) 80%, transparent 100%)",
+      "radial-gradient(ellipse 22% 27% at 91% 44%, #000 45%, rgba(0,0,0,.88) 60%, rgba(0,0,0,.35) 80%, transparent 100%)",
+      "radial-gradient(ellipse 23% 57% at 50% 42%, #000 45%, rgba(0,0,0,.88) 60%, rgba(0,0,0,.35) 80%, transparent 100%)",
+      "radial-gradient(ellipse 30% 23% at 83% 82%, #000 45%, rgba(0,0,0,.88) 60%, rgba(0,0,0,.35) 80%, transparent 100%)"
+    ]
+  },
+  "elysium-ring": {
+    "title": "Central ring",
+    "key": "elysiumRingCompleted",
+    "repairs": [
+      {
+        "id": "elysium-ring-bulkhead",
+        "name": "Ring bulkhead",
+        "lesson": "Ring bulkhead",
+        "thought": "The core is stable. Equalize pressure before opening the central ring.",
+        "result": "The sealed entrance opens onto a silent promenade.",
+        "action": "Restore station equipment",
+        "room": "ELYSIUM",
+        "icon": "✦",
+        "x": 15,
+        "y": 55,
+        "moves": 27,
+        "tileSet": "elysium",
+        "ice": [],
+        "level": {
+          "rows": 7,
+          "cols": 7,
+          "types": 6
+        },
+        "goals": [
+          {
+            "type": 1,
+            "target": 24,
+            "label": "Energy modules"
+          },
+          {
+            "type": 2,
+            "target": 18,
+            "label": "Data chips"
+          }
+        ],
+        "target": 42,
+        "targetType": null,
+        "objective": "Collect 24 energy modules, 18 data chips."
+      },
+      {
+        "id": "elysium-ring-transit",
+        "name": "Ring transit",
+        "lesson": "Ring transit",
+        "thought": "Walking around this ring would take hours. Restore its local transit line.",
+        "result": "The platform wakes. A transport carriage returns to the station.",
+        "action": "Restore station equipment",
+        "room": "ELYSIUM",
+        "icon": "✦",
+        "x": 80,
+        "y": 50,
+        "moves": 28,
+        "tileSet": "elysium",
+        "ice": [],
+        "level": {
+          "rows": 7,
+          "cols": 7,
+          "types": 6
+        },
+        "goals": [
+          {
+            "type": 0,
+            "target": 24,
+            "label": "Coolant charges"
+          },
+          {
+            "type": 3,
+            "target": 21,
+            "label": "Alloy components"
+          }
+        ],
+        "target": 45,
+        "targetType": null,
+        "objective": "Collect 24 coolant charges, 21 alloy components."
+      },
+      {
+        "id": "elysium-ring-junction",
+        "name": "Sector junction",
+        "lesson": "Sector junction",
+        "thought": "Reconnect the sector network. Power must reach each district without overloading the core.",
+        "result": "District controllers answer. The residential sector can now be prepared for restoration.",
+        "action": "Restore station equipment",
+        "room": "ELYSIUM",
+        "icon": "✦",
+        "x": 53,
+        "y": 43,
+        "moves": 30,
+        "tileSet": "elysium",
+        "ice": [
+          15,
+          19,
+          29,
+          33
+        ],
+        "level": {
+          "rows": 7,
+          "cols": 7,
+          "types": 6
+        },
+        "goals": [
+          {
+            "type": 1,
+            "target": 27,
+            "label": "Energy modules"
+          },
+          {
+            "type": 4,
+            "target": 21,
+            "label": "Light cells"
+          }
+        ],
+        "target": 48,
+        "targetType": null,
+        "objective": "Collect 27 energy modules, 21 light cells. Break all protective covers."
+      },
+      {
+        "id": "elysium-ring-lighting",
+        "name": "Promenade lights",
+        "lesson": "Promenade lights",
+        "thought": "Restore the main lights. Let us see the scale of the place we have brought back.",
+        "result": "Light circles the station. The next step is to make its homes habitable.",
+        "action": "Restore station equipment",
+        "room": "ELYSIUM",
+        "icon": "✦",
+        "x": 81,
+        "y": 73,
+        "moves": 32,
+        "tileSet": "elysium",
+        "ice": [
+          9,
+          12,
+          22,
+          26,
+          37,
+          40
+        ],
+        "level": {
+          "rows": 8,
+          "cols": 7,
+          "types": 6
+        },
+        "goals": [
+          {
+            "type": 1,
+            "target": 24,
+            "label": "Energy modules"
+          },
+          {
+            "type": 2,
+            "target": 24,
+            "label": "Data chips"
+          },
+          {
+            "type": 4,
+            "target": 15,
+            "label": "Light cells"
+          }
+        ],
+        "target": 63,
+        "targetType": null,
+        "objective": "Collect 24 energy modules, 24 data chips, 15 light cells. Break all protective covers."
+      }
+    ],
+    "logs": [
+      {
+        "id": "elysium-ring-bulkhead-log",
+        "repair": "elysium-ring-bulkhead",
+        "title": "A sealed city",
+        "text": "The bulkheads protected whole neighborhoods. Whoever ordered the shutdown expected people to return.",
+        "source": "Station log",
+        "time": "Elysium / Restoration 9",
+        "unlockAt": 81
+      },
+      {
+        "id": "elysium-ring-transit-log",
+        "repair": "elysium-ring-transit",
+        "title": "The last departure",
+        "text": "The transport manifest ends with a coordinated evacuation. Nobody was left waiting on these platforms.",
+        "source": "Station log",
+        "time": "Elysium / Restoration 10",
+        "unlockAt": 82
+      },
+      {
+        "id": "elysium-ring-junction-log",
+        "repair": "elysium-ring-junction",
+        "title": "A promise in the archive",
+        "text": "A maintenance message repeats one instruction: keep the gardens alive until we return. The living sample we recovered may matter here.",
+        "source": "Station log",
+        "time": "Elysium / Restoration 11",
+        "unlockAt": 83
+      },
+      {
+        "id": "elysium-ring-lighting-log",
+        "repair": "elysium-ring-lighting",
+        "title": "A road through the dark",
+        "text": "The ring is lit from end to end. Our ship looks tiny through the glass. We have restored a way into the city; now we must give it somewhere to live.",
+        "source": "Station log",
+        "time": "Elysium / Restoration 12",
+        "unlockAt": 84
+      }
+    ],
+    "image": "elysium-ring",
+    "system": "elysium",
+    "chapter": "CHAPTER 04 / ELYSIUM",
+    "complete": "The central ring is open. Residential restoration comes next.",
+    "clips": [
+      "polygon(0% 29%,31% 29%,31% 75%,0% 75%)",
+      "polygon(66% 37%,100% 37%,100% 63%,66% 63%)",
+      "polygon(42% 27%,63% 27%,63% 56%,42% 56%)",
+      "polygon(0% 0%,100% 0%,100% 100%,0% 100%)"
+    ],
+    "restorationMasks": [
+      "radial-gradient(ellipse 26% 31% at 9% 54%, #000 45%, rgba(0,0,0,.88) 60%, rgba(0,0,0,.35) 80%, transparent 100%)",
+      "radial-gradient(ellipse 25% 19% at 86% 49%, #000 45%, rgba(0,0,0,.88) 60%, rgba(0,0,0,.35) 80%, transparent 100%)",
+      "radial-gradient(ellipse 17% 24% at 54% 43%, #000 45%, rgba(0,0,0,.88) 60%, rgba(0,0,0,.35) 80%, transparent 100%)",
+      "radial-gradient(ellipse 28% 24% at 83% 76%, #000 45%, rgba(0,0,0,.88) 60%, rgba(0,0,0,.35) 80%, transparent 100%)"
     ]
   }
 };
@@ -470,4 +699,4 @@ export const elysiumArrivalLog={
   "text": "Our ship is a speck beside the dock. Six great sectors surround a silent ring. A single beacon welcomes us. Haven, we have reached Elysium."
 };
 export const elysiumScenes=['elysium',...Object.keys(elysiumDestinations)];
-export const canVisitElysium=(p,scene)=>asterComplete(p)&&p.elysiumRouteCompleted===1&&p.elysiumArrival===1&&elysiumScenes.includes(scene)&&(scene!=='elysium-core'||p.elysiumDockCompleted===4);
+export const canVisitElysium=(p,scene)=>asterComplete(p)&&p.elysiumRouteCompleted===1&&p.elysiumArrival===1&&elysiumScenes.includes(scene)&&(scene!=='elysium-core'||p.elysiumDockCompleted===4)&&(scene!=='elysium-ring'||p.elysiumCoreCompleted===4);
