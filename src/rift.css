@@ -1,0 +1,22 @@
+.play-area .game.rift-chart{position:relative;isolation:isolate;display:flex;flex-direction:column;min-height:max(740px,calc(100svh - 148px));height:auto;max-height:none;overflow:hidden}
+.rift-chart-art,.rift-shade{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;pointer-events:none}
+.rift-shade{z-index:-1;background:linear-gradient(#06101dc9,transparent 45%,#040a16e8)}
+.play-area .game.rift-chart .scene-top{position:relative;top:auto;left:auto;right:auto;bottom:auto;display:block;flex:0 0 auto;margin:108px 22px 22px;transform:none}
+.rift-chart .scene-top h1{font-size:clamp(25px,6vw,35px)}
+.rift-route{display:grid;gap:12px;margin:0 20px 22px;flex:0 0 auto}
+.rift-stop{display:flex;align-items:center;gap:12px;padding:10px;text-align:left;width:100%;min-height:88px;border:1px solid #749da366;border-radius:14px;background:#081827eb;color:#edf9fa;font:inherit;cursor:pointer;box-shadow:0 5px 20px #0005}
+.rift-stop img{width:58px;height:66px;object-fit:cover;border-radius:9px;flex-shrink:0}
+.rift-stop span{display:grid;gap:5px;flex:1;min-width:0}
+.rift-stop strong{font-size:16px;line-height:1.2}.rift-stop small{font-size:11px;line-height:1.35;color:#c0d6dc}
+.rift-stop b{color:#edc991;font-size:22px}.rift-stop:disabled{opacity:.62;cursor:default}.rift-stop-done{border-color:#72c5b6}
+.rift-stop:focus-visible{outline:3px solid #efc789;outline-offset:3px}
+.rift-footer{margin:auto 20px 20px;padding:16px;border:1px solid #8cacb344;border-radius:14px;background:#081522ee;display:grid;gap:10px;flex:0 0 auto}
+.rift-footer p{font-size:13px;line-height:1.55;margin:0 0 3px}.rift-footer button{width:100%;min-height:44px;white-space:normal}
+.rift-arrival .rift-footer{margin-top:auto}.rift-arrival .rift-chart-art{object-position:center}
+.expedition.rift-dim .mine-background{filter:brightness(.5) saturate(.4)}
+.transit-rift .warp-field{filter:hue-rotate(35deg)}
+.transit-rift .warp-gate{border-color:#b4a0f0}
+.play-area .game.elysium-map.elysium-complete{min-height:820px;height:max(820px,calc(100svh - 148px))}
+@media(prefers-reduced-motion:reduce){.rift-chart *{scroll-behavior:auto}}
+
+.rift-site .hotspot{width:136px;padding:8px}.rift-site .hotspot-label{width:120px;font-size:11px;line-height:1.4}

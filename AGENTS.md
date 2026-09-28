@@ -460,4 +460,28 @@ Po24opravách Probuzené město a odpověď Havenu; celkem25miniher s trasou.
 Data src/elysiumLater.js. Nová pole homes/garden/observatory (elysium...Completed).
 Cloud vyžaduje kumulativní SQL011, zatím živě nepotvrzeno. Viz docs/elysium-city.md.
 71testů, průchod12nových oprav/reload/deník a mobilní grafika ověřeny.
-Tato práce lokální, bez pushe; poslední publikovaná verze8b2a5c8.
+Následně pushnuto jako 63713fc na codex/cockpit-stage; nasazení Pages
+neověřeno kvůli limitu GitHub API. SQL011 stále uživatelem nepotvrzeno.
+
+## 2026-09-27 — Na příště: Trhlina
+Uživatel chce dnes skončit a uchovat návrh dalšího směru. Viz
+docs/rift-roadmap.md: Elysium zůstává základnou, observatoř zachytí ozvěnu,
+výprava přes výzkumnou oblast a stabilizační majáky do červí díry.
+Za ní samostatná kapitola objevování/aktivace cizího prstence-zahrady.
+Pracovní rozsah Trhliny 3 lokace po4–5 úkolech; zvážit portálová pole
+a rezonátory. Bez nové ekonomiky, návratový maják umožní další výpravy.
+Jde o zaznamenaný návrh, ne hotový obsah; dnes nic neimplementovat.
+
+## 2026-09-28 — Trhlina implementovaná
+Uživatel navázal pokynem pracovat na návrhu. Po dokončení Elysia vstup
+Prozkoumat ozvěnu → mapa Trhliny. Tři postupné výpravy po4úkolech:
+Nemožná ozvěna, Poslední stanoviště, Pole stabilizátorů.13deníků EN/CZ,
+nová portrétová grafika, postupné aktivace a samostatný neaktivní stav
+majáků. Po12úkolech průlet, první pohled na zahradní prstenec a návraty.
+Prstenec sám ještě nehratelný; portály na deskách/rezonátory odložené.
+src/rift.js, Rift.jsx, rift.css; sdílené Exploration a GateTransit.
+Nové save čítače riftEchoCompleted/Platform/Beacons (0–4),riftCrossed(0–1).
+Cloud vyžaduje supabase/012_rift.sql, kumulativní po003–011; živé provedení
+neověřeno.74testů, build a izolovaný mobilní průchod12úkolů včetně
+reloadu, deníků, návratů a průletu. Viz docs/rift-chapter.md.
+Změny lokální, bez commitu/pushe; poslední push63713fc.

@@ -1,4 +1,6 @@
-import catalog from './cs.json' with {type:'json'};
+import {riftTranslations} from '../rift.js';
+import baseCatalog from './cs.json' with {type:'json'};
+const catalog={...baseCatalog,...riftTranslations};
 export const LANGUAGE_KEY='to-the-stars-language';
 export const validLanguage=value=>value==='cs'?'cs':'en';
 const folded=new Map(Object.entries(catalog).map(([a,b])=>[a.toLowerCase(),b]));

@@ -214,4 +214,19 @@ Všech6sektorů je nyní lokálně hratelných, včetně závěru kapitoly.
 Viz docs/elysium-city.md; SQL011 dosud na serveru nepotvrzeno.
 Další práce: testování nové kapitoly, doladění limitů podle hraní,
 a návrh pokračování až po zpětné vazbě. Obytný/biosféra/observatoř už
-nejsou plánované prázdné sektory. Nová práce zatím nepushnutá.
+nejsou plánované prázdné sektory. Následně pushnuto v commitu 63713fc.
+
+## Další směr po Elysiu — Trhlina (2026-09-27)
+Uživatel požádal uchovat návrh a pro dnešek skončit. Podrobnosti:
+[Trhlina a prostor za ní](rift-roadmap.md). Elysium jako základna,
+záhadná ozvěna, průzkum hranice soustavy, stabilizační majáky a průlet
+červí dírou; za ní samostatná kapitola s aktivací cizí stavby.
+Zvážit portálová pole a rezonátory. Zatím pouze návrh, ne implementace.
+
+## Trhlina — implementace 2026-09-28
+Dokončená kapitola5: tři lokace po4úkolech,13deníků EN/CZ, obrazové
+aktivace a průlet do nového prostoru s návratem na Elysium. Viz
+[Trhlina](rift-chapter.md). Lokální změny, bez pushe; cloud vyžaduje
+SQL012 (zahrnuje011), zatím neprovedeno.
+Příště testování a zpětná vazba, potom vlastní průzkum zahradního
+prstence. Nové mechaniky portálů/rezonátorů zatím nejsou součástí hry.

@@ -18,10 +18,10 @@ export default function Elysium({progress,onNavigate,onLog}){
   <div className="scene-top"><span className="eyebrow">{t(complete?'CHAPTER 04 COMPLETE':'CHAPTER 04 / ELYSIUM')}</span><h1>{t(complete?'A city awake.':'The sleeping city.')}</h1><p>{t(complete?'Station restoration complete':'A silent city. One sector at a time.')}</p></div>
   {elysiumSectorOrder.map((id,i)=>{
    const site=elysiumDestinations[id],playable=canVisitElysium(progress,id),[x,y]=positions[i];
-   return <button key={id} className={`station-sector ${playable?'sector-open':''}`} style={{left:`${x}%`,top:`calc(150px + (100% - 240px) * ${y/100})`}} disabled={!playable} onClick={()=>onNavigate(id)}>
+   return <button key={id} className={`station-sector ${playable?'sector-open':''}`} style={{left:`${x}%`,top:`calc(150px + (100% - ${complete?330:240}px) * ${y/100})`}} disabled={!playable} onClick={()=>onNavigate(id)}>
     <span className="sector-marker">{finished[i]?'✓':playable?'↗':'◇'}</span><strong>{t(site.title)}</strong><small>{playable?`${progress[site.key]??0}/4`:t(requirements[i])}</small>
    </button>;
   })}
-  <div className="scene-bottom scene-caption"><span className="eyebrow">{count}/6 · {t('SECTORS ONLINE')}</span><p>{t(complete?'All six sectors are online. Elysium is ready for the returning crew.':nextSteps[count])}</p>{complete&&<button className="primary" onClick={()=>onLog(elysiumDestinations['elysium-observatory'].logs.at(-1).id)}>{t('Read the reply →')}</button>}</div>
+  <div className="scene-bottom scene-caption"><span className="eyebrow">{count}/6 · {t('SECTORS ONLINE')}</span><p>{t(complete?'All six sectors are online. Elysium is ready for the returning crew.':nextSteps[count])}</p>{complete&&<button className="primary" onClick={()=>onLog(elysiumDestinations['elysium-observatory'].logs.at(-1).id)}>{t('Read the reply →')}</button>}{complete&&<button className="primary" onClick={()=>onNavigate('rift')}>{t('Investigate the echo →')}</button>}</div>
  </section>;
 }
