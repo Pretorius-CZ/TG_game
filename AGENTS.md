@@ -510,3 +510,7 @@ Reklamy/platby ani skutečné účinky pomůcek zatím nejsou implementované.
 2026-09-28: Audit obtížnosti docs/difficulty-audit.md a scripts/audit-balance.mjs: 50 pokusů na level, bez inventářových pomůcek/+5. Konkrétní snížení tahů zatím pouze návrh, hra nezměněná kvůli mobilnímu testu. Uživatel chce postupné pomůcky od kapitoly 2 či jednorázové odměny; navržené pořadí a pravidla v dokumentu, dosud neimplementováno.
 
 2026-09-28: Uživatel schválil snížení 11 limitů z auditu pro mobilní test: komora hatch9/seals10, navigace receiver9/chart25/route10, exterior engines11/gear18/refuel26, ice-lab22/wreck-records22, haven-dock20. Ostatní pravidla a limity zachované.
+
+2026-09-28: Schválen nový název Beyond the Signal, primární EN a přepínání jazyků v menu. Připravují se tři vizuální varianty titulní obrazovky A/havárie, B/signál, C/kokpit. Viz docs/concepts/title-screen.md. Aktuálně pouze koncepty, menu/intro zatím nezapojené.
+
+2026-09-28: Beyond the Signal titulní menu a tříscénové intro zapojené (Welcome.jsx/css, public/intro). EN/CZ, Next/Skip, 7s/scéna, pause při skryté kartě, reduced-motion, místní seen podle účtu/resetRevision, Continue zachovává postup, replay intra v menu. Klik na herní značku vrací menu. Podrobnosti docs/concepts/title-screen.md. Změny zatím místní.

@@ -1029,5 +1029,17 @@
   "Shuffle the board.": "Promíchat pole.",
   "Select two adjacent uncovered tiles.": "Vyber dvě sousední odkryté dlaždice.",
   "Select a row to clear.": "Vyber řádek k odpálení.",
-  "Select the centre of a 3×3 blast.": "Vyber střed výbuchu 3×3."
+  "Select the centre of a 3×3 blast.": "Vyber střed výbuchu 3×3.",
+  "That signal should not exist. It belonged to an expedition that never returned.": "Ten signál neměl existovat. Patřil výpravě, která se nikdy nevrátila.",
+  "Then the emergency system took control.": "Pak převzal řízení nouzový systém.",
+  "I'm alive. The ship is barely holding together. And the signal is still there.": "Jsem naživu. Loď sotva drží pohromadě. A signál pořád vysílá.",
+  "Skip intro": "Přeskočit úvod",
+  "Begin repairs": "Začít opravy",
+  "Next": "Dále",
+  "PLAY": "HRÁT",
+  "CONTINUE": "POKRAČOVAT",
+  "Chapters": "Kapitoly",
+  "Watch intro": "Přehrát úvod",
+  "Loading…": "Načítání…",
+  " BEYOND THE SIGNAL": " BEYOND THE SIGNAL"
 }
