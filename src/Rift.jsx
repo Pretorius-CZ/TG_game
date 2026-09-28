@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import {useLanguage} from './i18n/Language.jsx';
 import {riftOrder,riftDestinations,riftReady,canVisitRift,crossRift,riftArrivalLog} from './rift.js';
-import GateTransit from './GateTransit.jsx';
+import RiftTransit from './RiftTransit.jsx';
 import './rift.css';
 
 export default function Rift({progress,onProgress,onNavigate,onLog}){
@@ -23,6 +23,6 @@ export default function Rift({progress,onProgress,onNavigate,onLog}){
     <button className="keep-playing" onClick={()=>onNavigate('elysium')}>{t('Return to Elysium →')}</button>
    </div>
   </section>
-  {crossing&&ready&&<GateTransit variant="rift" onCancel={()=>setCrossing(false)} onComplete={()=>{setCrossing(false);onProgress(p=>crossRift(p));}}/>}
+  {crossing&&ready&&<RiftTransit onCancel={()=>setCrossing(false)} onComplete={()=>{setCrossing(false);onProgress(p=>crossRift(p));}}/>}
  </>;
 }

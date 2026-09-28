@@ -60,6 +60,10 @@ export const riftArrivalLog={id:'rift-arrival-log',title:text('The garden beyond
  text:text('An immense ring curves across an unfamiliar sky. Gardens cover its inner terraces; bridges lie dark between geometric towers. The expedition beacon holds our return path. Elysium receives our first image. This place is not a wreck waiting to be repaired. It is a world waiting to be understood.','Neznámou oblohu protíná obrovský prstenec. Jeho vnitřní terasy pokrývají zahrady a mezi geometrickými věžemi leží temné mosty. Maják výpravy drží zpáteční cestu. Elysium přijímá náš první snímek. Tohle není vrak čekající na opravu. Je to svět, kterému se teprve musíme naučit rozumět.')};
 export function crossRift(p){return riftReady(p)?{...p,riftCrossed:1,scene:'beyond-rift'}:p;}
 [
+ ['Approaching the aperture','Přiblížení k průchodu'],['Between two skies','Mezi dvěma oblohami'],['The garden emerges','Zahrada se vynořuje'],
+ ['The anchors hold. Moving beyond the threshold.','Kotvy drží. Překračujeme práh.'],
+ ['Space folds around the ship. Follow the return signal.','Prostor se skládá kolem lodi. Sleduj zpáteční signál.'],
+ ['Elysium receives our signal from the other side.','Elysium přijímá náš signál z druhé strany.'],
  ['The Rift','Trhlina'],['An echo beyond the chart.','Ozvěna za hranicí mapy.'],
  ['Trace the impossible signal. Keep a way home.','Sleduj nemožný signál. Zachovej cestu domů.'],
  ['Complete the previous expedition first','Nejprve dokonči předchozí výpravu'],

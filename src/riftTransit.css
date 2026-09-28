@@ -1,0 +1,8 @@
+.rift-transit-dialog{padding:0;margin:auto;width:min(100vw - 16px,560px);max-width:560px;max-height:96dvh;border:1px solid #8c79ac77;border-radius:18px;background:#05030e;color:#eef6f3;overflow:auto}
+.rift-transit-dialog::backdrop{background:#03020bf5}
+.rift-passage{height:min(860px,94dvh);min-height:410px;position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:30px 22px 20px}
+.rift-passage canvas,.rift-passage-shade{position:absolute;inset:0;width:100%;height:100%;z-index:-2;pointer-events:none}
+.rift-passage-shade{z-index:-1;background:linear-gradient(#05030ee8,transparent 35%,transparent 61%,#05030eee)}
+.rift-passage-copy{text-align:left;max-width:380px}.rift-passage-copy h2{font:400 clamp(26px,6vw,36px)/1.15 Georgia,serif;margin:12px 0;color:#f0e5ff}.rift-passage-copy p{font-size:12px;line-height:1.6;color:#d2cede;margin:0}
+.rift-passage-actions{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:12px}.rift-passage-actions>span{grid-column:1/-1;font-size:8px;letter-spacing:2px;color:#a7dcd0;padding-bottom:4px}.rift-passage-actions button{min-height:44px;white-space:normal;font-size:11px;padding:12px}.rift-passage-actions .primary{background:#241c38df;border-color:#a9a0c7;color:#eee9ff}.rift-passage-actions .keep-playing{background:#0c121bdc;border:1px solid #79819455;color:#d0d5e3;border-radius:6px}
+@media(max-height:480px){.rift-passage{padding:16px;min-height:340px}.rift-passage-copy h2{font-size:24px}}

@@ -5,10 +5,12 @@ import { adjacent, swap } from './match3';
 
 import {moveBudget,initialIce,iceMatches,iceMove,makeIceBoard,ensurePlayableBoard} from './levelRules.js';
 import {useLives,LivesBar,NoLives} from './Lives.jsx';
+import './compactGame.css';
 import AudioControls from './AudioControls.jsx';
+import useHelperStock from './useHelperStock.js';
 import { sound } from './audio.js';
 import {goalsFor,collectGoals,goalsComplete} from './objectives.js';
-import {isBooster,boostersEnabled,wave} from './boosters.js';
+import {blast,isBooster,boostersEnabled,wave} from './boosters.js';
 
 
 export default function MiniGame({ onWin, onQuit, repair }) {
@@ -40,6 +42,9 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   const [confirmQuit, setConfirmQuit] = useState(false);
   const [hint, setHint] = useState(() => boosts?null:iceMove(board, level.cols,ice));
   const [hintsLeft,setHintsLeft]=useState(1);
+  const [toolsLeft,consumeTool]=useHelperStock();
+  const [tool,setTool]=useState(null);
+  const helpers=[['⌖','Laser','Select one tile.'],['⤨','Shuffle','Shuffle the board.'],['⇄','Swap','Select two adjacent uncovered tiles.'],['➜','Beam','Select a row to clear.'],['✺','EMP','Select the centre of a 3×3 blast.']];
   const resultPanel=useRef(null);
   const dialog = useRef(null);
   const lock = useRef(false);
@@ -67,32 +72,50 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     try{
       const fresh=makeIceBoard(level,initialIce(repair));
       run.current++;clearInterval(watchdog.current);lock.current=false;spent.current=false;
-      setBlastFx(null);setFault(false);setBusy(false);setAdmitted(true);setBoard(fresh);setIce(initialIce(repair));setCounts(goals.map(()=>0));setMoves(0);setExtraMoves(0);setSelected(null);setHint(boosts?null:iceMove(fresh,level.cols,initialIce(repair)));setHintsLeft(1);setConfirmQuit(false);setMessage('A fresh attempt. You can do this.');
+      setBlastFx(null);setFault(false);setBusy(false);setAdmitted(true);setBoard(fresh);setIce(initialIce(repair));setCounts(goals.map(()=>0));setMoves(0);setExtraMoves(0);setSelected(null);setHint(boosts?null:iceMove(fresh,level.cols,initialIce(repair)));setHintsLeft(1);setTool(null);setConfirmQuit(false);setMessage('A fresh attempt. You can do this.');
     }catch{failSafely();}
   }
   useEffect(() => { alive.current = true; dialog.current.showModal(); return () => { alive.current = false;run.current++;clearInterval(watchdog.current); }; }, []);
   const wait = ms => new Promise(resolve => setTimeout(resolve, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : ms));
 
-  async function play(a, b) {
-    const activation=a===b&&isBooster(board[a]);
-    if (fault || board[a] == null || board[b] == null || lock.current || !admitted || won || moves>=limit || ice.includes(a)||ice.includes(b)|| (!activation && (!adjacent(a, b, level.cols)||isBooster(board[a])||isBooster(board[b])))) return;
+  async function play(a, b, helper=null) {
+    const activation=helper==null&&a===b&&isBooster(board[a]);
+    if (fault || board[a] == null || board[b] == null || lock.current || !admitted || won || moves>=limit || (helper==null&&(ice.includes(a)||ice.includes(b)))|| (helper==null&&!activation && (!adjacent(a, b, level.cols)||isBooster(board[a])||isBooster(board[b])))) return;
+    if(helper!=null&&(!toolsLeft[helper]||(helper===2&&(ice.includes(a)||ice.includes(b)||!adjacent(a,b,level.cols)||a===b))))return;
     const token=++run.current;
     let activeTicks=0;
     watchdog.current=setInterval(()=>{if(!document.hidden && ++activeTicks>=60 && token===run.current)failSafely();},1000);
     try{
-    sound('swap'); lock.current = true; setBusy(true); setSelected(null); setHint(null); setMoving(activation?null:[a, b]);
+    sound('swap'); lock.current = true; setBusy(true); setSelected(null); setHint(null); setMoving(helper!=null||activation?null:[a, b]);
     await wait(220); if (!alive.current || token!==run.current) return;
     let frozen=[...ice];
-    let next = activation?[...board]:swap(board, a, b); let found = activation?[a]:iceMatches(next, level.cols,frozen);
-    if (!found.length) { sound('invalid');
+    let next=helper===2?swap(board,a,b):helper!=null||activation?[...board]:swap(board,a,b);
+    let toolHit=null;
+    if(helper===1){
+      const indices=next.map((v,i)=>v!=null&&!frozen.includes(i)?i:null).filter(i=>i!=null);
+      let shuffled=false;
+      for(let attempt=0;attempt<128;attempt++){
+        const values=indices.map(i=>board[i]);
+        for(let j=values.length-1;j>0;j--){const k=Math.floor(Math.random()*(j+1));[values[j],values[k]]=[values[k],values[j]];}
+        indices.forEach((i,j)=>next[i]=values[j]);
+        if(!iceMatches(next,level.cols,frozen).length&&iceMove(next,level.cols,frozen)){shuffled=true;break;}
+      }
+      if(!shuffled){setMoving(null);return;}
+    }else if(helper!=null&&helper!==2){
+      toolHit=next.flatMap((v,i)=>v!=null&&(helper===0?i===a:helper===3?Math.floor(i/level.cols)===Math.floor(a/level.cols):Math.abs(i%level.cols-a%level.cols)<=1&&Math.abs(Math.floor(i/level.cols)-Math.floor(a/level.cols))<=1)?[i]:[]);
+      toolHit=[...new Set([...toolHit,...blast(next,level.cols,toolHit.filter(i=>isBooster(next[i])))])];
+    }
+    let found=toolHit??(activation?[a]:iceMatches(next,level.cols,frozen));
+    if(helper!=null){if(!await consumeTool(helper)){setMoving(null);setTool(null);return;}if(!alive.current||token!==run.current)return;setTool(null);}
+    if (!found.length&&helper==null) { sound('invalid');
       setMoving(null); setMessage('Almost! A swap needs to make a line of 3 matching pieces.');
       await wait(220); if (!alive.current || token!==run.current) return;
     } else {
-      setBoard(next); setMoving(null); setMoves(n => n + 1);
+      setBoard(next); setMoving(null); setMoves(n => n + (helper==null?1:0));
       let totals = [...counts]; let cascades = 0;
       while (found.length) {
         if(cascades>=40)throw new Error('Cascade safety limit');
-        const resolved=wave(next,frozen,level,{enabled:boosts,activate:activation&&cascades===0?a:null,preferred:cascades===0?[b,a]:[]});
+        const resolved=wave(next,frozen,level,{enabled:boosts,activate:activation&&cascades===0?a:null,preferred:cascades===0?[b,a]:[],hit:cascades===0?toolHit:null});
         found=resolved.hit;
         const detonations=activation&&cascades===0?found.filter(i=>isBooster(next[i])).map(i=>({i,type:next[i]})):[];
         setBlastFx(detonations.length?{detonations,hit:found}:null);
@@ -107,7 +130,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
         found = iceMatches(next, level.cols,frozen); cascades++;
       }
       if (goalsComplete(goals, totals) && !frozen.length) sound('win');
-      if ((!goalsComplete(goals, totals) || frozen.length) && moves+1<limit) {
+      if ((!goalsComplete(goals, totals) || frozen.length) && moves+(helper==null?1:0)<limit) {
         if(!iceMove(next,level.cols,frozen)){
           setMessage('Recalibrating board…');
           await wait(650);if(!alive.current || token!==run.current)return;
@@ -122,7 +145,9 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   }
   function choose(i) {
     if (suppressClick.current) { suppressClick.current = false; return; }
-    if (fault || busy || won || exhausted || ice.includes(i)) return;
+    if (fault || busy || won || exhausted) return;
+    if(tool!=null){if(tool===2){if(ice.includes(i))return;if(selected==null||!adjacent(selected,i,level.cols)){setSelected(i);return;}play(selected,i,tool);}else play(i,i,tool);return;}
+    if(ice.includes(i))return;
     if(isBooster(board[i])){play(i,i);return;}
     sound('select');
     if (selected === i) setSelected(null);
@@ -130,6 +155,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     else setSelected(i);
   }
   function endSwipe(event) {
+    if(tool!=null){pointer.current=null;return;}
     const start = pointer.current; pointer.current = null;
     if (!start) return;
     const dx = event.clientX - start.x, dy = event.clientY - start.y;
@@ -144,14 +170,14 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     return { transform: `translate(${(j % level.cols - i % level.cols) * 100}%, ${(Math.floor(j / level.cols) - Math.floor(i / level.cols)) * 100}%)`, zIndex: 2 };
   }
   return <dialog className={`mini-dialog ${exhausted||won||fault?'mini-result':''}`} ref={dialog} aria-labelledby="level-title" onCancel={event => { event.preventDefault(); if (!busy) setConfirmQuit(true); }}>
-    <div className="level-hud"><LivesBar/><button className="hint-control" aria-label={t(`Show a hint, ${hintsLeft} remaining`)} title={t(hintsLeft?"One free hint per attempt":"More hints via rewarded ads — coming soon")} disabled={busy||exhausted||won||fault||!admitted||hintsLeft===0||Boolean(hint)} onClick={showHint}><span aria-hidden="true">{t("?")}</span><small>{t(hintsLeft?'1/1':'AD')}</small></button><div className={`moves-counter ${limit-moves<=5?'low-moves':''}`} role="status" aria-label={t(`${Math.max(0,limit-moves)} moves left`)}><span>{t("MOVES")}</span><strong>{t(Math.max(0,limit-moves))}</strong></div></div>
-    <div className="mini-header"><span className="eyebrow">{t(repair.room ?? 'COCKPIT')}{t(" / REPAIR LESSON")}</span><button className="close" aria-label={t("Leave level")} disabled={busy} onClick={() => setConfirmQuit(true)}>{t("×")}</button><h2 id="level-title">{t(repair.lesson)}</h2><p>{t(repair.objective)}</p>{t(initialIce(repair).length>0&&<p className="ice-objective">{t("Also break all ")}{t(initialIce(repair).length)}{t(" protective covers by including their pieces in matching lines.")}</p>)}</div>
-    <div className="objective-list">{t(goals.map((goal,i)=><div className="charge" key={i}><span>{t(goal.type!=null&&<img className="objective-icon" src={`./tiles/${sprites[goal.type]}.png`} alt={t("")}/>)}{t(goal.label)}</span><strong translate="no" aria-live="polite" aria-atomic="true">{`${counts[i] ?? 0} / ${goal.target}`}</strong><progress aria-label={t(goal.label)} max={goal.target} value={counts[i]}/></div>))}</div>
+    <div className="level-hud"><div className="energy-audio"><LivesBar/><AudioControls/></div><button className="hint-control" aria-label={t(`Show a hint, ${hintsLeft} remaining`)} title={t(hintsLeft?"One free hint per attempt":"More hints via rewarded ads — coming soon")} disabled={busy||exhausted||won||fault||!admitted||hintsLeft===0||Boolean(hint)} onClick={showHint}><span aria-hidden="true">{t("Hint")}</span><small>{t(hintsLeft?'1/1':'AD')}</small></button><div className={`moves-counter ${limit-moves<=5?'low-moves':''}`} role="status" aria-label={t(`${Math.max(0,limit-moves)} moves left`)}><span>{t("MOVES")}</span><strong>{t(Math.max(0,limit-moves))}</strong></div></div>
+    <div className="mini-header"><span className="eyebrow">{t(repair.room ?? 'COCKPIT')}{t(" / REPAIR LESSON")}</span><button className="close" aria-label={t("Leave level")} disabled={busy} onClick={() => setConfirmQuit(true)}>{t("×")}</button><h2 id="level-title">{t(repair.lesson)}</h2></div>
+    <div className="objective-list" style={{"--goal-count":goals.length+(initialIce(repair).length?1:0)}}>{t(goals.map((goal,i)=><div className="charge" key={i}><span>{t(goal.type!=null&&<img className="objective-icon" src={`./tiles/${sprites[goal.type]}.png`} alt={t("")}/>)}</span><strong translate="no" aria-live="polite" aria-atomic="true">{`${counts[i] ?? 0} / ${goal.target}`}</strong><progress aria-label={t(goal.label)} max={goal.target} value={counts[i]}/></div>))}{initialIce(repair).length>0&&<div className="charge" title={t('Protective covers')}><span><i className="cover-objective-icon" aria-hidden="true"/></span><strong translate="no">{initialIce(repair).length-ice.length} / {initialIce(repair).length}</strong><progress aria-label={t('Protective covers')} max={initialIce(repair).length} value={initialIce(repair).length-ice.length}/></div>}</div>
 
     {t(exhausted&&<div className="out-of-moves" ref={resultPanel} tabIndex={-1} role="region" aria-label={t("Out of moves")}><h3>{t("Out of moves")}</h3><p>{t("Your repairs are safe. Try again or continue this attempt.")}</p><button className="primary" disabled={!import.meta.env.DEV} onClick={()=>setExtraMoves(n=>n+5)}>{t(import.meta.env.DEV?'Preview · +5 moves':'Extra moves · coming soon')}</button><small>{t(import.meta.env.DEV?'Test shortcut, no purchase':'Rewarded ads and purchases are not connected yet')}</small><button className="keep-playing" disabled={!lives.count} onClick={retry}>{t("Retry level")}</button><button className="keep-playing" onClick={onQuit}>{t("Back to ship")}</button>{t(!lives.count&&<NoLives/>)}</div>)}
-    {t(fault ? <div className="out-of-moves" ref={resultPanel} tabIndex={-1} role="alert"><h3>{t("Board recovery needed")}</h3><p>{t("This puzzle could not continue safely. No energy was charged for this interrupted attempt.")}</p><button className="primary" onClick={retry}>{t("Restart level · free")}</button><button className="keep-playing" onClick={onQuit}>{t("Back to ship")}</button></div> : !admitted ? <><NoLives/>{t(lives.count>0&&<button className="primary" onClick={()=>setAdmitted(true)}>{t("Start level")}</button>)}</> : !won ? <div hidden={exhausted}>
+    {t(fault ? <div className="out-of-moves" ref={resultPanel} tabIndex={-1} role="alert"><h3>{t("Board recovery needed")}</h3><p>{t("This puzzle could not continue safely. No energy was charged for this interrupted attempt.")}</p><button className="primary" onClick={retry}>{t("Restart level · free")}</button><button className="keep-playing" onClick={onQuit}>{t("Back to ship")}</button></div> : !admitted ? <><NoLives/>{t(lives.count>0&&<button className="primary" onClick={()=>setAdmitted(true)}>{t("Start level")}</button>)}</> : !won ? <div className="puzzle-area" hidden={exhausted} style={{"--ratio":level.cols/level.rows,"--rows":level.rows}}>
       <div className={`board ${blastFx?'board-blasting':''}`} style={{ '--cols': level.cols }} aria-label={t("Match three board")} aria-busy={busy}>
-        {t(board.map((type, i) => type == null ? <span key={i} className="board-hole" aria-hidden="true"/> : <button key={i} data-cell={i} data-type={type} data-booster={isBooster(type)?(type===10?"pulse":"nova"):undefined} data-hint={hint?.includes(i) || undefined} className={`cell ${ice.includes(i)?'frozen-cell':''} ${selected === i ? 'selected' : ''} ${hint?.includes(i) ? 'hinted' : ''}`} disabled={busy || confirmQuit || exhausted || ice.includes(i)} aria-label={t(`${ice.includes(i)?'Covered ':''}${type===10?'Pulse charge':type===11?'Nova cross':names[type]}, row ${Math.floor(i / level.cols) + 1}, column ${i % level.cols + 1}`)} aria-pressed={selected === i} onClick={() => choose(i)} onPointerDown={e => { suppressClick.current = false; pointer.current = { i, x: e.clientX, y: e.clientY }; e.currentTarget.setPointerCapture(e.pointerId); }} onPointerUp={endSwipe} onPointerCancel={() => {pointer.current = null;}}>
+        {t(board.map((type, i) => type == null ? <span key={i} className="board-hole" aria-hidden="true"/> : <button key={i} data-cell={i} data-type={type} data-booster={isBooster(type)?(type===10?"pulse":"nova"):undefined} data-hint={hint?.includes(i) || undefined} className={`cell ${ice.includes(i)?'frozen-cell':''} ${selected === i ? 'selected' : ''} ${hint?.includes(i) ? 'hinted' : ''}`} disabled={busy || confirmQuit || exhausted || (ice.includes(i)&&(tool==null||tool===2))} aria-label={t(`${ice.includes(i)?'Covered ':''}${type===10?'Pulse charge':type===11?'Nova cross':names[type]}, row ${Math.floor(i / level.cols) + 1}, column ${i % level.cols + 1}`)} aria-pressed={selected === i} onClick={() => choose(i)} onPointerDown={e => { suppressClick.current = false; pointer.current = { i, x: e.clientX, y: e.clientY }; e.currentTarget.setPointerCapture(e.pointerId); }} onPointerUp={endSwipe} onPointerCancel={() => {pointer.current = null;}}>
           <span style={tileStyle(i)} className={`gem gem-${type} ${cleared.includes(i) ? 'clearing' : ''} ${falling.includes(i) ? 'falling' : ''}`}><>{t(isBooster(type)?<span className={`booster-art booster-${type}`} aria-hidden="true">{t(type===10?"✹":"✣")}</span>:<img src={`./tiles/${sprites[type]}.png`} alt={t("")} draggable="false"/>)}</></span>
         </button>))}
         {t(blastFx&&<svg className="blast-overlay" viewBox={`0 0 ${level.cols*100} ${level.rows*100}`} preserveAspectRatio="none" aria-hidden="true">
@@ -163,13 +189,14 @@ export default function MiniGame({ onWin, onQuit, repair }) {
           </g>;}))}
         </svg>)}
       </div>
-      {t(boosts&&<p className="booster-guide">{t("4 in a line or T/L → Pulse (3×3). 5 in a line → Nova (row + column). Tap a charge: 1 move. Blasts break covers and trigger other charges.")}</p>)}
-      <p className="lesson" role="status">{t(message)}</p>{t(hintsLeft===0&&<p className="gentle">{t("Free hint used. More hints via rewarded ads — coming soon.")}</p>)}
 
-      <p className="gentle">{t(initialIce(repair).length?`${ice.length} covers left. Line up 3 of the same type through a covered piece to break its cover. Collect it in a later match.`:'Only valid swaps use a move. Cascades are free.')}</p>
     </div> : <div className="win-panel" ref={resultPanel} tabIndex={-1}><span className="win-spark">{t("✦")}</span><h3>{t("Ready to repair.")}</h3><p>{t("You have completed the objective.")}<br/>{t("Now bring your ship back to life.")}</p><button className="primary" disabled={busy} onClick={onWin}>{t(repair.action)} <span>{t("→")}</span></button></div>)}
+    {!fault&&!won&&!exhausted&&admitted&&<div className="helper-panel">
+      <div className="helper-prompt" role="status">{tool!=null?<>{t(helpers[tool][2])}<button onClick={()=>{setTool(null);setSelected(null);}}>{t('Cancel')}</button></>:null}</div>
+      <div className="helper-bar">{helpers.map(([icon,name],i)=><button key={name} aria-label={`${t(name)} · ${toolsLeft[i]}`} aria-pressed={tool===i} disabled={busy||confirmQuit||!toolsLeft[i]} onClick={()=>{setSelected(null);setHint(null);if(i===1)play(board.findIndex(v=>v!=null),board.findIndex(v=>v!=null),i);else setTool(tool===i?null:i);}}><span aria-hidden="true">{icon}</span><small>{t(name)}</small><b>{toolsLeft[i]}</b></button>)}</div>
+    </div>}
     {t(import.meta.env.DEV&&!fault&&!won&&!exhausted&&!confirmQuit&&<button className="preview-complete" disabled={busy} onClick={()=>{if(lock.current)return;lock.current=true;onWin();}}>{t("✓ Complete level ")}<small>{t("Preview · skip match-3")}</small></button>)}
 
-    <AudioControls/>{t(confirmQuit && <div className="quit-panel"><h3>{t("Back to the ship?")}</h3><p>{t("Leaving after a move uses one energy charge. Completed repairs stay safe.")}</p><button className="primary" onClick={leave}>{t("Leave level")}</button><button className="keep-playing" onClick={() => setConfirmQuit(false)}>{t("Keep playing")}</button></div>)}
+    {t(confirmQuit && <div className="quit-panel"><h3>{t("Back to the ship?")}</h3><p>{t("Leaving after a move uses one energy charge. Completed repairs stay safe.")}</p><button className="primary" onClick={leave}>{t("Leave level")}</button><button className="keep-playing" onClick={() => setConfirmQuit(false)}>{t("Keep playing")}</button></div>)}
   </dialog>;
 }

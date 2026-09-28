@@ -485,3 +485,24 @@ Cloud vyžaduje supabase/012_rift.sql, kumulativní po003–011; živé proveden
 neověřeno.74testů, build a izolovaný mobilní průchod12úkolů včetně
 reloadu, deníků, návratů a průletu. Viz docs/rift-chapter.md.
 Změny lokální, bez commitu/pushe; poslední push63713fc.
+
+2026-09-28: Trhlina pushnuta39d3db4. Následně na přání uživatele
+vlastní RiftTransit místo recyklovaného GateTransit: obrazové přiblížení,
+vlnící se zakřivený prostor, odhalení zahrady; 9,4s, pauza skryté karty,
+skip/cancel/Escape. Reduced-motion staticky s tlačítkem Pokračovat.
+Mobilní průchod a build ověřeny, tato úprava zatím nepushnutá.
+
+2026-09-28 — Návrh pomůcek: public/prototypes/boosters.html je samostatný
+interaktivní design, ne změna MiniGame. Uživatelovi se líbí ikony cílů
+s počty a lištami; chce5dlaždic pomůcek přímo pod deskou (bez kufříku)
+a nápovědu označenou Hint. Prototyp upraven, mobilní320×568/390×844
+bez scrollu, deska při zaměřování stabilní. Viz docs/booster-ui-proposal.md.
+Reklamy/platby ani skutečné účinky pomůcek zatím nejsou implementované.
+
+2026-09-28: Mapy kapitol 2/3 používají SystemChart.jsx: volně rozmístěné cíle ve vesmírné scéně s oběžnými drahami, nikoli tabulku karet. Skener je viditelná akce po mine6, otevírá archiv/ledovou stanici. Haven a Elysium jsou přímo cíle mapy; žádné aktivační tlačítko pod obrazovkou. Minihry mají kompaktní obrazové cíle, Hint a kryty, bez spodních vysvětlujících odstavců. Ověřen průchod skener→archiv a Haven, mobilní rozměry 320×568/390×844 a minihra se čtyřmi cíli. 74 testů prošlo. Změny místní, bez pushe.
+
+2026-09-28: Pět testovacích pomůcek skutečně zapojeno v MiniGame (Laser, Shuffle, Swap, Beam, EMP), každá 1 kus na pokus. Bez odečtu tahu, retry obnoví zásobu; +5 tahů nikoli. Zaměřování lze zrušit. Kryty pouze rozbíjí, výbuchy řetězí nálože, cíle a kaskády sdílené. Zásoba je pouze stav pokusu, nikoli cloudový inventář. Viz docs/booster-ui-proposal.md. Mobilní použití všech pěti ověřeno; zatím bez pushe.
+
+2026-09-28: Hudba a efekty přesunuty ze spodních textových tlačítek ke stavové energii ve scénách i minihře. Dvě SVG ikony (nota/reproduktor), vypnutý stav přeškrtnutý, přístupné názvy EN/CZ a aria-pressed, původní ukládání preferencí zachované. Ověřen přepínač, mobil 320×568 a build.
+
+2026-09-28: Zásoba pomůcek je nově trvalá napříč levely, retry i reloadem, nikoli 1 kus na pokus. helperStock.js/useHelperStock.js, místní úložiště oddělené pro účet/hosta a resetRevision; spotřeba před účinkem, synchronizace karet a Web Locks. Cloud pomůcek zatím není zaveden.

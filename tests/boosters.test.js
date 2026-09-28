@@ -31,3 +31,14 @@ test('created reward is retained, not collected or fired during its creation',()
   const legacy=wave([1,1,1,1],[],{rows:1,cols:4,types:4},{enabled:false,random:()=>0.5});
   assert.equal(legacy.collected.length,4);assert.deepEqual(legacy.created,[]);
 });
+
+test('helper hits strip covers without collecting protected tiles or creating match rewards',()=>{
+ const board=[0,1,2,1,2,0,2,0,1];
+ const level={rows:3,cols:3,types:3};
+ const result=wave(board,[4],level,{hit:[3,4,5],random:()=>.2});
+ assert.deepEqual(result.hit,[3,4,5]);
+ assert.deepEqual(result.collected,[3,5]);
+ assert.deepEqual(result.ice,[]);
+ assert.deepEqual(result.created,[]);
+ assert.equal(result.board.length,9);
+});

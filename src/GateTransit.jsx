@@ -56,9 +56,8 @@ function WarpField(){
  return <canvas ref={canvas} className="warp-field" aria-hidden="true"/>;
 }
 
-export default function GateTransit({onComplete,onCancel,variant='haven'}){
+export default function GateTransit({onComplete,onCancel}){
  const {t}=useLanguage();
- const rift=variant==='rift';
  const dialog=useRef(null),finish=useRef(onComplete),[phase,setPhase]=useState(0),ended=useRef(false);
  finish.current=onComplete;
  function arrive(){if(ended.current)return;ended.current=true;finish.current();}
@@ -68,14 +67,14 @@ export default function GateTransit({onComplete,onCancel,variant='haven'}){
   const timers=[setTimeout(()=>setPhase(1),reduced?200:1500),setTimeout(()=>setPhase(2),reduced?450:5300),setTimeout(arrive,reduced?900:6900)];
   return()=>timers.forEach(clearTimeout);
  },[]);
- return <dialog ref={dialog} className="transit-dialog" aria-label={t(rift?'Through the Rift':'Jump to Aster Veil')} onCancel={e=>{e.preventDefault();onCancel();}}>
-  <div className={`transit-cinema transit-phase-${phase} ${rift?'transit-rift':''}`}>
+ return <dialog ref={dialog} className="transit-dialog" aria-label={t("Jump to Aster Veil")} onCancel={e=>{e.preventDefault();onCancel();}}>
+  <div className={`transit-cinema transit-phase-${phase}`}>
    <WarpField/>
    <div className="warp-vignette" aria-hidden="true"/>
    <div className="warp-gate" aria-hidden="true"/>
-   <div className="transit-copy"><span className="eyebrow">{t(rift?'THE RIFT':'KEPLER REACH ')}<span aria-hidden="true">{t("⟶")}</span>{t(rift?'UNKNOWN SPACE':' ASTER VEIL')}</span><h2>{t((rift?['Locking the anchors','Through the Rift','Beyond the familiar sky']:['Jump field charging','Warp transit','A different sky'])[phase])}</h2><p role="status">{t((rift?['All beacons aligned · return channel secured','Following the probe through the aperture','Far-side beacon acquired · Elysium link online']:['Route locked · preparing to accelerate','Following the expedition’s coordinates','Decelerating · return passage established'])[phase])}</p></div>
-   <div className="warp-telemetry" aria-hidden="true"><span>{t(['FIELD SYNCHRONIZATION','TRANSIT CORRIDOR STABLE','DESTINATION ACQUIRED'][phase])}</span><i/><small>{t(rift?'ELYSIUM LINK / ONLINE':'HAVEN LINK / ONLINE')}</small></div>
-   <div className="transit-actions"><button className="primary" onClick={arrive}>{t("Skip crossing →")}</button><button className="keep-playing" onClick={onCancel}>{t(rift?'Stay at the Rift':'Stay at Haven')}</button></div>
+   <div className="transit-copy"><span className="eyebrow">{t("KEPLER REACH ")}<span aria-hidden="true">{t("⟶")}</span>{t(" ASTER VEIL")}</span><h2>{t(['Jump field charging','Warp transit','A different sky'][phase])}</h2><p role="status">{t(['Route locked · preparing to accelerate','Following the expedition’s coordinates','Decelerating · return passage established'][phase])}</p></div>
+   <div className="warp-telemetry" aria-hidden="true"><span>{t(['FIELD SYNCHRONIZATION','TRANSIT CORRIDOR STABLE','DESTINATION ACQUIRED'][phase])}</span><i/><small>{t("HAVEN LINK / ONLINE")}</small></div>
+   <div className="transit-actions"><button className="primary" onClick={arrive}>{t("Skip crossing →")}</button><button className="keep-playing" onClick={onCancel}>{t("Stay at Haven")}</button></div>
   </div>
  </dialog>;
 }

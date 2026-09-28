@@ -33,9 +33,10 @@ ztlumeným výchozím obrazem. Majáky mají vlastní generovaný neaktivní obr
 lokální měkké masky zapnou kotvy, teprve4/4 odhalí celý stabilní průchod.
 Žádné tvrdé obdélníkové přechody.
 
-Po12úkolech se na mapě objeví průlet. Používá perspektivní Canvas warp
-s vlastními texty a barevným laděním, podporuje přeskočení, zrušení
-i omezené animace. Přílet přidá13.zápis a zobrazí obrovský zahradní prstenec.
+Po12úkolech se na mapě objeví průlet. Používá vlastní RiftTransit: přiblížení k obrazu otvoru, zakřivené
+membrány prostoru a otevření výhledu na zahradu (9,4s). První Haven warp
+zůstává samostatný. Podporuje přeskočení a zrušení; ve skryté kartě se
+čas pozastaví. Omezené animace ukazují klidný výhled a ruční Pokračovat. Přílet přidá13.zápis a zobrazí obrovský zahradní prstenec.
 Návraty a opakování jsou zdarma, bez opětovného přičítání postupu.
 
 Prstenec je zatím závěrečný pohled, nikoli hratelná kapitola6.
@@ -69,3 +70,8 @@ Produkční build prošel; zůstává dosavadní upozornění na velikost JSbal�
 Testy nepoužívají ani nemění skutečný postup uživatele.
 
 Prompty a původ obrázků: [grafické podklady](../public/scenes/rift-assets.md).
+
+2026-09-28: Na přání uživatele odstraněn recyklovaný Haven průlet.
+Samostatné src/RiftTransit.jsx a riftTransit.css, bez hvězdných pruhů.
+Build a mobilní automatický průlet, přeskočení, návrat/Escape i reduced-motion
+320px ověřeny. Ukládání a SQL se touto úpravou nemění. Zatím lokální.

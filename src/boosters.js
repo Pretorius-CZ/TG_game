@@ -47,9 +47,9 @@ export function blast(board,cols,starts){
   return [...hit];
 }
 
-export function wave(board,ice,level,{enabled=true,activate=null,preferred=[],random=Math.random}={}){
-  const found=activate==null?matches(board,level.cols):blast(board,level.cols,[activate]);
-  const created=enabled&&activate==null?rewards(board,level.cols,ice,preferred):[];
+export function wave(board,ice,level,{enabled=true,activate=null,preferred=[],hit=null,random=Math.random}={}){
+  const found=hit??(activate==null?matches(board,level.cols):blast(board,level.cols,[activate]));
+  const created=enabled&&activate==null&&hit==null?rewards(board,level.cols,ice,preferred):[];
   const protectedCells=[...ice,...created.map(r=>r.at)];
   const collected=found.filter(i=>!protectedCells.includes(i)&&!isBooster(board[i]));
   const seeded=[...board];created.forEach(r=>seeded[r.at]=r.type);
