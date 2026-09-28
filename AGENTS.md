@@ -506,3 +506,7 @@ Reklamy/platby ani skutečné účinky pomůcek zatím nejsou implementované.
 2026-09-28: Hudba a efekty přesunuty ze spodních textových tlačítek ke stavové energii ve scénách i minihře. Dvě SVG ikony (nota/reproduktor), vypnutý stav přeškrtnutý, přístupné názvy EN/CZ a aria-pressed, původní ukládání preferencí zachované. Ověřen přepínač, mobil 320×568 a build.
 
 2026-09-28: Zásoba pomůcek je nově trvalá napříč levely, retry i reloadem, nikoli 1 kus na pokus. helperStock.js/useHelperStock.js, místní úložiště oddělené pro účet/hosta a resetRevision; spotřeba před účinkem, synchronizace karet a Web Locks. Cloud pomůcek zatím není zaveden.
+
+2026-09-28: Audit obtížnosti docs/difficulty-audit.md a scripts/audit-balance.mjs: 50 pokusů na level, bez inventářových pomůcek/+5. Konkrétní snížení tahů zatím pouze návrh, hra nezměněná kvůli mobilnímu testu. Uživatel chce postupné pomůcky od kapitoly 2 či jednorázové odměny; navržené pořadí a pravidla v dokumentu, dosud neimplementováno.
+
+2026-09-28: Uživatel schválil snížení 11 limitů z auditu pro mobilní test: komora hatch9/seals10, navigace receiver9/chart25/route10, exterior engines11/gear18/refuel26, ice-lab22/wreck-records22, haven-dock20. Ostatní pravidla a limity zachované.

@@ -1,6 +1,6 @@
 const board={rows:7,cols:7,types:6};
 const rows=[
- ['dock','Outer dock','A place to return to',25,72,[[3,18],[0,12]],24,[],
+ ['dock','Outer dock','A place to return to',25,72,[[3,18],[0,12]],20,[],
   'The outer berth needs the structural panels we recovered. Secure the dock and we will finally have a safe place to return to.',
   'Dock restored. One material shipment has been installed in the berth.',
   'The rest of the warning','The cached greeting finishes as we connect: "Do not power the main ring before aligning it." The voice belongs to Haven’s caretaker system. It has been keeping a small habitat alive while the expedition searches farther out.'],
