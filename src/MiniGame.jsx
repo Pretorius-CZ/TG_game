@@ -1,3 +1,4 @@
+import HelperIcon from './HelperIcon.jsx';
 import {useRewardAd} from './RewardAd.jsx';
 import {tileSetFor} from './tileSets.js';
 import {useLanguage} from './i18n/Language.jsx';
@@ -216,7 +217,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     </div> : <div className="win-panel" ref={resultPanel} tabIndex={-1}><span className="win-spark">{t("✦")}</span><h3>{t("Ready to repair.")}</h3><p>{t("You have completed the objective.")}<br/>{t("Now bring your ship back to life.")}</p><button className="primary" disabled={busy} onClick={()=>{recordResult("won");onWin();}}>{t(repair.action)} <span>{t("→")}</span></button></div>)}
     {!fault&&!won&&!exhausted&&admitted&&<div className="helper-panel">
       <div className="helper-prompt" role="status">{tool!=null?<>{t(helpers[tool][2])}<button onClick={()=>{setTool(null);setSelected(null);}}>{t('Cancel')}</button></>:null}</div>
-      <div className="helper-bar">{helpers.map(([icon,name],i)=><button key={name} aria-label={`${t(name)} · ${toolsLeft[i]}`} aria-pressed={tool===i} disabled={busy||confirmQuit||(!toolsLeft[i]&&adsUsed.helper)} onClick={()=>{if(!toolsLeft[i]){requestHelp("helper",i);return;}setSelected(null);setHint(null);if(i===1)play(board.findIndex(v=>v!=null),board.findIndex(v=>v!=null),i);else setTool(tool===i?null:i);}}><span aria-hidden="true">{icon}</span><small>{t(name)}</small><b>{toolsLeft[i]||(!adsUsed.helper?"AD":"0")}</b></button>)}</div>
+      <div className="helper-bar">{helpers.map(([icon,name],i)=><button key={name} className={`helper-tile helper-type-${i} ${toolsLeft[i]?"in-stock":"empty-stock"}`} aria-label={`${t(name)} · ${toolsLeft[i]}`} aria-pressed={tool===i} disabled={busy||confirmQuit||(!toolsLeft[i]&&adsUsed.helper)} onClick={()=>{if(!toolsLeft[i]){requestHelp("helper",i);return;}setSelected(null);setHint(null);if(i===1)play(board.findIndex(v=>v!=null),board.findIndex(v=>v!=null),i);else setTool(tool===i?null:i);}}><span className="helper-art"><HelperIcon index={i}/></span><small>{t(name)}</small><b className="helper-badge">{toolsLeft[i]||(!adsUsed.helper?<><svg viewBox="0 0 12 12" aria-hidden="true"><path d="m4 2 6 4-6 4z" fill="currentColor"/></svg>AD</>:"0")}</b></button>)}</div>
     </div>}
     {t(import.meta.env.DEV&&!fault&&!won&&!exhausted&&!confirmQuit&&<button className="preview-complete" disabled={busy} onClick={()=>{if(lock.current)return;lock.current=true;onWin();}}>{t("✓ Complete level ")}<small>{t("Preview · skip match-3")}</small></button>)}
 
