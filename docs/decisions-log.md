@@ -902,3 +902,51 @@ když hráč neví jak dál. Rozhodnout, zda jde o zvýraznění nejlepšího ta
 v minihře nebo nasměrování na další opravu lodi; cenu/počet/reklamní službu
 zatím neřešit implementací. Současné Show a hint zůstává zdarma. Nápověda
 nenahrazuje bezplatné automatické řešení desky bez možného tahu.
+## 2026-09-29 — Schválený další krok: simulované odměňované reklamy
+
+Nejprve implementovat testovací reklamy pro ladění obtížnosti a odměn,
+bez připojení reklamního poskytovatele. Zatím pouze schválený plán.
+
+- Okno přes hru: „Testovací reklama“, konkrétní odměna a „Zavřít a získat
+  odměnu“. Bez čekání; hra se během okna pozastaví. UI v EN/CZ.
+  Skutečná integrace později vydá odměnu až po potvrzeném zhlédnutí.
+- Po vyčerpání tahů: +5 tahů jednou za pokus. Zachovat přesně stejnou
+  rozehranou desku, cíle i boostery; žádné nové generování pole.
+- Při nulové energii: nabídnout +1 život za reklamu, maximum 5.
+- Prázdný booster pod deskou: reklama za 1 kus konkrétního vybraného
+  boosteru (Laser, Shuffle, Swap, Beam, EMP), nikoli kolekci všech pěti.
+  Jedna reklamní odměna za booster na pokus, společný limit všech druhů.
+  Nejprve zobrazit nabídku „Reklama → 1× Laser“ apod.; na prázdné ikoně
+  může být symbol videa. Přičíst do společné zásoby napříč levely,
+  automaticky nepoužít; nevyužitý kus zůstává na později.
+- Nápověda: první zdarma na pokus, reklamou jedna další, nejvýše jednou
+  za pokus. Jde o radu k tahu v minihře.
+- Pro vyhodnocení obtížnosti evidovat dokončení bez pomoci, použití
+  +5 tahů a použití boosterů (pomoci se mohou kombinovat).
+
+Reklamy jsou dobrovolné. Mají zachránit těsný pokus, ne být povinnou
+podmínkou dohrání. Počty odměn a limity následně ladit mobilním testováním.
+
+
+## 2026-09-29 — Testovací reklamy lokálně implementované
+
+Nahrazuje předchozí stav „pouze plán“. Sdílené okno RewardAd má potvrzení
+odměny, simulaci bez čekání, zavření s odměnou a zrušení bez odměny.
+Modální okno blokuje ovládání hry a pozastaví audio, nabízí EN/CZ.
+Odměna se připíše pouze jednou; při chybě zápisu boosteru nabídne opakování.
+
+- +5 tahů jednou za pokus po vyčerpání; zachovává rozehranou desku.
+- +1 energie při nule, maximum 5; zbývající odpočet se zachovává.
+- Prázdná ikona boosteru nabízí AD. Reklama doplní jeden vybraný kus,
+  automaticky ho nepoužije. Jeden společný reklamní limit všech pěti
+  boosterů na pokus. Zásoba zůstává místní a oddělená podle profilu/resetu.
+- První nápověda zdarma, reklamou jedna další za pokus.
+- Retry obnovuje limity reklam a nápovědu, nikoli zásobu boosterů.
+- Lokální diagnostika posledních 500 ukončených pokusů:
+  beyond-signal-balance-attempts-v1; level, výsledek, tahy, použití +5,
+  použité boostery a počet nápověd. Bez odesílání na server; zavření
+  prohlížeče uprostřed pokusu se neeviduje, preview dokončení také ne.
+
+Pravidla stále slouží k ladění. Reklamní SDK ani platby nejsou připojené.
+Změny pouze lokální, bez pushe. Testovací režim je výslovně označený
+i v sestavení; před ostrou reklamní integrací nahradit simulátor.

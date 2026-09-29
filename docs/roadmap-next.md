@@ -230,3 +230,14 @@ aktivace a průlet do nového prostoru s návratem na Elysium. Viz
 SQL012 (zahrnuje011), zatím neprovedeno.
 Příště testování a zpětná vazba, potom vlastní průzkum zahradního
 prstence. Nové mechaniky portálů/rezonátorů zatím nejsou součástí hry.
+## Nejbližší krok — testovací reklamy (schváleno 2026-09-29)
+
+Implementovat simulované reklamní okno a odměny: +5 tahů jednou za pokus,
++1 energie při nule, jeden vybraný booster se společným limitem jedné
+reklamní odměny za pokus, jedna další nápověda za reklamu. Zachovat desku
+i společnou zásobu boosterů. Evidovat využitou pomoc pro ladění obtížnosti.
+Přesná schválená pravidla jsou v [deníku rozhodnutí](decisions-log.md).
+Zatím plán, nikoli hotová implementace nebo skutečná reklamní integrace.
+
+
+2026-09-29: Testovací reklamy implementované lokálně: +5 tahů, +1 energie při nule, jeden vybraný booster a další nápověda dle schválených limitů. Podrobnosti docs/decisions-log.md (Testovací reklamy lokálně implementované). Místní diagnostika použitých pomůcek pro ladění. Bez reklamního SDK a bez pushe.

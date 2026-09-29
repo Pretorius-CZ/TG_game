@@ -1,3 +1,4 @@
+import {useRewardAd} from './RewardAd.jsx';
 import {tileSetFor} from './tileSets.js';
 import {useLanguage} from './i18n/Language.jsx';
 import React, { useEffect, useRef, useState } from 'react';
@@ -42,7 +43,28 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   const [confirmQuit, setConfirmQuit] = useState(false);
   const [hint, setHint] = useState(() => boosts?null:iceMove(board, level.cols,ice));
   const [hintsLeft,setHintsLeft]=useState(1);
-  const [toolsLeft,consumeTool]=useHelperStock();
+  const [toolsLeft,consumeTool,rewardTool]=useHelperStock();
+  const ad=useRewardAd();
+  const [adsUsed,setAdsUsed]=useState({moves:false,hint:false,helper:false});
+  const assistance=useRef({helpers:[],extraMoves:false,hints:0});
+  const recorded=useRef(false);
+  function recordResult(outcome){
+    if(recorded.current)return;recorded.current=true;
+    try{const key='beyond-signal-balance-attempts-v1';const rows=JSON.parse(localStorage.getItem(key)||'[]');localStorage.setItem(key,JSON.stringify([...(Array.isArray(rows)?rows:[]).slice(-499),{level:repair.id,outcome,moves,at:Date.now(),...assistance.current}]));}catch{}
+  }
+  function requestHelp(kind,index){
+    if(busy||lock.current||adsUsed[kind])return;
+    const token=run.current;
+    const reward=kind==='moves'?t('+5 moves'):kind==='hint'?t('One extra hint'):'1× '+t(helpers[index][1]);
+    ad(reward,async()=>{
+      if(!alive.current||run.current!==token)return false;
+      if(kind==='helper'&&!await rewardTool(index))return false;
+      if(kind==='moves'){setExtraMoves(n=>n+5);assistance.current.extraMoves=true;}
+      if(kind==='hint')setHintsLeft(1);
+      setAdsUsed(previous=>({...previous,[kind]:true}));
+      return true;
+    });
+  }
   const [tool,setTool]=useState(null);
   const helpers=[['⌖','Laser','Select one tile.'],['⤨','Shuffle','Shuffle the board.'],['⇄','Swap','Select two adjacent uncovered tiles.'],['➜','Beam','Select a row to clear.'],['✺','EMP','Select the centre of a 3×3 blast.']];
   const resultPanel=useRef(null);
@@ -60,9 +82,9 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     if(lock.current||busy||exhausted||won||fault||!admitted||hintsLeft<=0||hint)return;
     const next=iceMove(board,level.cols,ice);
     if(!next)return;
-    setHint(next);setHintsLeft(n=>n-1);setMessage('Swap the glowing pieces, or tap a glowing charge to activate it.');
+    assistance.current.hints++;setHint(next);setHintsLeft(n=>n-1);setMessage('Swap the glowing pieces, or tap a glowing charge to activate it.');
   }
-  function leave(){if(moves>0&&!won&&!fault&&!spent.current){spent.current=true;lives.spend();}onQuit();}
+  function leave(){recordResult("quit");if(moves>0&&!won&&!fault&&!spent.current){spent.current=true;lives.spend();}onQuit();}
   function failSafely(){
     run.current++;clearInterval(watchdog.current);lock.current=false;
     setBlastFx(null);setFault(true);setBusy(false);setMoving(null);setFalling([]);setCleared([]);setSelected(null);setHint(null);setConfirmQuit(false);
@@ -71,6 +93,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     if(!fault&&!lives.count)return;
     try{
       const fresh=makeIceBoard(level,initialIce(repair));
+      recordResult(fault?"fault":"failed");recorded.current=false;assistance.current={helpers:[],extraMoves:false,hints:0};setAdsUsed({moves:false,hint:false,helper:false});
       run.current++;clearInterval(watchdog.current);lock.current=false;spent.current=false;
       setBlastFx(null);setFault(false);setBusy(false);setAdmitted(true);setBoard(fresh);setIce(initialIce(repair));setCounts(goals.map(()=>0));setMoves(0);setExtraMoves(0);setSelected(null);setHint(boosts?null:iceMove(fresh,level.cols,initialIce(repair)));setHintsLeft(1);setTool(null);setConfirmQuit(false);setMessage('A fresh attempt. You can do this.');
     }catch{failSafely();}
@@ -106,7 +129,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
       toolHit=[...new Set([...toolHit,...blast(next,level.cols,toolHit.filter(i=>isBooster(next[i])))])];
     }
     let found=toolHit??(activation?[a]:iceMatches(next,level.cols,frozen));
-    if(helper!=null){if(!await consumeTool(helper)){setMoving(null);setTool(null);return;}if(!alive.current||token!==run.current)return;setTool(null);}
+    if(helper!=null){if(!await consumeTool(helper)){setMoving(null);setTool(null);return;}if(!alive.current||token!==run.current)return;assistance.current.helpers.push(helpers[helper][1]);setTool(null);}
     if (!found.length&&helper==null) { sound('invalid');
       setMoving(null); setMessage('Almost! A swap needs to make a line of 3 matching pieces.');
       await wait(220); if (!alive.current || token!==run.current) return;
@@ -170,12 +193,12 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     return { transform: `translate(${(j % level.cols - i % level.cols) * 100}%, ${(Math.floor(j / level.cols) - Math.floor(i / level.cols)) * 100}%)`, zIndex: 2 };
   }
   return <dialog className={`mini-dialog ${exhausted||won||fault?'mini-result':''}`} ref={dialog} aria-labelledby="level-title" onCancel={event => { event.preventDefault(); if (!busy) setConfirmQuit(true); }}>
-    <div className="level-hud"><div className="energy-audio"><LivesBar/><AudioControls/></div><button className="hint-control" aria-label={t(`Show a hint, ${hintsLeft} remaining`)} title={t(hintsLeft?"One free hint per attempt":"More hints via rewarded ads — coming soon")} disabled={busy||exhausted||won||fault||!admitted||hintsLeft===0||Boolean(hint)} onClick={showHint}><span aria-hidden="true">{t("Hint")}</span><small>{t(hintsLeft?'1/1':'AD')}</small></button><div className={`moves-counter ${limit-moves<=5?'low-moves':''}`} role="status" aria-label={t(`${Math.max(0,limit-moves)} moves left`)}><span>{t("MOVES")}</span><strong>{t(Math.max(0,limit-moves))}</strong></div></div>
+    <div className="level-hud"><div className="energy-audio"><LivesBar/><AudioControls/></div><button className="hint-control" aria-label={t(`Show a hint, ${hintsLeft} remaining`)} title={t(hintsLeft?"One free hint per attempt":"Ad · extra hint")} disabled={busy||exhausted||won||fault||!admitted||(hintsLeft===0&&adsUsed.hint)||Boolean(hint)} onClick={()=>hintsLeft?showHint():requestHelp("hint")}><span aria-hidden="true">{t("Hint")}</span><small>{t(hintsLeft?'1/1':adsUsed.hint?'0':'AD')}</small></button><div className={`moves-counter ${limit-moves<=5?'low-moves':''}`} role="status" aria-label={t(`${Math.max(0,limit-moves)} moves left`)}><span>{t("MOVES")}</span><strong>{t(Math.max(0,limit-moves))}</strong></div></div>
     <div className="mini-header"><span className="eyebrow">{t(repair.room ?? 'COCKPIT')}{t(" / REPAIR LESSON")}</span><button className="close" aria-label={t("Leave level")} disabled={busy} onClick={() => setConfirmQuit(true)}>{t("×")}</button><h2 id="level-title">{t(repair.lesson)}</h2></div>
     <div className="objective-list" style={{"--goal-count":goals.length+(initialIce(repair).length?1:0)}}>{t(goals.map((goal,i)=><div className="charge" key={i}><span>{t(goal.type!=null&&<img className="objective-icon" src={`./tiles/${sprites[goal.type]}.png`} alt={t("")}/>)}</span><strong translate="no" aria-live="polite" aria-atomic="true">{`${counts[i] ?? 0} / ${goal.target}`}</strong><progress aria-label={t(goal.label)} max={goal.target} value={counts[i]}/></div>))}{initialIce(repair).length>0&&<div className="charge" title={t('Protective covers')}><span><i className="cover-objective-icon" aria-hidden="true"/></span><strong translate="no">{initialIce(repair).length-ice.length} / {initialIce(repair).length}</strong><progress aria-label={t('Protective covers')} max={initialIce(repair).length} value={initialIce(repair).length-ice.length}/></div>}</div>
 
-    {t(exhausted&&<div className="out-of-moves" ref={resultPanel} tabIndex={-1} role="region" aria-label={t("Out of moves")}><h3>{t("Out of moves")}</h3><p>{t("Your repairs are safe. Try again or continue this attempt.")}</p><button className="primary" disabled={!import.meta.env.DEV} onClick={()=>setExtraMoves(n=>n+5)}>{t(import.meta.env.DEV?'Preview · +5 moves':'Extra moves · coming soon')}</button><small>{t(import.meta.env.DEV?'Test shortcut, no purchase':'Rewarded ads and purchases are not connected yet')}</small><button className="keep-playing" disabled={!lives.count} onClick={retry}>{t("Retry level")}</button><button className="keep-playing" onClick={onQuit}>{t("Back to ship")}</button>{t(!lives.count&&<NoLives/>)}</div>)}
-    {t(fault ? <div className="out-of-moves" ref={resultPanel} tabIndex={-1} role="alert"><h3>{t("Board recovery needed")}</h3><p>{t("This puzzle could not continue safely. No energy was charged for this interrupted attempt.")}</p><button className="primary" onClick={retry}>{t("Restart level · free")}</button><button className="keep-playing" onClick={onQuit}>{t("Back to ship")}</button></div> : !admitted ? <><NoLives/>{t(lives.count>0&&<button className="primary" onClick={()=>setAdmitted(true)}>{t("Start level")}</button>)}</> : !won ? <div className="puzzle-area" hidden={exhausted} style={{"--ratio":level.cols/level.rows,"--rows":level.rows}}>
+    {t(exhausted&&<div className="out-of-moves" ref={resultPanel} tabIndex={-1} role="region" aria-label={t("Out of moves")}><h3>{t("Out of moves")}</h3><p>{t("Your repairs are safe. Try again or continue this attempt.")}</p><button className="primary" disabled={adsUsed.moves} onClick={()=>requestHelp('moves')}>{t(adsUsed.moves?'Extra moves used':'Ad · +5 moves')}</button><button className="keep-playing" disabled={!lives.count} onClick={retry}>{t("Retry level")}</button><button className="keep-playing" onClick={()=>{recordResult(fault?"fault":"failed");onQuit();}}>{t("Back to ship")}</button>{t(!lives.count&&<NoLives/>)}</div>)}
+    {t(fault ? <div className="out-of-moves" ref={resultPanel} tabIndex={-1} role="alert"><h3>{t("Board recovery needed")}</h3><p>{t("This puzzle could not continue safely. No energy was charged for this interrupted attempt.")}</p><button className="primary" onClick={retry}>{t("Restart level · free")}</button><button className="keep-playing" onClick={()=>{recordResult(fault?"fault":"failed");onQuit();}}>{t("Back to ship")}</button></div> : !admitted ? <><NoLives/>{t(lives.count>0&&<button className="primary" onClick={()=>setAdmitted(true)}>{t("Start level")}</button>)}</> : !won ? <div className="puzzle-area" hidden={exhausted} style={{"--ratio":level.cols/level.rows,"--rows":level.rows}}>
       <div className={`board ${blastFx?'board-blasting':''}`} style={{ '--cols': level.cols }} aria-label={t("Match three board")} aria-busy={busy}>
         {t(board.map((type, i) => type == null ? <span key={i} className="board-hole" aria-hidden="true"/> : <button key={i} data-cell={i} data-type={type} data-booster={isBooster(type)?(type===10?"pulse":"nova"):undefined} data-hint={hint?.includes(i) || undefined} className={`cell ${ice.includes(i)?'frozen-cell':''} ${selected === i ? 'selected' : ''} ${hint?.includes(i) ? 'hinted' : ''}`} disabled={busy || confirmQuit || exhausted || (ice.includes(i)&&(tool==null||tool===2))} aria-label={t(`${ice.includes(i)?'Covered ':''}${type===10?'Pulse charge':type===11?'Nova cross':names[type]}, row ${Math.floor(i / level.cols) + 1}, column ${i % level.cols + 1}`)} aria-pressed={selected === i} onClick={() => choose(i)} onPointerDown={e => { suppressClick.current = false; pointer.current = { i, x: e.clientX, y: e.clientY }; e.currentTarget.setPointerCapture(e.pointerId); }} onPointerUp={endSwipe} onPointerCancel={() => {pointer.current = null;}}>
           <span style={tileStyle(i)} className={`gem gem-${type} ${cleared.includes(i) ? 'clearing' : ''} ${falling.includes(i) ? 'falling' : ''}`}><>{t(isBooster(type)?<span className={`booster-art booster-${type}`} aria-hidden="true">{t(type===10?"✹":"✣")}</span>:<img src={`./tiles/${sprites[type]}.png`} alt={t("")} draggable="false"/>)}</></span>
@@ -190,10 +213,10 @@ export default function MiniGame({ onWin, onQuit, repair }) {
         </svg>)}
       </div>
 
-    </div> : <div className="win-panel" ref={resultPanel} tabIndex={-1}><span className="win-spark">{t("✦")}</span><h3>{t("Ready to repair.")}</h3><p>{t("You have completed the objective.")}<br/>{t("Now bring your ship back to life.")}</p><button className="primary" disabled={busy} onClick={onWin}>{t(repair.action)} <span>{t("→")}</span></button></div>)}
+    </div> : <div className="win-panel" ref={resultPanel} tabIndex={-1}><span className="win-spark">{t("✦")}</span><h3>{t("Ready to repair.")}</h3><p>{t("You have completed the objective.")}<br/>{t("Now bring your ship back to life.")}</p><button className="primary" disabled={busy} onClick={()=>{recordResult("won");onWin();}}>{t(repair.action)} <span>{t("→")}</span></button></div>)}
     {!fault&&!won&&!exhausted&&admitted&&<div className="helper-panel">
       <div className="helper-prompt" role="status">{tool!=null?<>{t(helpers[tool][2])}<button onClick={()=>{setTool(null);setSelected(null);}}>{t('Cancel')}</button></>:null}</div>
-      <div className="helper-bar">{helpers.map(([icon,name],i)=><button key={name} aria-label={`${t(name)} · ${toolsLeft[i]}`} aria-pressed={tool===i} disabled={busy||confirmQuit||!toolsLeft[i]} onClick={()=>{setSelected(null);setHint(null);if(i===1)play(board.findIndex(v=>v!=null),board.findIndex(v=>v!=null),i);else setTool(tool===i?null:i);}}><span aria-hidden="true">{icon}</span><small>{t(name)}</small><b>{toolsLeft[i]}</b></button>)}</div>
+      <div className="helper-bar">{helpers.map(([icon,name],i)=><button key={name} aria-label={`${t(name)} · ${toolsLeft[i]}`} aria-pressed={tool===i} disabled={busy||confirmQuit||(!toolsLeft[i]&&adsUsed.helper)} onClick={()=>{if(!toolsLeft[i]){requestHelp("helper",i);return;}setSelected(null);setHint(null);if(i===1)play(board.findIndex(v=>v!=null),board.findIndex(v=>v!=null),i);else setTool(tool===i?null:i);}}><span aria-hidden="true">{icon}</span><small>{t(name)}</small><b>{toolsLeft[i]||(!adsUsed.helper?"AD":"0")}</b></button>)}</div>
     </div>}
     {t(import.meta.env.DEV&&!fault&&!won&&!exhausted&&!confirmQuit&&<button className="preview-complete" disabled={busy} onClick={()=>{if(lock.current)return;lock.current=true;onWin();}}>{t("✓ Complete level ")}<small>{t("Preview · skip match-3")}</small></button>)}
 

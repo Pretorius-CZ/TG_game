@@ -1,7 +1,7 @@
 import {useEffect,useState} from 'react';
 import {useAccount} from './Account.jsx';
 import {accountKey} from './accountStorage.js';
-import {readStock,spendStock,stockKey} from './helperStock.js';
+import {readStock,spendStock,stockKey,rewardStock} from './helperStock.js';
 export default function useHelperStock(){
  const {user}=useAccount();
  const [key]=useState(()=>{
@@ -14,5 +14,9 @@ export default function useHelperStock(){
   const spend=()=>{try{const next=spendStock(localStorage,key,index);if(!next){setStock(read());return false;}setStock(next);window.dispatchEvent(new Event('helper-stock-change'));return true;}catch{setStock([0,0,0,0,0]);return false;}};
   return navigator.locks?navigator.locks.request(key,spend):spend();
  }
- return [stock,consume];
+ async function reward(index){
+ const grant=()=>{try{const next=rewardStock(localStorage,key,index);if(!next)return false;setStock(next);window.dispatchEvent(new Event('helper-stock-change'));return true;}catch{return false;}};
+ return navigator.locks?navigator.locks.request(key,grant):grant();
+ }
+ return [stock,consume,reward];
 }

@@ -518,3 +518,15 @@ Reklamy/platby ani skutečné účinky pomůcek zatím nejsou implementované.
 2026-09-29: Podle pěti screenshotů chybove_hlasky odstraněn obecný spodní panel 'Tap the marked equipment…' ze všech nedokončených expedic v Exploration.jsx. Překrýval hotspoty ice5/wreck0/wreck5/haven0. Návrat a skok branou po dokončení zachované. Ověřeno kliknutí všech pěti stavů screenshotů a průlet z hotového Havenu na 390×740; build prošel. Bez pushe.
 
 2026-09-29: Obnova energie před prvním odletem 10 minut, po launchDone 30 minut. Rozběhnutý odpočet se při odletu neprodlužuje; návrat do první kapitoly interval nemění. Lokální save energie ukládá interval pro obnovu po zavření hry. Starý 30min odpočet se před odletem zkrátí. Maximum stále 5, cloud beze změny.
+## Další krok schválený 2026-09-29: testovací reklamy
+
+Implementovat simulované reklamní okno s pozastavením hry a tlačítkem
+pro zavření a získání odměny. +5 tahů jednou za pokus bez změny desky;
++1 energie při nule; 1 vybraný booster do trvalé společné zásoby
+(jedna reklamní odměna za pokus společná pro všech pět druhů);
+1 další nápověda za reklamu vedle první zdarma. Bez balíčku boosterů.
+Zaznamenávat použitou pomoc pro ladění obtížnosti. Podrobnosti
+docs/decisions-log.md a docs/roadmap-next.md. Pouze plán, zatím neimplementováno.
+
+
+2026-09-29: Testovací reklamy implementované lokálně: +5 tahů, +1 energie při nule, jeden vybraný booster a další nápověda dle schválených limitů. Podrobnosti docs/decisions-log.md (Testovací reklamy lokálně implementované). Místní diagnostika použitých pomůcek pro ladění. Bez reklamního SDK a bez pushe.

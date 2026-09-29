@@ -1,3 +1,4 @@
+import {RewardAdProvider} from './RewardAd.jsx';
 import Welcome from './Welcome.jsx';
 import Rift from './Rift.jsx';
 import {riftDestinations,riftScenes,canVisitRift,riftArrivalLog} from './rift.js';
@@ -213,4 +214,4 @@ function App() {
     <span className="sr-only" role="status" aria-live="polite">{t(exploring ? 'Exploring the star system.' : corridor ? 'Inside the corridor. Emergency lighting only.' : airlock ? 'Inside the airlock.' : inside ? 'Inside the cockpit.' : 'Outside the damaged ship.')} {t(completed)}{t(" of ")}{t(repairs.length)}{t(" cockpit repairs complete.")}</span>
   </main>;
 }
-createRoot(document.getElementById('root')).render(<LanguageProvider><LivesProvider><AccountProvider><App/></AccountProvider></LivesProvider></LanguageProvider>);
+createRoot(document.getElementById('root')).render(<LanguageProvider><RewardAdProvider><LivesProvider><AccountProvider><App/></AccountProvider></LivesProvider></RewardAdProvider></LanguageProvider>);

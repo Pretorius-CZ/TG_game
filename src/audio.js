@@ -1,3 +1,5 @@
+let adPaused=false;
+export function pauseForAd(value){adPaused=value;if(ctx){if(value)void ctx.suspend().catch(()=>{});else void unlock();}}
 let ctx, music, effects, timer, step = 0, ducked = false;
 let prefs = {music:true, effects:true};
 try { const saved=JSON.parse(localStorage.getItem('ship-audio')); for(const k of Object.keys(prefs)) if(typeof saved?.[k]==='boolean') prefs[k]=saved[k]; } catch {}
@@ -24,7 +26,7 @@ function mix() {
 async function unlock() {
   try {
     if(!ctx){const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)return;ctx=new Audio();music=ctx.createGain();effects=ctx.createGain();music.connect(ctx.destination);effects.connect(ctx.destination);mix();}
-    if(document.hidden)return;
+    if(document.hidden||adPaused)return;
     await ctx.resume();
     if(!timer){ambient();timer=setInterval(ambient,6500);}
   }catch{}

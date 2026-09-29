@@ -1043,5 +1043,21 @@
   "Loading…": "Načítání…",
   " BEYOND THE SIGNAL": " BEYOND THE SIGNAL",
   "One energy charge per failed attempt. Recharges every 10 minutes.": "Jeden energetický článek za neúspěšný pokus. Dobíjí se každých 10 minut.",
-  "One charge returns every 10 minutes.": "Jeden článek se obnoví každých 10 minut."
+  "One charge returns every 10 minutes.": "Jeden článek se obnoví každých 10 minut.",
+  "TEST MODE · NO REAL AD": "TESTOVACÍ REŽIM · BEZ SKUTEČNÉ REKLAMY",
+  "Test advertisement": "Testovací reklama",
+  "Watch an ad?": "Pustit reklamu?",
+  "ADVERTISEMENT": "REKLAMA",
+  "Simulation for balancing. No waiting or payment.": "Simulace pro ladění obtížnosti. Bez čekání a placení.",
+  "Reward could not be saved. Please try again.": "Odměnu se nepodařilo uložit. Zkus to znovu.",
+  "Close and claim reward": "Zavřít a získat odměnu",
+  "Start test ad": "Spustit testovací reklamu",
+  "Cancel without reward": "Zrušit bez odměny",
+  "+1 energy charge": "+1 energetický článek",
+  "Ad · +1 energy": "Reklama · +1 energie",
+  "+5 moves": "+5 tahů",
+  "One extra hint": "Jedna další nápověda",
+  "Ad · extra hint": "Reklama · další nápověda",
+  "Extra moves used": "Další tahy již využity",
+  "Ad · +5 moves": "Reklama · +5 tahů"
 }

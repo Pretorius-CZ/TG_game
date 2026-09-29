@@ -13,3 +13,9 @@ export function spendStock(storage,key,index){
  storage.setItem(key,JSON.stringify(stock));
  return stock;
 }
+
+export function rewardStock(storage,key,index){
+ if(!Number.isInteger(index)||index<0||index>=5)return false;
+ const stock=readStock(storage,key);if(stock[index])return false;
+ stock[index]=1;storage.setItem(key,JSON.stringify(stock));return stock;
+}
