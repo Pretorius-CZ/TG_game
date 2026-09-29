@@ -40,6 +40,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   const [counts, setCounts] = useState(()=>goals.map(()=>0));
   const [moves, setMoves] = useState(0);
   const [busy, setBusy] = useState(false);
+  const [shuffling,setShuffling]=useState(false);
   const [message, setMessage] = useState(boosts?'Match 3 pieces. Tap ? for a hint.':'Tap one glowing piece, then the other to swap them.');
   const [confirmQuit, setConfirmQuit] = useState(false);
   const [hint, setHint] = useState(() => boosts?null:iceMove(board, level.cols,ice));
@@ -88,7 +89,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   function leave(){recordResult("quit");if(moves>0&&!won&&!fault&&!spent.current){spent.current=true;lives.spend();}onQuit();}
   function failSafely(){
     run.current++;clearInterval(watchdog.current);lock.current=false;
-    setBlastFx(null);setFault(true);setBusy(false);setMoving(null);setFalling([]);setCleared([]);setSelected(null);setHint(null);setConfirmQuit(false);
+    setShuffling(false);setBlastFx(null);setFault(true);setBusy(false);setMoving(null);setFalling([]);setCleared([]);setSelected(null);setHint(null);setConfirmQuit(false);
   }
   function retry(){
     if(!fault&&!lives.count)return;
@@ -96,11 +97,22 @@ export default function MiniGame({ onWin, onQuit, repair }) {
       const fresh=makeIceBoard(level,initialIce(repair));
       recordResult(fault?"fault":"failed");recorded.current=false;assistance.current={helpers:[],extraMoves:false,hints:0};setAdsUsed({moves:false,hint:false,helper:false});
       run.current++;clearInterval(watchdog.current);lock.current=false;spent.current=false;
-      setBlastFx(null);setFault(false);setBusy(false);setAdmitted(true);setBoard(fresh);setIce(initialIce(repair));setCounts(goals.map(()=>0));setMoves(0);setExtraMoves(0);setSelected(null);setHint(boosts?null:iceMove(fresh,level.cols,initialIce(repair)));setHintsLeft(1);setTool(null);setConfirmQuit(false);setMessage('A fresh attempt. You can do this.');
+      setShuffling(false);setBlastFx(null);setFault(false);setBusy(false);setAdmitted(true);setBoard(fresh);setIce(initialIce(repair));setCounts(goals.map(()=>0));setMoves(0);setExtraMoves(0);setSelected(null);setHint(boosts?null:iceMove(fresh,level.cols,initialIce(repair)));setHintsLeft(1);setTool(null);setConfirmQuit(false);setMessage('A fresh attempt. You can do this.');
     }catch{failSafely();}
   }
   useEffect(() => { alive.current = true; dialog.current.showModal(); return () => { alive.current = false;run.current++;clearInterval(watchdog.current); }; }, []);
   const wait = ms => new Promise(resolve => setTimeout(resolve, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : ms));
+
+  async function animateShuffle(next,token){
+    setSelected(null);setHint(null);setShuffling(true);
+    // Keep the message readable even when motion is disabled.
+    await new Promise(resolve=>setTimeout(resolve,750));
+    if(!alive.current||token!==run.current)return false;
+    setBoard(next);
+    await new Promise(resolve=>setTimeout(resolve,750));
+    if(!alive.current||token!==run.current)return false;
+    setShuffling(false);return true;
+  }
 
   async function play(a, b, helper=null) {
     const activation=helper==null&&a===b&&isBooster(board[a]);
@@ -130,7 +142,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
       toolHit=[...new Set([...toolHit,...blast(next,level.cols,toolHit.filter(i=>isBooster(next[i])))])];
     }
     let found=toolHit??(activation?[a]:iceMatches(next,level.cols,frozen));
-    if(helper!=null){if(!await consumeTool(helper)){setMoving(null);setTool(null);return;}if(!alive.current||token!==run.current)return;assistance.current.helpers.push(helpers[helper][1]);setTool(null);}
+    if(helper!=null){if(!await consumeTool(helper)){setMoving(null);setTool(null);return;}if(!alive.current||token!==run.current)return;assistance.current.helpers.push(helpers[helper][1]);setTool(null);if(helper===1&&!await animateShuffle(next,token))return;}
     if (!found.length&&helper==null) { sound('invalid');
       setMoving(null); setMessage('Almost! A swap needs to make a line of 3 matching pieces.');
       await wait(220); if (!alive.current || token!==run.current) return;
@@ -154,17 +166,17 @@ export default function MiniGame({ onWin, onQuit, repair }) {
         found = iceMatches(next, level.cols,frozen); cascades++;
       }
       if (goalsComplete(goals, totals) && !frozen.length) sound('win');
-      if ((!goalsComplete(goals, totals) || frozen.length) && moves+(helper==null?1:0)<limit) {
-        if(!iceMove(next,level.cols,frozen)){
-          setMessage('Recalibrating board…');
-          await wait(650);if(!alive.current || token!==run.current)return;
-        }
+      if (!goalsComplete(goals, totals) || frozen.length) {
         const recovery=ensurePlayableBoard(next,level,frozen);
-        if(recovery.reshuffled){next=recovery.board;setBoard(next);setMessage('No possible matches. Board refreshed — no extra move or energy used.');}
+        if(recovery.reshuffled){
+          next=recovery.board;
+          if(!await animateShuffle(next,token))return;
+          setMessage('No possible matches. Board refreshed — no extra move or energy used.');
+        }
       }
     }
     }catch{if(alive.current && token===run.current)failSafely();}
-    finally{if(token===run.current){clearInterval(watchdog.current);lock.current=false;if(alive.current)setBusy(false);}}
+    finally{if(token===run.current){clearInterval(watchdog.current);lock.current=false;if(alive.current){setShuffling(false);setBusy(false);}}}
 
   }
   function choose(i) {
@@ -200,7 +212,8 @@ export default function MiniGame({ onWin, onQuit, repair }) {
 
     {t(exhausted&&<div className="out-of-moves" ref={resultPanel} tabIndex={-1} role="region" aria-label={t("Out of moves")}><h3>{t("Out of moves")}</h3><p>{t("Your repairs are safe. Try again or continue this attempt.")}</p><button className="primary" disabled={adsUsed.moves} onClick={()=>requestHelp('moves')}>{t(adsUsed.moves?'Extra moves used':'Ad · +5 moves')}</button><button className="keep-playing" disabled={!lives.count} onClick={retry}>{t("Retry level")}</button><button className="keep-playing" onClick={()=>{recordResult(fault?"fault":"failed");onQuit();}}>{t("Back to ship")}</button>{t(!lives.count&&<NoLives/>)}</div>)}
     {t(fault ? <div className="out-of-moves" ref={resultPanel} tabIndex={-1} role="alert"><h3>{t("Board recovery needed")}</h3><p>{t("This puzzle could not continue safely. No energy was charged for this interrupted attempt.")}</p><button className="primary" onClick={retry}>{t("Restart level · free")}</button><button className="keep-playing" onClick={()=>{recordResult(fault?"fault":"failed");onQuit();}}>{t("Back to ship")}</button></div> : !admitted ? <><NoLives/>{t(lives.count>0&&<button className="primary" onClick={()=>setAdmitted(true)}>{t("Start level")}</button>)}</> : !won ? <div className="puzzle-area" hidden={exhausted} style={{"--ratio":level.cols/level.rows,"--rows":level.rows}}>
-      <div className={`board ${blastFx?'board-blasting':''}`} style={{ '--cols': level.cols }} aria-label={t("Match three board")} aria-busy={busy}>
+      <div className={`board ${blastFx?'board-blasting':''} ${shuffling?'board-shuffling':''}`} style={{ '--cols': level.cols }} aria-label={t("Match three board")} aria-busy={busy}>
+        {shuffling&&<div className="shuffle-overlay" role="status" aria-live="polite"><span aria-hidden="true">⤨</span><strong>{t('Shuffling…')}</strong><small>{t('Preparing your next move')}</small></div>}
         {t(board.map((type, i) => type == null ? <span key={i} className="board-hole" aria-hidden="true"/> : <button key={i} data-cell={i} data-type={type} data-booster={isBooster(type)?(type===10?"pulse":"nova"):undefined} data-hint={hint?.includes(i) || undefined} className={`cell ${ice.includes(i)?'frozen-cell':''} ${selected === i ? 'selected' : ''} ${hint?.includes(i) ? 'hinted' : ''}`} disabled={busy || confirmQuit || exhausted || (ice.includes(i)&&(tool==null||tool===2))} aria-label={t(`${ice.includes(i)?'Covered ':''}${type===10?'Pulse charge':type===11?'Nova cross':names[type]}, row ${Math.floor(i / level.cols) + 1}, column ${i % level.cols + 1}`)} aria-pressed={selected === i} onClick={() => choose(i)} onPointerDown={e => { suppressClick.current = false; pointer.current = { i, x: e.clientX, y: e.clientY }; e.currentTarget.setPointerCapture(e.pointerId); }} onPointerUp={endSwipe} onPointerCancel={() => {pointer.current = null;}}>
           <span style={tileStyle(i)} className={`gem gem-${type} ${cleared.includes(i) ? 'clearing' : ''} ${falling.includes(i) ? 'falling' : ''}`}><>{t(isBooster(type)?<span className={`booster-art booster-${type}`} aria-hidden="true">{t(type===10?"✹":"✣")}</span>:<img src={`./tiles/${sprites[type]}.png`} alt={t("")} draggable="false"/>)}</></span>
         </button>))}

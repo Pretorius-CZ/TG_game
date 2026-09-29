@@ -530,3 +530,5 @@ docs/decisions-log.md a docs/roadmap-next.md. Pouze plán, zatím neimplementov�
 
 
 2026-09-29: Testovací reklamy implementované lokálně: +5 tahů, +1 energie při nule, jeden vybraný booster a další nápověda dle schválených limitů. Podrobnosti docs/decisions-log.md (Testovací reklamy lokálně implementované). Místní diagnostika použitých pomůcek pro ladění. Bez reklamního SDK a bez pushe.
+
+2026-09-29: MiniGame zobrazuje 1,5s překryv Shuffling/Míchání při automatické obnově i boosteru Shuffle. Deska animuje kameny a blokuje vstup; reduced-motion má statický překryv se stejnou čitelnou dobou. Obnova bez tahu se vyhodnotí i na posledním tahu před výsledkem, aby pokračování +5 mělo hratelnou desku. Lokální změna, bez pushe.
