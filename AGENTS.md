@@ -514,3 +514,5 @@ Reklamy/platby ani skutečné účinky pomůcek zatím nejsou implementované.
 2026-09-28: Schválen nový název Beyond the Signal, primární EN a přepínání jazyků v menu. Připravují se tři vizuální varianty titulní obrazovky A/havárie, B/signál, C/kokpit. Viz docs/concepts/title-screen.md. Aktuálně pouze koncepty, menu/intro zatím nezapojené.
 
 2026-09-28: Beyond the Signal titulní menu a tříscénové intro zapojené (Welcome.jsx/css, public/intro). EN/CZ, Next/Skip, 7s/scéna, pause při skryté kartě, reduced-motion, místní seen podle účtu/resetRevision, Continue zachovává postup, replay intra v menu. Klik na herní značku vrací menu. Podrobnosti docs/concepts/title-screen.md. Změny zatím místní.
+
+2026-09-29: Podle pěti screenshotů chybove_hlasky odstraněn obecný spodní panel 'Tap the marked equipment…' ze všech nedokončených expedic v Exploration.jsx. Překrýval hotspoty ice5/wreck0/wreck5/haven0. Návrat a skok branou po dokončení zachované. Ověřeno kliknutí všech pěti stavů screenshotů a průlet z hotového Havenu na 390×740; build prošel. Bez pushe.
