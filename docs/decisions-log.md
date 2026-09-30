@@ -950,3 +950,21 @@ Odměna se připíše pouze jednou; při chybě zápisu boosteru nabídne opakov
 Pravidla stále slouží k ladění. Reklamní SDK ani platby nejsou připojené.
 Změny pouze lokální, bez pushe. Testovací režim je výslovně označený
 i v sestavení; před ostrou reklamní integrací nahradit simulátor.
+
+
+## 2026-09-30 — Hratelná zahrada za Trhlinou
+Šest úkolů v beyond-rift: terasa, zpáteční maják, most, voda, semenný archiv, HARD srdce zahrady. EN/CZ deník, viditelné aktivace, replay a místní ukládání gardenCompleted. Detaily docs/garden-chapter.md. Cloud vyžaduje supabase/013_garden.sql, zatím neprovedeno. Lokální změny bez pushe.
+
+
+## 2026-09-30 — Výzkum na Elysiu a nové dlaždice
+Po zahradě6/6 hratelný výzkum5úkolů, vlastní laboratoř, deník EN/CZ a tři nové dlaždice (semeno, vzorek, navigační hranol). researchCompleted0–5, cloud vyžaduje SQL014 včetně013; neprovedeno. Nová cesta ke Zhasínajícímu světu zatím rozluštěná v příběhu, její tři lokace a rezonátory jsou další krok. Detaily docs/research-and-fading-world.md. Lokální, bez pushe.
+
+## 2026-09-30 — Retranslační stanice a rezonátory
+Po výzkumu5/5 je hratelná fading-relay: čtyři úkoly, vlastní grafika,
+výzkumné dlaždice, EN/CZ deník a rezonátory nabíjené sousedním přirozeným
+spojením (nikoli výbuchem). Výhra vyžaduje všechny rezonátory; +5 tahů
+zachová jejich náboj. relayCompleted0–4, cloud vyžaduje kumulativní
+supabase/015_relay.sql včetně013/014; živé nasazení nepotvrzené.
+91 testů a build prošly, mobilní průchod a reklamní pokračování ověřeny.
+Lokální, bez pushe. Další obsah: Noční zahrada, potom útočiště výpravy.
+Detaily docs/relay-chapter.md. Nahrazuje poznámku o pouze plánovaných rezonátorech.

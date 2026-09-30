@@ -1,0 +1,7 @@
+.garden-activation{position:absolute;inset:110px 0 0;pointer-events:none;overflow:hidden}
+.garden-activation svg{width:100%;height:100%}
+.garden-activation g{opacity:0;transition:opacity 1.4s ease;filter:drop-shadow(0 0 7px #8deedc)}
+.garden-activation g.active{opacity:1}
+.garden-activation [data-garden-system=water].active{animation:garden-water 5s linear infinite}
+@keyframes garden-water{to{stroke-dashoffset:-84}}
+@media(prefers-reduced-motion:reduce){.garden-activation g{transition:none}.garden-activation [data-garden-system=water].active{animation:none}}

@@ -70,3 +70,5 @@
 .board-shuffling .cell:nth-child(2n) .gem{animation-delay:-.25s}
 @keyframes shuffle-piece{0%,100%{transform:translate(0,0) scale(.94);opacity:.85}50%{transform:translate(9%,-12%) rotate(14deg) scale(.7);opacity:.35}}
 @media(prefers-reduced-motion:reduce){.board-shuffling .cell .gem{animation:none;opacity:.45}}
+
+.resonator-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0;aspect-ratio:1;border-radius:12px;background:radial-gradient(circle,#254d67,#07131f);border:1px solid #93b7ed;color:#b6d8ff;box-shadow:inset 0 0 12px #5a97de44}.resonator-cell>span{font:700 clamp(16px,5vw,28px)/1 system-ui}.resonator-cell small{font:700 10px/1.2 system-ui}.resonator-ready{color:#a5ffe0;border-color:#a5ffe0;box-shadow:0 0 8px #6ef2d577}

@@ -16,6 +16,7 @@ export default function Elysium({progress,onNavigate,onLog}){
    {complete&&<img src="./scenes/elysium-city-exterior.webp" alt="" className="elysium-lit city-lit"/>}
   </div>
   <div className="scene-top"><span className="eyebrow">{t(complete?'CHAPTER 04 COMPLETE':'CHAPTER 04 / ELYSIUM')}</span><h1>{t(complete?'A city awake.':'The sleeping city.')}</h1><p>{t(complete?'Station restoration complete':'A silent city. One sector at a time.')}</p></div>
+  {progress.gardenCompleted===6&&<button className="station-sector research-entry" style={{left:"50%",top:"62%"}} onClick={()=>onNavigate(progress.researchCompleted===5?"fading-relay":"elysium-research")}><span className="sector-marker">✦</span><strong>{t(progress.researchCompleted===5?"Travel to the silent relay →":"Research the living map →")}</strong><small>{progress.researchCompleted===5?(progress.relayCompleted??0)+"/4":(progress.researchCompleted??0)+"/5"}</small></button>}
   {elysiumSectorOrder.map((id,i)=>{
    const site=elysiumDestinations[id],playable=canVisitElysium(progress,id),[x,y]=positions[i];
    return <button key={id} className={`station-sector ${playable?'sector-open':''}`} style={{left:`${x}%`,top:`calc(150px + (100% - ${complete?330:240}px) * ${y/100})`}} disabled={!playable} onClick={()=>onNavigate(id)}>

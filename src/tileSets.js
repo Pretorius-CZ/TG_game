@@ -10,4 +10,5 @@ const elysium={
  names:['Coolant charge','Energy module','Data chip','Alloy component','Light cell','Biocapsule'],
  sprites:['elysium-coolant','elysium-power','elysium-chip','elysium-alloy','elysium-light','elysium-bio'],
 };
-export const tileSetFor=repair=>repair.tileSet==='elysium'?elysium:repair.tileSet==='aster'?aster:standard;
+const research={names:['Coolant charge','Energy module','Navigation prism','Alloy component','Research sample','Living seed'],sprites:['elysium-coolant','elysium-power','research-chart','elysium-alloy','research-sample','research-seed']};
+export const tileSetFor=repair=>repair.tileSet==='research'?research:repair.tileSet==='elysium'?elysium:repair.tileSet==='aster'?aster:standard;

@@ -532,3 +532,21 @@ docs/decisions-log.md a docs/roadmap-next.md. Pouze plán, zatím neimplementov�
 2026-09-29: Testovací reklamy implementované lokálně: +5 tahů, +1 energie při nule, jeden vybraný booster a další nápověda dle schválených limitů. Podrobnosti docs/decisions-log.md (Testovací reklamy lokálně implementované). Místní diagnostika použitých pomůcek pro ladění. Bez reklamního SDK a bez pushe.
 
 2026-09-29: MiniGame zobrazuje 1,5s překryv Shuffling/Míchání při automatické obnově i boosteru Shuffle. Deska animuje kameny a blokuje vstup; reduced-motion má statický překryv se stejnou čitelnou dobou. Obnova bez tahu se vyhodnotí i na posledním tahu před výsledkem, aby pokračování +5 mělo hratelnou desku. Lokální změna, bez pushe.
+
+
+## 2026-09-30 — Hratelná zahrada za Trhlinou
+Šest úkolů v beyond-rift: terasa, zpáteční maják, most, voda, semenný archiv, HARD srdce zahrady. EN/CZ deník, viditelné aktivace, replay a místní ukládání gardenCompleted. Detaily docs/garden-chapter.md. Cloud vyžaduje supabase/013_garden.sql, zatím neprovedeno. Lokální změny bez pushe.
+
+
+## 2026-09-30 — Výzkum na Elysiu a nové dlaždice
+Po zahradě6/6 hratelný výzkum5úkolů, vlastní laboratoř, deník EN/CZ a tři nové dlaždice (semeno, vzorek, navigační hranol). researchCompleted0–5, cloud vyžaduje SQL014 včetně013; neprovedeno. Nová cesta ke Zhasínajícímu světu zatím rozluštěná v příběhu, její tři lokace a rezonátory jsou další krok. Detaily docs/research-and-fading-world.md. Lokální, bez pushe.
+
+## 2026-09-30 — Retranslační stanice a rezonátory
+Po výzkumu5/5 je hratelná fading-relay: čtyři úkoly, vlastní grafika,
+výzkumné dlaždice, EN/CZ deník a rezonátory nabíjené sousedním přirozeným
+spojením (nikoli výbuchem). Výhra vyžaduje všechny rezonátory; +5 tahů
+zachová jejich náboj. relayCompleted0–4, cloud vyžaduje kumulativní
+supabase/015_relay.sql včetně013/014; živé nasazení nepotvrzené.
+91 testů a build prošly, mobilní průchod a reklamní pokračování ověřeny.
+Lokální, bez pushe. Další obsah: Noční zahrada, potom útočiště výpravy.
+Detaily docs/relay-chapter.md. Nahrazuje poznámku o pouze plánovaných rezonátorech.

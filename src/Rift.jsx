@@ -18,6 +18,7 @@ export default function Rift({progress,onProgress,onNavigate,onLog}){
     </button>})}
    </div>}
    <div className="rift-footer">
+    {!beyond&&progress.riftCrossed===1&&<button className="primary" onClick={()=>onNavigate("beyond-rift")}>{t("Explore the living ring →")} · {progress.gardenCompleted??0}/6</button>}
     <p>{t(beyond?'The return link is secure. Exploration of the great ring comes next.':ready?'Passage secured. Cross when you are ready.':'Complete each site to reveal the next bearing.')}</p>
     {beyond?<><button className="primary" onClick={()=>onLog(riftArrivalLog.id)}>{t('Read the first impression →')}</button><button className="keep-playing" onClick={()=>onNavigate('rift')}>{t('Return to the expedition chart →')}</button></>:ready&&<button className="primary" onClick={()=>setCrossing(true)}>{t('Cross the Rift →')}</button>}
     <button className="keep-playing" onClick={()=>onNavigate('elysium')}>{t('Return to Elysium →')}</button>
