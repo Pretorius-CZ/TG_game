@@ -5,6 +5,14 @@ import {useAccount} from './Account.jsx';
 import {useLives} from './Lives.jsx';
 import {supabase} from './supabase.js';
 const local={getItem:key=>window.localStorage.getItem(key),setItem:(key,value)=>window.localStorage.setItem(key,value)};
+function validateCloudProgress(current,data){
+    if(data?.version!==1)throw new Error('Unsupported cloud save');
+    if((data.resetRevision??0)===(current.resetRevision??0)&&(current.airlockCompleted??0)>(data.airlockCompleted??0))throw new Error('Linear chapter migration required');
+    if((data.resetRevision??0)===(current.resetRevision??0) && current.launchDone && !data.launchDone)throw new Error('Departure migration required');
+    if((data.resetRevision??0)===(current.resetRevision??0)&&((current.mineCompleted??0)>(data.mineCompleted??0)||(current.scannerInstalled&&!data.scannerInstalled)))throw new Error('Exploration migration required');
+    if((data.resetRevision??0)===(current.resetRevision??0)&&['relayCompleted','researchCompleted','gardenCompleted','riftEchoCompleted','riftPlatformCompleted','riftBeaconsCompleted','riftCrossed','iceCompleted','wreckCompleted','havenCompleted','buoyCompleted','verdantCompleted','fractureCompleted','elysiumRouteCompleted','elysiumArrival','elysiumDockCompleted','elysiumCoreCompleted','elysiumRingCompleted','elysiumHomesCompleted','elysiumGardenCompleted','elysiumObservatoryCompleted'].some(key=>(current[key]??0)>(data[key]??0)))throw new Error('Planet expeditions migration required');
+    if((data.resetRevision??0)===(current.resetRevision??0)&&current.jumpDone&&!data.jumpDone)throw new Error('Gate migration required');
+}
 export default function useProgressSave(progress,restore){
  const {user,restartView}=useAccount();
  const lives=useLives();
@@ -37,12 +45,7 @@ export default function useProgressSave(progress,restore){
     // The server merges under a row lock, so two devices cannot erase repairs.
     const {data,error}=await supabase.rpc('sync_game_progress',{incoming:normalizeProgress(latest.current)}).abortSignal(AbortSignal.timeout(12000));
     if(error)throw error;
-    if(data?.version!==1)throw new Error('Unsupported cloud save');
-    if((data.resetRevision??0)===(latest.current.resetRevision??0)&&(latest.current.airlockCompleted??0)>(data.airlockCompleted??0))throw new Error('Linear chapter migration required');
-    if((data.resetRevision??0)===(latest.current.resetRevision??0) && latest.current.launchDone && !data.launchDone)throw new Error('Departure migration required');
-    if((data.resetRevision??0)===(latest.current.resetRevision??0)&&((latest.current.mineCompleted??0)>(data.mineCompleted??0)||(latest.current.scannerInstalled&&!data.scannerInstalled)))throw new Error('Exploration migration required');
-    if((data.resetRevision??0)===(latest.current.resetRevision??0)&&['relayCompleted','researchCompleted','gardenCompleted','riftEchoCompleted','riftPlatformCompleted','riftBeaconsCompleted','riftCrossed','iceCompleted','wreckCompleted','havenCompleted','buoyCompleted','verdantCompleted','fractureCompleted','elysiumRouteCompleted','elysiumArrival','elysiumDockCompleted','elysiumCoreCompleted','elysiumRingCompleted','elysiumHomesCompleted','elysiumGardenCompleted','elysiumObservatoryCompleted'].some(key=>(latest.current[key]??0)>(data[key]??0)))throw new Error('Planet expeditions migration required');
-    if((data.resetRevision??0)===(latest.current.resetRevision??0)&&latest.current.jumpDone&&!data.jumpDone)throw new Error('Gate migration required');
+    validateCloudProgress(latest.current,data);
     if(!stopped&&!resetting.current){
      if((data.resetRevision??0)>(latest.current.resetRevision??0)){
       local.setItem(accountKey(id),JSON.stringify(normalizeProgress(data)));restartView();
@@ -56,6 +59,30 @@ export default function useProgressSave(progress,restore){
   window.addEventListener('online',sync);
   return()=>{stopped=true;clearTimeout(soon);clearInterval(timer);window.removeEventListener('online',sync);};
  },[id,restore,JSON.stringify(progress)]);
+ async function importGuest(){
+  if(!id||resetting.current)throw new Error('Import unavailable');
+  const guest=loadProgress(accountStorage(local));
+  if(guest.status!=='ready')throw new Error('Guest save unavailable');
+  const hasProgress=guest.progress.launchDone||Object.entries(guest.progress).some(([key,value])=>(key==='completed'||key.endsWith('Completed'))&&value>0);
+  if(!hasProgress)return {state:'empty'};
+  const imported=mergeProgress(latest.current,{...guest.progress,resetRevision:latest.current.resetRevision});
+  const advanced=Object.keys(imported).some(key=>(key==='completed'||key.endsWith('Completed'))&&imported[key]>(latest.current[key]??0));
+  if(advanced)imported.scene=guest.progress.scene;
+  const saved=storeProgress(accountStorage(local,id),imported);
+  if(saved.status!=='saved')throw new Error('Account save unavailable');
+  latest.current=saved.progress;restore(saved.progress);setStatus('saved');setCloud('syncing');
+  try{
+   const {data,error}=await supabase.rpc('sync_game_progress',{incoming:saved.progress}).abortSignal(AbortSignal.timeout(12000));
+   if(error)throw error;
+   validateCloudProgress(saved.progress,data);
+   if((data.resetRevision??0)!==saved.progress.resetRevision)throw new Error('Account changed during import');
+   const merged=mergeProgress(saved.progress,normalizeProgress(data));
+   const persisted=storeProgress(accountStorage(local,id),merged);
+   if(persisted.status!=='saved')throw new Error('Account save unavailable');
+   restore(current=>mergeProgress(current,persisted.progress));setCloud('saved');
+   return {state:'saved'};
+  }catch{setCloud('offline');return {state:'local-only'};}
+ }
  async function resetGame(){
   if(resetting.current)return;
   resetting.current=true;
@@ -74,6 +101,6 @@ export default function useProgressSave(progress,restore){
    lives.refill();restartView();
   }catch(error){resetting.current=false;throw error;}
  }
- return {local:status,cloud:id?cloud:null,resetGame};
+ return {local:status,cloud:id?cloud:null,resetGame,importGuest};
 }
 export function initialProgress(userId){return loadProgress(accountStorage(local,userId)).progress;}

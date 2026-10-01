@@ -585,3 +585,14 @@ na postupu; správce přidat SQLpodle docs/balance-analytics.md.
 97testů/build a browser test se simulovanýmRPC prošly. Živá migrace/role
 zatím neověřeny, vyžadují zásah správceSupabase. Zatím místně, nepushnuto.
 Nahrazuje poznámku, že centrální sběr není implementovaný; aktivace chybí.
+
+
+## 2026-10-01 — Viditelné a potvrzené převzetí hosta
+AccountButton má čekání a výsledkovou zprávu pro import: uložen online,
+převzat pouze místně / chyba cloudu, prázdný host nebo chyba místního
+uložení. useProgressSave.importGuest explicitně čte hosta, slučuje vyšší
+postup do účtu a ověřuje RPC výsledek; při posunu přebírá i scénu.
+Originální hostovský profil se nemění. Reset se nevolá, resetRevision
+účtu se zachovává. Výpadek zachová import místně a dovolí zkusit znovu;
+chybějící postup na serveru není označen úspěchem. Browser test s mockRPC
+ověřil success/offline/empty a původní guest save; build prošel.

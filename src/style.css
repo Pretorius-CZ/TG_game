@@ -300,3 +300,5 @@ button.planet-node:hover,button.planet-node:focus-visible { background:#5fd4e51c
 @media(max-width:350px){.play-area .game .scene-top{left:14px;right:14px}.play-area .game .scene-top h1{font-size:22px}}
 
 .play-area .game .mine-background,.play-area .game .mine-restoration{inset:0}
+
+.account-panel .import-feedback{padding:12px;border:1px solid #83bdb2;border-radius:8px;background:#13392f;color:#e4fff5;font-size:13px;line-height:1.5}

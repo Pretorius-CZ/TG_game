@@ -20,7 +20,15 @@ export function AccountProvider({children}) {
 export function AccountButton({onImport,onRestart}){
  const {t,language,setLanguage}=useLanguage();
  const {user,error,setError}=useAccount();
+ const [importMessage,setImportMessage]=useState('');
  const [open,setOpen]=useState(false),[busy,setBusy]=useState(false),[confirmReset,setConfirmReset]=useState(false);
+ async function importGuest(){
+  setBusy(true);setError('');setImportMessage(language==='cs'?'Přebírám a ukládám postup…':'Importing and saving progress…');
+  try{const result=await onImport();setImportMessage(language==='cs'?
+   result.state==='saved'?'Postup hosta byl převzat a uložen online. Na počítači obnov stránku hry.':result.state==='empty'?'V tomto prohlížeči není uložený žádný postup hosta.':'Postup byl převzat v tomto zařízení. Online uložení se nepodařilo; postup hosta je zachovaný. Zkus převzetí znovu po připojení a ověř migraci 015 v Supabase.':
+   result.state==='saved'?'Guest progress imported and saved online. Refresh the game on your other device.':result.state==='empty'?'No guest progress was found in this browser.':'Progress imported on this device. Cloud saving failed; the guest save is safe. Retry when connected and check Supabase migration 015.');
+  }catch{setImportMessage(language==='cs'?'Postup se nepodařilo převzít. Uložený postup hosta zůstává zachovaný.':'Import failed. Your guest save is still safe.');}finally{setBusy(false);}
+ }
  async function restart(){setBusy(true);setError('');try{await onRestart();}catch{setError('Restart failed. Check your connection and try again. Your progress has not been cleared on this device.');}finally{setBusy(false);}}
  async function login(){
   setBusy(true);setError('');
@@ -39,7 +47,8 @@ export function AccountButton({onImport,onRestart}){
  <p>{language==='cs'?'Pro ladění obtížnosti odesíláme výsledky her pod náhodným ID prohlížeče, bez jména a e-mailu.':'To tune difficulty, we send gameplay results under a random browser ID, without your name or email.'}</p>
  <h3>{t("Account & cloud save")}</h3>
  <p>{t(user?user.email:'Sign in with Google to save repairs and your ship log across devices. Guest progress stays on this device.')}</p>
- <p>{t("Energy and unfinished puzzles remain on this device.")}</p>{t(user&&<button disabled={busy} onClick={onImport}>{t("Import guest progress from this device")}</button>)}
+ <p>{t("Energy and unfinished puzzles remain on this device.")}</p>{t(user&&<button disabled={busy} onClick={importGuest}>{t("Import guest progress from this device")}</button>)}
+ {importMessage&&<p className="import-feedback" role="status" aria-live="polite">{importMessage}</p>}
  <button className="primary" disabled={busy} onClick={user?logout:login}>{t(user?'Sign out':'Continue with Google')}</button>
  {t(error&&<p role="alert">{t(error)}</p>)}
 
