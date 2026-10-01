@@ -1,6 +1,6 @@
 # Noční zahrada — Svatyně a komiksové setkání (136–140)
 
-Závěrečná pětice Noční zahrady navazuje po kořenové komoře 135. Správce je starý průzkumný automat, který přežil díky živým kořenům. Výprava zde odpočívala a dobrovolně pokračovala do Útočiště. Setkání předává souřadnice a požadavek obnovit komunikaci; obsah Útočiště od 141 zatím není vytvořený.
+Závěrečná pětice Noční zahrady navazuje po kořenové komoře 135. Správce je starý průzkumný automat, který přežil díky živým kořenům. Výprava zde odpočívala a dobrovolně pokračovala do Útočiště. Setkání předává souřadnice a požadavek obnovit komunikaci; první vstup do Útočiště141–145 již navazuje (docs/refuge-dock.md), ostatní části od146 zatím nejsou vytvořené.
 
 | Level | Úkol | Deska | Tahy | Cíle a překážky |
 | --- | --- | --- | --- | --- |

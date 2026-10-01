@@ -1,3 +1,4 @@
+import {refugeDock} from './refuge.js';
 import {sanctuaryDestination} from './nightSanctuary.js';
 import {rootDestination} from './nightRoot.js';
 import {groveDestination} from './nightGrove.js';
@@ -92,6 +93,7 @@ export const destinations={
  'night-grove':groveDestination,
  'night-root':rootDestination,
  'night-sanctuary':sanctuaryDestination,
+ 'refuge-dock':refugeDock,
  'night-glade':nightDestination,
  'fading-relay':relayDestination,
  'elysium-research':researchDestination,

@@ -1033,3 +1033,6 @@ Třetí dávka Noční zahrady: ventilace, archiv výpravy, semenná komora, hla
 
 ## 2026-10-01 — Setkání se správcem
 Schváleno a místně zapojeno třípanelové přeskočitelné komiksové zakončení po140: automat prorostlý kořeny, živá výprava ve vzpomínce, souřadnice Útočiště. Doplněny návazné úkoly136–140. Přeskočení a dočtení stejný uložený výsledek, replay z deníku, EN/CZ mimo obrázky, žádná spotřeba energie. Detaily docs/caretaker-encounter.md; SQL021_caretaker.sql. Další kapitola141+ není implementovaná.
+
+## 2026-10-01 — Útočiště141–145 a obměna dlaždic
+První dávka nové kapitoly: maják, filtry, zásoby, lávka a přetlakový vstup. Zpřístupnění po uloženém setkání se správcem. Filtr zaveden142 a zásobovací kapsle143, čtyři známé typy zachované; podlahové panely nadále jen plán. Nová dvojice scén a ikon, EN/CZ deník, ukládání a katalog145. Docs/refuge-dock.md; SQL022_refuge_dock.sql. Další dávka146–150 obytný blok.

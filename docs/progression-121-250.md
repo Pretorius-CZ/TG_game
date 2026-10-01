@@ -1,6 +1,6 @@
 # Plán pokračování: levely 121–240 a epilog 241–250
 
-Zapsáno 2026-10-01 na žádost uživatele jako podklad pro další vývoj. Jde o obsahový návrh, nikoli implementované levely ani definitivní konfigurace. Původní návrh vycházel ze 120 unikátních miniher. Aktualizace 2026-10-01: Noční zahrada 121–140 je nyní implementovaná, katalog má 140 miniher; zbývající rozsah 141–250 je stále plán. Nový obsah navazuje na živou mapu, výzkum a rezonátory v poslední oblasti. Dosavadní číslování kapitol a názvy scén je před implementací nutné sladit s tímto návrhem.
+Zapsáno 2026-10-01 na žádost uživatele jako podklad pro další vývoj. Jde o obsahový návrh, nikoli implementované levely ani definitivní konfigurace. Původní návrh vycházel ze 120 unikátních miniher. Aktualizace 2026-10-01: Noční zahrada 121–140 je nyní implementovaná, první dávka Útočiště 141–145 také; katalog má 145 miniher, zbývající rozsah 146–250 je stále plán. Nový obsah navazuje na živou mapu, výzkum a rezonátory v poslední oblasti. Dosavadní číslování kapitol a názvy scén je před implementací nutné sladit s tímto návrhem.
 
 ## Směr příběhu
 
@@ -35,6 +35,8 @@ Poškozená základna má sloužit jako domov pro přeživší. Její obyvatelé
 Opuštěné místo se mění na fungující domov. Závěr přinese skutečnou zprávu od přeživších. Dlaždice: filtrační moduly, zásobovací kapsle a zdravotní materiál, s využitím části staniční sady.
 
 Navržená novinka: obnova podlahových panelů. Poškozený podklad opraví spojení přímo na označeném políčku; podklad zůstává na místě, dlaždice normálně padají. Jde o prostorový cíl odlišný od krytů. Pravidla zásahů výbuchem a pomůckami rozhodnout před implementací a vysvětlit při prvním setkání.
+
+První dávka 141–145 implementovaná: docs/refuge-dock.md. Podlahové panely dosud nejsou zapojené.
 
 ## 161–180: Ztracený konvoj
 
