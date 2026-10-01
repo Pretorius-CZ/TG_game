@@ -302,3 +302,4 @@ button.planet-node:hover,button.planet-node:focus-visible { background:#5fd4e51c
 .play-area .game .mine-background,.play-area .game .mine-restoration{inset:0}
 
 .account-panel .import-feedback{padding:12px;border:1px solid #83bdb2;border-radius:8px;background:#13392f;color:#e4fff5;font-size:13px;line-height:1.5}
+.game-update-overlay{position:fixed;inset:0;z-index:2147483647;display:grid;place-items:center;background:#0b1b29f5;color:#e8d3ac;font:600 20px system-ui;}

@@ -1,3 +1,4 @@
+import useGameUpdate from './useGameUpdate.js';
 import {startBalanceCloud} from './balanceCloud.js';
 import {relayDestination} from './relay.js';
 import {researchDestination} from './research.js';
@@ -85,6 +86,7 @@ function App() {
   const [inspected, setInspected] = useState(0);
   const [showList, setShowList] = useState(false);
   const [celebration, setCelebration] = useState(null);
+  useGameUpdate(saveStatus, Boolean(playing || launching || transition || celebration || bubble != null || mapOpen || logView));
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
   const [attempt, setAttempt] = useState(0);

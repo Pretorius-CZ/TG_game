@@ -596,3 +596,5 @@ Originální hostovský profil se nemění. Reset se nevolá, resetRevision
 účtu se zachovává. Výpadek zachová import místně a dovolí zkusit znovu;
 chybějící postup na serveru není označen úspěchem. Browser test s mockRPC
 ověřil success/offline/empty a původní guest save; build prošel.
+
+2026-10-01: Vlastní doména playbeyondthesignal.com funguje, uživatel ověřil Google přihlášení, obnovení postupu, historická data balance a zapnutí HTTPS. Lokálně přidána automatická kontrola verze hry s odložením na bezpečný uložený stav a verzováním obrázků. Podrobnosti docs/automatic-updates.md. Bez pushe.
