@@ -1,3 +1,6 @@
+import {useAccount} from './Account.jsx';
+import MechanicTutorial from './MechanicTutorial.jsx';
+import {relevantTutorials,readTutorials} from './tutorials.js';
 import {saveAttempt} from './balanceTracking.js';
 import {chargeResonators,resonatorsComplete} from './resonators.js';
 import HelperIcon from './HelperIcon.jsx';
@@ -18,15 +21,24 @@ import {blast,isBooster,boostersEnabled,wave} from './boosters.js';
 
 
 export default function MiniGame({ onWin, onQuit, repair }) {
- const {t}=useLanguage();
+ const {t,language}=useLanguage();
+ const {user}=useAccount();
+ const tutorialKey=`beyond-signal-tutorials-v1:${user?.id||'guest'}`;
   const level = repair.level;
   const resonators=repair.resonators??[];
-  const [resonatorHelp,setResonatorHelp]=useState(repair.id==='relay-resonator');
+  const [resonatorHelp,setResonatorHelp]=useState(false);
   const [resonatorFx,setResonatorFx]=useState([]);
   const [resonance,setResonance]=useState(()=>resonators.map(()=>0));
   const {names,sprites}=tileSetFor(repair);
   const goals = goalsFor(repair);
   const boosts = boostersEnabled(repair);
+  const topics=relevantTutorials({boosts,covers:initialIce(repair).length>0,resonators:resonators.length>0});
+  const [tutorialQueue,setTutorialQueue]=useState(()=>{try{return topics.filter(id=>!readTutorials(localStorage,tutorialKey).includes(id));}catch{return topics;}});
+  const tutorial=tutorialQueue[0];
+  function dismissTutorial(){
+    try{localStorage.setItem(tutorialKey,JSON.stringify([...new Set([...readTutorials(localStorage,tutorialKey),tutorial])]));}catch{}
+    setTutorialQueue(queue=>queue.slice(1));
+  }
   const lives=useLives();
   const spent=useRef(false);
   const [admitted,setAdmitted]=useState(()=>lives.count>0);
@@ -63,7 +75,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     saveAttempt({build:'2026-10-01-balance-v1',attemptId:attemptId.current,level:repair.id,outcome,moves,budget:limit,baseBudget:moveBudget(repair),remaining:Math.max(0,limit-moves),at:Date.now(),durationMs:Date.now()-attemptStarted.current,configuration:{cols:level.cols,rows:level.rows,types:level.types,goals,ice:initialIce(repair),resonators},counts,remainingCovers:ice.length,resonance,...assistance.current});
   }
   function requestHelp(kind,index){
-    if(busy||lock.current||adsUsed[kind])return;
+    if(tutorial||busy||lock.current||adsUsed[kind])return;
     const token=run.current;
     const reward=kind==='moves'?t('+5 moves'):kind==='hint'?t('One extra hint'):'1× '+t(helpers[index][1]);
     ad(reward,async()=>{
@@ -89,7 +101,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   useEffect(()=>{if(exhausted)recordResult("exhausted",false);if(exhausted&&!spent.current){spent.current=true;lives.spend();}},[exhausted]);
   useEffect(()=>{if(exhausted||won||fault){dialog.current?.scrollTo({top:0});resultPanel.current?.focus({preventScroll:true});}},[exhausted,won,fault]);
   function showHint(){
-    if(lock.current||busy||exhausted||won||fault||!admitted||hintsLeft<=0||hint)return;
+    if(tutorial||lock.current||busy||exhausted||won||fault||!admitted||hintsLeft<=0||hint)return;
     const next=iceMove(board,level.cols,ice);
     if(!next)return;
     assistance.current.hints++;setHint(next);setHintsLeft(n=>n-1);setMessage('Swap the glowing pieces, or tap a glowing charge to activate it.');
@@ -123,6 +135,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   }
 
   async function play(a, b, helper=null) {
+    if(tutorial)return;
     const activation=helper==null&&a===b&&isBooster(board[a]);
     if (resonatorHelp || fault || board[a] == null || board[b] == null || lock.current || !admitted || won || moves>=limit || (helper==null&&(ice.includes(a)||ice.includes(b)))|| (helper==null&&!activation && (!adjacent(a, b, level.cols)||isBooster(board[a])||isBooster(board[b])))) return;
     if(helper!=null&&(!toolsLeft[helper]||(helper===2&&(ice.includes(a)||ice.includes(b)||!adjacent(a,b,level.cols)||a===b))))return;
@@ -198,6 +211,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
 
   }
   function choose(i) {
+    if(tutorial)return;
     if (suppressClick.current) { suppressClick.current = false; return; }
     if (fault || busy || won || exhausted) return;
     if(tool!=null){if(tool===2){if(ice.includes(i))return;if(selected==null||!adjacent(selected,i,level.cols)){setSelected(i);return;}play(selected,i,tool);}else play(i,i,tool);return;}
@@ -224,8 +238,9 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     return { transform: `translate(${(j % level.cols - i % level.cols) * 100}%, ${(Math.floor(j / level.cols) - Math.floor(i / level.cols)) * 100}%)`, zIndex: 2 };
   }
   return <dialog className={`mini-dialog ${exhausted||won||fault?'mini-result':''}`} ref={dialog} aria-labelledby="level-title" onCancel={event => { event.preventDefault(); if (!busy) setConfirmQuit(true); }}>
+    {tutorial&&!fault&&admitted&&<MechanicTutorial topic={tutorial} language={language} remaining={tutorialQueue.length} onNext={dismissTutorial}/>}
     <div className="level-hud"><div className="energy-audio"><LivesBar/><AudioControls/></div><button className="hint-control" aria-label={t(`Show a hint, ${hintsLeft} remaining`)} title={t(hintsLeft?"One free hint per attempt":"Ad · extra hint")} disabled={busy||exhausted||won||fault||!admitted||(hintsLeft===0&&adsUsed.hint)||Boolean(hint)} onClick={()=>hintsLeft?showHint():requestHelp("hint")}><span aria-hidden="true">{t("Hint")}</span><small>{t(hintsLeft?'1/1':adsUsed.hint?'0':'AD')}</small></button><div className={`moves-counter ${limit-moves<=5?'low-moves':''}`} role="status" aria-label={t(`${Math.max(0,limit-moves)} moves left`)}><span>{t("MOVES")}</span><strong>{t(Math.max(0,limit-moves))}</strong></div></div>
-    <div className="mini-header"><span className="eyebrow">{t(repair.room ?? 'COCKPIT')}{t(" / REPAIR LESSON")}</span><button className="close" aria-label={t("Leave level")} disabled={busy} onClick={() => setConfirmQuit(true)}>{t("×")}</button><h2 id="level-title">{t(repair.lesson)}</h2></div>
+    <div className="mini-header"><button className="mechanics-help" disabled={busy||exhausted||won||fault||!admitted} aria-label={language==='cs'?'Pravidla a pomůcky':'Mechanics help'} onClick={()=>{setResonatorHelp(false);setTutorialQueue(topics);}}>ⓘ</button><span className="eyebrow">{t(repair.room ?? 'COCKPIT')}{t(" / REPAIR LESSON")}</span><button className="close" aria-label={t("Leave level")} disabled={busy} onClick={() => setConfirmQuit(true)}>{t("×")}</button><h2 id="level-title">{t(repair.lesson)}</h2></div>
     <div className="objective-list" style={{"--goal-count":goals.length+(initialIce(repair).length?1:0)+(resonators.length?1:0)}}>{t(goals.map((goal,i)=><div className="charge" key={i}><span>{t(goal.type!=null&&<img className="objective-icon" src={`./tiles/${sprites[goal.type]}.png`} alt={t("")}/>)}</span><strong translate="no" aria-live="polite" aria-atomic="true">{`${counts[i] ?? 0} / ${goal.target}`}</strong><progress aria-label={t(goal.label)} max={goal.target} value={counts[i]}/></div>))}{resonators.length>0&&<div className="charge" title={t('Match beside each ring to charge it. Blasts do not charge rings.')}><button className="resonator-help-button" aria-label={t('Charge the ring')} onClick={()=>setResonatorHelp(v=>!v)}>◎ ?</button><strong>{resonance.reduce((a,b)=>a+b,0)} / {resonators.reduce((a,r)=>a+r.target,0)}</strong><progress aria-label={t('Resonators')} value={resonance.reduce((a,b)=>a+b,0)} max={resonators.reduce((a,r)=>a+r.target,0)}/></div>}{initialIce(repair).length>0&&<div className="charge" title={t('Protective covers')}><span><i className="cover-objective-icon" aria-hidden="true"/></span><strong translate="no">{initialIce(repair).length-ice.length} / {initialIce(repair).length}</strong><progress aria-label={t('Protective covers')} max={initialIce(repair).length} value={initialIce(repair).length-ice.length}/></div>}</div>
 
     {t(exhausted&&<div className="out-of-moves" ref={resultPanel} tabIndex={-1} role="region" aria-label={t("Out of moves")}><h3>{t("Out of moves")}</h3><p>{t("Your repairs are safe. Try again or continue this attempt.")}</p><button className="primary" disabled={adsUsed.moves} onClick={()=>requestHelp('moves')}>{t(adsUsed.moves?'Extra moves used':'Ad · +5 moves')}</button><button className="keep-playing" disabled={!lives.count} onClick={retry}>{t("Retry level")}</button><button className="keep-playing" onClick={()=>{recordResult(fault?"fault":"failed");onQuit();}}>{t("Back to ship")}</button>{t(!lives.count&&<NoLives/>)}</div>)}

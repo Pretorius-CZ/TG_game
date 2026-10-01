@@ -79,3 +79,7 @@
 .resonator-feedback{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);z-index:10;background:#102631ee;color:#b9fff0;border-radius:10px;padding:6px 12px;font:700 14px system-ui;pointer-events:none;white-space:nowrap}
 @keyframes resonator-flow{to{stroke-dashoffset:-54}}
 @media(prefers-reduced-motion:reduce){.resonator-impulses line{animation:none}}
+.mechanic-tutorial{position:absolute;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;background:#06111de6;overflow:auto;}
+.mechanic-tutorial section{width:100%;max-width:350px;max-height:100%;overflow:auto;padding:20px;border:1px solid #79c9d3;border-radius:18px;background:#102938;color:#e9f3f4;box-shadow:0 15px 50px #0008;}
+.mechanic-tutorial h3{margin:8px 0;font:600 22px system-ui;}.mechanic-tutorial p{font:14px/1.55 system-ui;margin:12px 0 18px;}.mechanic-tutorial small{display:block;margin-top:12px;font:11px/1.4 system-ui;color:#b4cbd0;}.tutorial-symbol{font:32px system-ui;color:#8fe5ef;}.mechanics-help{position:absolute;right:48px;top:8px;width:32px;height:32px;border-radius:50%;border:1px solid #769aa8;background:#112d3b;color:#d7f5f5;}
+.mini-dialog:has(.tutorial-covers) .frozen-cell,.mini-dialog:has(.tutorial-resonators) .resonator-cell,.mini-dialog:has(.tutorial-helpers) .helper-bar{outline:2px solid #8fe5ef;}

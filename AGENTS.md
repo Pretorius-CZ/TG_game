@@ -598,3 +598,5 @@ chybějící postup na serveru není označen úspěchem. Browser test s mockRPC
 ověřil success/offline/empty a původní guest save; build prošel.
 
 2026-10-01: Vlastní doména playbeyondthesignal.com funguje, uživatel ověřil Google přihlášení, obnovení postupu, historická data balance a zapnutí HTTPS. Lokálně přidána automatická kontrola verze hry s odložením na bezpečný uložený stav a verzováním obrázků. Podrobnosti docs/automatic-updates.md. Bez pushe.
+
+2026-10-01: Kontextové EN/CZ bubliny pro nálože, kryty, rezonátory a pomůcky v MiniGame; pouze první relevantní setkání místně pro profil, opětovné otevření přes ⓘ. Blokují herní akce bez spotřeby zdrojů, neduplikují automatickou rezonátorovou pomoc. Docs/mechanic-tutorials.md; lokální, bez pushe.
