@@ -550,3 +550,38 @@ supabase/015_relay.sql včetně013/014; živé nasazení nepotvrzené.
 91 testů a build prošly, mobilní průchod a reklamní pokračování ověřeny.
 Lokální, bez pushe. Další obsah: Noční zahrada, potom útočiště výpravy.
 Detaily docs/relay-chapter.md. Nahrazuje poznámku o pouze plánovaných rezonátorech.
+
+2026-09-30: Rezonátory mají úvodní vysvětlení, znovu dostupné přes ◎ ?, zvýrazněné ortogonální sousedy a viditelný nabíjecí impulz +1. Dva rezonátory nově na plné desce 8×8 na pozicích26/45, cíle a tahy zachovány. 91 testů a build prošly. Lokální, nepushnuto. Viz docs/relay-chapter.md.
+
+
+## 2026-10-01 — Mobilní scény, katalog, měření a dlouhodobý plán
+Odstraněny zbývající scene-caption v celé kapitole1 i spodní departure-invite
+po odletu (mapa dostupná nahoře). Obrazové scény jednotně9/16, základ i
+opravené vrstvy contain, odstraněno top110 expedic; hlavičky s rezervou
+pod ovladači. Mapy se samostatným rozvržením zachované. Uživatelův nově
+avizovaný screenshot zatím nepřiložen.
+Katalog src/levelCatalog.js obsahuje120jedinečných miniher včetně
+HARD finále a přístupové trasy Elysium. Animace/skener nejsou levely.
+Testovací panel balance.html přes Nastavení: místní úspěšnost, výhry
+bez pomoci, využití pomoci, zbývající tahy, odchody/chyby, export/importJSON.
+Nové pokusy jedinečnéID, vyčerpání tahů zápis ihned; výsledek pokračování
+aktualizuje tentýž pokus. Konfigurace a cíle v exportu, aktuální tahy/rozměry
+výchozí filtr. Max2000místních záznamů; žádná centrální analytika.
+Bez20pokusů panel nenavrhuje obtížnost. Detaily docs/development-plan.md.
+Dlouhodobý plán: stabilita→měření→prezentace→platformníbuildy→Noční
+zahrada/útočiště→obsahové balíčky. Větší desky podle mechaniky, nikoli
+plošně; mohou usnadnit hru.94testů/build, šestmobilníchscén a zapisování
+vyčerpání/reklamního pokračování ověřeny. Lokálně bezpushe.
+
+
+## 2026-10-01 — Společná analytika Supabase připravena
+Automatická anonymní/pseudonymní hlášení pokusů i pro hosty, trvalá fronta
+max2000, retry po online/focus/30s, backfill místních záznamů při prvním
+spuštění. StejnéID a monotónnírevize pro pokračování +5. ServerRPC zapisuje
+omezený payload, tajný tokenreportéra chrání aktualizace. Čtení pouze
+účtem v balance_admins; panel umí načíst všechny testery. Žádné jméno/e-mail
+v herních záznamech. Migrace supabase/016_balance_analytics.sql nezávislá
+na postupu; správce přidat SQLpodle docs/balance-analytics.md.
+97testů/build a browser test se simulovanýmRPC prošly. Živá migrace/role
+zatím neověřeny, vyžadují zásah správceSupabase. Zatím místně, nepushnuto.
+Nahrazuje poznámku, že centrální sběr není implementovaný; aktivace chybí.

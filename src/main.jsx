@@ -1,3 +1,4 @@
+import {startBalanceCloud} from './balanceCloud.js';
 import {relayDestination} from './relay.js';
 import {researchDestination} from './research.js';
 import {gardenDestination} from './garden.js';
@@ -55,6 +56,7 @@ function finishedRoomIds(cockpitRepairs) { return cockpitRepairs === repairs.len
 function App() {
  const {t}=useLanguage();
   useEffect(mountAudio, []);
+  useEffect(startBalanceCloud, []);
   const {user}=useAccount();
   const [progress,setProgress]=useState(()=>initialProgress(user?.id));
   const {configure:configureEnergy}=useLives();
@@ -191,7 +193,6 @@ function App() {
 <button className="new-log" onClick={e => openLog(e, logEntries.find(entry => entry.repair === celebration.id)?.id)}><span>{t("▤")}</span> {t(readIds.includes(logEntries.find(entry => entry.repair === celebration.id)?.id) ? 'Read ship log entry' : 'New log entry')} <span>{t("→")}</span></button>
         <button className="primary" onClick={() => setCelebration(null)}>{t("Continue ")}<span>{t("→")}</span></button>
       </div>)}
-      <div className="scene-bottom scene-caption" role="status">{t(corridor ? (guided?`Next: ${stage.name} · Follow the marked door.`:'Tap a doorway to explore.') : inside ? (finished ? (finaleDone?'Launch check complete. Chapter one restored.':allSystemsReady?'All systems ready. Continue outside for departure.':'Follow the marked next step.') : `${completed}/4 systems online · Tap the highlighted device.`) : 'Tap the hatch to board the ship.')}</div>
       {t(guided&&!celebration&&((inside&&stage.scene!=='cockpit'&&stage.scene!=='navigation')||(corridor&&!['crew','galley','engine'].includes(stage.scene)))&&<button className="hotspot chapter-next" style={{left:'50%',top:'62%'}} onClick={continueChapter}><span className="target">{t("→")}</span><span className="hotspot-label">{t(continueLabel)}</span></button>)}
       <div className="curtain" aria-hidden="true"/>
       {t(!loaded && <div className="loading" role="status">{t(error ? <><p>{t("The scene could not be loaded.")}</p><button className="primary" onClick={() => setAttempt(a => a + 1)}>{t("Try again")}</button></> : 'Preparing the landing site…')}</div>)}
@@ -199,7 +200,6 @@ function App() {
     </>)}
     </div>
     {t(mapOpen&&<div className="ship-map-backdrop" onClick={()=>setMapOpen(false)}><dialog ref={mapDialog} className="ship-map" onCancel={()=>setMapOpen(false)} aria-label={t("Ship map")} onClick={e=>e.stopPropagation()}><button className="close" autoFocus onClick={()=>setMapOpen(false)}>{t("×")}</button><h2>{t("Ship map")}</h2><div className="readiness-list">{t(shipStages.map(r=>{const done=(progress[r.key]??0)===r.total;return <button key={r.scene} disabled={guided} data-system={r.scene} data-ready={done} onClick={()=>{setMapOpen(false);goTo(r.scene);}}><span>{t(done?'✓':stage.scene===r.scene?'→':'🔒')} {t(r.name)}</span><b>{t(progress[r.key]??0)}{t("/")}{t(r.total)}</b></button>;}))}</div><button className="primary" onClick={()=>{setMapOpen(false);guided?continueChapter():goTo('exterior');}}>{t(guided?continueLabel:'View ship')}</button></dialog></div>)}
-    {t(launchDone&&!launching&&!exploring&&<section className="departure-invite"><span className="eyebrow">{t(launchDone?'CHAPTER ONE COMPLETE':'ALL SYSTEMS READY')}</span><h2>{t(launchDone?'Beyond the distress signal':'Your ship is ready to fly.')}</h2><p>{t(launchDone?'A changed beacon leads to an abandoned mine. Open the system chart to explore.':'Repairs complete. Tanks full. A voice among the stars is waiting.')}</p><button className="primary" onClick={()=>launchDone?goTo('system'):setLaunching(true)}>{t(launchDone?'Explore the system':'Launch')}{t(" →")}</button>{t(launchDone&&<button onClick={()=>setLogView({id:departureLog.id})}>{t("Read departure log")}</button>)}</section>)}
     {t(launching&&<Departure onClose={()=>setLaunching(false)} onComplete={()=>{setProgress(current=>({...current,launchDone:true,scene:'system'}));setLaunching(false);setLogView({id:departureLog.id});}}/>)}
 
     <footer><span>{t("01 — A SHIP THAT WILL FLY AGAIN")}</span><span role="status">{t(saveStatus.local==='unavailable'?'Device saving unavailable':saveStatus.local==='unsupported'?'Save from a newer version — update the game':saveStatus.cloud==='saved'?'Progress saved online':saveStatus.cloud==='syncing'?'Syncing progress…':saveStatus.cloud==='offline'?'Cloud unavailable — saved locally; retrying':saveStatus.local==='saved'?'Progress saved on this device':saveStatus.local==='unsupported'?'Save from a newer version — update the game':'Saving unavailable — progress may be lost')}</span></footer>

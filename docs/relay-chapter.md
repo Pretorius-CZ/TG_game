@@ -6,9 +6,9 @@ Elysiu 5/5) vede grafický vstup stanice do scény `fading-relay`.
 | Úkol | Deska | Tahy | Rezonátory |
 | --- | --- | --- | --- |
 | Probuď signální rezonátor | 7×7 | 24 | 1×2 impulzy |
-| Nasměruj anténu | 7×7, vykrojené rohy | 27 | 2×2 impulzy |
+| Nasměruj anténu | 8×8 | 27 | 2×2 impulzy |
 | Obnov přerušenou zprávu | 7×7 | 29 | 1×3 impulzy |
-| Zajisti sestupový koridor — HARD | 7×8 | 32 | 2×3 impulzy |
+| Zajisti sestupový koridor — HARD | 8×8 | 32 | 2×3 impulzy |
 
 Rezonátor je pevné zařízení v otvoru desky. Nabíjí jej přirozené spojení
 na sousedním poli ve stejném řádku nebo sloupci. Jedna vlna spojení přidá
@@ -31,3 +31,5 @@ Ověření: 91 testů, produkční build, mobilní průchod všemi čtyřmi úko
 uložení/reload/replay, skutečné nabití sousedním spojením a zachování
 náboje po reklamě za +5 tahů. Ovládání ověřeno také při 320×568.
 Limity tahů jsou výchozí návrh pro další hráčské ladění.
+
+Po zpětné vazbě: dvě zařízení používají plnou desku 8×8, rozestoupená diagonálně. Tahy a cíle zachovány. První úkol ukazuje vysvětlení, dostupné znovu přes ◎ ? u cíle. Sousední políčka nenabitých zařízení jsou zvýrazněna; nabití má impulz a +1 (900 ms, bez pohybu při reduced-motion).

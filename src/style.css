@@ -285,3 +285,18 @@ button.planet-node:hover,button.planet-node:focus-visible { background:#5fd4e51c
 .elysium-complete .sector-marker{border-color:#95dfc7;color:#a9f3d9;background:#143e38dc}
 .mine-site .hotspot-label-above{flex-direction:column-reverse}
 .play-area .game.elysium-map{min-height:740px;height:max(740px,calc(100svh - 148px));max-height:1100px}
+/* Illustrated scenes share the source artwork's portrait ratio, including restoration layers. */
+.shell:has(.play-area) .masthead{height:52px}
+.play-area .game:not(.compact-chart):not(.rift-chart){height:auto!important;min-height:0!important;max-height:none!important;aspect-ratio:9/16}
+.play-area .game .scene-image,.play-area .game .scene-layer,.play-area .game .mine-restored-layer,.play-area .game .elysium-art img{object-fit:contain;object-position:center}
+.play-area .game .mine-background{background-size:contain;background-position:center;background-repeat:no-repeat}
+.play-area .game .scene-top,.play-area .game.crew .scene-top,.play-area .game.expedition.mine-site .scene-top{top:120px!important;left:20px;right:20px;display:block;padding-top:10px;pointer-events:none}
+.play-area .game .scene-top h1{font-size:clamp(22px,6vw,29px);line-height:1.15;margin:8px 0}
+.play-area .game .scene-top p{font-size:11px;line-height:1.4;margin:4px 0;max-width:90%}
+.play-area .game .scene-top .location{display:none}
+.play-area .game.airlock-room .scene-top{right:36%;top:115px!important}
+.play-area .game:not(.compact-chart) .scene-replays{top:80px!important}
+.balance-report-link{display:block;color:#b0e9e2;margin:14px 0;padding:10px;border:1px solid #678d97;border-radius:7px;text-align:center}
+@media(max-width:350px){.play-area .game .scene-top{left:14px;right:14px}.play-area .game .scene-top h1{font-size:22px}}
+
+.play-area .game .mine-background,.play-area .game .mine-restoration{inset:0}

@@ -72,3 +72,10 @@
 @media(prefers-reduced-motion:reduce){.board-shuffling .cell .gem{animation:none;opacity:.45}}
 
 .resonator-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0;aspect-ratio:1;border-radius:12px;background:radial-gradient(circle,#254d67,#07131f);border:1px solid #93b7ed;color:#b6d8ff;box-shadow:inset 0 0 12px #5a97de44}.resonator-cell>span{font:700 clamp(16px,5vw,28px)/1 system-ui}.resonator-cell small{font:700 10px/1.2 system-ui}.resonator-ready{color:#a5ffe0;border-color:#a5ffe0;box-shadow:0 0 8px #6ef2d577}
+.resonator-neighbour{outline:2px solid #8fe3ec;outline-offset:-3px;background:#204957!important}
+.resonator-guide{position:absolute;z-index:12;inset:0 0 auto;background:#102631f5;border:1px solid #8fe3ec;border-radius:12px;padding:12px;color:#e8fcff;text-align:center;box-shadow:0 6px 20px #0009}.resonator-guide p{font:13px/1.4 system-ui;margin:6px 0}.resonator-guide .primary{padding:8px 16px;min-height:36px}.resonator-guide strong{font:700 17px system-ui}
+.resonator-help-button{background:transparent;border:0;color:#a8ebff;padding:0 4px;cursor:pointer}
+.resonator-impulses{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:9;overflow:visible}.resonator-impulses line{stroke:#aaffeb;stroke-width:9;stroke-dasharray:15 12;animation:resonator-flow .45s linear infinite}.resonator-impulses circle{fill:#6bffe744;stroke:#b9fff0;stroke-width:5}.resonator-impulses text{fill:white;stroke:#102631;stroke-width:3;paint-order:stroke;font:bold 36px system-ui}
+.resonator-feedback{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);z-index:10;background:#102631ee;color:#b9fff0;border-radius:10px;padding:6px 12px;font:700 14px system-ui;pointer-events:none;white-space:nowrap}
+@keyframes resonator-flow{to{stroke-dashoffset:-54}}
+@media(prefers-reduced-motion:reduce){.resonator-impulses line{animation:none}}
