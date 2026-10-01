@@ -1,6 +1,6 @@
 # Plán pokračování: levely 121–240 a epilog 241–250
 
-Zapsáno 2026-10-01 na žádost uživatele jako podklad pro další vývoj. Jde o obsahový návrh, nikoli implementované levely ani definitivní konfigurace. Současná hra má 120 unikátních miniher. Nový obsah navazuje na živou mapu, výzkum a rezonátory v poslední oblasti. Dosavadní číslování kapitol a názvy scén je před implementací nutné sladit s tímto návrhem.
+Zapsáno 2026-10-01 na žádost uživatele jako podklad pro další vývoj. Jde o obsahový návrh, nikoli implementované levely ani definitivní konfigurace. Původní návrh vycházel ze 120 unikátních miniher. Aktualizace 2026-10-01: Noční zahrada 121–140 je nyní implementovaná, katalog má 140 miniher; zbývající rozsah 141–250 je stále plán. Nový obsah navazuje na živou mapu, výzkum a rezonátory v poslední oblasti. Dosavadní číslování kapitol a názvy scén je před implementací nutné sladit s tímto návrhem.
 
 ## Směr příběhu
 
@@ -15,9 +15,11 @@ Hlavní otázka: kdo vysílá signál a proč nás vede touto cestou? Postup mě
 | 121–125 | Přistávací mýtina | Obnovit průzkumné sondy a zajistit bezpečnou cestu. |
 | 126–130 | Světélkující porost | Získat vzorky a zjistit reakci rostlin na signál. |
 | 131–135 | Kořenová komora | Odkrýt staré zařízení prorostlé živou strukturou. |
-| 136–140 | Srdce zahrady | Propojit biologický zdroj s vysílačem. |
+| 136–140 | Svatyně správce | Obnovit kontakt, odhalit živou výpravu a získat souřadnice Útočiště; třípanelový přeskočitelný komiks. |
 
 Vizuálně tmavá krajina rozkvétá světelnými cestami. Závěr odhalí souřadnice ztracené výpravy. Dva typy dlaždic obměnit na světelná semena a biologické vzorky; zachovat rozlišitelné barvy a siluety. Využít současné rezonátory, nejprve jeden, potom dva na dostatečně velké desce. Nepřidávat další povinnou mechaniku, upevnit pochopení dosavadních pravidel.
+
+Implementace a pravidla: docs/night-garden.md, docs/night-grove.md, docs/night-root.md a docs/caretaker-encounter.md.
 
 ## 141–160: Útočiště výpravy
 

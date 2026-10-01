@@ -1027,3 +1027,9 @@ Implementované levely 121–125: přistávací mýtina po dokončení retransla
 Druhá dávka Noční zahrady hotová místně: šetrný vzorkovač, vodní kanály, pylová odpověď, propojení rezonátoru a kořenový průchod. Stejná sada night; další změna dlaždic až od Útočiště. Dvě nové scény, EN/CZ deník, ukládání a katalog130. Detaily docs/night-grove.md; server potřebuje019_night_grove.sql. Další dávka131–135: kořenová komora, zatím plán.
 
 2026-10-01: Oprava energie při pokračování za +5 tahů: úspěšné získání odměny vrací předběžný odečet za vyčerpání a znovu umožňuje jeden odečet při skutečné další prohře/odchodu. Zrušení reklamy nic nevrací. Izolovaný mobilní test ověřil zrušení, vrácení energie, nezměněnou desku, druhé vyčerpání a odchod bez dvojího odečtu. 105 testů a build prošly.
+
+## 2026-10-01 — Kořenová komora131–135
+Třetí dávka Noční zahrady: ventilace, archiv výpravy, semenná komora, hlasový kanál správce a živé dveře. Výprava šla dál dobrovolně; správce nabízí bezpečný kontakt a otevřenou zpáteční cestu. Sada night zachovaná, nová grafika a EN/CZ deník. Docs/night-root.md; cloud020_night_root.sql. Další setkání136–140 zatím připravované.
+
+## 2026-10-01 — Setkání se správcem
+Schváleno a místně zapojeno třípanelové přeskočitelné komiksové zakončení po140: automat prorostlý kořeny, živá výprava ve vzpomínce, souřadnice Útočiště. Doplněny návazné úkoly136–140. Přeskočení a dočtení stejný uložený výsledek, replay z deníku, EN/CZ mimo obrázky, žádná spotřeba energie. Detaily docs/caretaker-encounter.md; SQL021_caretaker.sql. Další kapitola141+ není implementovaná.

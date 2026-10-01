@@ -1,0 +1,27 @@
+export const sanctuaryTranslations={};
+const text=(en,cs)=>(sanctuaryTranslations[en]=cs,en);
+const title=text('The caretaker sanctuary','Svatyně správce');
+const labels=['Coolant charges','Energy modules','Navigation prisms','Root nodes','Luminous pollen','Living seeds'];
+const csLabels=['chladicích náplní','energetických modulů','navigačních hranolů','kořenových uzlů','světelného pylu','živých semen'];
+const rows=[
+ ["beacon",text("Keep the return beacon open","Zachovej zpáteční maják"),text("Before approaching, secure a signal back to the ship.","Před příchodem zajistíme signál zpět k lodi."),text("Our return beacon answers the ship.","Zpáteční maják odpovídá lodi."),text("An open way home","Otevřená cesta domů"),text("The caretaker waits until our return signal is stable. We can leave whenever we choose.","Správce čeká na stabilní zpáteční signál. Můžeme odejít, kdykoli budeme chtít."),[[2, 27], [1, 24]],25,24,55],
+ ["shelter",text("Restore the visitor shelter","Obnov úkryt návštěvníků"),text("The expedition left supplies beside the living seed shelter. Restore its clean flow.","Výprava nechala zásoby vedle živého semenného úkrytu. Obnovíme čisté proudění."),text("The shelter lights welcome visitors again.","Světla úkrytu opět vítají návštěvníky."),text("Prepared for people","Připraveno pro lidi"),text("Human blankets, sealed water and medical cases: the team rested here, then continued together.","Lidské přikrývky, uzavřená voda a lékařské kufry: tým zde odpočíval a potom pokračoval společně."),[[0, 27], [5, 27]],27,20,32],
+ ["translator",text("Align the shared language","Slaď společný jazyk"),text("Charge the translation ring beside the caretaker. Let the roots speak through our radio.","Nabijeme překladový kruh vedle správce. Kořeny promluví prostřednictvím rádia."),text("The translation channel carries clear words.","Překladový kanál přenáší srozumitelná slova."),text("More than an echo","Více než ozvěna"),text("The voice asks about our ship, not our cargo. It recognises the expedition call and invites us closer.","Hlas se ptá na naši loď, nikoli na náklad. Poznává volání výpravy a zve nás blíž."),[[4, 30], [3, 24]],29,85,48],
+ ["heart",text("Wake the caretaker memory","Probuď paměť správce"),text("Restore the root-heart gently. The old automaton has guarded this place for years.","Šetrně obnovíme kořenové srdce. Starý automat toto místo střeží už léta."),text("The caretaker eye opens with a steady cyan light.","Oko správce se otevírá stálým tyrkysovým světlem."),text("The garden guardian","Strážce zahrady"),text("Roots kept the damaged exploration automaton alive. It remembers the human team and the route they followed.","Kořeny udržely poškozený průzkumný automat při životě. Pamatuje si lidský tým i cestu, kterou se vydal."),[[3, 30], [1, 27]],30,58,35],
+ ["route",text("Secure the refuge coordinates · HARD","Zajisti souřadnice Útočiště · TĚŽKÉ"),text("Synchronise both rings and copy the route without closing our return channel.","Sladíme oba kruhy a zkopírujeme trasu bez uzavření zpátečního kanálu."),text("A safe route to the Refuge is recorded.","Bezpečná trasa do Útočiště je zaznamenaná."),text("Beyond the garden","Za zahradou"),text("The caretaker has something to show us. The expedition trail continues toward a refuge beyond this world.","Správce nám chce něco ukázat. Stopa výpravy pokračuje k útočišti za tímto světem."),[[2, 30], [4, 27], [5, 24]],34,78,66],
+];
+const repairs=rows.map(([slug,name,thought,result,logTitle,logText,goals,moves,x,y],i)=>{
+ const resonators=i===2?[{at:24,target:3}]:i===3?[{at:27,target:3}]:i===4?[{at:26,target:3},{at:45,target:4}]:[];
+ const holes=i===1?[0,6,49,55]:[];
+ const size=i>=3?64:56;
+ return {id:'sanctuary-'+slug,name,lesson:name,thought,result,room:title,action:text('Activate the sanctuary system','Aktivuj systém svatyně'),icon:'✦',x,y,moves,tileSet:'night',resonators,
+ level:{cols:i>=3?8:7,rows:8,types:6,mask:Array.from({length:size},(_,n)=>!holes.includes(n)&&!resonators.some(r=>r.at===n))},
+ ice:i===0?[9,12,37,40]:i===1?[9,12,23,25]:i===2?[9,12,23,25,37,40]:i===3?[17,22,41,46]:[9,14,17,22,41,46,49,54],
+ goals:goals.map(([type,target])=>({type,target,label:labels[type]})),target:goals.reduce((n,g)=>n+g[1],0),targetType:null,
+ objective:text('Collect '+goals.map(([type,n])=>n+' '+labels[type].toLowerCase()).join(', ')+'.'+(i>=0?' Break all protective covers.':'')+(resonators.length?' Charge every resonator.':''),'Nasbírej '+goals.map(([type,n])=>n+' '+csLabels[type]).join(', ')+'.'+(i>=0?' Rozbij všechny ochranné kryty.':'')+(resonators.length?' Nabij všechny rezonátory.':''))};
+});
+export const sanctuaryDestination={title,key:'nightSanctuaryCompleted',system:'night-root',chapter:text('CHAPTER 08 / THE NIGHT GARDEN','KAPITOLA 08 / NOČNÍ ZAHRADA'),hotspotOffset:0,image:'caretaker-arrival',restoredImage:'caretaker-memory',repairs,
+ logs:rows.map((r,i)=>({id:repairs[i].id+'-log',repair:repairs[i].id,title:r[4],text:r[5],source:text('Night expedition log','Deník noční výpravy'),time:title,unlockAt:136+i})),
+ complete:text('The caretaker remembers the expedition. Refuge coordinates recorded.','Správce si pamatuje výpravu. Souřadnice Útočiště zaznamenány.'),
+ clips:repairs.map(()=> 'inset(0)'),restorationMasks:repairs.map(r=>'radial-gradient(ellipse 34% 27% at '+r.x+'% '+r.y+'%, #000 30%, transparent 100%)')};
+text('Enter the caretaker sanctuary →','Vstup do svatyně správce →');text('Return to the root chamber →','Zpět do kořenové komory →');

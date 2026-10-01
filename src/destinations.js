@@ -1,3 +1,5 @@
+import {sanctuaryDestination} from './nightSanctuary.js';
+import {rootDestination} from './nightRoot.js';
 import {groveDestination} from './nightGrove.js';
 import {nightDestination} from './nightGarden.js';
 import {relayDestination} from './relay.js';
@@ -88,6 +90,8 @@ const iceClips=['polygon(0% 64%,53% 64%,53% 94%,0% 94%)','polygon(0% 38%,48% 38%
 const wreckClips=['polygon(0% 57%,49% 57%,49% 95%,0% 95%)','polygon(0% 34%,32% 34%,32% 58%,0% 58%)','polygon(62% 37%,100% 37%,100% 61%,62% 61%)','polygon(12% 17%,61% 17%,61% 36%,12% 36%)','polygon(62% 10%,100% 10%,100% 36%,62% 36%)','polygon(55% 61%,100% 61%,100% 88%,55% 88%)'];
 export const destinations={
  'night-grove':groveDestination,
+ 'night-root':rootDestination,
+ 'night-sanctuary':sanctuaryDestination,
  'night-glade':nightDestination,
  'fading-relay':relayDestination,
  'elysium-research':researchDestination,

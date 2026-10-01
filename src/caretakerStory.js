@@ -1,0 +1,10 @@
+export const caretakerTranslations={};
+const text=(en,cs)=>(caretakerTranslations[en]=cs,en);
+export const caretakerPanels=[
+ {image:'caretaker-arrival',title:text('Behind the living door','Za živými dveřmi'),caption:text('An old exploration automaton waits beneath the roots. The garden has kept its caretaker alive.','Pod kořeny čeká starý průzkumný automat. Zahrada udržela svého správce při životě.')},
+ {image:'caretaker-expedition',title:text('The expedition lives','Výprava žije'),caption:text('They rested here, then followed a safe route to the Refuge. Their beacon was an invitation to follow.','Odpočívali zde a potom se vydali bezpečnou cestou do Útočiště. Jejich maják byl pozváním k následování.')},
+ {image:'caretaker-route',title:text('A new direction','Nový směr'),caption:text('Take these coordinates. Restore the link to the Refuge, and let them know the garden remembers.','Vezmi si tyto souřadnice. Obnov spojení s Útočištěm a řekni jim, že zahrada nezapomněla.')}
+];
+export const caretakerLog={id:'caretaker-encounter-log',title:text('The caretaker’s invitation','Pozvání správce'),source:text('Night expedition log','Deník noční výpravy'),time:text('The caretaker sanctuary','Svatyně správce'),unlockAt:140,text:text('The caretaker showed us the expedition resting in the sanctuary. They continued willingly to the Refuge. We have their coordinates and a request to restore communication. Our return route remains open.','Správce nám ukázal výpravu odpočívající ve svatyni. Dobrovolně pokračovala do Útočiště. Máme její souřadnice i prosbu o obnovení komunikace. Naše zpáteční cesta zůstává otevřená.')};
+text('Skip story','Přeskočit příběh');text('Replay the encounter','Přehrát setkání');text('Coordinates saved','Souřadnice uloženy');text('Caretaker encounter','Setkání se správcem');text('Previous panel','Předchozí panel');text('Next panel','Další panel');text('Illustration could not load. You can still continue or skip.','Ilustraci se nepodařilo načíst. Stále můžeš pokračovat nebo přeskočit.');
+export const caretakerReady=p=>p.nightSanctuaryCompleted===5;
