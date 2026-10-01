@@ -1014,3 +1014,7 @@ Originální hostovský profil se nemění. Reset se nevolá, resetRevision
 účtu se zachovává. Výpadek zachová import místně a dovolí zkusit znovu;
 chybějící postup na serveru není označen úspěchem. Browser test s mockRPC
 ověřil success/offline/empty a původní guest save; build prošel.
+
+## 2026-10-01 — Uložen obsahový plán do levelu 240–250
+
+Na žádost uživatele uložen návrh pokračování po současných 120 minihrách do docs/progression-121-250.md. Šest etap po dvaceti: Noční zahrada, Útočiště výpravy, Ztracený konvoj, Archiv ozvěn, Síť majáků, Za signálem. Level 240 uzavírá příběhový oblouk, 241–250 jsou volitelný epilog. Nové plánované mechaniky: podlahové panely a kapsle padající k výstupu. Obměna dlaždic, viditelné projekty po pěti levelech, bez složité ekonomiky. Jde o výchozí plán, nikoli implementaci ani pevné limity tahů.

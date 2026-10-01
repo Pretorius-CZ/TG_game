@@ -602,3 +602,5 @@ ověřil success/offline/empty a původní guest save; build prošel.
 2026-10-01: Kontextové EN/CZ bubliny pro nálože, kryty, rezonátory a pomůcky v MiniGame; pouze první relevantní setkání místně pro profil, opětovné otevření přes ⓘ. Blokují herní akce bez spotřeby zdrojů, neduplikují automatickou rezonátorovou pomoc. Docs/mechanic-tutorials.md; lokální, bez pushe.
 
 2026-10-01: Mobilní kapitoly přizpůsobené dostupné výšce přes visualViewport/useSceneFit (proporce zachované, minihry beze změny). Balance dashboard má živé mini-statistiky, heartbeat pouze viditelné hry, společná pseudonymní identita analytiky, přístup správce. Nutná migrace supabase/017_player_presence.sql; dosud nepotvrzená. Podrobnosti docs/player-presence.md. Lokální, bez pushe.
+
+2026-10-01: Obsahový plán pokračování po 120 levelech uložen v docs/progression-121-250.md, odkaz v docs/decisions-log.md. Rozsah 121–240 (šest etap po 20) + volitelný epilog 241–250. Pouze plán, nové levely/grafika nejsou implementované; před etapou rozpracovat úkoly a pravidla, tahy ladit analytikou.
