@@ -1,3 +1,5 @@
+import useSceneFit from './useSceneFit.js';
+import {startPlayerPresence} from './playerPresence.js';
 import useGameUpdate from './useGameUpdate.js';
 import {startBalanceCloud} from './balanceCloud.js';
 import {relayDestination} from './relay.js';
@@ -58,12 +60,14 @@ function App() {
  const {t}=useLanguage();
   useEffect(mountAudio, []);
   useEffect(startBalanceCloud, []);
+  useEffect(startPlayerPresence, []);
   const {user}=useAccount();
   const [progress,setProgress]=useState(()=>initialProgress(user?.id));
   const {configure:configureEnergy}=useLives();
   useLayoutEffect(()=>configureEnergy(Boolean(progress.launchDone)),[progress.launchDone,user?.id,progress.resetRevision,configureEnergy]);
   const saveStatus=useProgressSave(progress,setProgress);
   const [welcome,setWelcome]=useState(true);
+  useSceneFit(`${welcome}:${progress.scene}`);
   const introKey=`beyond-the-signal-intro:${user?.id||'guest'}:${progress.resetRevision??0}`;
   const hasProgress=progress.launchDone||Object.entries(progress).some(([k,v])=>(k==='completed'||k.endsWith('Completed'))&&typeof v==='number'&&v>0);
   let introSeen=false;try{introSeen=localStorage.getItem(introKey)==='seen';}catch{}
