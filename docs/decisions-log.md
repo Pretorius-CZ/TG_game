@@ -1018,3 +1018,7 @@ ověřil success/offline/empty a původní guest save; build prošel.
 ## 2026-10-01 — Uložen obsahový plán do levelu 240–250
 
 Na žádost uživatele uložen návrh pokračování po současných 120 minihrách do docs/progression-121-250.md. Šest etap po dvaceti: Noční zahrada, Útočiště výpravy, Ztracený konvoj, Archiv ozvěn, Síť majáků, Za signálem. Level 240 uzavírá příběhový oblouk, 241–250 jsou volitelný epilog. Nové plánované mechaniky: podlahové panely a kapsle padající k výstupu. Obměna dlaždic, viditelné projekty po pěti levelech, bez složité ekonomiky. Jde o výchozí plán, nikoli implementaci ani pevné limity tahů.
+
+## 2026-10-01 — První dávka Noční zahrady
+
+Implementované levely 121–125: přistávací mýtina po dokončení retranslační stanice, dvě vlastní generované scény a postupné proměny, pět úkolů a EN/CZ deník. První level známá výzkumná sada, druhý nový světelný pyl, třetí kořenové uzly; dva typy obměněné, čtyři zachované. Další obměna až u tematicky odlišné etapy, ne každých pět levelů. Rezonátory v závěru na 8×8. Katalog nyní 125. Podrobnosti docs/night-garden.md, cloud vyžaduje 018_night_garden.sql; dosud nepotvrzeno. Zbytek dvacetilevelové kapitoly je plán. Změny lokální, bez pushe.

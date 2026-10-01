@@ -1,9 +1,10 @@
+import {nightTranslations} from '../nightGarden.js';
 import {relayTranslations} from '../relay.js';
 import {researchTranslations} from '../research.js';
 import {gardenTranslations} from '../garden.js';
 import {riftTranslations} from '../rift.js';
 import baseCatalog from './cs.json' with {type:'json'};
-const catalog={...baseCatalog,...riftTranslations,...gardenTranslations,...researchTranslations,...relayTranslations};
+const catalog={...baseCatalog,...riftTranslations,...gardenTranslations,...researchTranslations,...relayTranslations,...nightTranslations};
 export const LANGUAGE_KEY='to-the-stars-language';
 export const validLanguage=value=>value==='cs'?'cs':'en';
 const folded=new Map(Object.entries(catalog).map(([a,b])=>[a.toLowerCase(),b]));

@@ -1,3 +1,4 @@
+import {nightDestination} from './nightGarden.js';
 import {relayDestination} from './relay.js';
 import {researchDestination} from './research.js';
 import {gardenDestination} from './garden.js';
@@ -85,6 +86,7 @@ const mineClips=['polygon(0% 50%,60% 50%,60% 76%,0% 80%)','polygon(0% 30%,40% 30
 const iceClips=['polygon(0% 64%,53% 64%,53% 94%,0% 94%)','polygon(0% 38%,48% 38%,48% 63%,0% 63%)','polygon(58% 34%,100% 34%,100% 64%,58% 64%)','polygon(8% 14%,59% 14%,59% 36%,8% 36%)','polygon(60% 10%,100% 10%,100% 35%,60% 35%)','polygon(57% 65%,100% 65%,100% 94%,57% 94%)'];
 const wreckClips=['polygon(0% 57%,49% 57%,49% 95%,0% 95%)','polygon(0% 34%,32% 34%,32% 58%,0% 58%)','polygon(62% 37%,100% 37%,100% 61%,62% 61%)','polygon(12% 17%,61% 17%,61% 36%,12% 36%)','polygon(62% 10%,100% 10%,100% 36%,62% 36%)','polygon(55% 61%,100% 61%,100% 88%,55% 88%)'];
 export const destinations={
+ 'night-glade':nightDestination,
  'fading-relay':relayDestination,
  'elysium-research':researchDestination,
  'beyond-rift':gardenDestination,...riftDestinations,...elysiumDestinations,
