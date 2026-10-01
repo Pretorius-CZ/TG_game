@@ -81,7 +81,11 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     ad(reward,async()=>{
       if(!alive.current||run.current!==token)return false;
       if(kind==='helper'&&!await rewardTool(index))return false;
-      if(kind==='moves'){setExtraMoves(n=>n+5);assistance.current.extraMoves=true;}
+      if(kind==='moves'){
+        // Exhaustion is provisional when the player continues the same attempt.
+        if(spent.current){lives.reward();spent.current=false;}
+        setExtraMoves(n=>n+5);assistance.current.extraMoves=true;
+      }
       if(kind==='hint')setHintsLeft(1);
       setAdsUsed(previous=>({...previous,[kind]:true}));
       return true;

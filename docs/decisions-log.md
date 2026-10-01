@@ -1022,3 +1022,8 @@ Na žádost uživatele uložen návrh pokračování po současných 120 minihr�
 ## 2026-10-01 — První dávka Noční zahrady
 
 Implementované levely 121–125: přistávací mýtina po dokončení retranslační stanice, dvě vlastní generované scény a postupné proměny, pět úkolů a EN/CZ deník. První level známá výzkumná sada, druhý nový světelný pyl, třetí kořenové uzly; dva typy obměněné, čtyři zachované. Další obměna až u tematicky odlišné etapy, ne každých pět levelů. Rezonátory v závěru na 8×8. Katalog nyní 125. Podrobnosti docs/night-garden.md, cloud vyžaduje 018_night_garden.sql; dosud nepotvrzeno. Zbytek dvacetilevelové kapitoly je plán. Změny lokální, bez pushe.
+
+## 2026-10-01 — Světélkující porost, levely126–130
+Druhá dávka Noční zahrady hotová místně: šetrný vzorkovač, vodní kanály, pylová odpověď, propojení rezonátoru a kořenový průchod. Stejná sada night; další změna dlaždic až od Útočiště. Dvě nové scény, EN/CZ deník, ukládání a katalog130. Detaily docs/night-grove.md; server potřebuje019_night_grove.sql. Další dávka131–135: kořenová komora, zatím plán.
+
+2026-10-01: Oprava energie při pokračování za +5 tahů: úspěšné získání odměny vrací předběžný odečet za vyčerpání a znovu umožňuje jeden odečet při skutečné další prohře/odchodu. Zrušení reklamy nic nevrací. Izolovaný mobilní test ověřil zrušení, vrácení energie, nezměněnou desku, druhé vyčerpání a odchod bez dvojího odečtu. 105 testů a build prošly.

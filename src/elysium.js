@@ -700,12 +700,13 @@ export const elysiumArrivalLog={
   "unlockAt": 72,
   "text": "Our ship is a speck beside the dock. Six great sectors surround a silent ring. A single beacon welcomes us. Haven, we have reached Elysium."
 };
-export const elysiumScenes=['elysium','elysium-research','fading-relay','night-glade',...Object.keys(elysiumDestinations)];
+export const elysiumScenes=['elysium','elysium-research','fading-relay','night-glade','night-grove',...Object.keys(elysiumDestinations)];
 export const elysiumSectorOrder=Object.keys(elysiumDestinations);
 export const elysiumComplete=p=>Object.values(elysiumDestinations).every(s=>p[s.key]===s.repairs.length);
 export function canVisitElysium(p,scene){
  if(!asterComplete(p)||p.elysiumRouteCompleted!==1||p.elysiumArrival!==1||!elysiumScenes.includes(scene))return false;
  if(scene==='elysium')return true;
+ if(scene==='night-grove')return p.nightGladeCompleted===5&&p.relayCompleted===4&&p.researchCompleted===5&&p.gardenCompleted===6&&p.riftCrossed===1;
  if(scene==='night-glade')return p.relayCompleted===4&&p.researchCompleted===5&&p.gardenCompleted===6&&p.riftCrossed===1;
  if(scene==='fading-relay')return p.researchCompleted===5&&p.gardenCompleted===6&&p.riftCrossed===1;
  if(scene==='elysium-research')return p.gardenCompleted===6&&p.riftCrossed===1;
