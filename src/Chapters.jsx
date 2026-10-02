@@ -1,0 +1,8 @@
+import React,{useEffect,useRef} from 'react';
+import {useLanguage} from './i18n/Language.jsx';
+import {chaptersFor,chapterSectionOpen} from './chapters.js';
+export default function Chapters({progress,onNavigate,onClose}){
+ const {language,t}=useLanguage(),ref=useRef(null);
+ useEffect(()=>{const opener=document.activeElement;ref.current.showModal();return()=>opener?.isConnected&&opener.focus();},[]);
+ return <dialog ref={ref} className="chapters-dialog" onCancel={e=>{e.preventDefault();onClose();}} aria-labelledby="chapters-title"><button className="close" autoFocus onClick={onClose} aria-label={t('Close')}>×</button><h2 id="chapters-title">{language==='cs'?'Kapitoly':'Chapters'}</h2><div className="chapters-list">{chaptersFor(progress).map(c=><details key={c.id}><summary>{c.image&&<img src={`./scenes/${c.image}.webp`} alt="" loading="lazy"/>}<span>{String(c.number).padStart(2,'0')} · {language==='cs'?c.cs:c.en}</span><b>{c.done===c.total?'✓ ':''}{c.done}/{c.total} {!c.open?'🔒':''}</b></summary>{c.partial&&<p>{language==='cs'?'Další obsah připravujeme.':'More content is in development.'}</p>}<div className="chapter-actions"><button disabled={!c.open} onClick={()=>onNavigate(c.done<c.total?c.next:c.entry)}>{language==='cs'?(c.done<c.total?'Pokračovat':'Navštívit'):(c.done<c.total?'Continue':'Visit')}</button>{c.sections.map(s=><button key={s.scene} disabled={!chapterSectionOpen(progress,c,s.scene)} onClick={()=>onNavigate(s.scene)}>{t(s.title)} · {(progress[s.key]??0)===s.repairs.length?'✓ ':''}{progress[s.key]??0}/{s.repairs.length}</button>)}</div></details>)}</div></dialog>;
+}

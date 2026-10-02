@@ -1036,3 +1036,15 @@ Schváleno a místně zapojeno třípanelové přeskočitelné komiksové zakon�
 
 ## 2026-10-01 — Útočiště141–145 a obměna dlaždic
 První dávka nové kapitoly: maják, filtry, zásoby, lávka a přetlakový vstup. Zpřístupnění po uloženém setkání se správcem. Filtr zaveden142 a zásobovací kapsle143, čtyři známé typy zachované; podlahové panely nadále jen plán. Nová dvojice scén a ikon, EN/CZ deník, ukládání a katalog145. Docs/refuge-dock.md; SQL022_refuge_dock.sql. Další dávka146–150 obytný blok.
+
+## 2026-10-01 — Další úkol: navigace kapitolami a motivace k replay
+
+Na žádost uživatele zaznamenán návrh; zatím bez implementace. Nejprve přidat horní tlačítko Kapitoly otevírající na telefonu posuvný panel s náhledem, názvem a dokončením každé kapitoly (např. 20/20). Dokončené kapitoly dostupné přímo, rozehraná nabízí Pokračovat, zamčené zobrazí podmínku odemčení. Výběr otevře mapu/scénu kapitoly a umožní replay konkrétního úkolu bez opakovaného mačkání šipky zpět. Šipku ponechat pro místní návrat; během minihry přístup přes nabídku pauzy s bezpečným řešením odchodu z pokusu.
+
+Následně navrhnout a doladit nepovinné hodnocení miniher na 1–3 hvězdy pro motivaci k lepšímu opakování. Výhra nadále stačí k postupu. Pracovní návrh skóre: splněné cíle, komba, aktivované nálože a bonus za zbývající základní tahy; tahy získané reklamou nezvyšují závěrečný bonus. Boosty zůstávají součástí hry. Hranice hvězd určit pro jednotlivé levely podle testování, nikoli pouze podle absolutního počtu zbývajících tahů. Přesný výpočet zatím není schválený.
+
+Ukládat pouze nejlepší výsledek levelu lokálně i do Supabase; horší replay nic nepřepíše. V přehledu oddělit dokončení kapitoly (20/20) a získané hvězdy (např. 42/60). Dosavadní výhry zachovat jako dokončené, bez vymyšleného zpětného hodnocení; hvězdy získají při novém hraní. Pořadí práce: přehled kapitol a pohodlný replay → hodnocení a uložení nejlepších výsledků.
+
+
+## 2026-10-02 — Přehled kapitol a přímé opakování
+Lokálně implementován dialog Chapters/Kapitoly s devíti kapitolami, dostupnými lokacemi a dokončením všech145 miniher. Kapitoly dostupné z horního ovládání i úvodního menu, přímý přesun přes původní goTo a pravidla odemčení. Výzkum Elysia zařazen do kapitoly7, Útočiště označeno jako rozpracované5/5. Přehled nahrazuje redundantní horní tlačítka map; místní šipka a deník zůstávají. Dokončené úkoly ve scénách expedic, místností a kokpitu mají ✓ a přímé otevření, nabídky Replay v místnostech/expedicích odstraněné. Příběhový replay v deníku zachován. Hodnocení hvězdami dosud pouze plán. Testy117 prošly; izolovaný mobilní průchod320×568 ověřil skok z Útočiště do kapitoly3 a zpět, devět položek a otevření hotové minihry bez Replay. Bez pushe.
