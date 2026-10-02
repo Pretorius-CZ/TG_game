@@ -1,5 +1,7 @@
+import {createBoostAudio} from './boostAudio.js';
 let adPaused=false;
 export function pauseForAd(value){adPaused=value;if(ctx){if(value)void ctx.suspend().catch(()=>{});else void unlock();}}
+let boostAudio;
 let ctx, music, effects, timer, step = 0, ducked = false;
 let prefs = {music:true, effects:true};
 try { const saved=JSON.parse(localStorage.getItem('ship-audio')); for(const k of Object.keys(prefs)) if(typeof saved?.[k]==='boolean') prefs[k]=saved[k]; } catch {}
@@ -25,16 +27,17 @@ function mix() {
 }
 async function unlock() {
   try {
-    if(!ctx){const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)return;ctx=new Audio();music=ctx.createGain();effects=ctx.createGain();music.connect(ctx.destination);effects.connect(ctx.destination);mix();}
+    if(!ctx){const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)return;ctx=new Audio();music=ctx.createGain();effects=ctx.createGain();music.connect(ctx.destination);effects.connect(ctx.destination);boostAudio=createBoostAudio(ctx,effects);mix();}
     if(document.hidden||adPaused)return;
     await ctx.resume();
     if(!timer){ambient();timer=setInterval(ambient,6500);}
   }catch{}
 }
-export function setAudio(key,value){prefs[key]=value;try{localStorage.setItem('ship-audio',JSON.stringify(prefs));}catch{}mix();window.dispatchEvent(new Event('ship-audio-change'));}
+export function setAudio(key,value){prefs[key]=value;if(key==='effects'&&!value)boostAudio?.stop();try{localStorage.setItem('ship-audio',JSON.stringify(prefs));}catch{}mix();window.dispatchEvent(new Event('ship-audio-change'));}
 export function duckMusic(value){ducked=value;mix();}
 export function sound(name,cascade=0){
   if(!ctx||ctx.state!=='running'||!prefs.effects||document.hidden)return;
+  if(boostAudio?.play(name))return;
   const notes={select:[440],swap:[330,440],invalid:[180,150],match:[523.25,659.25],win:[523.25,659.25,783.99,1046.5],repair:[261.63,392,523.25,783.99]}[name];
   notes?.forEach((f,i)=>tone(f*(name==='match'?2**(Math.min(cascade,5)/12):1),name==='repair'?1.1:name==='win'?.65:.16,name==='select'?.05:.09,effects,i*.085));
 }
@@ -42,5 +45,5 @@ export function mountAudio(){
   const activate=()=>{void unlock();};
   const visibility=()=>{if(!ctx)return;if(document.hidden)void ctx.suspend().catch(()=>{});else void unlock();};
   document.addEventListener('pointerdown',activate,true);document.addEventListener('keydown',activate,true);document.addEventListener('visibilitychange',visibility);
-  return()=>{document.removeEventListener('pointerdown',activate,true);document.removeEventListener('keydown',activate,true);document.removeEventListener('visibilitychange',visibility);clearInterval(timer);timer=undefined;if(ctx)void ctx.close().catch(()=>{});ctx=undefined;};
+  return()=>{document.removeEventListener('pointerdown',activate,true);document.removeEventListener('keydown',activate,true);document.removeEventListener('visibilitychange',visibility);clearInterval(timer);timer=undefined;if(ctx)void ctx.close().catch(()=>{});boostAudio?.dispose();boostAudio=undefined;ctx=undefined;};
 }

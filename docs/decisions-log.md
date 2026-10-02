@@ -1048,3 +1048,13 @@ Ukládat pouze nejlepší výsledek levelu lokálně i do Supabase; horší repl
 
 ## 2026-10-02 — Přehled kapitol a přímé opakování
 Lokálně implementován dialog Chapters/Kapitoly s devíti kapitolami, dostupnými lokacemi a dokončením všech145 miniher. Kapitoly dostupné z horního ovládání i úvodního menu, přímý přesun přes původní goTo a pravidla odemčení. Výzkum Elysia zařazen do kapitoly7, Útočiště označeno jako rozpracované5/5. Přehled nahrazuje redundantní horní tlačítka map; místní šipka a deník zůstávají. Dokončené úkoly ve scénách expedic, místností a kokpitu mají ✓ a přímé otevření, nabídky Replay v místnostech/expedicích odstraněné. Příběhový replay v deníku zachován. Hodnocení hvězdami dosud pouze plán. Testy117 prošly; izolovaný mobilní průchod320×568 ověřil skok z Útočiště do kapitoly3 a zpět, devět položek a otevření hotové minihry bez Replay. Bez pushe.
+
+
+## 2026-10-02 — Zvuky boostů
+Lokálně přidána vrstvená Web Audio syntéza laser/pulse/nova/beam/EMP/promíchání/výměna. Hudba a stupňování match kaskád zachované. Efekty mají vlastní kompresor a limit spouštění rychlých řetězců; respektují vypnutí efektů a skrytou kartu. Napojení na spotřebované pomocníky, odpálení nálože a skutečné míchání desky. Build prošel; OfflineAudioContext vyrenderoval všech sedm efektů bez clippingu v jednotlivých ukázkách. To není poslechové ověření na reproduktoru telefonu. Ukázka docs/media/boost-sounds-preview.wav: laser, pulse, nova, EMP, shuffle, swap, beam, každý po dvou sekundách. Bez pushe. Pravidla rozestupů rezonátorů/krytů a ochrana proti smůle zůstávají samostatnými budoucími úpravami.
+
+2026-10-02: Pulse přepracován podle poslechu uživatele na ostrou tlakovou ránu, hluboké dunění a nepravidelné zapraskání trosek. Samostatná ukázka docs/media/explosion-preview.wav. Technické vykreslení bez clippingu ověřeno; stále lokálně.
+
+
+## 2026-10-02 — Samplované efekty boostů
+Na přání uživatele nahrazeny výchozí syntetické boost efekty sedmi lokálními vrstvenými WAV samply: laser, Pulse, Nova, EMP, promíchání, výměna, paprsek. Podklady Kenney Sci-fi Sounds a Spring Spring Mechanical Explosion, CC0; původ, licence a použité vrstvy public/audio/README.md. Pulse0,40s bez dlouhého doběhu; souhrnná velikost150688B. Hudba a kaskády zachované. První zvuková aktivace načte/dekóduje pouze7 souborů, při chybě syntetický fallback, rate/voice limit a kompresor. Vypnutí efektů zastaví aktivní samplované zdroje. Build a browser OfflineAudioContext ověřily7 načtených efektů, potlačení rychlého opakování, chybějící soubor a nepřebuzené výstupy. Poslechová kvalita zatím k posouzení uživatelem. Náhled opět běží127.0.0.1:5173. Změny lokální, bez pushe. Pravidla krytů u rezonátorů a ochrana proti smůle dosud nejsou implementována.

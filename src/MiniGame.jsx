@@ -128,7 +128,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   const wait = ms => new Promise(resolve => setTimeout(resolve, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : ms));
 
   async function animateShuffle(next,token){
-    setSelected(null);setHint(null);setShuffling(true);
+    setSelected(null);setHint(null);setShuffling(true);sound('shuffle');
     // Keep the message readable even when motion is disabled.
     await new Promise(resolve=>setTimeout(resolve,750));
     if(!alive.current||token!==run.current)return false;
@@ -167,7 +167,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
       toolHit=[...new Set([...toolHit,...blast(next,level.cols,toolHit.filter(i=>isBooster(next[i])))])];
     }
     let found=toolHit??(activation?[a]:iceMatches(next,level.cols,frozen));
-    if(helper!=null){if(!await consumeTool(helper)){setMoving(null);setTool(null);return;}if(!alive.current||token!==run.current)return;assistance.current.helpers.push(helpers[helper][1]);setTool(null);if(helper===1&&!await animateShuffle(next,token))return;}
+    if(helper!=null){if(!await consumeTool(helper)){setMoving(null);setTool(null);return;}if(!alive.current||token!==run.current)return;assistance.current.helpers.push(helpers[helper][1]);if(helper!==1)sound(["laser","shuffle","tool-swap","beam","emp"][helper]);setTool(null);if(helper===1&&!await animateShuffle(next,token))return;}
     if (!found.length&&helper==null) { sound('invalid');
       setMoving(null); setMessage('Almost! A swap needs to make a line of 3 matching pieces.');
       await wait(220); if (!alive.current || token!==run.current) return;
@@ -190,7 +190,8 @@ export default function MiniGame({ onWin, onQuit, repair }) {
         found=resolved.hit;
         const detonations=activation&&cascades===0?found.filter(i=>isBooster(next[i])).map(i=>({i,type:next[i]})):[];
         setBlastFx(detonations.length?{detonations,hit:found}:null);
-        sound('match', cascades); setCleared(found.filter(i=>!frozen.includes(i)&&!resolved.created.some(r=>r.at===i)));  setMessage(resolved.created.length ? 'Charge created! Tap it to blast pieces and protective covers.' : activation&&cascades===0 ? 'Charge fired! Nearby charges chain for free.' : cascades ? 'Chain reaction! Falling pieces can make new matches.' : 'Nice match! Check the objective to see which pieces count.');
+        if(detonations.length)sound(detonations.some(d=>d.type===11)?'nova':'pulse');
+        else if(!(toolHit&&cascades===0))sound('match', cascades); setCleared(found.filter(i=>!frozen.includes(i)&&!resolved.created.some(r=>r.at===i)));  setMessage(resolved.created.length ? 'Charge created! Tap it to blast pieces and protective covers.' : activation&&cascades===0 ? 'Charge fired! Nearby charges chain for free.' : cascades ? 'Chain reaction! Falling pieces can make new matches.' : 'Nice match! Check the objective to see which pieces count.');
         await wait(detonations.length?620:320); if (!alive.current || token!==run.current) return;
         totals = collectGoals(goals, totals, next, resolved.collected); setCounts(totals);
         // Animate the cells at or above a cleared tile in each column.
