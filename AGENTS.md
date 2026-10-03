@@ -626,3 +626,5 @@ Na přání uživatele nahrazeny výchozí syntetické boost efekty sedmi lokál
 2026-10-03: Přílet k Elysiu má tři nové WebP ilustrace a přeskočitelný komiks, replay z deníku. Sdílený StoryComic zachovává pozdější setkání se správcem. Uložení využívá elysiumArrival, nová SQL migrace není nutná. Viz docs/elysium-arrival-comic.md.
 
 2026-10-03: Po první odletové animaci nový třípanelový komiks EN/CZ (místo havárie → signál → Kepler Reach), replay v departure-log. Odlet uložen před komiksem, skip přejde na mapu, bez nové SQL. Viz docs/departure-comic.md.
+
+2026-10-03: První skok Haven → Aster Veil zakončuje nový třípanelový komiks EN/CZ (brána → modrá hvězda → poškozená bóje). Další cesty jej nevynucují; replay ve first-jump-log nemění scénu. Existující jumpDone, bez SQL. Viz docs/aster-jump-comic.md.

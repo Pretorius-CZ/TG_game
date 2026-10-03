@@ -1,3 +1,4 @@
+import {completeAsterJump} from './asterJumpStory.js';
 import GardenArt from './GardenArt.jsx';
 import SystemChart from './SystemChart.jsx';
 import ElysiumApproach from './ElysiumApproach.jsx';
@@ -12,7 +13,7 @@ import {canInstallScanner} from './exploration.js';
 import {destinations,completeDestination} from './destinations.js';
 import {duckMusic,sound} from './audio.js';
 
-export default function Exploration({progress,onProgress,onNavigate,onLog,onEncounter}){
+export default function Exploration({progress,onProgress,onNavigate,onLog,onEncounter,onJumpStory}){
  const {t}=useLanguage();
  const {scene,scannerInstalled}=progress;
  const site=destinations[scene],done=site?(progress[site.key]??0):progress.mineCompleted;
@@ -27,7 +28,9 @@ export default function Exploration({progress,onProgress,onNavigate,onLog,onEnco
   if(tasks[done]?.id===repair.id){setReveal(repair);sound('repair');}
  }
  function arrive(){
-  onProgress(current=>gateReady(current)?{...current,jumpDone:true,scene:'system2'}:current);
+  const firstCrossing=gateReady(progress)&&!progress.jumpDone;
+  onProgress(completeAsterJump);
+  if(firstCrossing)onJumpStory?.();
   setCrossing(false);
  }
  function install(){onProgress(current=>canInstallScanner(current)?{...current,scannerInstalled:true}:current);sound('repair');}
