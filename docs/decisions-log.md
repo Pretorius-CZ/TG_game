@@ -1068,3 +1068,5 @@ Na přání uživatele nahrazeny výchozí syntetické boost efekty sedmi lokál
 2026-10-03 — Implementován předěl Elysium → Trhlina, tři nové ilustrace před prvním průletem a replay v deníku. Uživatel schválil vytvořit/ověřit/rovnou pushnout každý další předěl. Viz docs/rift-story-comic.md.
 
 2026-10-03: Relé → Noční zahrada má třípanelový přeskočitelný komiks (zpráva, sestup, mýtina), EN/CZ a replay ze závěrečného deníku relé. Zhlédnutí je místní preference podle účtu/resetu; po prvním úkolu zahrady potlačuje komiks samotný postup. Bez SQL a nových levelů. 126 testů, build a mobilní průchod 320×568 prošly. Viz docs/relay-story-comic.md.
+
+2026-10-03: Návrat na Elysium před výzkumem má tři přeskočitelné EN/CZ panely (dok, uzavřený vzorek, nejasná živá mapa). Trasa k relé se stále odhaluje až výzkumem. Replay v garden-heart-log, místní preference podle účtu/resetu; bez SQL či levelů. 127 testů, build a mobilní průchod 320×568 prošly. Viz docs/research-story-comic.md.

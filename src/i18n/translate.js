@@ -1,3 +1,4 @@
+import {researchStoryTranslations} from '../researchStory.js';
 import {relayStoryTranslations} from '../relayStory.js';
 import {riftStoryTranslations} from '../riftStory.js';
 import {asterJumpTranslations} from '../asterJumpStory.js';
@@ -14,7 +15,7 @@ import {researchTranslations} from '../research.js';
 import {gardenTranslations} from '../garden.js';
 import {riftTranslations} from '../rift.js';
 import baseCatalog from './cs.json' with {type:'json'};
-const catalog={...baseCatalog,...relayStoryTranslations,...riftStoryTranslations,...asterJumpTranslations,...departureStoryTranslations,...elysiumArrivalTranslations,...riftTranslations,...gardenTranslations,...researchTranslations,...relayTranslations,...nightTranslations,...groveTranslations,...rootTranslations,...sanctuaryTranslations,...caretakerTranslations,...refugeTranslations};
+const catalog={...baseCatalog,...researchStoryTranslations,...relayStoryTranslations,...riftStoryTranslations,...asterJumpTranslations,...departureStoryTranslations,...elysiumArrivalTranslations,...riftTranslations,...gardenTranslations,...researchTranslations,...relayTranslations,...nightTranslations,...groveTranslations,...rootTranslations,...sanctuaryTranslations,...caretakerTranslations,...refugeTranslations};
 export const LANGUAGE_KEY='to-the-stars-language';
 export const validLanguage=value=>value==='cs'?'cs':'en';
 const folded=new Map(Object.entries(catalog).map(([a,b])=>[a.toLowerCase(),b]));

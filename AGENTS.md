@@ -632,3 +632,5 @@ Na přání uživatele nahrazeny výchozí syntetické boost efekty sedmi lokál
 2026-10-03: Před prvním průletem Trhlinou komiks observatoř → kotvy → výhled na živý prstenec, EN/CZ. Skip/dočtení spouští původní RiftTransit, milník až po průletu. Replay v rift-arrival-log jen příběh. Bez SQL. Uživatel autorizoval okamžité pushování dalších předělů po ověření. Viz docs/rift-story-comic.md.
 
 2026-10-03: Přidán komiks relé → Noční zahrada, tři přeskočitelné EN/CZ panely, replay v relay-descent-log. Místní preference zhlédnutí podle účtu a resetRevision, bez změny cloudového schématu. 126 testů, build a mobilní průchod ověřeny. Podrobnosti docs/relay-story-comic.md.
+
+2026-10-03: Komiks návratu na Elysium spouštěný před první opravou výzkumu po garden6, replay v garden-heart-log. EN/CZ, skip, místní preference podle účtu/resetu, bez SQL. 127 testů, build a mobilní průchod ověřeny. Viz docs/research-story-comic.md.
