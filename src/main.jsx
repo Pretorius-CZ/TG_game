@@ -1,3 +1,5 @@
+import DepartureStory from './DepartureStory.jsx';
+import ElysiumArrival from './ElysiumArrival.jsx';
 import Chapters from './Chapters.jsx';
 import {refugeDock} from './refuge.js';
 import {sanctuaryDestination} from './nightSanctuary.js';
@@ -82,6 +84,7 @@ function App() {
   function finishIntro(){try{localStorage.setItem(introKey,'seen');}catch{}setWelcome(false);}
 
   const [launching,setLaunching]=useState(false);
+  const [departureStory,setDepartureStory]=useState(false);
   const {mineCompleted,launchDone,finaleDone,scene,readIds,completed,crewCompleted,galleyCompleted,engineCompleted,airlockCompleted,exteriorCompleted,navigationCompleted}=progress;
   const setter=key=>value=>setProgress(previous=>({...previous,[key]:typeof value==='function'?value(previous[key]):value}));
   const setFinaleDone=setter('finaleDone'),setScene=setter('scene'),setReadIds=setter('readIds'),setCompleted=setter('completed'),setCrewCompleted=setter('crewCompleted'),setGalleyCompleted=setter('galleyCompleted'),setEngineCompleted=setter('engineCompleted'),setAirlockCompleted=setter('airlockCompleted'),setExteriorCompleted=setter('exteriorCompleted'),setNavigationCompleted=setter('navigationCompleted');
@@ -93,6 +96,7 @@ function App() {
   const sceneRef = useRef(null);
   const [logView, setLogView] = useState(null);
   const [encounter,setEncounter]=useState(false);
+  const [arrivalReplay,setArrivalReplay]=useState(false);
   function finishEncounter(){setProgress(p=>caretakerReady(p)?{...p,caretakerMet:1}:p);setEncounter(false);}
   const logOpener = useRef(null);
   const [transition, setTransition] = useState(false);
@@ -101,7 +105,7 @@ function App() {
   const [inspected, setInspected] = useState(0);
   const [showList, setShowList] = useState(false);
   const [celebration, setCelebration] = useState(null);
-  useGameUpdate(saveStatus, Boolean(playing || launching || transition || celebration || bubble != null || chaptersOpen || mapOpen || logView || encounter));
+  useGameUpdate(saveStatus, Boolean(playing || launching || transition || celebration || bubble != null || chaptersOpen || mapOpen || logView || encounter || arrivalReplay || departureStory));
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
   const [attempt, setAttempt] = useState(0);
@@ -218,7 +222,7 @@ function App() {
     </div>
     {chaptersOpen&&<Chapters progress={progress} onClose={()=>setChaptersOpen(false)} onNavigate={next=>{setChaptersOpen(false);goTo(next);}}/>}
     {t(mapOpen&&<div className="ship-map-backdrop" onClick={()=>setMapOpen(false)}><dialog ref={mapDialog} className="ship-map" onCancel={()=>setMapOpen(false)} aria-label={t("Ship map")} onClick={e=>e.stopPropagation()}><button className="close" autoFocus onClick={()=>setMapOpen(false)}>{t("×")}</button><h2>{t("Ship map")}</h2><div className="readiness-list">{t(shipStages.map(r=>{const done=(progress[r.key]??0)===r.total;return <button key={r.scene} disabled={guided} data-system={r.scene} data-ready={done} onClick={()=>{setMapOpen(false);goTo(r.scene);}}><span>{t(done?'✓':stage.scene===r.scene?'→':'🔒')} {t(r.name)}</span><b>{t(progress[r.key]??0)}{t("/")}{t(r.total)}</b></button>;}))}</div><button className="primary" onClick={()=>{setMapOpen(false);guided?continueChapter():goTo('exterior');}}>{t(guided?continueLabel:'View ship')}</button></dialog></div>)}
-    {t(launching&&<Departure onClose={()=>setLaunching(false)} onComplete={()=>{setProgress(current=>({...current,launchDone:true,scene:'system'}));setLaunching(false);setLogView({id:departureLog.id});}}/>)}
+    {t(launching&&<Departure onClose={()=>setLaunching(false)} onComplete={()=>{setProgress(current=>({...current,launchDone:true,scene:'system'}));setLaunching(false);setDepartureStory(true);}}/>)}
 
     <footer><span>{t("01 — A SHIP THAT WILL FLY AGAIN")}</span><span role="status">{t(saveStatus.local==='unavailable'?'Device saving unavailable':saveStatus.local==='unsupported'?'Save from a newer version — update the game':saveStatus.cloud==='saved'?'Progress saved online':saveStatus.cloud==='syncing'?'Syncing progress…':saveStatus.cloud==='offline'?'Cloud unavailable — saved locally; retrying':saveStatus.local==='saved'?'Progress saved on this device':saveStatus.local==='unsupported'?'Save from a newer version — update the game':'Saving unavailable — progress may be lost')}</span></footer>
     <dialog ref={dialog} aria-labelledby="repair-title" onClose={() => opener.current?.focus()} onClick={e => {if(e.target === dialog.current) closeRepair();}}><div className="repair-panel"><button className="close" aria-label={t("Close")} onClick={closeRepair}>{t("×")}</button><span className="eyebrow">{t("CHAPTER 01 / COCKPIT")}</span>
@@ -230,8 +234,10 @@ function App() {
       </>)}
     </div></dialog>
     {t(bubble != null && <RepairBubble repair={repairs[bubble]} replay={bubble < completed} sceneRef={sceneRef} onComplete={()=>{const repair=repairs[bubble];setBubble(null);finishLesson(repair);}} onClose={() => {setBubble(null);requestAnimationFrame(() => {if(opener.current?.isConnected && !opener.current.closest('dialog:not([open])')) opener.current.focus();else mainAction.current?.focus();});}} onPlay={() => {setPlaying(repairs[bubble]);setBubble(null);}}/>)}
+    {departureStory&&launchDone&&<DepartureStory onFinish={()=>setDepartureStory(false)}/>}
+    {arrivalReplay&&progress.elysiumArrival===1&&<ElysiumArrival onFinish={()=>setArrivalReplay(false)}/>}
     {encounter&&caretakerReady(progress)&&<CaretakerEncounter onFinish={finishEncounter}/>}
-    {t(logView && <ShipLog onReplayEncounter={()=>{setLogView(null);setEncounter(true);}} entries={archive} completed={completed} readIds={readIds} initialId={logView.id} onRead={id => setReadIds(ids => ids.includes(id) ? ids : [...ids, id])} onClose={closeLog}/>)}
+    {t(logView && <ShipLog onReplayDeparture={()=>{setLogView(null);setDepartureStory(true);}} onReplayArrival={()=>{setLogView(null);setArrivalReplay(true);}} onReplayEncounter={()=>{setLogView(null);setEncounter(true);}} entries={archive} completed={completed} readIds={readIds} initialId={logView.id} onRead={id => setReadIds(ids => ids.includes(id) ? ids : [...ids, id])} onClose={closeLog}/>)}
     {t(playing && <MiniGame key={playing.id} repair={playing} onQuit={() => {setPlaying(null); mainAction.current?.focus();}} onWin={()=>{if(playing.id===finaleRepair.id){if(allSystemsReady){setFinaleDone(true);setPlaying(null);sound('repair');}}else finishLesson();}}/>)}
     <span className="sr-only" role="status" aria-live="polite">{t(exploring ? 'Exploring the star system.' : corridor ? 'Inside the corridor. Emergency lighting only.' : airlock ? 'Inside the airlock.' : inside ? 'Inside the cockpit.' : 'Outside the damaged ship.')} {t(completed)}{t(" of ")}{t(repairs.length)}{t(" cockpit repairs complete.")}</span>
   </main>;

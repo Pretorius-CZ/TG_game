@@ -622,3 +622,7 @@ Lokálně implementován dialog Chapters/Kapitoly s devíti kapitolami, dostupn�
 
 ## 2026-10-02 — Samplované efekty boostů
 Na přání uživatele nahrazeny výchozí syntetické boost efekty sedmi lokálními vrstvenými WAV samply: laser, Pulse, Nova, EMP, promíchání, výměna, paprsek. Podklady Kenney Sci-fi Sounds a Spring Spring Mechanical Explosion, CC0; původ, licence a použité vrstvy public/audio/README.md. Pulse0,40s bez dlouhého doběhu; souhrnná velikost150688B. Hudba a kaskády zachované. První zvuková aktivace načte/dekóduje pouze7 souborů, při chybě syntetický fallback, rate/voice limit a kompresor. Vypnutí efektů zastaví aktivní samplované zdroje. Build a browser OfflineAudioContext ověřily7 načtených efektů, potlačení rychlého opakování, chybějící soubor a nepřebuzené výstupy. Poslechová kvalita zatím k posouzení uživatelem. Náhled opět běží127.0.0.1:5173. Změny lokální, bez pushe. Pravidla krytů u rezonátorů a ochrana proti smůle dosud nejsou implementována.
+
+2026-10-03: Přílet k Elysiu má tři nové WebP ilustrace a přeskočitelný komiks, replay z deníku. Sdílený StoryComic zachovává pozdější setkání se správcem. Uložení využívá elysiumArrival, nová SQL migrace není nutná. Viz docs/elysium-arrival-comic.md.
+
+2026-10-03: Po první odletové animaci nový třípanelový komiks EN/CZ (místo havárie → signál → Kepler Reach), replay v departure-log. Odlet uložen před komiksem, skip přejde na mapu, bez nové SQL. Viz docs/departure-comic.md.
