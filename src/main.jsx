@@ -1,3 +1,4 @@
+import RiftStory from './RiftStory.jsx';
 import AsterJumpStory from './AsterJumpStory.jsx';
 import DepartureStory from './DepartureStory.jsx';
 import ElysiumArrival from './ElysiumArrival.jsx';
@@ -87,6 +88,7 @@ function App() {
   const [launching,setLaunching]=useState(false);
   const [departureStory,setDepartureStory]=useState(false);
   const [jumpStory,setJumpStory]=useState(false);
+  const [riftStoryReplay,setRiftStoryReplay]=useState(false);
   const {mineCompleted,launchDone,finaleDone,scene,readIds,completed,crewCompleted,galleyCompleted,engineCompleted,airlockCompleted,exteriorCompleted,navigationCompleted}=progress;
   const setter=key=>value=>setProgress(previous=>({...previous,[key]:typeof value==='function'?value(previous[key]):value}));
   const setFinaleDone=setter('finaleDone'),setScene=setter('scene'),setReadIds=setter('readIds'),setCompleted=setter('completed'),setCrewCompleted=setter('crewCompleted'),setGalleyCompleted=setter('galleyCompleted'),setEngineCompleted=setter('engineCompleted'),setAirlockCompleted=setter('airlockCompleted'),setExteriorCompleted=setter('exteriorCompleted'),setNavigationCompleted=setter('navigationCompleted');
@@ -107,7 +109,7 @@ function App() {
   const [inspected, setInspected] = useState(0);
   const [showList, setShowList] = useState(false);
   const [celebration, setCelebration] = useState(null);
-  useGameUpdate(saveStatus, Boolean(playing || launching || transition || celebration || bubble != null || chaptersOpen || mapOpen || logView || encounter || arrivalReplay || departureStory || jumpStory));
+  useGameUpdate(saveStatus, Boolean(playing || launching || transition || celebration || bubble != null || chaptersOpen || mapOpen || logView || encounter || arrivalReplay || departureStory || jumpStory || riftStoryReplay));
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
   const [attempt, setAttempt] = useState(0);
@@ -236,11 +238,12 @@ function App() {
       </>)}
     </div></dialog>
     {t(bubble != null && <RepairBubble repair={repairs[bubble]} replay={bubble < completed} sceneRef={sceneRef} onComplete={()=>{const repair=repairs[bubble];setBubble(null);finishLesson(repair);}} onClose={() => {setBubble(null);requestAnimationFrame(() => {if(opener.current?.isConnected && !opener.current.closest('dialog:not([open])')) opener.current.focus();else mainAction.current?.focus();});}} onPlay={() => {setPlaying(repairs[bubble]);setBubble(null);}}/>)}
+    {riftStoryReplay&&progress.riftCrossed===1&&<RiftStory replay onFinish={()=>setRiftStoryReplay(false)}/>}
     {jumpStory&&progress.jumpDone&&<AsterJumpStory onFinish={()=>setJumpStory(false)}/>}
     {departureStory&&launchDone&&<DepartureStory onFinish={()=>setDepartureStory(false)}/>}
     {arrivalReplay&&progress.elysiumArrival===1&&<ElysiumArrival onFinish={()=>setArrivalReplay(false)}/>}
     {encounter&&caretakerReady(progress)&&<CaretakerEncounter onFinish={finishEncounter}/>}
-    {t(logView && <ShipLog onReplayJump={()=>{setLogView(null);setJumpStory(true);}} onReplayDeparture={()=>{setLogView(null);setDepartureStory(true);}} onReplayArrival={()=>{setLogView(null);setArrivalReplay(true);}} onReplayEncounter={()=>{setLogView(null);setEncounter(true);}} entries={archive} completed={completed} readIds={readIds} initialId={logView.id} onRead={id => setReadIds(ids => ids.includes(id) ? ids : [...ids, id])} onClose={closeLog}/>)}
+    {t(logView && <ShipLog onReplayRift={()=>{setLogView(null);setRiftStoryReplay(true);}} onReplayJump={()=>{setLogView(null);setJumpStory(true);}} onReplayDeparture={()=>{setLogView(null);setDepartureStory(true);}} onReplayArrival={()=>{setLogView(null);setArrivalReplay(true);}} onReplayEncounter={()=>{setLogView(null);setEncounter(true);}} entries={archive} completed={completed} readIds={readIds} initialId={logView.id} onRead={id => setReadIds(ids => ids.includes(id) ? ids : [...ids, id])} onClose={closeLog}/>)}
     {t(playing && <MiniGame key={playing.id} repair={playing} onQuit={() => {setPlaying(null); mainAction.current?.focus();}} onWin={()=>{if(playing.id===finaleRepair.id){if(allSystemsReady){setFinaleDone(true);setPlaying(null);sound('repair');}}else finishLesson();}}/>)}
     <span className="sr-only" role="status" aria-live="polite">{t(exploring ? 'Exploring the star system.' : corridor ? 'Inside the corridor. Emergency lighting only.' : airlock ? 'Inside the airlock.' : inside ? 'Inside the cockpit.' : 'Outside the damaged ship.')} {t(completed)}{t(" of ")}{t(repairs.length)}{t(" cockpit repairs complete.")}</span>
   </main>;

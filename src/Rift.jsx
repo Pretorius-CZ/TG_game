@@ -1,3 +1,4 @@
+import RiftStory from './RiftStory.jsx';
 import React,{useState} from 'react';
 import {useLanguage} from './i18n/Language.jsx';
 import {riftOrder,riftDestinations,riftReady,canVisitRift,crossRift,riftArrivalLog} from './rift.js';
@@ -5,7 +6,7 @@ import RiftTransit from './RiftTransit.jsx';
 import './rift.css';
 
 export default function Rift({progress,onProgress,onNavigate,onLog}){
- const {t}=useLanguage(),[crossing,setCrossing]=useState(false);
+ const {t}=useLanguage(),[crossing,setCrossing]=useState(false),[story,setStory]=useState(false);
  const beyond=progress.scene==='beyond-rift',ready=riftReady(progress);
  return <>
   <section className={`game rift-chart ${beyond?'rift-arrival':''}`} aria-label={t(beyond?'Beyond the Rift':'The Rift')}>
@@ -20,10 +21,11 @@ export default function Rift({progress,onProgress,onNavigate,onLog}){
    <div className="rift-footer">
     {!beyond&&progress.riftCrossed===1&&<button className="primary" onClick={()=>onNavigate("beyond-rift")}>{t("Explore the living ring →")} · {progress.gardenCompleted??0}/6</button>}
     <p>{t(beyond?'The return link is secure. Exploration of the great ring comes next.':ready?'Passage secured. Cross when you are ready.':'Complete each site to reveal the next bearing.')}</p>
-    {beyond?<><button className="primary" onClick={()=>onLog(riftArrivalLog.id)}>{t('Read the first impression →')}</button><button className="keep-playing" onClick={()=>onNavigate('rift')}>{t('Return to the expedition chart →')}</button></>:ready&&<button className="primary" onClick={()=>setCrossing(true)}>{t('Cross the Rift →')}</button>}
+    {beyond?<><button className="primary" onClick={()=>onLog(riftArrivalLog.id)}>{t('Read the first impression →')}</button><button className="keep-playing" onClick={()=>onNavigate('rift')}>{t('Return to the expedition chart →')}</button></>:ready&&<button className="primary" onClick={()=>progress.riftCrossed===1?setCrossing(true):setStory(true)}>{t('Cross the Rift →')}</button>}
     <button className="keep-playing" onClick={()=>onNavigate('elysium')}>{t('Return to Elysium →')}</button>
    </div>
   </section>
+  {story&&ready&&<RiftStory onFinish={()=>{setStory(false);setCrossing(true);}}/>}
   {crossing&&ready&&<RiftTransit onCancel={()=>setCrossing(false)} onComplete={()=>{setCrossing(false);onProgress(p=>crossRift(p));}}/>}
  </>;
 }

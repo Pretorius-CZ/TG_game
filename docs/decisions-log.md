@@ -1064,3 +1064,5 @@ Na přání uživatele nahrazeny výchozí syntetické boost efekty sedmi lokál
 2026-10-03 — Schváleny krátké přeskočitelné příběhové předěly kapitol. Implementovaný první odlet: zachovaná animace + tři nové ilustrace, EN/CZ, přehrání z deníku. Viz docs/departure-comic.md.
 
 2026-10-03 — Implementován komiks prvního skoku do Aster Veil za zachovaným warpem. Tři nové WebP ilustrace, EN/CZ, skip a replay z deníku, bez migrace. Podrobnosti docs/aster-jump-comic.md.
+
+2026-10-03 — Implementován předěl Elysium → Trhlina, tři nové ilustrace před prvním průletem a replay v deníku. Uživatel schválil vytvořit/ověřit/rovnou pushnout každý další předěl. Viz docs/rift-story-comic.md.
