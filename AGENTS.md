@@ -630,3 +630,5 @@ Na přání uživatele nahrazeny výchozí syntetické boost efekty sedmi lokál
 2026-10-03: První skok Haven → Aster Veil zakončuje nový třípanelový komiks EN/CZ (brána → modrá hvězda → poškozená bóje). Další cesty jej nevynucují; replay ve first-jump-log nemění scénu. Existující jumpDone, bez SQL. Viz docs/aster-jump-comic.md.
 
 2026-10-03: Před prvním průletem Trhlinou komiks observatoř → kotvy → výhled na živý prstenec, EN/CZ. Skip/dočtení spouští původní RiftTransit, milník až po průletu. Replay v rift-arrival-log jen příběh. Bez SQL. Uživatel autorizoval okamžité pushování dalších předělů po ověření. Viz docs/rift-story-comic.md.
+
+2026-10-03: Přidán komiks relé → Noční zahrada, tři přeskočitelné EN/CZ panely, replay v relay-descent-log. Místní preference zhlédnutí podle účtu a resetRevision, bez změny cloudového schématu. 126 testů, build a mobilní průchod ověřeny. Podrobnosti docs/relay-story-comic.md.

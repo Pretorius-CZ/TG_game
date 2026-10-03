@@ -1,3 +1,5 @@
+import RelayStory from './RelayStory.jsx';
+import {storySeenKey,hasSeenStory,rememberStory} from './storySeen.js';
 import RiftStory from './RiftStory.jsx';
 import AsterJumpStory from './AsterJumpStory.jsx';
 import DepartureStory from './DepartureStory.jsx';
@@ -89,6 +91,12 @@ function App() {
   const [departureStory,setDepartureStory]=useState(false);
   const [jumpStory,setJumpStory]=useState(false);
   const [riftStoryReplay,setRiftStoryReplay]=useState(false);
+  const [relayStory,setRelayStory]=useState(null);
+  const relayStoryKey=storySeenKey('relay-descent',user?.id||'guest',progress.resetRevision??0);
+  useEffect(()=>{
+    if(!welcome&&progress.scene==='night-glade'&&progress.relayCompleted===4&&progress.nightGladeCompleted===0&&!hasSeenStory(relayStoryKey))setRelayStory('arrival');
+  },[welcome,progress.scene,progress.relayCompleted,progress.nightGladeCompleted,relayStoryKey]);
+  function finishRelayStory(){if(relayStory==='arrival')rememberStory(relayStoryKey);setRelayStory(null);}
   const {mineCompleted,launchDone,finaleDone,scene,readIds,completed,crewCompleted,galleyCompleted,engineCompleted,airlockCompleted,exteriorCompleted,navigationCompleted}=progress;
   const setter=key=>value=>setProgress(previous=>({...previous,[key]:typeof value==='function'?value(previous[key]):value}));
   const setFinaleDone=setter('finaleDone'),setScene=setter('scene'),setReadIds=setter('readIds'),setCompleted=setter('completed'),setCrewCompleted=setter('crewCompleted'),setGalleyCompleted=setter('galleyCompleted'),setEngineCompleted=setter('engineCompleted'),setAirlockCompleted=setter('airlockCompleted'),setExteriorCompleted=setter('exteriorCompleted'),setNavigationCompleted=setter('navigationCompleted');
@@ -109,7 +117,7 @@ function App() {
   const [inspected, setInspected] = useState(0);
   const [showList, setShowList] = useState(false);
   const [celebration, setCelebration] = useState(null);
-  useGameUpdate(saveStatus, Boolean(playing || launching || transition || celebration || bubble != null || chaptersOpen || mapOpen || logView || encounter || arrivalReplay || departureStory || jumpStory || riftStoryReplay));
+  useGameUpdate(saveStatus, Boolean(playing || launching || transition || celebration || bubble != null || chaptersOpen || mapOpen || logView || encounter || arrivalReplay || departureStory || jumpStory || riftStoryReplay || relayStory));
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
   const [attempt, setAttempt] = useState(0);
@@ -238,12 +246,13 @@ function App() {
       </>)}
     </div></dialog>
     {t(bubble != null && <RepairBubble repair={repairs[bubble]} replay={bubble < completed} sceneRef={sceneRef} onComplete={()=>{const repair=repairs[bubble];setBubble(null);finishLesson(repair);}} onClose={() => {setBubble(null);requestAnimationFrame(() => {if(opener.current?.isConnected && !opener.current.closest('dialog:not([open])')) opener.current.focus();else mainAction.current?.focus();});}} onPlay={() => {setPlaying(repairs[bubble]);setBubble(null);}}/>)}
+    {relayStory&&progress.relayCompleted===4&&<RelayStory replay={relayStory==='replay'} onFinish={finishRelayStory}/>}
     {riftStoryReplay&&progress.riftCrossed===1&&<RiftStory replay onFinish={()=>setRiftStoryReplay(false)}/>}
     {jumpStory&&progress.jumpDone&&<AsterJumpStory onFinish={()=>setJumpStory(false)}/>}
     {departureStory&&launchDone&&<DepartureStory onFinish={()=>setDepartureStory(false)}/>}
     {arrivalReplay&&progress.elysiumArrival===1&&<ElysiumArrival onFinish={()=>setArrivalReplay(false)}/>}
     {encounter&&caretakerReady(progress)&&<CaretakerEncounter onFinish={finishEncounter}/>}
-    {t(logView && <ShipLog onReplayRift={()=>{setLogView(null);setRiftStoryReplay(true);}} onReplayJump={()=>{setLogView(null);setJumpStory(true);}} onReplayDeparture={()=>{setLogView(null);setDepartureStory(true);}} onReplayArrival={()=>{setLogView(null);setArrivalReplay(true);}} onReplayEncounter={()=>{setLogView(null);setEncounter(true);}} entries={archive} completed={completed} readIds={readIds} initialId={logView.id} onRead={id => setReadIds(ids => ids.includes(id) ? ids : [...ids, id])} onClose={closeLog}/>)}
+    {t(logView && <ShipLog onReplayRelay={()=>{setLogView(null);setRelayStory('replay');}} onReplayRift={()=>{setLogView(null);setRiftStoryReplay(true);}} onReplayJump={()=>{setLogView(null);setJumpStory(true);}} onReplayDeparture={()=>{setLogView(null);setDepartureStory(true);}} onReplayArrival={()=>{setLogView(null);setArrivalReplay(true);}} onReplayEncounter={()=>{setLogView(null);setEncounter(true);}} entries={archive} completed={completed} readIds={readIds} initialId={logView.id} onRead={id => setReadIds(ids => ids.includes(id) ? ids : [...ids, id])} onClose={closeLog}/>)}
     {t(playing && <MiniGame key={playing.id} repair={playing} onQuit={() => {setPlaying(null); mainAction.current?.focus();}} onWin={()=>{if(playing.id===finaleRepair.id){if(allSystemsReady){setFinaleDone(true);setPlaying(null);sound('repair');}}else finishLesson();}}/>)}
     <span className="sr-only" role="status" aria-live="polite">{t(exploring ? 'Exploring the star system.' : corridor ? 'Inside the corridor. Emergency lighting only.' : airlock ? 'Inside the airlock.' : inside ? 'Inside the cockpit.' : 'Outside the damaged ship.')} {t(completed)}{t(" of ")}{t(repairs.length)}{t(" cockpit repairs complete.")}</span>
   </main>;
