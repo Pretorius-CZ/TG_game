@@ -1,3 +1,4 @@
+import {spacedResonatorCovers} from './resonators.js';
 export const nightTranslations={};
 const text=(en,cs)=>(nightTranslations[en]=cs,en);
 const title=text('The night garden · Landing glade','Noční zahrada · Přistávací mýtina');
@@ -20,6 +21,7 @@ const repairs=rows.map(([slug,name,thought,result,logTitle,logText,goals,moves,x
  goals:goals.map(([type,target])=>({type,target,label:labels[type]})),target:goals.reduce((n,g)=>n+g[1],0),targetType:null,
  objective:text('Collect '+goals.map(([type,n])=>n+' '+labels[type].toLowerCase()).join(', ')+'.'+(i>=2?' Break all protective covers.':'')+(resonators.length?' Charge every resonator.':''),'Nasbírej '+goals.map(([type,n])=>n+' '+csLabels[type]).join(', ')+'.'+(i>=2?' Rozbij všechny ochranné kryty.':'')+(resonators.length?' Nabij všechny rezonátory.':''))};
 });
+repairs.forEach(r=>{r.ice=spacedResonatorCovers(r.ice,r.resonators,r.level);});
 export const nightDestination={title,key:'nightGladeCompleted',system:'fading-relay',chapter:text('CHAPTER 08 / THE NIGHT GARDEN','KAPITOLA 08 / NOČNÍ ZAHRADA'),nextScene:'night-grove',nextLabel:'Enter the luminous grove →',hotspotOffset:0,image:'night-glade',restoredImage:'night-glade-restored',repairs,
  logs:rows.map((r,i)=>({id:repairs[i].id+'-log',repair:repairs[i].id,title:r[4],text:r[5],source:text('Night expedition log','Deník noční výpravy'),time:title,unlockAt:121+i})),
  complete:text('Landing glade secured. The luminous grove is our next destination.','Přistávací mýtina zajištěna. Dalším cílem je světélkující porost.'),

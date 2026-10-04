@@ -636,3 +636,10 @@ Na přání uživatele nahrazeny výchozí syntetické boost efekty sedmi lokál
 2026-10-03: Komiks návratu na Elysium spouštěný před první opravou výzkumu po garden6, replay v garden-heart-log. EN/CZ, skip, místní preference podle účtu/resetu, bez SQL. 127 testů, build a mobilní průchod ověřeny. Viz docs/research-story-comic.md.
 
 2026-10-04: Elysium → Trhlina má třípanelový komiks odletu, EN/CZ, skip/replay z posledního zápisu observatoře. Spouští se při prvním vstupu rift/rift-echo před opravami po obnovení všech sektorů; místní preference podle účtu/resetu, bez SQL. 131 testů/build/mobilní průchod ověřeny. Viz docs/echo-departure-comic.md.
+
+
+2026-10-04: Rezonátorové levely mají kryty mimo osm sousedních polí a od sebe, při dvou kruzích max.3 kryty. MiniGame používá src/goalRefill.js pro mírnou ochranu nesplněných, vzácných cílových barev proti dlouhému výpadku při doplňování. Stav na pokus, +5 jej zachová, retry resetuje. Nákup/reklama pravidla neovlivňuje. Případná pomoc po opakovaných prohrách pouze návrh v decisions-log.md. Ověřeno 135 testů. Změny lokální.
+
+2026-10-04: Pojistka cílových barev zesílena: nulová dostupná zásoba znamená doplnění při nejbližším pádu, při 1–2 kamenech max.6 jiných nových kamenů před dalším. Kryté kameny se nepočítají jako dostupné. Analytika fair-refill-v3, lokální.
+
+2026-10-04: BalanceDashboard automaticky načítá cloudový report každých 30 s a při návratu na kartu, ukazuje čas načtení. Dříve se obnovovala jen přítomnost hráčů. Živé ověření: 533 záznamů, všech pět night-* úkolů má novou výhru. Build prošel; oprava zatím lokální.

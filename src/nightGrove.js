@@ -1,3 +1,4 @@
+import {spacedResonatorCovers} from './resonators.js';
 export const groveTranslations={};
 const text=(en,cs)=>(groveTranslations[en]=cs,en);
 const title=text('The luminous grove','Světélkující porost');
@@ -20,6 +21,7 @@ const repairs=rows.map(([slug,name,thought,result,logTitle,logText,goals,moves,x
  goals:goals.map(([type,target])=>({type,target,label:labels[type]})),target:goals.reduce((n,g)=>n+g[1],0),targetType:null,
  objective:text('Collect '+goals.map(([type,n])=>n+' '+labels[type].toLowerCase()).join(', ')+'.'+(i>=2?' Break all protective covers.':'')+(resonators.length?' Charge every resonator.':''),'Nasbírej '+goals.map(([type,n])=>n+' '+csLabels[type]).join(', ')+'.'+(i>=2?' Rozbij všechny ochranné kryty.':'')+(resonators.length?' Nabij všechny rezonátory.':''))};
 });
+repairs.forEach(r=>{r.ice=spacedResonatorCovers(r.ice,r.resonators,r.level);});
 export const groveDestination={nextScene:'night-root',nextLabel:'Enter the root chamber →',title,key:'nightGroveCompleted',system:'night-glade',chapter:text('CHAPTER 08 / THE NIGHT GARDEN','KAPITOLA 08 / NOČNÍ ZAHRADA'),hotspotOffset:0,image:'night-grove',restoredImage:'night-grove-restored',repairs,
  logs:rows.map((r,i)=>({id:repairs[i].id+'-log',repair:repairs[i].id,title:r[4],text:r[5],source:text('Night expedition log','Deník noční výpravy'),time:title,unlockAt:126+i})),
  complete:text('Grove decoded. The expedition trail leads to the root chamber below.','Porost rozluštěn. Stopa výpravy vede do kořenové komory pod námi.'),

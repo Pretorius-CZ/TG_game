@@ -1,3 +1,4 @@
+import {goalRefillRandom} from './goalRefill.js';
 import {useAccount} from './Account.jsx';
 import MechanicTutorial from './MechanicTutorial.jsx';
 import {relevantTutorials,readTutorials} from './tutorials.js';
@@ -31,6 +32,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   const [resonance,setResonance]=useState(()=>resonators.map(()=>0));
   const {names,sprites}=tileSetFor(repair);
   const goals = goalsFor(repair);
+  const refillHistory=useRef({});
   const boosts = boostersEnabled(repair);
   const topics=relevantTutorials({boosts,covers:initialIce(repair).length>0,resonators:resonators.length>0});
   const [tutorialQueue,setTutorialQueue]=useState(()=>{try{return topics.filter(id=>!readTutorials(localStorage,tutorialKey).includes(id));}catch{return topics;}});
@@ -72,7 +74,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   const attemptStarted=useRef(Date.now());
   function recordResult(outcome,terminal=true){
     if(recorded.current)return;if(terminal)recorded.current=true;
-    saveAttempt({build:'2026-10-01-balance-v1',attemptId:attemptId.current,level:repair.id,outcome,moves,budget:limit,baseBudget:moveBudget(repair),remaining:Math.max(0,limit-moves),at:Date.now(),durationMs:Date.now()-attemptStarted.current,configuration:{cols:level.cols,rows:level.rows,types:level.types,goals,ice:initialIce(repair),resonators},counts,remainingCovers:ice.length,resonance,...assistance.current});
+    saveAttempt({build:'2026-10-04-fair-refill-v3',attemptId:attemptId.current,level:repair.id,outcome,moves,budget:limit,baseBudget:moveBudget(repair),remaining:Math.max(0,limit-moves),at:Date.now(),durationMs:Date.now()-attemptStarted.current,configuration:{cols:level.cols,rows:level.rows,types:level.types,goals,ice:initialIce(repair),resonators},counts,remainingCovers:ice.length,resonance,...assistance.current});
   }
   function requestHelp(kind,index){
     if(tutorial||busy||lock.current||adsUsed[kind])return;
@@ -119,6 +121,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     if(!fault&&!lives.count)return;
     try{
       const fresh=makeIceBoard(level,initialIce(repair));
+      refillHistory.current={};
       recordResult(fault?"fault":"failed");recorded.current=false;attemptId.current=crypto.randomUUID();attemptStarted.current=Date.now();assistance.current={helpers:[],extraMoves:false,hints:0};setAdsUsed({moves:false,hint:false,helper:false});
       run.current++;clearInterval(watchdog.current);lock.current=false;spent.current=false;
       setResonatorFx([]);setShuffling(false);setBlastFx(null);setFault(false);setBusy(false);setAdmitted(true);setBoard(fresh);setIce(initialIce(repair));setCounts(goals.map(()=>0));setMoves(0);setExtraMoves(0);setResonance(resonators.map(()=>0));setSelected(null);setHint(boosts?null:iceMove(fresh,level.cols,initialIce(repair)));setHintsLeft(1);setTool(null);setConfirmQuit(false);setMessage('A fresh attempt. You can do this.');
@@ -186,7 +189,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
           if(!alive.current||token!==run.current)return;
           setResonatorFx([]);
         }
-        const resolved=wave(next,frozen,level,{enabled:boosts,activate:activation&&cascades===0?a:null,preferred:cascades===0?[b,a]:[],hit:cascades===0?toolHit:null});
+        const resolved=wave(next,frozen,level,{enabled:boosts,activate:activation&&cascades===0?a:null,preferred:cascades===0?[b,a]:[],hit:cascades===0?toolHit:null,refillRandom:collected=>goalRefillRandom(level,goals,collectGoals(goals,totals,next,collected),next,frozen,collected,refillHistory.current)});
         found=resolved.hit;
         const detonations=activation&&cascades===0?found.filter(i=>isBooster(next[i])).map(i=>({i,type:next[i]})):[];
         setBlastFx(detonations.length?{detonations,hit:found}:null);

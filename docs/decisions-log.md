@@ -1076,3 +1076,24 @@ Na přání uživatele nahrazeny výchozí syntetické boost efekty sedmi lokál
 2026-10-04: Oprava překryvů scén: mapa Trhliny má nadpis v běžném toku bez zděděného posunu top:120px; komora pouze stručný štítek, servisní panel a průlez mají oddělené značky a popisek není uříznutý levým okrajem. Observatoř má poslední úkol oddělený od synchronizace hodin. Mobilní HUD má kompaktní rozestupy. useSceneFit nyní škáluje celou play-area včetně horního ovládání, nikoli samotnou game. Kontrola 320/390/900 px, 129 testů a build prošly.
 
 2026-10-04: Doplněn komiks Elysium → Trhlina: přijímače zachytí dvojí zprávu, příprava lodi a odlet k průzkumu. Tři EN/CZ panely, skip a replay v elysium-observatory-beacon-log. Poprvé při vstupu rift/rift-echo po všech šesti sektorech a před první opravou; místní preference podle účtu/resetu. Výzkum ozvěny zůstává v úkolech, bez SQL či nových levelů. 131 testů, build a mobilní průchod ověřeny. Viz docs/echo-departure-comic.md.
+
+
+## 2026-10-04 — Rezonátory a dostupnost cílových barev
+
+Implementováno lokálně:
+- Všechny současné levely s rezonátory mají kryty mimo osm sousedních polí kruhu, tedy i mimo diagonály. Kryty jsou také vzájemně oddělené. Dva rezonátory mají maximálně tři kryty; ostatním levelům se počet nemění.
+- Nově padající kameny používají mírnou ochranu proti dlouhému výpadku nesplněné cílové barvy. Když je volně dostupných kamenů této barvy málo, po šesti doplněných kamenech bez ní se její váha zvýší z 1 na 1,6. Po osmnácti takových doplněních se doplní jeden kámen chybějící barvy. Více cílů obsluhuje nejdéle čekající barva. Nejde o počet tahů; dlouhá kaskáda může doplnit více kamenů.
+- Pojistka nepřidává tahy ani hotová spojení, neposouvá kameny, nemění počáteční desku. Vypíná zvýhodnění pro hotové cíle nebo při dostatku dané barvy. Stav platí celý pokus, reklama za +5 ho neresetuje; nový pokus začíná novou historií.
+- Analytika označuje nové pokusy verzí 2026-10-04-fair-refill-v2. Staré výsledky zůstávají zachované.
+- Ověření: 135 testů včetně rozestupů ve všech rezonátorových levelech, dvou současných cílových barev, vypnutí pomoci a zachování správného započítání čtyř kamenů při vytvoření nálože.
+
+Návrh k diskuzi, neimplementováno: nespojovat lehčí následující pokus s koupí života nebo reklamou. Pokud testy ukážou potřebu pomoci po opakovaných prohrách, nabídnout stejnou, viditelnou pomoc všem hráčům (například jednu bezplatnou nápovědu po třech neúspěších). Platba obnovuje energii, nemění náhodu ani obtížnost. Počty tahů a míru této nové pojistky vyhodnotit z dalších testů.
+
+
+2026-10-04: Navigační hranol změněn ze zlatého na malinově růžový kvůli zaměnitelnosti se žlutým pylem na telefonu. Nový raster research-chart-pink.png sdílejí deska i ikony cílů; pravidla, cíle a počty typů beze změny. Úprava přes vestavěný imagegen, prompt v public/tiles/README.md. Lokální, bez pushe.
+
+
+2026-10-04 — Zesílení pojistky podle další zpětné vazby: pokud nezůstane žádný volně dostupný kámen nesplněné cílové barvy, nejbližší doplnění dodá jeden. Více chybějících barev dostane po jednom v dalších doplněních. Při jednom nebo dvou kamenech se další doplní nejpozději po šesti jiných nových kamenech. Zakryté kameny se do dostupné zásoby nepočítají. Pojistka nezaručuje uspořádání do spojení a nepřidává tahy; hotové cíle ignoruje. Analytická verze v3. Nahrazuje předchozí dlouhé čekání při nulové zásobě, ostatní pravidla v2 platí. Lokální změna.
+
+
+2026-10-04: Ověření živé analytiky po hlášení chybějící Noční zahrady: Supabase přehled nyní obsahuje 533 záznamů oproti 509 při předchozí kontrole; všech pět night-* levelů má navíc jednu výhru. Potvrzená chyba UI: pouze přítomnost hráčů měla periodickou obnovu, tabulka pokusů se načítala při otevření nebo tlačítkem. Lokálně přidána tichá obnova reportu po 30 s a při focus/visibility návratu, čas posledního načtení, ochrana souběžných požadavků a zachování místního/importovaného pohledu bez přepsání automatickou cloudovou obnovou. Data ani konfigurace levelů tím nejsou změněny.

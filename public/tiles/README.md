@@ -18,3 +18,8 @@ no cast shadow outside object.
 - asteroid: purple irregular rocky asteroid with three large craters
 - star: gold five pointed star
 - orb: red spherical energy orb with a bright core
+
+
+## 2026-10-04 — Růžový navigační hranol
+`research-chart-pink.png` nahrazuje zlatý navigační hranol ve výzkumných, nočních a navazujících sadách. Žlutý pyl zůstává žlutý; cíle i ID typů se nemění. Nový název souboru zabraňuje použití staré grafiky z cache. Vestavěný imagegen upravil existující raster, výstup byl pouze zmenšen na 192×192 RGBA pro hru.
+Prompt: Preserve the centered hexagonal faceted silhouette, concentric orbital navigation markings, glossy 3D sprite style and proportions. Replace all gold/yellow with saturated raspberry pink / hot magenta, ruby-red shaded facets and pale pink highlights. No yellow, gold or orange; not pale purple. Readable at 40 pixels, one isolated object, square, true transparent alpha background, no text or frame.

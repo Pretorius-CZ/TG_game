@@ -1,3 +1,4 @@
+import {spacedResonatorCovers} from './resonators.js';
 export const relayTranslations={};
 const text=(en,cs)=>(relayTranslations[en]=cs,en);
 const title=text('The silent relay','Ztichlá retranslační stanice');
@@ -12,6 +13,7 @@ const repairs=rows.map(([slug,name,thought,result,logTitle,logText,goals,moves,x
  level:{cols:resonators.length>1?8:7,rows:resonators.length>1?8:7,types:6,mask:Array.from({length:resonators.length>1?64:49},(_,n)=>!resonators.some(r=>r.at===n))},ice:i<2?[]:i===2?[15,19,29,33]:[9,12,37,40,44,46],
  goals:goals.map(([type,target])=>({type,target,label:labels[type]})),target:goals.reduce((n,g)=>n+g[1],0),targetType:null,
  objective:text('Collect '+goals.map(([type,n])=>n+' '+labels[type].toLowerCase()).join(', ')+'. Charge every resonator.'+(i>=2?' Break all protective covers.':''),'Nasbírej '+goals.map(([type,n])=>n+' '+['chladicích náplní','energetických modulů','navigačních hranolů','slitinových dílů','výzkumných vzorků','živých semen'][type]).join(', ')+'. Nabij všechny rezonátory.'+(i>=2?' Rozbij všechny ochranné kryty.':''))}));
+repairs.forEach(r=>{r.ice=spacedResonatorCovers(r.ice,r.resonators,r.level);});
 export const relayDestination={title,key:'relayCompleted',system:'elysium',chapter:text('CHAPTER 07 / THE FADING WORLD','KAPITOLA 07 / ZHASÍNAJÍCÍ SVĚT'),image:'fading-relay',restoredImage:'fading-relay',dimInitial:true,repairs,logs:rows.map((r,i)=>({id:repairs[i].id+'-log',repair:repairs[i].id,title:r[4],text:r[5],source:text('Rescue expedition log','Deník záchranné výpravy'),time:title,unlockAt:121+i})),complete:text('Relay secured. The night garden awaits below.','Stanice zajištěna. Dole čeká Noční zahrada.'),clips:repairs.map(()=> 'inset(0)'),restorationMasks:repairs.map(r=>'radial-gradient(ellipse 42% 34% at '+r.x+'% '+r.y+'%, #000 35%, transparent 100%)')};
 text('Travel to the silent relay →','Vyrazit k retranslační stanici →');
 text('Resonators','Rezonátory');text('Match beside each ring to charge it. Blasts do not charge rings.','Spojuj kameny vedle každého kruhu. Výbuchy kruhy nenabíjejí.');

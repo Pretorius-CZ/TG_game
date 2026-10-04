@@ -1,3 +1,4 @@
+import {spacedResonatorCovers} from './resonators.js';
 export const refugeTranslations={};
 const text=(en,cs)=>(refugeTranslations[en]=cs,en);
 const title=text('The refuge arrival dock','Příletový dok Útočiště');
@@ -23,6 +24,7 @@ const repairs=rows.map(([slug,name,thought,result,logTitle,logText,goals,moves,x
  goals:goals.map(([type,target])=>({type,target,label:labels[type]})),target:goals.reduce((n,g)=>n+g[1],0),targetType:null,
  objective:text('Collect '+goals.map(([type,n])=>n+' '+labels[type].toLowerCase()).join(', ')+'. Break all protective covers.'+(resonators.length?' Charge every resonator.':''),'Nasbírej '+goals.map(([type,n])=>n+' '+csLabels[type]).join(', ')+'. Rozbij všechny ochranné kryty.'+(resonators.length?' Nabij všechny rezonátory.':''))};
 });
+repairs.forEach(r=>{r.ice=spacedResonatorCovers(r.ice,r.resonators,r.level);});
 export const refugeDock={title,key:'refugeDockCompleted',system:'night-sanctuary',chapter:text('CHAPTER 09 / THE REFUGE','KAPITOLA 09 / ÚTOČIŠTĚ'),hotspotOffset:0,image:'refuge-dock',restoredImage:'refuge-dock-restored',repairs,
  logs:rows.map((r,i)=>({id:repairs[i].id+'-log',repair:repairs[i].id,title:r[4],text:r[5],source:text('Refuge expedition log','Deník výpravy / Útočiště'),time:title,unlockAt:141+i})),
  complete:text('Arrival dock secured. The residential block is our next destination.','Příletový dok zajištěn. Dalším cílem je obytný blok.'),
