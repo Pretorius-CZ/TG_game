@@ -3,11 +3,11 @@ import assert from 'node:assert/strict';
 import {levelCatalog} from '../src/levelCatalog.js';
 import {legacyRules,reportVersions,filterRules,latestAttempts} from '../src/balanceReport.js';
 test('catalog follows chapter progression without losing or duplicating levels',()=>{
- assert.equal(levelCatalog.length,145);
- assert.equal(new Set(levelCatalog.map(r=>r.id)).size,145);
+ assert.equal(levelCatalog.length,150);
+ assert.equal(new Set(levelCatalog.map(r=>r.id)).size,150);
  const position=id=>levelCatalog.findIndex(r=>r.id===id);
  assert.ok(position('wreck-cargo')<position('refuge-dock-beacon'));
- assert.deepEqual(levelCatalog.map(r=>r.number),Array.from({length:145},(_,i)=>i+1));
+ assert.deepEqual(levelCatalog.map(r=>r.number),Array.from({length:150},(_,i)=>i+1));
 });
 test('version filter separates legacy data and preserves all outcomes',()=>{
  const rows=[{build:'v3',outcome:'quit'},{build:'v2'},{}];

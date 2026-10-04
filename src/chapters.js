@@ -12,7 +12,7 @@ const groups=[
  ['ring','The living ring','Živý prstenec',['beyond-rift'],'beyond-rift'],
  ['relay','The fading world','Zhasínající svět',['elysium-research','fading-relay'],'elysium-research'],
  ['night','The night garden','Noční zahrada',['night-glade','night-grove','night-root','night-sanctuary'],'night-glade'],
- ['refuge','The Refuge','Útočiště',['refuge-dock'],'refuge-dock'],
+ ['refuge','The Refuge','Útočiště',['refuge-dock','refuge-homes'],'refuge-dock'],
 ];
 export function chaptersFor(p){return groups.map(([id,en,cs,scenes,entry],index)=>{
  const sites=scenes.map(scene=>({scene,...destinations[scene]}));

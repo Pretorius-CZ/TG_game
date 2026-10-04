@@ -1103,3 +1103,6 @@ Návrh k diskuzi, neimplementováno: nespojovat lehčí následující pokus s k
 
 
 2026-10-04 — Na žádost uživatele ulehčen začátek: počítač 24 → 28 tahů, diagnostika 24 → 32. Cíle, kryty, rozměry i boosty zachované. Simulace fair-v3, 300 pokusů: počítač 206/300 (69 %, dříve 50 %), diagnostika 250/300 (83 %, dříve 35 %). Jde o automat, ne lidskou úspěšnost. Nahrazuje předchozí doporučení tyto limity zachovat. Změna lokální.
+
+
+2026-10-04 — Doplněn obytný blok Útočiště, levely 146–150, EN/CZ, vlastní grafika a deník. Dok vede přímo do nové lokace; katalog a kapitoly mají 150 miniher. Ukládání refugeHomesCompleted 0–5, kumulativní migrace supabase/023_refuge_homes.sql čeká na spuštění uživatelem. 143 testů, build a izolovaný mobilní průchod s reload/replay prošly. Podrobnosti docs/refuge-homes.md. Změny lokální, bez pushe.

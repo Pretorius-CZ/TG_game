@@ -1,6 +1,6 @@
 # Plán pokračování: levely 121–240 a epilog 241–250
 
-Zapsáno 2026-10-01 na žádost uživatele jako podklad pro další vývoj. Jde o obsahový návrh, nikoli implementované levely ani definitivní konfigurace. Původní návrh vycházel ze 120 unikátních miniher. Aktualizace 2026-10-01: Noční zahrada 121–140 je nyní implementovaná, první dávka Útočiště 141–145 také; katalog má 145 miniher, zbývající rozsah 146–250 je stále plán. Nový obsah navazuje na živou mapu, výzkum a rezonátory v poslední oblasti. Dosavadní číslování kapitol a názvy scén je před implementací nutné sladit s tímto návrhem.
+Zapsáno 2026-10-01 na žádost uživatele jako podklad pro další vývoj. Jde o obsahový návrh, nikoli implementované levely ani definitivní konfigurace. Původní návrh vycházel ze 120 unikátních miniher. Aktualizace 2026-10-01: Noční zahrada 121–140 je nyní implementovaná, první dávka Útočiště 141–145 také; katalog má 145 miniher, obytný blok 146–150 je implementovaný od 2026-10-04; katalog má nyní 150 miniher, zbývající rozsah 151–250 je stále plán. Nový obsah navazuje na živou mapu, výzkum a rezonátory v poslední oblasti. Dosavadní číslování kapitol a názvy scén je před implementací nutné sladit s tímto návrhem.
 
 ## Směr příběhu
 
