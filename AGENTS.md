@@ -634,3 +634,5 @@ Na přání uživatele nahrazeny výchozí syntetické boost efekty sedmi lokál
 2026-10-03: Přidán komiks relé → Noční zahrada, tři přeskočitelné EN/CZ panely, replay v relay-descent-log. Místní preference zhlédnutí podle účtu a resetRevision, bez změny cloudového schématu. 126 testů, build a mobilní průchod ověřeny. Podrobnosti docs/relay-story-comic.md.
 
 2026-10-03: Komiks návratu na Elysium spouštěný před první opravou výzkumu po garden6, replay v garden-heart-log. EN/CZ, skip, místní preference podle účtu/resetu, bez SQL. 127 testů, build a mobilní průchod ověřeny. Viz docs/research-story-comic.md.
+
+2026-10-04: Elysium → Trhlina má třípanelový komiks odletu, EN/CZ, skip/replay z posledního zápisu observatoře. Spouští se při prvním vstupu rift/rift-echo před opravami po obnovení všech sektorů; místní preference podle účtu/resetu, bez SQL. 131 testů/build/mobilní průchod ověřeny. Viz docs/echo-departure-comic.md.

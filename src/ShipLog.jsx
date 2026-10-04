@@ -2,7 +2,7 @@ import {useLanguage} from './i18n/Language.jsx';
 import React, { useEffect, useRef, useState } from 'react';
 import { logEntries } from './logEntries.js';
 
-export default function ShipLog({ completed, readIds, initialId, onRead, onClose, entries, onReplayEncounter, onReplayArrival, onReplayDeparture, onReplayJump, onReplayRift, onReplayRelay, onReplayResearch }) {
+export default function ShipLog({ completed, readIds, initialId, onRead, onClose, entries, onReplayEncounter, onReplayArrival, onReplayDeparture, onReplayJump, onReplayRift, onReplayRelay, onReplayResearch, onReplayEchoDeparture }) {
  const {t}=useLanguage();
   const items = entries ?? logEntries.map(e=>({...e,available:e.unlockAt<=completed}));
   const availableCount = items.filter(e=>e.available).length;
@@ -25,6 +25,7 @@ export default function ShipLog({ completed, readIds, initialId, onRead, onClose
         <span className="log-number">{t("ENTRY ")}{t(String(entry.unlockAt).padStart(2, '0'))}</span>
         <h3>{t(entry.title)}</h3><p className="log-text">{t(entry.text)}</p>
         <div className="log-signature">{t(entry.source === 'Personal log' ? '— Pilot, supply vessel' : '— Onboard archive / fragment recovered')}</div>
+        {entry.id==='elysium-observatory-beacon-log'&&onReplayEchoDeparture&&<button className="primary" onClick={onReplayEchoDeparture}>{t('Replay the Elysium departure')}</button>}
         {entry.id==='garden-heart-log'&&onReplayResearch&&<button className="primary" onClick={onReplayResearch}>{t('Replay the research arrival')}</button>}
         {entry.id==='relay-descent-log'&&onReplayRelay&&<button className="primary" onClick={onReplayRelay}>{t('Replay the descent story')}</button>}
         {entry.id==='rift-arrival-log'&&onReplayRift&&<button className="primary" onClick={onReplayRift}>{t('Replay the Rift story')}</button>}

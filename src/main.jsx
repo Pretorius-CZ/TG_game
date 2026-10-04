@@ -1,3 +1,5 @@
+import EchoDepartureStory from './EchoDepartureStory.jsx';
+import {echoDepartureReady,shouldShowEchoDeparture} from './echoDepartureStory.js';
 import ResearchStory from './ResearchStory.jsx';
 import RelayStory from './RelayStory.jsx';
 import {storySeenKey,hasSeenStory,rememberStory} from './storySeen.js';
@@ -92,6 +94,12 @@ function App() {
   const [departureStory,setDepartureStory]=useState(false);
   const [jumpStory,setJumpStory]=useState(false);
   const [riftStoryReplay,setRiftStoryReplay]=useState(false);
+  const [echoDeparture,setEchoDeparture]=useState(null);
+  const echoDepartureKey=storySeenKey('elysium-departure',user?.id||'guest',progress.resetRevision??0);
+  useEffect(()=>{
+    if(!welcome&&shouldShowEchoDeparture(progress)&&!hasSeenStory(echoDepartureKey))setEchoDeparture('arrival');
+  },[welcome,progress.scene,progress.riftEchoCompleted,progress.elysiumDockCompleted,progress.elysiumCoreCompleted,progress.elysiumRingCompleted,progress.elysiumHomesCompleted,progress.elysiumGardenCompleted,progress.elysiumObservatoryCompleted,echoDepartureKey]);
+  function finishEchoDeparture(){if(echoDeparture==='arrival')rememberStory(echoDepartureKey);setEchoDeparture(null);}
   const [researchStory,setResearchStory]=useState(null);
   const researchStoryKey=storySeenKey('research-return',user?.id||'guest',progress.resetRevision??0);
   useEffect(()=>{
@@ -124,7 +132,7 @@ function App() {
   const [inspected, setInspected] = useState(0);
   const [showList, setShowList] = useState(false);
   const [celebration, setCelebration] = useState(null);
-  useGameUpdate(saveStatus, Boolean(playing || launching || transition || celebration || bubble != null || chaptersOpen || mapOpen || logView || encounter || arrivalReplay || departureStory || jumpStory || riftStoryReplay || relayStory || researchStory));
+  useGameUpdate(saveStatus, Boolean(playing || launching || transition || celebration || bubble != null || chaptersOpen || mapOpen || logView || encounter || arrivalReplay || departureStory || jumpStory || riftStoryReplay || relayStory || researchStory || echoDeparture));
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
   const [attempt, setAttempt] = useState(0);
@@ -253,6 +261,7 @@ function App() {
       </>)}
     </div></dialog>
     {t(bubble != null && <RepairBubble repair={repairs[bubble]} replay={bubble < completed} sceneRef={sceneRef} onComplete={()=>{const repair=repairs[bubble];setBubble(null);finishLesson(repair);}} onClose={() => {setBubble(null);requestAnimationFrame(() => {if(opener.current?.isConnected && !opener.current.closest('dialog:not([open])')) opener.current.focus();else mainAction.current?.focus();});}} onPlay={() => {setPlaying(repairs[bubble]);setBubble(null);}}/>)}
+    {echoDeparture&&echoDepartureReady(progress)&&<EchoDepartureStory replay={echoDeparture==='replay'} onFinish={finishEchoDeparture}/>}
     {researchStory&&progress.gardenCompleted===6&&<ResearchStory replay={researchStory==='replay'} onFinish={finishResearchStory}/>}
     {relayStory&&progress.relayCompleted===4&&<RelayStory replay={relayStory==='replay'} onFinish={finishRelayStory}/>}
     {riftStoryReplay&&progress.riftCrossed===1&&<RiftStory replay onFinish={()=>setRiftStoryReplay(false)}/>}
@@ -260,7 +269,7 @@ function App() {
     {departureStory&&launchDone&&<DepartureStory onFinish={()=>setDepartureStory(false)}/>}
     {arrivalReplay&&progress.elysiumArrival===1&&<ElysiumArrival onFinish={()=>setArrivalReplay(false)}/>}
     {encounter&&caretakerReady(progress)&&<CaretakerEncounter onFinish={finishEncounter}/>}
-    {t(logView && <ShipLog onReplayResearch={()=>{setLogView(null);setResearchStory('replay');}} onReplayRelay={()=>{setLogView(null);setRelayStory('replay');}} onReplayRift={()=>{setLogView(null);setRiftStoryReplay(true);}} onReplayJump={()=>{setLogView(null);setJumpStory(true);}} onReplayDeparture={()=>{setLogView(null);setDepartureStory(true);}} onReplayArrival={()=>{setLogView(null);setArrivalReplay(true);}} onReplayEncounter={()=>{setLogView(null);setEncounter(true);}} entries={archive} completed={completed} readIds={readIds} initialId={logView.id} onRead={id => setReadIds(ids => ids.includes(id) ? ids : [...ids, id])} onClose={closeLog}/>)}
+    {t(logView && <ShipLog onReplayEchoDeparture={()=>{setLogView(null);setEchoDeparture('replay');}} onReplayResearch={()=>{setLogView(null);setResearchStory('replay');}} onReplayRelay={()=>{setLogView(null);setRelayStory('replay');}} onReplayRift={()=>{setLogView(null);setRiftStoryReplay(true);}} onReplayJump={()=>{setLogView(null);setJumpStory(true);}} onReplayDeparture={()=>{setLogView(null);setDepartureStory(true);}} onReplayArrival={()=>{setLogView(null);setArrivalReplay(true);}} onReplayEncounter={()=>{setLogView(null);setEncounter(true);}} entries={archive} completed={completed} readIds={readIds} initialId={logView.id} onRead={id => setReadIds(ids => ids.includes(id) ? ids : [...ids, id])} onClose={closeLog}/>)}
     {t(playing && <MiniGame key={playing.id} repair={playing} onQuit={() => {setPlaying(null); mainAction.current?.focus();}} onWin={()=>{if(playing.id===finaleRepair.id){if(allSystemsReady){setFinaleDone(true);setPlaying(null);sound('repair');}}else finishLesson();}}/>)}
     <span className="sr-only" role="status" aria-live="polite">{t(exploring ? 'Exploring the star system.' : corridor ? 'Inside the corridor. Emergency lighting only.' : airlock ? 'Inside the airlock.' : inside ? 'Inside the cockpit.' : 'Outside the damaged ship.')} {t(completed)}{t(" of ")}{t(repairs.length)}{t(" cockpit repairs complete.")}</span>
   </main>;
