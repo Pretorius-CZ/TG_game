@@ -643,3 +643,8 @@ Na přání uživatele nahrazeny výchozí syntetické boost efekty sedmi lokál
 2026-10-04: Pojistka cílových barev zesílena: nulová dostupná zásoba znamená doplnění při nejbližším pádu, při 1–2 kamenech max.6 jiných nových kamenů před dalším. Kryté kameny se nepočítají jako dostupné. Analytika fair-refill-v3, lokální.
 
 2026-10-04: BalanceDashboard automaticky načítá cloudový report každých 30 s a při návratu na kartu, ukazuje čas načtení. Dříve se obnovovala jen přítomnost hráčů. Živé ověření: 533 záznamů, všech pět night-* úkolů má novou výhru. Build prošel; oprava zatím lokální.
+
+2026-10-04: Balance přehled řazen podle kapitol s čísly levelů, samostatné poslední pokusy a filtr zaznamenané verze pravidel. Kokpit ponechán na 14/16/24/24 po kontrolní simulaci 300 pokusů na level; viz docs/balance-review-2026-10-04.md. Audit distribučních assetů: scripts/audit-assets.mjs a docs/distribution-assets-audit.md. 140 testů a build prošly, přehled ověřen v izolovaném prohlížeči na 390 px. Změny zatím lokální.
+
+
+2026-10-04 — Na žádost uživatele ulehčen začátek: počítač 24 → 28 tahů, diagnostika 24 → 32. Cíle, kryty, rozměry i boosty zachované. Simulace fair-v3, 300 pokusů: počítač 206/300 (69 %, dříve 50 %), diagnostika 250/300 (83 %, dříve 35 %). Jde o automat, ne lidskou úspěšnost. Nahrazuje předchozí doporučení tyto limity zachovat. Změna lokální.

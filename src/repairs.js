@@ -24,7 +24,7 @@ export const repairs = [
     description: 'Bring the central computer back online. Navigation and communications will come later.',
     result: 'The central display is online. Ship systems can now be checked.',
     lesson: 'Back online', objective: 'Collect 24 energy crystals and break all 4 protective covers to reboot the flight computer.',
-    target: 24, targetType: 1, moves: 24, ice: [15,19,29,33], action: 'Boot the computer',
+    target: 24, targetType: 1, moves: 28, ice: [15,19,29,33], action: 'Boot the computer',
     level: { rows: 7, cols: 7, types: 6 },
   },
   {
@@ -33,7 +33,7 @@ export const repairs = [
     description: 'Reconnect the side displays and run a damage scan. Find out what the ship needs next.',
     result: 'Damage scan complete. Cockpit restored; hull, living quarters, supplies, navigation, fuel and engines still need repairs.',
     lesson: 'What lies ahead', objective: 'Collect 24 fuel cells and 24 blue comets, and break all 4 protective covers.',
-    target: 48, targetType: null, moves: 24, ice: [9,12,37,40], goals: [{type:0,target:24,label:'Fuel cells'},{type:2,target:24,label:'Blue comets'}], action: 'Run diagnostics',
+    target: 48, targetType: null, moves: 32, ice: [9,12,37,40], goals: [{type:0,target:24,label:'Fuel cells'},{type:2,target:24,label:'Blue comets'}], action: 'Run diagnostics',
     level: { rows: 8, cols: 7, types: 6 },
   },
 ];

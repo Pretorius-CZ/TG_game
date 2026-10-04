@@ -1,3 +1,4 @@
+import {goalRefillRandom} from '../src/goalRefill.js';
 import {repairs} from '../src/repairs.js';
 import {airlockRepairs} from '../src/airlockRepairs.js';
 import {navigationRepairs} from '../src/navigationRepairs.js';
@@ -16,13 +17,16 @@ import {moveBudget,initialIce,iceMatches,resolveIce,makeIceBoard,ensurePlayableB
 import {goalsFor,collectGoals,goalsComplete} from '../src/objectives.js';
 import {crewRepairs} from '../src/crewRepairs.js';
 const samples=Number(process.argv[2]??300);
+const selected=process.argv.find(a=>a.startsWith('--levels='))?.slice(9).split(',');
+const fair=process.argv.includes('--fair');
 for(const repair of [...airlockRepairs,...repairs,...navigationRepairs,...crewRepairs,...galleyRepairs,...engineRepairs,...exteriorRepairs,...mineRepairs,...iceRepairs,...wreckRepairs,...havenRepairs,...Object.values(asterDestinations).flatMap(s=>s.repairs),elysiumRoute,...Object.values(elysiumDestinations).flatMap(s=>s.repairs),...Object.values(riftDestinations).flatMap(s=>s.repairs)]){
-  const result={name:repair.name,id:repair.id,moves:moveBudget(repair),samples};
+  if(selected&&!selected.includes(repair.id))continue;
+  const result={policy:fair?'fair-v3':'uniform',name:repair.name,id:repair.id,moves:moveBudget(repair),samples};
   for(const strategy of ['targeted']){
     let wins=0,left=0;
     for(let trial=0;trial<samples;trial++){
       let seed=1701+trial;const random=()=>((seed=(seed*1664525+1013904223)>>>0)/4294967296);
-      const goals=goalsFor(repair),cols=repair.level.cols;
+      const goals=goalsFor(repair),cols=repair.level.cols,history={};
       let counts=goals.map(()=>0),ice=initialIce(repair),board=makeIceBoard(repair.level,ice,random);
       for(let turn=0;turn<moveBudget(repair);turn++){
         board=ensurePlayableBoard(board,repair.level,ice,random).board;
@@ -41,7 +45,7 @@ for(const repair of [...airlockRepairs,...repairs,...navigationRepairs,...crewRe
         let hit=move.a===move.b?[move.a]:iceMatches(board,cols,ice),cascade=0;
         while(hit.length){
           if(++cascade>40)throw Error('Cascade safety limit');
-          const resolved=wave(board,ice,repair.level,{random,activate:move.a===move.b&&cascade===1?move.a:null,preferred:cascade===1?[move.b,move.a]:[]});
+          const resolved=wave(board,ice,repair.level,{random,...(fair?{refillRandom:collected=>goalRefillRandom(repair.level,goals,collectGoals(goals,counts,board,collected),board,ice,collected,history,random)}:{}),activate:move.a===move.b&&cascade===1?move.a:null,preferred:cascade===1?[move.b,move.a]:[]});
           counts=collectGoals(goals,counts,board,resolved.collected);board=resolved.board;ice=resolved.ice;hit=iceMatches(board,cols,ice);
         }
         if(goalsComplete(goals,counts)&&!ice.length){wins++;left+=moveBudget(repair)-turn-1;break;}

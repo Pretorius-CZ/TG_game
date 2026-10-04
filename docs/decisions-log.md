@@ -1097,3 +1097,9 @@ Návrh k diskuzi, neimplementováno: nespojovat lehčí následující pokus s k
 
 
 2026-10-04: Ověření živé analytiky po hlášení chybějící Noční zahrady: Supabase přehled nyní obsahuje 533 záznamů oproti 509 při předchozí kontrole; všech pět night-* levelů má navíc jednu výhru. Potvrzená chyba UI: pouze přítomnost hráčů měla periodickou obnovu, tabulka pokusů se načítala při otevření nebo tlačítkem. Lokálně přidána tichá obnova reportu po 30 s a při focus/visibility návratu, čas posledního načtení, ochrana souběžných požadavků a zachování místního/importovaného pohledu bez přepsání automatickou cloudovou obnovou. Data ani konfigurace levelů tím nejsou změněny.
+
+
+2026-10-04 — Statistiky mají pořadí podle kapitol, poslední pokusy a filtr verze pravidel. Kontrolní simulace kokpitu neodůvodňuje další snížení tahů; limity zachovány. Výsledky a další postup: docs/balance-review-2026-10-04.md. Připraven reprodukovatelný audit public assetů: scripts/audit-assets.mjs.
+
+
+2026-10-04 — Na žádost uživatele ulehčen začátek: počítač 24 → 28 tahů, diagnostika 24 → 32. Cíle, kryty, rozměry i boosty zachované. Simulace fair-v3, 300 pokusů: počítač 206/300 (69 %, dříve 50 %), diagnostika 250/300 (83 %, dříve 35 %). Jde o automat, ne lidskou úspěšnost. Nahrazuje předchozí doporučení tyto limity zachovat. Změna lokální.

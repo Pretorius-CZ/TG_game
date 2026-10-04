@@ -8,3 +8,5 @@
 .table-wrap th,.table-wrap td{padding:6px 9px;font-size:13px;line-height:1.25}
 .table-wrap td small{font-size:10px;line-height:1.2;margin-top:2px}
 .controls label{display:flex;align-items:center;gap:6px}
+
+.recent-attempts{margin:22px 0;padding:14px;border:1px solid #426571;border-radius:12px;background:#122431}.recent-attempts h2{margin:0;font-size:18px}.recent-attempts p{font-size:12px}.recent-wrap{overflow:auto}.recent-wrap th,.recent-wrap td{padding:5px 9px;font-size:12px}
