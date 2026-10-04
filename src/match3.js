@@ -48,7 +48,7 @@ export function makeBoard(level = tutorial, random = Math.random, maxAttempts = 
   }
   throw new Error('Level mask cannot produce a playable board.');
 }
-export function refill(board, cleared, level = tutorial, random = Math.random) {
+export function refill(board, cleared, level = tutorial, random = Math.random, pinned = []) {
   const next = [...board]; const removed = new Set(cleared);
   for (let col = 0; col < level.cols; col++) {
     let segment = [];
@@ -60,7 +60,8 @@ export function refill(board, cleared, level = tutorial, random = Math.random) {
     }
     for (let row = 0; row < level.rows; row++) {
       const i = row * level.cols + col;
-      if (board[i] == null) fill(); else segment.push(i);
+      // A newly created reward separates gravity segments for this wave only.
+      if (board[i] == null || pinned.includes(i)) fill(); else segment.push(i);
     }
     fill();
   }

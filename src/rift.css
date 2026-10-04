@@ -18,3 +18,5 @@
 @media(prefers-reduced-motion:reduce){.rift-chart *{scroll-behavior:auto}}
 
 .rift-site .hotspot{width:136px;padding:8px}.rift-site .hotspot-label{width:120px;font-size:11px;line-height:1.4}
+@media(max-width:430px){.rift-site .hotspot{width:100px;padding:5px}.rift-site .hotspot-label{width:90px;font-size:10px}}
+@media(max-width:350px){.rift-site .hotspot{width:84px}.rift-site .hotspot-label{width:80px}}

@@ -41,7 +41,7 @@ export const riftDestinations=Object.fromEntries(definitions.map((s,index)=>{
   goals:goals.map(([type,target])=>({type,target,label:labels[type]})),target:goals.reduce((n,g)=>n+g[1],0),targetType:null,
   objective:`Collect ${goals.map(([type,target])=>`${target} ${labels[type].toLowerCase()}`).join(', ')}.${i>1?' Break all protective covers.':''}`
  }));
- const positions=[[[20,47],[50,52],[80,49],[50,55]],[[20,30],[80,40],[22,58],[80,60]],[[20,28],[80,32],[50,60],[50,38]]][index];
+ const positions=[[[20,47],[50,40],[80,49],[50,66]],[[20,30],[80,40],[22,58],[80,60]],[[20,28],[80,32],[50,60],[50,38]]][index];
  repairs.forEach((r,i)=>{[r.x,r.y]=positions[i];});
  const logs=s.tasks.map((r,i)=>({id:`${repairs[i].id}-log`,repair:repairs[i].id,title:r[4],text:r[5],source,time:s.title,unlockAt:97+index*4+i}));
  return [s.id,{title:s.title,key:s.key,image:s.image,complete:s.complete,system:'rift',chapter,repairs,logs,dimInitial:index!==2,

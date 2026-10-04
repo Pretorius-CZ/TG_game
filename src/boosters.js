@@ -51,9 +51,10 @@ export function wave(board,ice,level,{enabled=true,activate=null,preferred=[],hi
   const found=hit??(activate==null?matches(board,level.cols):blast(board,level.cols,[activate]));
   const created=enabled&&activate==null&&hit==null?rewards(board,level.cols,ice,preferred):[];
   const protectedCells=[...ice,...created.map(r=>r.at)];
-  const collected=found.filter(i=>!protectedCells.includes(i)&&!isBooster(board[i]));
+  // Creating a charge collects its original colored piece, but retains the reward.
+  const collected=found.filter(i=>!ice.includes(i)&&!isBooster(board[i]));
   const seeded=[...board];created.forEach(r=>seeded[r.at]=r.type);
-  const resolved=resolveIce(seeded,found,protectedCells,level,random);
+  const resolved=resolveIce(seeded,found,protectedCells,level,random,created.map(r=>r.at));
   return {board:resolved.board,ice:ice.filter(i=>!found.includes(i)),collected,
     hit:found,created};
 }

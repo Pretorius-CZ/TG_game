@@ -12,9 +12,10 @@ export default function useSceneFit(key){
     const header=shell.querySelector('.masthead')?.getBoundingClientRect().height||52;
     const footer=shell.querySelector('footer')?.getBoundingClientRect().height||30;
     const available=Math.max(200,viewport-header-footer-12);
-    game.style.width=width+'px';game.style.maxWidth='none';
+    game.style.width=width+'px';game.style.maxWidth='none';game.style.zoom='1';
     const scale=Math.min(1,available/game.offsetHeight);
-    game.style.zoom=String(scale);area.style.width=(width*scale)+'px';
+    // Fit the whole scene, including the sibling HUD, as one unit.
+    area.style.zoom=String(scale);area.style.width=width+'px';
    });
   }
   const observer=new ResizeObserver(fit);const game=area.querySelector('.game');if(game)observer.observe(game);

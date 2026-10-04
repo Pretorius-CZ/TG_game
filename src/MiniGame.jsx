@@ -195,7 +195,8 @@ export default function MiniGame({ onWin, onQuit, repair }) {
         await wait(detonations.length?620:320); if (!alive.current || token!==run.current) return;
         totals = collectGoals(goals, totals, next, resolved.collected); setCounts(totals);
         // Animate the cells at or above a cleared tile in each column.
-        const affected = next.map((_, i) => i).filter(i => next[i] != null && found.some(j => j % level.cols === i % level.cols && j >= i && Array.from({length:(j-i)/level.cols+1}, (_,n) => next[i+n*level.cols]).every(value => value != null)));
+        const anchors=new Set(resolved.created.map(r=>r.at));
+        const affected = next.map((_, i) => i).filter(i => next[i] != null && !anchors.has(i) && found.some(j => j % level.cols === i % level.cols && j >= i && Array.from({length:(j-i)/level.cols+1}, (_,n) => next[i+n*level.cols]).every((value,n) => value != null&&!anchors.has(i+n*level.cols))));
         setBlastFx(null);next=resolved.board;frozen=resolved.ice;setIce(frozen);setBoard(next); setCleared([]); setFalling(affected);
         await wait(260); if (!alive.current || token!==run.current) return;
         setFalling([]);
