@@ -1106,3 +1106,5 @@ Návrh k diskuzi, neimplementováno: nespojovat lehčí následující pokus s k
 
 
 2026-10-04 — Doplněn obytný blok Útočiště, levely 146–150, EN/CZ, vlastní grafika a deník. Dok vede přímo do nové lokace; katalog a kapitoly mají 150 miniher. Ukládání refugeHomesCompleted 0–5, kumulativní migrace supabase/023_refuge_homes.sql čeká na spuštění uživatelem. 143 testů, build a izolovaný mobilní průchod s reload/replay prošly. Podrobnosti docs/refuge-homes.md. Změny lokální, bez pushe.
+
+2026-10-05 — Oprava čitelnosti cílů miniher: ikona, celý počet a progress jsou pod sebou v každé kartě. Pět cílů již nemačká text vedle ikon. Vyšší kontrast, ikony 26 px; izolovaná kontrola počtů na 320/390/540 px prošla. Lokální změna bez pushe.

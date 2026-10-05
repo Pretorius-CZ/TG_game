@@ -19,6 +19,14 @@
 .puzzle-area{flex:1;min-height:0;container-type:size;display:flex;align-items:center;justify-content:center}.puzzle-area[hidden]{display:none}.mini-dialog .puzzle-area .board{width:min(100cqw,calc(100cqh * var(--ratio)));aspect-ratio:var(--ratio);grid-template-rows:repeat(var(--rows),minmax(0,1fr));padding:5px;gap:3px;flex-shrink:0}.mini-dialog .puzzle-area .cell{aspect-ratio:auto;min-height:0;padding:2px}.mini-dialog .puzzle-area .gem{min-height:0;min-width:0}.mini-dialog .puzzle-area .gem img{max-height:100%;max-width:100%}
 .mini-dialog>.preview-complete{flex-shrink:0;min-height:28px;padding:4px 8px;margin:0;font-size:10px}.mini-dialog>.preview-complete small{font-size:8px}.mini-dialog.mini-result{height:auto}.mini-dialog.mini-result .objective-list{display:none}.mini-dialog .quit-panel{z-index:12;overflow:auto}.mini-dialog .puzzle-announcement{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
 @media(max-width:350px){.mini-dialog[open]{padding:8px;gap:6px}.mini-dialog .mini-header h2{font-size:19px}.mini-dialog .objective-list .charge{grid-template-columns:20px 1fr;padding:4px;gap:3px}.mini-dialog .objective-list .objective-icon{width:19px;height:19px}.mini-dialog .objective-list strong{font-size:10px}}
+/* Stack icon, count and bar: five objectives must not truncate their targets. */
+.mini-dialog .objective-list .charge{grid-template-columns:minmax(0,1fr);grid-template-rows:26px auto 3px;gap:4px;padding:6px 3px;text-align:center;min-width:0;background:#153040;border-color:#65879988}
+.mini-dialog .objective-list .charge>span{grid-row:1;grid-column:1}
+.mini-dialog .objective-list .objective-icon{width:26px;height:26px}
+.mini-dialog .objective-list strong{grid-row:2;grid-column:1;font:600 12px/1.2 system-ui,sans-serif;color:#fff3d5;letter-spacing:0;white-space:nowrap}
+.mini-dialog .objective-list progress{grid-row:3;grid-column:1;width:100%;min-width:0}
+.mini-dialog .objective-list .resonator-help-button{grid-row:1;grid-column:1;justify-self:center;width:30px;height:26px;min-height:0;padding:0;font-size:16px;color:#b7fff3}
+@media(max-width:350px){.mini-dialog .objective-list{gap:3px}.mini-dialog .objective-list strong{font-size:11px}}
 @media(max-height:650px){.chart-heading h1{font-size:20px}.chart-node strong{font-size:12px}.chart-node small{font-size:8px}.chart-node-art{max-height:52px;width:58px}.chart-status{font-size:9px}.play-area .game.compact-chart{gap:4px}}
 /* Destinations float along orbital arcs, not inside cards. */
 .chart-stars{overflow:hidden;background:radial-gradient(ellipse at 8% 65%,#793c3855,transparent 60%),radial-gradient(ellipse at 95% 20%,#194d6155,transparent 60%),radial-gradient(circle at 18% 27%,#c2e7ff 0 1px,transparent 1.5px),radial-gradient(circle at 72% 43%,#c2e7ff 0 1px,transparent 1.5px);background-size:auto,auto,67px 91px,109px 137px}
