@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {summarizeAttempts,saveAttempt,readAttempts} from '../src/balanceTracking.js';
 import {levelCatalog} from '../src/levelCatalog.js';
 test('catalog counts every unique playable puzzle, including final launch and approach',()=>{
- assert.equal(levelCatalog.length,150);assert.equal(new Set(levelCatalog.map(r=>r.id)).size,150);
+ assert.equal(levelCatalog.length,155);assert.equal(new Set(levelCatalog.map(r=>r.id)).size,155);
  assert.ok(levelCatalog.some(r=>r.id==='launch-check'));assert.ok(levelCatalog.every(r=>r.moves>0));
 });
 test('balance separates help, quits and faults and avoids inventing old remaining moves',()=>{

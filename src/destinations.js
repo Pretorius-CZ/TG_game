@@ -1,3 +1,4 @@
+import {refugeMedical} from './refugeMedical.js';
 import {refugeHomes} from './refugeHomes.js';
 import {refugeDock} from './refuge.js';
 import {sanctuaryDestination} from './nightSanctuary.js';
@@ -96,6 +97,7 @@ export const destinations={
  'night-sanctuary':sanctuaryDestination,
  'refuge-dock':refugeDock,
  'refuge-homes':refugeHomes,
+ 'refuge-medical':refugeMedical,
  'night-glade':nightDestination,
  'fading-relay':relayDestination,
  'elysium-research':researchDestination,
