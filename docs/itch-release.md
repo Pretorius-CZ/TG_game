@@ -6,7 +6,14 @@ hodnocení hvězdami. Plný ZIP má přibližně 152 MiB (154 MiB rozbalený,
 
 ## Sestavení
 
-Spustit `npm run build:itch`. Výstup je `releases/beyond-the-signal-itch.zip`.
+Spustit `npm run build:itch`. Číslo vydání spravuje `itch-release.json`.
+Aktuální vydání je **0.1.1**; výstup `releases/beyond-the-signal-itch-v0.1.1.zip`.
+Současně se aktualizuje kopie `releases/beyond-the-signal-itch.zip` pro kompatibilitu.
+Balíček obsahuje `release.json` s číslem vydání, poznámkami a zdrojovým commitem.
+Číslování: poslední číslo pro opravy (0.1.1 → 0.1.2), prostřední pro nové
+kapitoly či výrazné funkce (0.2.0), 1.0.0 pro dokončené první vydání.
+První nečíslovaný ZIP považujeme za 0.1.0. Technické `version.json` pro
+automatické aktualizace zůstává samostatné.
 Samostatný režim Vite používá `dist-itch`; běžný webový build se nemění.
 ZIP má index.html v kořeni, relativní cesty a neobsahuje administrátorskou
 stránku, prototypy ani doprovodné textové soubory.
@@ -38,4 +45,12 @@ balíček itch.io neaktualizuje.
 147 unit testů, běžný i itch build a kontrola CRC celého ZIP prošly.
 Produkční test v izolovaném iframe ověřil relativní cesty v podadresáři,
 skutečný tah, obnovu místního postupu a skrytí přihlášení/administrace.
-Samotný upload a chování na skutečném itch.io zatím nejsou ověřené.
+Uživatel potvrdil spuštění původního balíčku na itch.io. Nové vydání se
+projeví až po nahrání nového ZIP; samotný push na GitHub nestačí.
+
+## 0.1.1 — 2026-10-06
+
+- Posílená dostupnost cílových barev, lepší úvodní desky.
+- Opravené překryvy názvů místností a značka nedokončené Zkoušky systémů.
+- Nové výbuchy Pulse/Nova založené na skutečné nahrávce.
+- Herní zdrojový commit 660246a; 150 testů a webový build prošly.
