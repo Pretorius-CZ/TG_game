@@ -1,0 +1,7 @@
+.rating-stars{display:inline-flex;align-items:center;justify-content:center;gap:3px;color:#ffdc9a;line-height:1;vertical-align:middle;flex-shrink:0}
+.rating-stars svg{width:13px;height:13px;fill:currentColor;stroke:#ffe6b8;stroke-width:1;filter:drop-shadow(0 0 3px #eab54f66)}
+.rating-stars .empty{fill:#152d3b;stroke:#78919f;filter:none}
+.hotspot .rating-stars{display:flex;margin:3px auto 0;width:max-content;padding:3px 5px;border-radius:9px;background:#081b28eb;border:1px solid #6d869344}
+.hero-rating{display:flex;gap:12px;margin:15px auto 12px}.hero-rating svg{width:40px;height:40px}.hero-rating svg:nth-child(2){width:48px;height:48px}
+.chapter-stars{display:block;color:#efd099;font:11px/1.4 system-ui,sans-serif;margin-top:3px;white-space:nowrap}
+.mini-dialog .rating-note{font:12px/1.4 system-ui,sans-serif;color:#c9d9df;margin:8px 0 12px}

@@ -1,3 +1,4 @@
+import {normalizeStars,mergeStars} from './starRating.js';
 import {refugeHomes} from './refugeHomes.js';
 import {refugeDock} from './refuge.js';
 import {sanctuaryDestination} from './nightSanctuary.js';
@@ -78,11 +79,12 @@ export function normalizeProgress(value={}){
  if(asterScenes.includes(save.scene)&&!canVisitAster(save,save.scene))save.scene=save.jumpDone?'system2':save.launchDone?'system':'exterior';
  if(elysiumScenes.includes(save.scene)&&!canVisitElysium(save,save.scene))save.scene=save.jumpDone?'system2':save.launchDone?'system':'exterior';
  if(riftScenes.includes(save.scene)&&!canVisitRift(save,save.scene))save.scene=canVisitElysium(save,'elysium')?'elysium':save.jumpDone?'system2':save.launchDone?'system':'exterior';
+ save.stars=normalizeStars({...save,stars:value?.stars});
  return save;
 }
 export function mergeProgress(local,stored){
  if((local.resetRevision??0)!==(stored.resetRevision??0))return normalizeProgress((local.resetRevision??0)>(stored.resetRevision??0)?local:stored);
- const merged={...local,readIds:[...local.readIds,...stored.readIds],finaleDone:local.finaleDone||stored.finaleDone,launchDone:local.launchDone||stored.launchDone,scannerInstalled:local.scannerInstalled||stored.scannerInstalled,jumpDone:local.jumpDone||stored.jumpDone};
+ const merged={...local,stars:mergeStars(local.stars,stored.stars),readIds:[...local.readIds,...stored.readIds],finaleDone:local.finaleDone||stored.finaleDone,launchDone:local.launchDone||stored.launchDone,scannerInstalled:local.scannerInstalled||stored.scannerInstalled,jumpDone:local.jumpDone||stored.jumpDone};
  for(const key of Object.keys(limits))merged[key]=Math.max(local[key]??0,stored[key]??0);
  return normalizeProgress(merged);
 }

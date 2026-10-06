@@ -7,6 +7,7 @@ import {supabase} from './supabase.js';
 const local={getItem:key=>window.localStorage.getItem(key),setItem:(key,value)=>window.localStorage.setItem(key,value)};
 function validateCloudProgress(current,data){
     if(data?.version!==1)throw new Error('Unsupported cloud save');
+    if((data.resetRevision??0)===(current.resetRevision??0)&&Object.entries(current.stars??{}).some(([id,n])=>n>(data.stars?.[id]??1)))throw new Error('Star rating migration required');
     if((data.resetRevision??0)===(current.resetRevision??0)&&(current.airlockCompleted??0)>(data.airlockCompleted??0))throw new Error('Linear chapter migration required');
     if((data.resetRevision??0)===(current.resetRevision??0) && current.launchDone && !data.launchDone)throw new Error('Departure migration required');
     if((data.resetRevision??0)===(current.resetRevision??0)&&((current.mineCompleted??0)>(data.mineCompleted??0)||(current.scannerInstalled&&!data.scannerInstalled)))throw new Error('Exploration migration required');

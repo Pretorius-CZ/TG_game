@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 const version = `${Date.now()}-${process.env.GITHUB_SHA?.slice(0,12)||'local'}`;
 const artwork = text => text.replace(/\.(webp|png|jpg|jpeg|svg)(?![\w?])/g,`.$1?v=${version}`);
-export default defineConfig({base:'./',define:{__GAME_VERSION__:JSON.stringify(version)},plugins:[{
+export default defineConfig(({mode})=>({base:'./',define:{__GAME_VERSION__:JSON.stringify(version)},plugins:[{
  name:'game-version',
  renderChunk(code){return {code:artwork(code),map:null};},
  generateBundle(_,bundle){
@@ -11,4 +11,4 @@ export default defineConfig({base:'./',define:{__GAME_VERSION__:JSON.stringify(v
   }
   this.emitFile({type:'asset',fileName:'version.json',source:JSON.stringify({version})});
  }
-}],build:{rollupOptions:{input:{game:'index.html',balance:'balance.html'}}}});
+}],build:{outDir:mode==='itch'?'dist-itch':'dist',rollupOptions:{input:mode==='itch'?{game:'index.html'}:{game:'index.html',balance:'balance.html'}}}}));

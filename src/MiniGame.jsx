@@ -1,3 +1,5 @@
+import Stars,{useStars} from './Stars.jsx';
+import {earnedStars} from './starRating.js';
 import {goalRefillRandom} from './goalRefill.js';
 import {useAccount} from './Account.jsx';
 import MechanicTutorial from './MechanicTutorial.jsx';
@@ -23,6 +25,7 @@ import {blast,isBooster,boostersEnabled,wave} from './boosters.js';
 
 export default function MiniGame({ onWin, onQuit, repair }) {
  const {t,language}=useLanguage();
+ const {award,stars}=useStars();
  const {user}=useAccount();
  const tutorialKey=`beyond-signal-tutorials-v1:${user?.id||'guest'}`;
   const level = repair.level;
@@ -272,7 +275,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
         </svg>)}
       </div>
 
-    </div> : <div className="win-panel" ref={resultPanel} tabIndex={-1}><span className="win-spark">{t("✦")}</span><h3>{t("Ready to repair.")}</h3><p>{t("You have completed the objective.")}<br/>{t("Now bring your ship back to life.")}</p><button className="primary" disabled={busy} onClick={()=>{recordResult("won");onWin();}}>{t(repair.action)} <span>{t("→")}</span></button></div>)}
+    </div> : <div className="win-panel" ref={resultPanel} tabIndex={-1}><Stars hero value={earnedStars(moveBudget(repair),moves)}/><p className="rating-note">{language==='cs'?'Nejlepší výsledek':'Best result'}: <Stars value={Math.max(stars[repair.id]??0,earnedStars(moveBudget(repair),moves))}/><br/>{language==='cs'?'Hvězdy se počítají z původních tahů.':'Stars use the original move allowance.'}</p><h3>{t("Ready to repair.")}</h3><p>{t("You have completed the objective.")}<br/>{t("Now bring your ship back to life.")}</p><button className="primary" disabled={busy} onClick={()=>{recordResult("won");award(repair.id,moveBudget(repair),moves);onWin();}}>{t(repair.action)} <span>{t("→")}</span></button></div>)}
     {!fault&&!won&&!exhausted&&admitted&&<div className="helper-panel">
       <div className="helper-prompt" role="status">{tool!=null?<>{t(helpers[tool][2])}<button onClick={()=>{setTool(null);setSelected(null);}}>{t('Cancel')}</button></>:null}</div>
       <div className="helper-bar">{helpers.map(([icon,name],i)=><button key={name} className={`helper-tile helper-type-${i} ${toolsLeft[i]?"in-stock":"empty-stock"}`} aria-label={`${t(name)} · ${toolsLeft[i]}`} aria-pressed={tool===i} disabled={busy||confirmQuit||(!toolsLeft[i]&&adsUsed.helper)} onClick={()=>{if(!toolsLeft[i]){requestHelp("helper",i);return;}setSelected(null);setHint(null);if(i===1)play(board.findIndex(v=>v!=null),board.findIndex(v=>v!=null),i);else setTool(tool===i?null:i);}}><span className="helper-art"><HelperIcon index={i}/></span><small>{t(name)}</small><b className="helper-badge">{toolsLeft[i]||(!adsUsed.helper?<><svg viewBox="0 0 12 12" aria-hidden="true"><path d="m4 2 6 4-6 4z" fill="currentColor"/></svg>AD</>:"0")}</b></button>)}</div>

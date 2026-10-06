@@ -1108,3 +1108,9 @@ Návrh k diskuzi, neimplementováno: nespojovat lehčí následující pokus s k
 2026-10-04 — Doplněn obytný blok Útočiště, levely 146–150, EN/CZ, vlastní grafika a deník. Dok vede přímo do nové lokace; katalog a kapitoly mají 150 miniher. Ukládání refugeHomesCompleted 0–5, kumulativní migrace supabase/023_refuge_homes.sql čeká na spuštění uživatelem. 143 testů, build a izolovaný mobilní průchod s reload/replay prošly. Podrobnosti docs/refuge-homes.md. Změny lokální, bez pushe.
 
 2026-10-05 — Oprava čitelnosti cílů miniher: ikona, celý počet a progress jsou pod sebou v každé kartě. Pět cílů již nemačká text vedle ikon. Vyšší kontrast, ikony 26 px; izolovaná kontrola počtů na 320/390/540 px prošla. Lokální změna bez pushe.
+
+
+2026-10-05 — Hodnocení 1–3 hvězd společné pro všech 150 miniher: 15/30 % zbývajících původních tahů (ceil), +5 limit nezvyšuje. Nejlepší výsledek v progress.stars, staré dokončené levely jedna hvězda, reset smaže hodnocení. Výsledky, hotové hotspoty a součty kapitol; zvláštní replay pro odletový test a Elysium approach. Kumulativní SQL024 připraveno, zatím neprovedeno. 147 testů/build a izolovaný mobilní browser prošly. docs/star-ratings.md. Lokálně bez pushe.
+
+2026-10-05 — Připraven samostatný itch.io ZIP přes npm run build:itch: 150 miniher, 152 MiB, host s místním ukládáním, skryté Google přihlášení a administrace. Webový build zachován. 147 testů, oba buildy, CRC ZIP a produkční iframe s reálným tahem/reload prošly. Nahrání na itch.io zatím neprovedeno. Postup docs/itch-release.md. Lokálně bez pushe.
+2026-10-06 — Na žádost uživatele připraveno publikování hodnocení všech 150 levelů a samostatného itch.io režimu. Znovu prošlo 147 testů a produkční build. Migrace SQL024 na serveru dosud nepotvrzená. Lokální videa, screenshoty a ZIP nejsou součástí commitu.
