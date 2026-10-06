@@ -667,3 +667,6 @@ Na přání uživatele nahrazeny výchozí syntetické boost efekty sedmi lokál
 
 
 2026-10-06 — Reklamní návštěvy: UTM zdroj/medium/kampaň, pseudonymní relace s 30minutovou obnovou při neaktivitě, nezávislá lokální fronta a UUID/revize proti duplicitám. MiniGame měří otevřené pokusy i jejich konečný výsledek; +5 aktualizuje tentýž pokus. Balance obsahuje agregace návštěv, zařízení, spuštění, výher a pokračování. SQL026 vyžaduje016, čtení pouze správci, nemění postup. gameVersion po aktualizačním načtení mizí z adresy bez ztráty UTM. 156 testů a build prošly; Uživatel potvrdil provedení SQL026 na serveru. Viz docs/campaign-tracking.md. Lokální, bez pushe.
+
+
+2026-10-06 — Země návštěvníků: Country.is z browseru poskytuje orientační dvoupísmenný kód, bez ukládání IP/města/celé odpovědi. Bez cookies/refereru, limit4s, známá země na relaci, výpadek Neznámá a neblokuje hraní. itch build geolokaci nepoužívá. Balance má tabulku země × zdroj/kampaň s filtry a metrikami návštěv/spuštění/výher/pokračování/pokusů. SQL027 zachovává026 a doplňuje agregace pro správce; živé provedení nepotvrzené. 158 testů a build prošly, browser ověřil úspěch/výpadek, filtry a nepřítomnost IP. Viz docs/country-tracking.md. Lokální, bez pushe.

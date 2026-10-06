@@ -1,8 +1,9 @@
 import {supabase} from './supabase.js';
 import {reporterIdentity} from './balanceOutbox.js';
 import {campaignFromURL,reusableVisit} from './campaignPolicy.js';
+import {lookupCountry,normalizeCountry} from './countryTracking.js';
 const visitKey='beyond-signal-campaign-visit-v1',queueKey='beyond-signal-campaign-outbox-v1';
-let active=null,running=false;
+let active=null,running=false,countryLookup=null;
 function read(key,fallback){try{return JSON.parse(localStorage.getItem(key))||fallback;}catch{return fallback;}}
 function persist(){try{localStorage.setItem(visitKey,JSON.stringify(active));const queue=read(queueKey,{});queue[active.id]=active;localStorage.setItem(queueKey,JSON.stringify(Object.fromEntries(Object.entries(queue).slice(-100))));}catch{}}
 function initializeVisit(){
@@ -25,6 +26,13 @@ export async function flushCampaign(){
 }
 export function startCampaignTracking(){
  initializeVisit();active.lastAt=Date.now();active.revision++;persist();flushCampaign();
+ // Lookup once per page, reuse a known country for the current visit only.
+ if(import.meta.env.MODE!=='itch'&&!normalizeCountry(active.country)&&!countryLookup){
+ const visit=active;
+ countryLookup=lookupCountry().then(country=>{
+ if(country&&active===visit){active.country=country;active.revision++;persist();flushCampaign();}
+ });
+ }
  const refresh=()=>{if(!document.hidden){active.lastAt=Date.now();persist();flushCampaign();}};
  const timer=setInterval(refresh,30000);window.addEventListener('online',refresh);document.addEventListener('visibilitychange',refresh);
  return()=>{clearInterval(timer);window.removeEventListener('online',refresh);document.removeEventListener('visibilitychange',refresh);};

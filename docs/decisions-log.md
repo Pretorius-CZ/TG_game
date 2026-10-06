@@ -1130,3 +1130,7 @@ Návrh k diskuzi, neimplementováno: nespojovat lehčí následující pokus s k
 
 ## 2026-10-06 — Měření prvního Reddit Ads testu
 Připraveno měření UTM kampaně launch_012, relace a návaznosti na minihry; souhrn na balance.html. Před placeným spuštěním nasadit SQL026 a web, ověřit testovací návštěvu v živém přehledu. Měření není Reddit Pixel, neukládá jméno ani úplnou URL. Podrobnosti docs/campaign-tracking.md.
+
+
+## 2026-10-06 — Země v analytice
+Uživatel schválil sledování pouze zemí. Country.is z browseru, jen country do Supabase, unknown při chybě. Není zapotřebí Edge Function nebo API klíč; nezpětně rekonstruujeme historii. Tabulka a filtry na balance; migrace027 musí být nasazena před živým měřením. Podrobnosti docs/country-tracking.md.
