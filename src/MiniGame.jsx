@@ -1,3 +1,4 @@
+import {trackCampaignAttempt} from './campaignTracking.js';
 import Stars,{useStars} from './Stars.jsx';
 import {earnedStars} from './starRating.js';
 import {goalRefillRandom,makeGoalBoard} from './goalRefill.js';
@@ -75,8 +76,10 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   const recorded=useRef(false);
   const attemptId=useRef(crypto.randomUUID());
   const attemptStarted=useRef(Date.now());
+  useEffect(()=>{if(admitted&&!fault)trackCampaignAttempt(attemptId.current,repair.id);},[admitted,repair.id]);
   function recordResult(outcome,terminal=true){
     if(recorded.current)return;if(terminal)recorded.current=true;
+    trackCampaignAttempt(attemptId.current,repair.id,outcome);
     saveAttempt({build:'2026-10-06-fair-refill-v4',attemptId:attemptId.current,level:repair.id,outcome,moves,budget:limit,baseBudget:moveBudget(repair),remaining:Math.max(0,limit-moves),at:Date.now(),durationMs:Date.now()-attemptStarted.current,configuration:{cols:level.cols,rows:level.rows,types:level.types,goals,ice:initialIce(repair),resonators},counts,remainingCovers:ice.length,resonance,...assistance.current});
   }
   function requestHelp(kind,index){
@@ -125,7 +128,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     try{
       const fresh=makeGoalBoard(level,goals,initialIce(repair));
       refillHistory.current={};
-      recordResult(fault?"fault":"failed");recorded.current=false;attemptId.current=crypto.randomUUID();attemptStarted.current=Date.now();assistance.current={helpers:[],extraMoves:false,hints:0};setAdsUsed({moves:false,hint:false,helper:false});
+      recordResult(fault?"fault":"failed");recorded.current=false;attemptId.current=crypto.randomUUID();attemptStarted.current=Date.now();trackCampaignAttempt(attemptId.current,repair.id);assistance.current={helpers:[],extraMoves:false,hints:0};setAdsUsed({moves:false,hint:false,helper:false});
       run.current++;clearInterval(watchdog.current);lock.current=false;spent.current=false;
       setResonatorFx([]);setShuffling(false);setBlastFx(null);setFault(false);setBusy(false);setAdmitted(true);setBoard(fresh);setIce(initialIce(repair));setCounts(goals.map(()=>0));setMoves(0);setExtraMoves(0);setResonance(resonators.map(()=>0));setSelected(null);setHint(boosts?null:iceMove(fresh,level.cols,initialIce(repair)));setHintsLeft(1);setTool(null);setConfirmQuit(false);setMessage('A fresh attempt. You can do this.');
     }catch{failSafely();}

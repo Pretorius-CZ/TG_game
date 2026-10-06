@@ -1,7 +1,9 @@
 {
-  "version": "0.1.1",
+  "version": "0.1.2",
   "date": "2026-10-06",
   "notes": [
+    "Added the refuge medical bay: five new levels, bringing the total to 155.",
+    "Separated cockpit navigation controls for readable task names and star ratings.",
     "Improved goal-colour availability and opening boards.",
     "Fixed corridor-room title overlaps and unfinished Systems test icon.",
     "Replaced Pulse and Nova explosions with recording-based sound effects."

@@ -1,3 +1,4 @@
+import {startCampaignTracking} from './campaignTracking.js';
 import Stars,{StarProvider} from './Stars.jsx';
 import {refugeMedical} from './refugeMedical.js';
 import {refugeHomes} from './refugeHomes.js';
@@ -81,6 +82,7 @@ function App() {
   useEffect(mountAudio, []);
   useEffect(startBalanceCloud, []);
   useEffect(startPlayerPresence, []);
+  useEffect(startCampaignTracking, []);
   const {user}=useAccount();
   const [progress,setProgress]=useState(()=>initialProgress(user?.id));
   const {configure:configureEnergy}=useLives();

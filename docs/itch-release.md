@@ -7,7 +7,7 @@ hodnocení hvězdami. Plný ZIP má přibližně 152 MiB (154 MiB rozbalený,
 ## Sestavení
 
 Spustit `npm run build:itch`. Číslo vydání spravuje `itch-release.json`.
-Aktuální vydání je **0.1.1**; výstup `releases/beyond-the-signal-itch-v0.1.1.zip`.
+Aktuální připravené vydání je **0.1.2**; výstup `releases/beyond-the-signal-itch-v0.1.2.zip`.
 Současně se aktualizuje kopie `releases/beyond-the-signal-itch.zip` pro kompatibilitu.
 Balíček obsahuje `release.json` s číslem vydání, poznámkami a zdrojovým commitem.
 Číslování: poslední číslo pro opravy (0.1.1 → 0.1.2), prostřední pro nové
@@ -54,3 +54,12 @@ projeví až po nahrání nového ZIP; samotný push na GitHub nestačí.
 - Opravené překryvy názvů místností a značka nedokončené Zkoušky systémů.
 - Nové výbuchy Pulse/Nova založené na skutečné nahrávce.
 - Herní zdrojový commit 660246a; 150 testů a webový build prošly.
+
+## 0.1.2 — 2026-10-06
+
+- Ošetřovna Útočiště, levely 151–155, vlastní grafika a EN/CZ příběh.
+- Oddělené hotspoty navigace kokpitu, čitelné názvy a hvězdy.
+- Obsahuje všechny opravy hratelnosti a zvuky v2 z 0.1.1.
+- Herní zdrojový commit f045be1; 153 testů a mobilní průchod prošly.
+- Itch build a kontrola CRC všech 214 souborů prošly; ZIP 152,88 MiB.
+- Upload provádí uživatel; jeho dokončení dosud nepotvrzené.

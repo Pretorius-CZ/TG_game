@@ -1126,3 +1126,7 @@ Návrh k diskuzi, neimplementováno: nespojovat lehčí následující pokus s k
 2026-10-06 — Navigace kokpitu: čtyři hotspoty rozloženy do oddělených míst; hvězdná mapa a trasa již nejsou těsně vedle sebe. Omezená šířka a kontrastní podklad názvů s hodnocením. Produkční build a izolované kontroly všech čtyř dokončených úkolů na 320/390/540 px prošly bez překryvu. Lokálně bez pushe.
 
 2026-10-06 — Dokončena ošetřovna Útočiště (151–155): sterilizace, zásoby, diagnostika, kultura a HARD připravenost. Dvě vlastní imagegen WebP scény, pět EN/CZ deníků, známé dlaždice Útočiště a pojistka barev v4. Obnova kapitoly nyní 15/15, závěr potvrzuje spojení se záchrannou lodí a nové souřadnice. refugeMedicalCompleted 0–5 zapojený do resetu/merge/hvězd/kapitol/statistik; kumulativní SQL025 je připravené, živě nenasazené. 153 testů a build prošly; izolovaný dev průchod všech pěti oprav, reload/replay/návrat a rozložení na 320/390/540 px ověřeny. Viz docs/refuge-medical.md. Lokálně bez pushe; itch ZIP stále 0.1.1 se 150 levely.
+
+
+## 2026-10-06 — Měření prvního Reddit Ads testu
+Připraveno měření UTM kampaně launch_012, relace a návaznosti na minihry; souhrn na balance.html. Před placeným spuštěním nasadit SQL026 a web, ověřit testovací návštěvu v živém přehledu. Měření není Reddit Pixel, neukládá jméno ani úplnou URL. Podrobnosti docs/campaign-tracking.md.
