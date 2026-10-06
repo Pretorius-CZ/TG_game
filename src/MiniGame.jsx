@@ -1,6 +1,6 @@
 import Stars,{useStars} from './Stars.jsx';
 import {earnedStars} from './starRating.js';
-import {goalRefillRandom} from './goalRefill.js';
+import {goalRefillRandom,makeGoalBoard} from './goalRefill.js';
 import {useAccount} from './Account.jsx';
 import MechanicTutorial from './MechanicTutorial.jsx';
 import {relevantTutorials,readTutorials} from './tutorials.js';
@@ -13,7 +13,7 @@ import {useLanguage} from './i18n/Language.jsx';
 import React, { useEffect, useRef, useState } from 'react';
 import { adjacent, swap } from './match3';
 
-import {moveBudget,initialIce,iceMatches,iceMove,makeIceBoard,ensurePlayableBoard} from './levelRules.js';
+import {moveBudget,initialIce,iceMatches,iceMove,ensurePlayableBoard} from './levelRules.js';
 import {useLives,LivesBar,NoLives} from './Lives.jsx';
 import './compactGame.css';
 import AudioControls from './AudioControls.jsx';
@@ -50,7 +50,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   const [ice,setIce]=useState(()=>initialIce(repair));
   const [extraMoves,setExtraMoves]=useState(0);
   const limit=moveBudget(repair)+extraMoves;
-  const [initial] = useState(()=>{try{return {board:makeIceBoard(level,initialIce(repair)),failed:false};}catch{return {board:[],failed:true};}});
+  const [initial] = useState(()=>{try{return {board:makeGoalBoard(level,goals,initialIce(repair)),failed:false};}catch{return {board:[],failed:true};}});
   const [board, setBoard] = useState(initial.board);
   const [fault,setFault]=useState(initial.failed);
   const run=useRef(0);
@@ -77,7 +77,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   const attemptStarted=useRef(Date.now());
   function recordResult(outcome,terminal=true){
     if(recorded.current)return;if(terminal)recorded.current=true;
-    saveAttempt({build:'2026-10-04-fair-refill-v3',attemptId:attemptId.current,level:repair.id,outcome,moves,budget:limit,baseBudget:moveBudget(repair),remaining:Math.max(0,limit-moves),at:Date.now(),durationMs:Date.now()-attemptStarted.current,configuration:{cols:level.cols,rows:level.rows,types:level.types,goals,ice:initialIce(repair),resonators},counts,remainingCovers:ice.length,resonance,...assistance.current});
+    saveAttempt({build:'2026-10-06-fair-refill-v4',attemptId:attemptId.current,level:repair.id,outcome,moves,budget:limit,baseBudget:moveBudget(repair),remaining:Math.max(0,limit-moves),at:Date.now(),durationMs:Date.now()-attemptStarted.current,configuration:{cols:level.cols,rows:level.rows,types:level.types,goals,ice:initialIce(repair),resonators},counts,remainingCovers:ice.length,resonance,...assistance.current});
   }
   function requestHelp(kind,index){
     if(tutorial||busy||lock.current||adsUsed[kind])return;
@@ -123,7 +123,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   function retry(){
     if(!fault&&!lives.count)return;
     try{
-      const fresh=makeIceBoard(level,initialIce(repair));
+      const fresh=makeGoalBoard(level,goals,initialIce(repair));
       refillHistory.current={};
       recordResult(fault?"fault":"failed");recorded.current=false;attemptId.current=crypto.randomUUID();attemptStarted.current=Date.now();assistance.current={helpers:[],extraMoves:false,hints:0};setAdsUsed({moves:false,hint:false,helper:false});
       run.current++;clearInterval(watchdog.current);lock.current=false;spent.current=false;

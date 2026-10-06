@@ -1,7 +1,7 @@
 import {createBoostSynth,boostSounds} from './boostSynth.js';
 export {boostSounds};
 // Versioned, local samples: no external audio service or runtime downloads from vendors.
-export const boostSampleUrls=Object.fromEntries(boostSounds.map(name=>[name,`./audio/${name}-v1.wav`]));
+export const boostSampleUrls=Object.fromEntries(boostSounds.map(name=>[name,`./audio/${name}-${['pulse','nova'].includes(name)?'v2':'v1'}.wav`]));
 export function createBoostAudio(ctx,destination){
  const fallback=createBoostSynth(ctx,destination),buffers=new Map(),voices=new Set();
  const abort=new AbortController();let disposed=false,last=-Infinity;

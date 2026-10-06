@@ -323,3 +323,8 @@ button.planet-node:hover,button.planet-node:focus-visible { background:#5fd4e51c
 .play-area .game.airlock-room .scene-top h1,.play-area .game.airlock-room .scene-top p{display:none}
 .play-area .game.airlock-room .scene-top .eyebrow{display:inline-block;padding:5px 8px;border-radius:5px;background:#07121cdd}
 @media(max-width:430px){.scene-tools{left:10px;gap:4px}.scene-tools button{width:32px;height:36px;font-size:20px}.scene-lives{right:10px}.scene-lives .energy-module{width:106px}.scene-lives .energy-cells{gap:3px}}
+
+/* Corridor rooms keep their name below navigation, clear of device hotspots. */
+.play-area .game.crew.corridor-room .scene-top{top:55px!important;left:14px;right:auto;width:42%;padding:0}
+.play-area .game.crew.corridor-room .scene-top h1,.play-area .game.crew.corridor-room .scene-top p{display:none}
+.play-area .game.crew.corridor-room .scene-top .eyebrow{display:inline-block;font-size:8px;line-height:12px;letter-spacing:1px;padding:3px 6px;border-radius:5px;background:#07121ce8}

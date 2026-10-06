@@ -19,3 +19,11 @@ Derived layers, trimmed/resampled/mixed with short end fades:
 Kenney names above refer to original .ogg files. Transformations change duration/pitch and combine layers. These are authored sound-effect samples, not claimed to be recordings of real lasers or weapons. No purchase, subscription or attribution requirement; credits are retained voluntarily for provenance.
 
 Versioned filenames prevent stale cached samples after an update. Loading is initiated with audio activation, only seven files are decoded. Existing synthesis is an offline/error fallback. Playback respects the existing sound setting, tab visibility and ad suspension; compressor and voice/rate limits control simultaneous chain effects.
+
+## Explosion revision — 2026-10-06
+
+Pulse and Nova now use pulse-v2.wav (0.72 s) and nova-v2.wav (1.00 s), mono PCM 32 kHz / 16-bit. Other effects retain v1. No Kenney electronic layers are mixed into these new explosions.
+
+Source: Large explosion by SamsterBirdies, https://freesound.org/people/SamsterBirdies/sounds/592000/ — CC0 https://creativecommons.org/publicdomain/zero/1.0/ . Author describes a firecracker recorded in a garage with Tascam DR100MKIII microphones, downpitched, layered and lengthened. This is a designed effect based on a real recording, not a recording of a large bomb.
+
+Public high-quality preview retrieved 2026-10-06: https://cdn.freesound.org/previews/592/592000_5487341-hq.mp3 . Local source docs/media/explosion-source-samster.mp3; rebuild with node scripts/create-explosion-samples.mjs. Changes: mono downmix, short excerpt, end fade, peak normalization to 0.9; Nova additionally plays source at 0.9 speed. No long tail or added oscillator. Files are bundled locally, not streamed from Freesound during play.
