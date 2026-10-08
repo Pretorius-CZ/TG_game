@@ -10,3 +10,4 @@
 .controls label{display:flex;align-items:center;gap:6px}
 
 .recent-attempts{margin:22px 0;padding:14px;border:1px solid #426571;border-radius:12px;background:#122431}.recent-attempts h2{margin:0;font-size:18px}.recent-attempts p{font-size:12px}.recent-wrap{overflow:auto}.recent-wrap th,.recent-wrap td{padding:5px 9px;font-size:12px}
+.controls label{max-width:100%;flex-wrap:wrap}.controls select{max-width:100%}
