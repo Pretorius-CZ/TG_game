@@ -2,6 +2,22 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {levelCatalog} from '../src/levelCatalog.js';
 import {legacyRules,reportVersions,filterRules,latestAttempts} from '../src/balanceReport.js';
+import {durationLabel,assistanceLabel,missingObjectives,funnelPercent} from '../src/balanceReport.js';
+import {summarizeAttempts} from '../src/balanceTracking.js';
+test('attempt details distinguish missing legacy values from no help and completed goals',()=>{
+ assert.equal(durationLabel(undefined),'—');assert.equal(durationLabel(61500),'1:02');
+ assert.equal(assistanceLabel({}),'—');assert.equal(assistanceLabel({helpers:[],hints:0,extraMoves:false}),'Bez pomoci');
+ assert.equal(assistanceLabel({helpers:['Laser','Laser'],hints:1,extraMoves:true}),'Laser ×2 · Nápověda ×1 · +5 tahů');
+ assert.equal(missingObjectives({}),'—');
+ assert.equal(missingObjectives({configuration:{goals:[{label:'Stars',target:10}],resonators:[{target:3}]},counts:[7],remainingCovers:2,resonance:[1]}),'Stars: 3 · Kryty: 2 · Nabití kruhů: 2');
+ assert.equal(missingObjectives({configuration:{goals:[{target:10}]},counts:[10]}),'Splněno');
+});
+test('summary counts distinct known browsers and median completed duration only',()=>{
+ const rows=[{level:'a',outcome:'won',reporter:'x',durationMs:1000},{level:'a',outcome:'failed',reporter:'x',durationMs:9000},{level:'a',outcome:'quit',reporter:'y',durationMs:100000},{level:'b',outcome:'won',reporter:'z'}];
+ const stats=summarizeAttempts(rows,'a');assert.equal(stats.devices,2);assert.equal(stats.duration,5000);
+ assert.equal(summarizeAttempts([{level:'a',outcome:'won'}],'a').devices,null);
+ assert.equal(funnelPercent(0,0),'—');assert.equal(funnelPercent(18,71),'25 %');
+});
 test('catalog follows chapter progression without losing or duplicating levels',()=>{
  assert.equal(levelCatalog.length,155);
  assert.equal(new Set(levelCatalog.map(r=>r.id)).size,155);

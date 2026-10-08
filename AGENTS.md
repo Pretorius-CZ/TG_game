@@ -682,3 +682,5 @@ Na přání uživatele nahrazeny výchozí syntetické boost efekty sedmi lokál
 2026-10-08 — Oprava velikosti minihry v širokém iframe: MiniGame je React portál přímo pod body, proto nepřebírá CSS zoom rodičovské lodní scény. Sdíleno pro všechny edice. CrazyGames ZIP0.1.1. Browser kontroly900×560,390×844,320×568.
 
 2026-10-08 — CrazyGames0.1.2: první jazyk dle SDK.user.systemInfo.locale (cs → čeština, ostatní/chyba → EN), uložená ruční volba má přednost. Zkompaktněna minihra pro široké rámce do620px výšky; při821×462/800×450 mají dlaždice28,7/27px namísto13,3/11,5px, bez scrollu. Browser se simulovaným SDK ověřil EN/CZ/DE fallback a ruční EN přes reload. Reálné SDK/čitelnost na dalších zařízeních ověřuje portálové QA.
+
+2026-10-08: Přehled analytiky rozšířen o posledních 20 pokusů s délkou, použitými a zbývajícími tahy, pomůckami/nápovědou a chybějícími cíli. Souhrn levelů ukazuje počet známých zařízení a medián délky dokončených pokusů. Kampaně mají konverzní procenta a návštěvy bez spuštění; vše ze stávajících dat, bez SQL migrace. Délka zahrnuje čekání; zařízení nejsou osoby a UTM není důkaz placeného kliknutí.

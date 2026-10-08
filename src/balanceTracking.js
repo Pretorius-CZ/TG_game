@@ -10,7 +10,9 @@ export function summarizeAttempts(rows,id){
  const measuredWins=wins.filter(r=>Number.isFinite(r.remaining));
  const ratio=(a,b)=>b?Math.round(a/b*100):null;
  const rate=ratio(wins.length,completed.length);
- return {attempts:completed.length,wins:wins.length,rate,cleanRate:ratio(clean.filter(r=>r.outcome==='won').length,clean.length),cleanAttempts:clean.length,
+ const durations=completed.filter(r=>Number.isFinite(r.durationMs)&&r.durationMs>=0).map(r=>r.durationMs).sort((a,b)=>a-b);
+ const middle=Math.floor(durations.length/2);
+ return {devices:new Set(relevant.map(r=>r.reporter).filter(Boolean)).size||null,duration:durations.length?(durations.length%2?durations[middle]:(durations[middle-1]+durations[middle])/2):null,attempts:completed.length,wins:wins.length,rate,cleanRate:ratio(clean.filter(r=>r.outcome==='won').length,clean.length),cleanAttempts:clean.length,
  help:ratio(completed.filter(r=>r.extraMoves||r.helpers?.length||r.hints).length,completed.length),
  remaining:measuredWins.length?Math.round(measuredWins.reduce((sum,r)=>sum+r.remaining,0)/measuredWins.length):null,
  quits:relevant.filter(r=>r.outcome==='quit').length,faults:relevant.filter(r=>r.outcome==='fault').length,
