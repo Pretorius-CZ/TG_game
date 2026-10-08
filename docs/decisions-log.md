@@ -1134,3 +1134,7 @@ Připraveno měření UTM kampaně launch_012, relace a návaznosti na minihry; 
 
 ## 2026-10-06 — Země v analytice
 Uživatel schválil sledování pouze zemí. Country.is z browseru, jen country do Supabase, unknown při chybě. Není zapotřebí Edge Function nebo API klíč; nezpětně rekonstruujeme historii. Tabulka a filtry na balance; migrace027 musí být nasazena před živým měřením. Podrobnosti docs/country-tracking.md.
+
+
+## 2026-10-06 — Skryté poslední pokusy
+Zpětná vazba odhalila Date.parse na číselném timestampu: latest feed zahazoval reálné pokusy. Opraveno pro ms i ISO; diagnostika odesílání přidána, nedostupná geolokace opakuje bez restartu hry.159 testů/build/browser. Bez SQL změny, dosud lokální.

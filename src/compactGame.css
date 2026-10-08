@@ -91,3 +91,17 @@
 .mechanic-tutorial section{width:100%;max-width:350px;max-height:100%;overflow:auto;padding:20px;border:1px solid #79c9d3;border-radius:18px;background:#102938;color:#e9f3f4;box-shadow:0 15px 50px #0008;}
 .mechanic-tutorial h3{margin:8px 0;font:600 22px system-ui;}.mechanic-tutorial p{font:14px/1.55 system-ui;margin:12px 0 18px;}.mechanic-tutorial small{display:block;margin-top:12px;font:11px/1.4 system-ui;color:#b4cbd0;}.tutorial-symbol{font:32px system-ui;color:#8fe5ef;}.mechanics-help{position:absolute;right:48px;top:8px;width:32px;height:32px;border-radius:50%;border:1px solid #769aa8;background:#112d3b;color:#d7f5f5;}
 .mini-dialog:has(.tutorial-covers) .frozen-cell,.mini-dialog:has(.tutorial-resonators) .resonator-cell,.mini-dialog:has(.tutorial-helpers) .helper-bar{outline:2px solid #8fe5ef;}
+
+/* Short portal frames need board space rather than empty HUD spacing. */
+@media(min-width:600px) and (max-height:620px){
+ .mini-dialog[open]{padding:8px;gap:4px}
+ .mini-dialog .mini-header{height:26px}
+ .mini-dialog .level-hud{height:48px;min-height:48px}
+ .mini-dialog .energy-audio{height:48px}
+ .mini-dialog .objective-list .charge{grid-template-rows:20px auto 3px;padding:3px;gap:2px}
+ .mini-dialog .objective-list .objective-icon{width:20px;height:20px}
+ .mini-dialog .helper-prompt:empty{display:none}
+ .mini-dialog .helper-bar .helper-tile{height:44px;padding:2px}
+ .mini-dialog .helper-bar .helper-art{width:22px;height:22px}
+ .mini-dialog .helper-icon{width:22px;height:22px}
+}

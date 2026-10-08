@@ -1,3 +1,4 @@
+import {crazyGames} from './platform.js';
 import React,{createContext,useContext,useEffect,useRef,useState} from 'react';
 import {useLanguage} from './i18n/Language.jsx';
 import {pauseForAd} from './audio.js';
@@ -6,7 +7,7 @@ const Context=createContext(null);
 export const useRewardAd=()=>useContext(Context);
 export function RewardAdProvider({children}){
  const [offer,setOffer]=useState(null),pending=useRef(null);
- function request(reward,grant){if(pending.current)return;pending.current={reward,grant};setOffer(pending.current);}
+ async function request(reward,grant){if(pending.current)return;if(crazyGames){pending.current={reward,grant};try{await grant();}finally{pending.current=null;}return;}pending.current={reward,grant};setOffer(pending.current);}
  function close(){pending.current=null;setOffer(null);}
  return <Context.Provider value={request}>{children}{offer&&<RewardAd offer={offer} close={close}/>}</Context.Provider>;
 }

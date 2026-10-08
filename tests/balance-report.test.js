@@ -21,3 +21,7 @@ test('latest feed uses attempt time, ignores invalid dates and does not mutate i
  assert.deepEqual(latestAttempts(rows,1),[rows[2]]);
  assert.equal(rows[0].at,'2026-10-01T10:00:00Z');
 });
+test('latest feed includes real gameplay millisecond timestamps alongside legacy ISO dates',()=>{
+ const rows=[{at:'2026-10-01T10:00:00Z'},{at:Date.UTC(2026,9,6,20),attemptId:'new'}, {at:null},{}];
+ assert.deepEqual(latestAttempts(rows),[rows[1],rows[0]]);
+});

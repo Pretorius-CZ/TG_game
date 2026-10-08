@@ -670,3 +670,15 @@ Na přání uživatele nahrazeny výchozí syntetické boost efekty sedmi lokál
 
 
 2026-10-06 — Země návštěvníků: Country.is z browseru poskytuje orientační dvoupísmenný kód, bez ukládání IP/města/celé odpovědi. Bez cookies/refereru, limit4s, známá země na relaci, výpadek Neznámá a neblokuje hraní. itch build geolokaci nepoužívá. Balance má tabulku země × zdroj/kampaň s filtry a metrikami návštěv/spuštění/výher/pokračování/pokusů. SQL027 zachovává026 a doplňuje agregace pro správce; živé provedení nepotvrzené. 158 testů a build prošly, browser ověřil úspěch/výpadek, filtry a nepřítomnost IP. Viz docs/country-tracking.md. Lokální, bez pushe.
+
+
+2026-10-06 — Oprava posledních pokusů: latestAttempts přijímá skutečné číselné milisekundy z MiniGame i starší ISO řetězce; Date.parse(number) dříve platné pokusy skryl. Nejde samo o důkaz ztracených dat. Geolokace po výpadku opakuje nejdříve za60s, balance ukazuje stav místní geolokace/fronty a chyby RPC. Balance upload má8s timeout.159 testů a build prošly; browser ověřil číselný čas, geo retry a diagnostiku. Veřejná produkce33fc7bf obsahuje trackování; skutečný browser lookup vrátilCZ. Bez nové SQL, lokální bez pushe.
+
+
+2026-10-08 — Boost nápovědy až po prvním úspěšném použití: sedm samostatných EN/CZ témat Pulse/Nova/Laser/Shuffle/Swap/Beam/EMP. Žádné boostové okno při otevření první minihry, otevření až po animacích. Vytvoření nálože, výběr cíle, zrušení a chyba nic nespouštějí; skutečný řetězový výbuch ano. Potvrzení místně po profilu, kryty a rezonátory zachované. Docs/mechanic-tutorials.md. Lokálně, bez pushe.
+
+2026-10-08 — CrazyGames Basic: samostatný build npm run build:crazygames a ZIP v releases. SDK v3 init před Reactem, gameplayStart/Stop podle minihry; LocalStorage pro Automatic Progress Save. Bez Google účtu, administrace, Supabase analytiky, geolokace a automatického webového reloadu. Dobrovolné bonusy zdarma, bez simulovaných reklam; Full monetizace dosud nezapojena. 160 testů a oba buildy prošly. Browser se simulovaným SDK: první minihra 1,60 MiB lokálních souborů, start event, žádné chyby, reload obnovil postup. Reálné SDK a portálové QA čekají na upload.
+
+2026-10-08 — Oprava velikosti minihry v širokém iframe: MiniGame je React portál přímo pod body, proto nepřebírá CSS zoom rodičovské lodní scény. Sdíleno pro všechny edice. CrazyGames ZIP0.1.1. Browser kontroly900×560,390×844,320×568.
+
+2026-10-08 — CrazyGames0.1.2: první jazyk dle SDK.user.systemInfo.locale (cs → čeština, ostatní/chyba → EN), uložená ruční volba má přednost. Zkompaktněna minihra pro široké rámce do620px výšky; při821×462/800×450 mají dlaždice28,7/27px namísto13,3/11,5px, bez scrollu. Browser se simulovaným SDK ověřil EN/CZ/DE fallback a ruční EN přes reload. Reálné SDK/čitelnost na dalších zařízeních ověřuje portálové QA.

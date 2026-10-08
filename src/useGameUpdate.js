@@ -1,10 +1,11 @@
+import {crazyGames} from './platform.js';
 import {useEffect,useRef} from 'react';
 import {canUpdate,newVersion} from './updatePolicy.js';
 export default function useGameUpdate(save,blocked){
  const latest=useRef({save,blocked});latest.current={save,blocked};
  useEffect(()=>{
   const address=new URL(location.href);if(address.searchParams.has('gameVersion')){address.searchParams.delete('gameVersion');history.replaceState(history.state,'',address.href);}
-  if(import.meta.env.DEV)return;
+  if(import.meta.env.DEV||crazyGames)return;
   let stopped=false,checking=false,pending=null,safeSince=0,overlay;
   async function check(){
    if(checking||!navigator.onLine||document.hidden)return;

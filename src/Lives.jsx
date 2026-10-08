@@ -1,3 +1,4 @@
+import {crazyGames} from './platform.js';
 import {useRewardAd} from './RewardAd.jsx';
 import {useLanguage} from './i18n/Language.jsx';
 import React,{createContext,useContext,useEffect,useRef,useState,useCallback} from 'react';
@@ -28,4 +29,4 @@ export function LivesBar(){
  </div>;
 }
 export function NoLives(){
- const {t}=useLanguage();const lives=useLives();const ad=useRewardAd();return <div className="out-of-moves"><h3>{t("Energy depleted")}</h3><LivesBar/><p>{t(lives.minutes===10?"One charge returns every 10 minutes.":"One charge returns every 30 minutes.")}</p><button disabled={lives.count>0} onClick={()=>ad(t("+1 energy charge"),lives.reward)}>{t("Ad · +1 energy")}</button>{t(import.meta.env.DEV&&<button className="preview-complete" onClick={lives.refill}>{t("Preview · refill 5 charges")}</button>)}</div>;}
+ const {t}=useLanguage();const lives=useLives();const ad=useRewardAd();return <div className="out-of-moves"><h3>{t("Energy depleted")}</h3><LivesBar/><p>{t(lives.minutes===10?"One charge returns every 10 minutes.":"One charge returns every 30 minutes.")}</p><button disabled={lives.count>0} onClick={()=>ad(t("+1 energy charge"),lives.reward)}>{t(crazyGames?"+1 energy · free":"Ad · +1 energy")}</button>{t(import.meta.env.DEV&&<button className="preview-complete" onClick={lives.refill}>{t("Preview · refill 5 charges")}</button>)}</div>;}

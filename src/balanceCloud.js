@@ -2,14 +2,14 @@ import {supabase} from './supabase.js';
 import {readQueue,reporterIdentity,drainQueue,enqueueAttempts} from './balanceOutbox.js';
 import {readAttempts,balanceKey} from './balanceTracking.js';
 let running=false,started=false;
-export const balanceCloudStatus={state:'idle',pending:0};
+export const balanceCloudStatus={state:'idle',pending:0,error:''};
 function announce(state){balanceCloudStatus.state=state;balanceCloudStatus.pending=readQueue().length;window.dispatchEvent(new CustomEvent('balance-cloud-status',{detail:{...balanceCloudStatus}}));}
 export async function flushBalance(){
  if(running||navigator.onLine===false)return;
  if(!readQueue().length){announce('saved');return;}
  running=true;announce('sending');
- try{await drainQueue(async(identity,item)=>{const {error}=await supabase.rpc('record_balance_attempt',{reporter_id:identity.id,reporter_token:identity.token,incoming:item.payload,incoming_revision:item.revision});if(error)throw error;});announce(readQueue().length?'pending':'saved');}
- catch{announce('pending');}finally{running=false;}
+ try{await drainQueue(async(identity,item)=>{const {error}=await supabase.rpc('record_balance_attempt',{reporter_id:identity.id,reporter_token:identity.token,incoming:item.payload,incoming_revision:item.revision}).abortSignal(AbortSignal.timeout(8000));if(error)throw error;});balanceCloudStatus.error='';announce(readQueue().length?'pending':'saved');}
+ catch(error){balanceCloudStatus.error=error?.message||'Odeslání pokusu selhalo.';announce('pending');}finally{running=false;}
 }
 export function startBalanceCloud(){
  if(started)return;started=true;reporterIdentity();

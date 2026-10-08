@@ -13,8 +13,9 @@ Chybějící migrace neblokuje původní přehled kampaní.
 Zdroj: https://country.is/ — veřejná HTTPS služba bez klíče, zdarma i pro
 komerční použití dle dokumentace ověřené2026-10-06. Nejde o region serveru
 Supabase ani jazyk prohlížeče. Původně zvažovaná Edge Function není potřebná.
-Browser požádá api.country.is o zemi vlastního připojení, jednou při
-načtení stránky, pokud současná relace nemá známou zemi. Limit4s,
+Browser požádá api.country.is o zemi vlastního připojení, při
+načtení stránky, pokud současná relace nemá známou zemi; po výpadku
+opakuje nejdříve za minutu při viditelné hře. Limit4s,
 bez cookies a refereru. IP je síťově viditelná poskytovateli a jeho
 infrastruktuře; aplikace z odpovědi ponechá pouze kód země.
 Celou odpověď ani IP neukládá místně ani do databáze. Poskytovatel uvádí,
@@ -27,3 +28,5 @@ SQL přijímá jen dvoupísmenný kód, nikoli další geografická data; aktual
 ze staršího klienta již známou zemi nemaže. Čtení agregace jen správci.
 Je to orientační analytika (údaj posílá klient), nikoli důkaz skutečné
 polohy; VPN/proxy a klientská manipulace ji mohou zkreslit.
+
+2026-10-06: diagnostika aktuálního prohlížeče na balance: známá/nedostupná země, fronta návštěv a poslední chyba odeslání. Pokusy také ukazují konkrétní chybu RPC a mají8s timeout.

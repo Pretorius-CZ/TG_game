@@ -1,3 +1,5 @@
+import {crazyGames} from './platform.js';
+import {initializeCrazyGames} from './crazyGames.js';
 import {startCampaignTracking} from './campaignTracking.js';
 import Stars,{StarProvider} from './Stars.jsx';
 import {refugeMedical} from './refugeMedical.js';
@@ -80,9 +82,9 @@ function finishedRoomIds(cockpitRepairs) { return cockpitRepairs === repairs.len
 function App() {
  const {t}=useLanguage();
   useEffect(mountAudio, []);
-  useEffect(startBalanceCloud, []);
-  useEffect(startPlayerPresence, []);
-  useEffect(startCampaignTracking, []);
+  useEffect(()=>{if(!crazyGames)return startBalanceCloud();}, []);
+  useEffect(()=>{if(!crazyGames)return startPlayerPresence();}, []);
+  useEffect(()=>{if(!crazyGames)return startCampaignTracking();}, []);
   const {user}=useAccount();
   const [progress,setProgress]=useState(()=>initialProgress(user?.id));
   const {configure:configureEnergy}=useLives();
@@ -279,4 +281,5 @@ function App() {
     <span className="sr-only" role="status" aria-live="polite">{t(exploring ? 'Exploring the star system.' : corridor ? 'Inside the corridor. Emergency lighting only.' : airlock ? 'Inside the airlock.' : inside ? 'Inside the cockpit.' : 'Outside the damaged ship.')} {t(completed)}{t(" of ")}{t(repairs.length)}{t(" cockpit repairs complete.")}</span>
   </main></StarProvider>;
 }
-createRoot(document.getElementById('root')).render(<LanguageProvider><RewardAdProvider><LivesProvider><AccountProvider><App/></AccountProvider></LivesProvider></RewardAdProvider></LanguageProvider>);
+async function start(){await initializeCrazyGames();createRoot(document.getElementById('root')).render(<LanguageProvider><RewardAdProvider><LivesProvider><AccountProvider><App/></AccountProvider></LivesProvider></RewardAdProvider></LanguageProvider>);}
+start().catch(error=>{document.getElementById('root').textContent=error.message;});

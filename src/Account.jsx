@@ -1,17 +1,19 @@
+import {crazyGames} from './platform.js';
 import {useLanguage} from './i18n/Language.jsx';
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import {supabase} from './supabase.js';
 const itch=import.meta.env.MODE==='itch';
+const guestOnly=itch||crazyGames;
 export const AccountContext = createContext(null);
 export const useAccount = () => useContext(AccountContext);
 
 export function AccountProvider({children}) {
  const {t}=useLanguage();
- const [session,setSession]=useState(itch?null:undefined);
+ const [session,setSession]=useState(guestOnly?null:undefined);
  const [generation,setGeneration]=useState(0);
  const [error,setError]=useState('');
  useEffect(()=>{
-  if(itch)return;
+  if(guestOnly)return;
   const {data:{subscription}}=supabase.auth.onAuthStateChange((event,next)=>setSession(next));
   supabase.auth.getSession().then(({error})=>{if(error){setError('Could not restore sign-in. Try again.');setSession(null);}});
   return()=>subscription.unsubscribe();
@@ -45,9 +47,9 @@ export function AccountButton({onImport,onRestart}){
  return <div className="account-control"><button onClick={()=>setOpen(!open)} aria-expanded={open}>{t("⚙ Settings")}</button>{t(open&&<section className="account-panel" aria-label={t("Game settings")}>
  <h2>{t("Game settings")}</h2><fieldset className="language-picker"><legend>{t("Language")}</legend><button type="button" aria-pressed={language==='en'} onClick={()=>setLanguage('en')}>EN · English</button><button type="button" aria-pressed={language==='cs'} onClick={()=>setLanguage('cs')}>CZ · Čeština</button></fieldset>
  {t(confirmReset?<div className="restart-confirm" role="alert"><h3>{t("Start over?")}</h3><p>{t(user?'This resets all repairs, the ship log and departure for this account on every device.':'This resets all guest repairs, the ship log and departure on this browser.')}{t(" You will start with 5 energy charges here. This cannot be undone.")}</p><button disabled={busy} onClick={restart}>{t("Yes, restart game")}</button><button disabled={busy} onClick={()=>setConfirmReset(false)}>{t("Cancel")}</button></div>:<button className="restart-game-button" disabled={busy} onClick={()=>setConfirmReset(true)}>{t("Restart entire game")}</button>)}
- {!itch&&<a className="balance-report-link" href="./balance.html" target="_blank" rel="noopener">{language==='cs'?'Přehled testování obtížnosti':'Difficulty testing report'}</a>}
- <p>{language==='cs'?'Pro ladění obtížnosti odesíláme výsledky her pod náhodným ID prohlížeče, bez jména a e-mailu.':'To tune difficulty, we send gameplay results under a random browser ID, without your name or email.'}</p>
- {itch?<p>{language==='cs'?'Verze itch.io ukládá postup v tomto prohlížeči. Google přihlášení je dostupné na našem webu.':'The itch.io edition saves progress in this browser. Google sign-in is available on our website.'} <a href="https://playbeyondthesignal.com/" target="_blank" rel="noopener">playbeyondthesignal.com</a></p>:<><h3>{t("Account & cloud save")}</h3>
+ {!guestOnly&&<a className="balance-report-link" href="./balance.html" target="_blank" rel="noopener">{language==='cs'?'Přehled testování obtížnosti':'Difficulty testing report'}</a>}
+ {!crazyGames&&<p>{language==='cs'?'Pro ladění obtížnosti odesíláme výsledky her pod náhodným ID prohlížeče, bez jména a e-mailu.':'To tune difficulty, we send gameplay results under a random browser ID, without your name or email.'}</p>}
+ {crazyGames?<p>{language==='cs'?'Postup se ukládá automaticky.':'Progress is saved automatically.'}</p>:itch?<p>{language==='cs'?'Verze itch.io ukládá postup v tomto prohlížeči. Google přihlášení je dostupné na našem webu.':'The itch.io edition saves progress in this browser. Google sign-in is available on our website.'} <a href="https://playbeyondthesignal.com/" target="_blank" rel="noopener">playbeyondthesignal.com</a></p>:<><h3>{t("Account & cloud save")}</h3>
  <p>{t(user?user.email:'Sign in with Google to save repairs and your ship log across devices. Guest progress stays on this device.')}</p>
  <p>{t("Energy and unfinished puzzles remain on this device.")}</p>{t(user&&<button disabled={busy} onClick={importGuest}>{t("Import guest progress from this device")}</button>)}
  {importMessage&&<p className="import-feedback" role="status" aria-live="polite">{importMessage}</p>}
