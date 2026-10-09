@@ -34,11 +34,11 @@ export default function ShipLog({ completed, readIds, initialId, onRead, onClose
         {entry.id==='elysium-arrival-log'&&onReplayArrival&&<button className="primary" onClick={onReplayArrival}>{t('Replay the arrival')}</button>}
         {entry.id==='caretaker-encounter-log'&&onReplayEncounter&&<button className="primary" onClick={onReplayEncounter}>{t('Replay the encounter')}</button>}
         <button className="all-repairs" onClick={() => setSelected(null)}>{t("← All entries")}</button>
-        <button className="primary" onClick={onClose}>{t("Back to the ship ")}<span>{t("→")}</span></button>
+        <button className="primary" onClick={onClose}>{t("Back to exploration ")}<span>{t("→")}</span></button>
       </article> : <>
         <p className="log-intro">{t("A few words. A little more of the story.")}</p>
         <span className="log-count">{t(availableCount)}{t(" / ")}{t(items.length)}{t(" fragments available")}</span>
-        {t(availableCount === 0 && <p className="log-empty">{t("The archive is quiet. Restore the emergency lights to begin your first entry.")}</p>)}
+        {t(availableCount === 0 && <p className="log-empty">{t("The archive is quiet. Complete your first repair to unlock the first entry.")}</p>)}
         <ol className="log-entries">{t(items.map(item => {
           const locked = !item.available;
           return <li key={item.id}><button disabled={locked} onClick={() => setSelected(item.id)}>

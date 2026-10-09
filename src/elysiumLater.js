@@ -129,7 +129,7 @@ export const elysiumLaterDestinations={
         "id": "elysium-homes-quarters",
         "name": "Prepare the apartments",
         "lesson": "Prepare the apartments",
-        "thought": "Repair the apartment modules and install their living-support capsules.",
+        "thought": "Repair the apartment modules and install their life-support capsules.",
         "result": "The first apartments are warm, sealed and ready for visitors.",
         "action": "Restore station equipment",
         "room": "ELYSIUM",

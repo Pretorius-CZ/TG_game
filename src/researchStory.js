@@ -7,4 +7,4 @@ export const researchStoryPanels=[
 ];
 text('Return to Elysium story','Příběh návratu na Elysium');
 text('Begin the research','Zahájit výzkum');
-text('Replay the research arrival','Přehrát návrat k výzkumu');
+text('Replay the research arrival',"Přehrát návrat na Elysium");

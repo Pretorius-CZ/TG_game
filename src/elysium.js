@@ -620,7 +620,7 @@ export const elysiumDestinations={
         "id": "elysium-ring-lighting-log",
         "repair": "elysium-ring-lighting",
         "title": "A road through the dark",
-        "text": "The ring is lit from end to end. Our ship looks tiny through the glass. We have restored a way into the city; now we must give it somewhere to live.",
+        "text": "The ring is lit from end to end. Our ship looks tiny through the glass. We have restored a way into the city; now we must prepare homes for its people.",
         "source": "Station log",
         "time": "Elysium / Restoration 12",
         "unlockAt": 84

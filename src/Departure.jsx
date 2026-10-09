@@ -23,6 +23,6 @@ export default function Departure({onComplete,onClose}){
  <img className="departure-flight" src="./scenes/departure-flight.webp" alt={t("The repaired supply ship lifting off with blue engine trails")} onLoad={()=>setReady(true)} onError={()=>setError(true)}/>
  <div className="departure-ignition" aria-hidden="true"/>
  <div className="departure-heading"><span className="eyebrow">{t("CHAPTER 01 / DEPARTURE")}</span><h2>{t("To the stars.")}</h2><p role="status">{t(error?'Flight image unavailable. You can still complete the chapter.':ready?captions[stage]:'Preparing departure…')}</p></div>
- <div className="departure-controls"><button className="primary" onClick={finish}>{t("Skip departure →")}</button><button onClick={onClose}>{t("Back to ship")}</button></div>
+ <div className="departure-controls"><button className="primary" onClick={finish}>{t("Skip departure →")}</button><button onClick={onClose}>{t("Back to exploration")}</button></div>
  </div></dialog>;
 }
