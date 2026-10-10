@@ -12,4 +12,4 @@ export default defineConfig(({mode})=>({base:'./',define:{__GAME_VERSION__:JSON.
   }
   this.emitFile({type:'asset',fileName:'version.json',source:JSON.stringify({version})});
  }
-}],build:{outDir:mode==='itch'?'dist-itch':mode==='crazygames'?'dist-crazygames':'dist',rollupOptions:{input:['itch','crazygames'].includes(mode)?{game:'index.html'}:{game:'index.html',balance:'balance.html'}}}}));
+}],build:{outDir:mode==='itch'?'dist-itch':mode==='crazygames'?'dist-crazygames':'dist',rollupOptions:{input:['itch','crazygames'].includes(mode)?{game:'index.html'}:{game:'index.html',balance:'balance.html',welcome:'welcome.html'}}}}));

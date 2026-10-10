@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#080f18" />
+  <meta name="description" content="A mysterious signal. A damaged ship. Your next adventure. Discover Beyond the Signal, a free sci-fi match-3 game for mobile and desktop browsers." />
+  <title>Beyond the Signal — A sci-fi puzzle adventure</title>
+  <link rel="icon" href="./tiles/star.png" />
+  <link rel="stylesheet" href="/src/landing-page.css" />
+</head>
+<body>
+  <a class="skip" href="#about" data-text="skip">Skip to content</a>
+  <header class="site-header wrap">
+    <a class="brand" href="#" aria-label="Beyond the Signal"><span class="brand-mark" aria-hidden="true">✦</span><span>BEYOND <span>THE SIGNAL</span></span></a>
+    <div class="header-actions"><div class="languages" role="group" aria-label="Language / Jazyk"><button type="button" data-language="en" aria-pressed="true">EN</button><button type="button" data-language="cs" aria-pressed="false">CZ</button></div><a class="header-play game-link" href="./" data-text="playShort">Play now ↗</a></div>
+  </header>
+  <main>
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <img class="hero-art" src="./intro/signal.webp" alt="" fetchpriority="high" width="941" height="1672" />
+      <div class="hero-copy"><p class="eyebrow" data-text="genre">A SCI-FI MATCH-3 ADVENTURE</p>
+        <h1 id="hero-title"><span data-text="title1">A distant signal.</span><span data-text="title2">A new beginning.</span></h1>
+        <p class="hero-description" data-text="intro">Your ship is damaged. A mysterious signal is still calling. Match tiles, bring your ship back to life, and discover what lies beyond.</p>
+        <a class="button game-link" href="./"><span data-text="play">Play free</span><span aria-hidden="true">↗</span></a>
+        <p class="play-note" data-text="availability">In your browser · Mobile & desktop · No download</p>
+      </div>
+      <a class="discover" href="#about"><span data-text="discover">Discover the adventure</span><span aria-hidden="true">↓</span></a>
+    </section>
+    <section id="about" class="about wrap" aria-labelledby="about-title">
+      <div><p class="eyebrow" data-text="aboutLabel">MORE THAN A MATCH</p><h2 id="about-title" data-text="aboutTitle">Every puzzle brings your world to life.</h2></div>
+      <div class="about-copy"><p data-text="story">A supply run takes an unexpected turn when you follow a beacon from a lost expedition. After an emergency landing, the journey starts with a damaged ship — and one small repair.</p><p data-text="aboutBody">Solve match-3 puzzles to restore each section, uncover the ship’s log, and set a course for distant worlds. Watch places change as you progress, one repair at a time.</p><div class="tile-line" aria-hidden="true"><img src="./tiles/crystal.png" alt="" width="48" height="48" loading="lazy"/><img src="./tiles/star.png" alt="" width="48" height="48" loading="lazy"/><img src="./tiles/comet.png" alt="" width="48" height="48" loading="lazy"/><img src="./tiles/fuel.png" alt="" width="48" height="48" loading="lazy"/><span data-text="tileNote">Make a match. Make a difference.</span></div></div>
+    </section>
+    <section class="gallery wrap" aria-label="Inside the game" data-label="galleryLabel">
+      <figure><div class="scene-image"><img src="./scenes/airlock-corridor-door.webp" alt="The damaged ship’s airlock" data-alt="airlockAlt" width="600" height="800" loading="lazy"/></div><figcaption><span class="step">01 /</span><div><h3 data-text="repairTitle">Repair your ship</h3><p data-text="repairBody">From the first flicker of light to a ship ready for the stars.</p></div></figcaption></figure>
+      <figure><div class="scene-image"><img src="./scenes/icebound-relay.webp" alt="An expedition to an icy world" data-alt="iceAlt" width="600" height="800" loading="lazy"/></div><figcaption><span class="step">02 /</span><div><h3 data-text="exploreTitle">Follow the signal</h3><p data-text="exploreBody">Travel beyond the crash site and uncover the expedition’s trail.</p></div></figcaption></figure>
+      <figure><div class="scene-image"><img src="./scenes/night-glade-restored.webp" alt="A glowing alien garden" data-alt="gardenAlt" width="600" height="800" loading="lazy"/></div><figcaption><span class="step">03 /</span><div><h3 data-text="restoreTitle">Bring worlds to life</h3><p data-text="restoreBody">Discover new places, new puzzles, and something worth restoring.</p></div></figcaption></figure>
+    </section>
+    <section class="updates wrap" aria-labelledby="updates-title"><div class="section-heading"><div><p class="eyebrow" data-text="updatesLabel">TRANSMISSIONS FROM DEVELOPMENT</p><h2 id="updates-title" data-text="updatesTitle">What’s new</h2></div><span class="development"><i aria-hidden="true"></i><span data-text="development">An independent game, still growing</span></span></div>
+      <div id="update-list">
+        <article class="update"><time datetime="2026-10-09">09 OCT 2026</time><div><span class="update-tag">GAME UPDATE</span><h3>Clearer words. A smoother journey.</h3><p>English and Czech text has been reviewed throughout the game. Puzzle tips and instructions are clearer, with improved readability on small screens. Level difficulty is unchanged.</p></div></article>
+      </div>
+    </section>
+    <section class="closing wrap"><div><p class="eyebrow" data-text="closingLabel">YOUR NEXT CHAPTER STARTS HERE</p><h2 data-text="closingTitle">The signal is still calling.</h2></div><a class="button game-link" href="./"><span data-text="play">Play free</span><span aria-hidden="true">↗</span></a></section>
+  </main>
+  <footer class="wrap"><span>© <span id="year">2026</span> Beyond the Signal</span><span data-text="footer">An independent sci-fi puzzle adventure.</span><a href="https://pretorius-cz.itch.io/beyondthesignal">itch.io ↗</a></footer>
+  <script type="module" src="/src/welcome.js"></script>
+</body>
+</html>

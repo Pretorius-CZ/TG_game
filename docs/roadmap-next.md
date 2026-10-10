@@ -292,3 +292,59 @@ na postupu; správce přidat SQLpodle docs/balance-analytics.md.
 97testů/build a browser test se simulovanýmRPC prošly. Živá migrace/role
 zatím neověřeny, vyžadují zásah správceSupabase. Zatím místně, nepushnuto.
 Nahrazuje poznámku, že centrální sběr není implementovaný; aktivace chybí.
+
+## 2026-10-10 — Příprava vydání na Google Play (backlog)
+
+Uživatel požádal o zapsání dalších činností, nikoli o zahájení implementace.
+Před realizací chce probrat další nápady. Níže je navržený postup;
+Capacitor a AdMob jsou doporučené varianty, nikoli již zapojené služby.
+
+- [ ] Ověřit existenci, typ a datum založení Play Console účtu. Registrace
+  stojí dle aktuální dokumentace jednorázově 25 USD; dokončit ověření účtu.
+- [ ] Připravit samostatný Android build přes Capacitor se společným React/Vite
+  kódem, přibalenými herními soubory a bez administrátorského dashboardu.
+  Změřit velikost balíku a odstranit nepotřebné podklady; podle výsledku
+  rozhodnout o případném dodatečném stahování obsahu.
+- [ ] Nastavit Android Studio, trvalé applicationId, verzování, podpis,
+  Play App Signing a bezpečnou zálohu upload klíče. APK pro přímý test,
+  podepsané AAB pro Google Play. Aktualizace webu sama neaktualizuje aplikaci.
+- [ ] Ověřit aktuální target API (k 10. 10. 2026 dokumentace uvádí API 36),
+  kompatibilitu použitých SDK a nativních knihoven včetně 16KB stránek.
+- [ ] Otestovat portrétové UI, výřezy a systémové lišty, tlačítko Zpět,
+  různé telefony a výkon. Ošetřit zamčení, pozadí, návrat a zvuk během reklamy.
+- [ ] Prověřit trvalé ukládání při aktualizaci a ukončení aplikace systémem;
+  navrhnout obnovu rozehrané desky, kterou dnes neukládáme. Ověřit offline
+  hraní a následnou synchronizaci bez ztráty postupu.
+- [ ] Přizpůsobit Google přihlášení a návrat do aplikace; ověřit cloudový
+  přenos pod stejným účtem. Lokální host z webu se automaticky nepřenese.
+- [ ] Oddělit Android/web a verzi aplikace ve statistikách.
+- [ ] Připojit skutečné odměňované reklamy přes nativní SDK; první kandidát
+  AdMob, definitivní výběr otevřený. Zachovat schválené odměny a limity
+  (+5 tahů, energie při nule, pomůcka, nápověda). Zpočátku návrh bez bannerů
+  a nucených reklam. Odměnu udělit jednou až po potvrzení SDK, ne při zavření;
+  chyba nebo nedostupnost reklamy nesmí poškodit rozehranou hru.
+- [ ] Nejprve testovací reklamní jednotky; pro ostré AdMob nastavit UMP,
+  dostupné nastavení soukromí, app-ads.txt na vlastní doméně a schválení aplikace.
+- [ ] Připravit zásady soukromí, Data safety podle skutečných dat/SDK,
+  deklaraci reklam, cílové publikum a hodnocení obsahu. Při vytváření účtů
+  zajistit smazání účtu/dat v aplikaci i webovou cestu; restart hry nestačí.
+- [ ] Připravit ikonu, grafiku, popisy a screenshoty skutečné Android verze.
+- [ ] Interní test, poté uzavřený test a žádost o produkční vydání.
+  Pro osobní účty založené po 13. 11. 2023 aktuálně platí alespoň 12 testerů
+  přihlášených nepřetržitě 14 dní a následné posouzení produkčního přístupu.
+  Současný webový Bounty playtest tuto podmínku neplní.
+
+Navržené pořadí: Capacitor → APK na fyzický telefon → ukládání/přihlášení
+→ testovací reklamy → podepsaný AAB → uzavřený test → vydání.
+Požadavky znovu ověřit při realizaci; schválení Play a AdMob jsou samostatná.
+
+Zdroje ověřené 10. 10. 2026:
+- https://capacitorjs.com/docs/android
+- https://developer.android.com/google/play/requirements/target-sdk
+- https://developer.android.com/guide/app-bundle
+- https://support.google.com/googleplay/android-developer/answer/6112435
+- https://support.google.com/googleplay/android-developer/answer/14151465
+- https://support.google.com/googleplay/android-developer/answer/13327111
+- https://developers.google.com/admob/android/rewarded
+- https://developers.google.com/admob/android/privacy
+- https://support.google.com/admob/answer/14538460

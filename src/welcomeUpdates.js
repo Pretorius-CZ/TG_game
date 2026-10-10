@@ -1,0 +1,5 @@
+// Public, player-facing news. Add newest entries first; do not publish unreleased plans as updates.
+export const updates=[
+ {date:'2026-10-09',en:{tag:'GAME UPDATE',title:'Clearer words. A smoother journey.',body:'English and Czech text has been reviewed throughout the game. Puzzle tips and instructions are clearer, with improved readability on small screens. Level difficulty is unchanged.'},cs:{tag:'AKTUALIZACE HRY',title:'Srozumitelnější texty. Příjemnější cesta.',body:'Prošli jsme anglické i české texty napříč hrou. Zpřesnili jsme nápovědy a pokyny a zlepšili čitelnost na malých displejích. Obtížnost levelů zůstává stejná.'}},
+ {date:'2026-10-09',en:{tag:'PLAYTEST',title:'A fresh pair of eyes on the adventure.',body:'Our first Bounty Board playtest is underway. New players are exploring the opening, trying the puzzles, and sharing honest feedback to help us improve the experience.'},cs:{tag:'TESTOVÁNÍ',title:'Noví hráči, nové postřehy.',body:'Probíhá náš první playtest přes Bounty Board. Noví hráči procházejí začátek dobrodružství, zkoušejí hlavolamy a posílají upřímnou zpětnou vazbu, která nám pomůže hru zlepšit.'}}
+];
