@@ -1,4 +1,11 @@
 // Aggregate pseudonymous browser identities, never infer people from attempts.
+export const campaignKey=row=>JSON.stringify([row.source||'unknown',row.medium||'unknown',row.campaign||'unknown']);
+export function campaignSelection(attempts,visits,key=''){
+ const selected=key?visits.filter(row=>campaignKey(row)===key):visits;
+ const links=new Set(selected.flatMap(visit=>visit.reporter?Object.keys(visit.attempts||{}).map(id=>JSON.stringify([visit.reporter,id])):[]));
+ const linked=attempts.filter(row=>row.reporter&&row.attemptId&&links.has(JSON.stringify([row.reporter,row.attemptId])));
+ return {visits:selected,attempts:key?linked:attempts,unlinked:attempts.length-linked.length};
+}
 export function excludeTesters(rows,testers,include=false){
  const ids=new Set(testers);return include?rows:rows.filter(row=>!ids.has(row.reporter));
 }
@@ -14,8 +21,12 @@ export function visitGroups(visits,keys=['source','medium','campaign']){
  }
  return [...groups.values()].map(g=>({...g,devices:g.devices.size,attempts:g.attempts.size})).sort((a,b)=>b.visits-a.visits);
 }
-export function onboardingReport(visits,catalog,since=null){
+export function onboardingReport(visits,catalog,since=null,history=visits){
  const devices=new Map(),firstSeen=new Map();
+ for(const visit of history){
+  const time=new Date(visit.recordedAt).getTime();
+  if(visit.reporter&&Number.isFinite(time))firstSeen.set(visit.reporter,Math.min(firstSeen.get(visit.reporter)??Infinity,time));
+ }
  for(const visit of visits){
   if(!visit.reporter)continue;
   if(!devices.has(visit.reporter))devices.set(visit.reporter,new Map());

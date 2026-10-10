@@ -2,6 +2,24 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {excludeTesters,visitGroups,onboardingReport,nearMiss,deviceDirectory} from '../src/analyticsReport.js';
 import {summarizeAttempts} from '../src/balanceTracking.js';
+import {campaignKey,campaignSelection} from '../src/analyticsReport.js';
+test('campaign filter joins exact attempt and reporter, not all activity of a browser',()=>{
+ const bounty={source:'bountyboard',medium:'playtest',campaign:'pilot_01'};
+ const visits=[{...bounty,reporter:'p',attempts:{a:{}}},{...bounty,reporter:'p',attempts:{a:{}}},{source:'direct',reporter:'p',attempts:{b:{}}}];
+ const rows=[{reporter:'p',attemptId:'a'},{reporter:'p',attemptId:'b'},{reporter:'q',attemptId:'a'},{attemptId:'a'},{reporter:'p'}];
+ const scope=campaignSelection(rows,visits,campaignKey(bounty));
+ assert.deepEqual(scope.attempts,[rows[0]]);assert.equal(scope.visits.length,2);
+ assert.equal(campaignSelection(rows,visits).attempts,rows);
+ assert.equal(campaignSelection(rows,visits).unlinked,3);
+ assert.deepEqual(campaignSelection(rows,visits,'missing').attempts,[]);
+ assert.deepEqual(campaignSelection(rows,[],campaignKey(bounty)).attempts,[]);
+});
+test('filtered onboarding retains first-seen history from other campaigns',()=>{
+ const current=[{reporter:'old',recordedAt:'2026-10-10',attempts:{a:{level:'one',outcome:'won'}}}];
+ const history=[{reporter:'old',recordedAt:'2026-10-01',attempts:{}},...current];
+ assert.equal(onboardingReport(current,[{id:'one'}],'2026-10-08',history).cohort,0);
+ assert.equal(onboardingReport(current,[{id:'one'}],null,history).cohort,1);
+});
 const visit=(reporter,attempts={},extra={})=>({reporter,attempts,source:'facebook',medium:'paid_social',campaign:'launch',...extra});
 test('tester exclusion applies retroactively, is reversible and retains unidentified legacy attempts',()=>{
  const rows=[visit('tester'),visit('player'),{level:'legacy'}];
