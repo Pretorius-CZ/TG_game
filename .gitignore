@@ -12,3 +12,8 @@ dist-itch/
 releases/
 
 dist-crazygames/
+
+dist-android/
+*.jks
+*.keystore
+android/key.properties

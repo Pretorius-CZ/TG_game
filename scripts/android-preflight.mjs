@@ -1,0 +1,15 @@
+import {existsSync} from 'node:fs';
+import path from 'node:path';
+import {spawnSync} from 'node:child_process';
+const executable=process.platform==='win32'?'java.exe':'java';
+const java=process.env.JAVA_HOME?path.join(process.env.JAVA_HOME,'bin',executable):executable;
+const result=spawnSync(java,['-version'],{encoding:'utf8'});
+const output=(result.stderr||'')+(result.stdout||'');
+const version=output.match(/version "(\d+)(?:\.(\d+))?/);
+const major=version?(Number(version[1])===1?Number(version[2]):Number(version[1])):0;
+const sdk=process.env.ANDROID_HOME||process.env.ANDROID_SDK_ROOT||(process.env.LOCALAPPDATA?path.join(process.env.LOCALAPPDATA,'Android','Sdk'):'');
+const problems=[];
+if(result.error||major<21)problems.push(`Java 21+ required (detected ${major||'none'}). Set JAVA_HOME to Android Studio's jbr folder or JDK 21.`);
+if(!sdk||!existsSync(path.join(sdk,'platforms','android-36','android.jar')))problems.push('Android SDK platform 36 missing. Install it with Android Studio SDK Manager and set ANDROID_HOME.');
+if(!sdk||!existsSync(path.join(sdk,'build-tools')))problems.push('Android SDK Build-Tools missing. Install them with SDK Manager.');
+if(problems.length){for(const problem of problems)console.error(problem);process.exitCode=1;}else console.log('Java and Android SDK prerequisites found. Run npm run android:apk for a debug build.');

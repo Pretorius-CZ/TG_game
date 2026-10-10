@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Beyond the Signal</string>
+    <string name="title_activity_main">Beyond the Signal</string>
+    <string name="package_name">com.playbeyondthesignal.game</string>
+    <string name="custom_url_scheme">com.playbeyondthesignal.game</string>
+</resources>

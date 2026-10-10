@@ -348,3 +348,10 @@ Zdroje ověřené 10. 10. 2026:
 - https://developers.google.com/admob/android/rewarded
 - https://developers.google.com/admob/android/privacy
 - https://support.google.com/admob/answer/14538460
+
+### Android — převzetí na nový PC (10. 10. 2026)
+
+Capacitor a testovací rewarded integrace jsou připravené na `codex/google-play`.
+Nativní APK ještě není ověřené. Instalaci nástrojů odkládáme na nový PC,
+který uživatel očekává během několika dní. Postup obnovy a přesný stav:
+[Android preview](android-preview.md). Pak první APK a test na telefonu.

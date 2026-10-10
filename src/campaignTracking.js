@@ -1,3 +1,4 @@
+import {android} from './platform.js';
 import {supabase} from './supabase.js';
 import {reporterIdentity} from './balanceOutbox.js';
 import {campaignFromURL,visitForActivity,deviceCategory,mergeVisitAttempts} from './campaignPolicy.js';
@@ -15,7 +16,7 @@ function persist(){try{
  localStorage.setItem(visitKey,JSON.stringify(active));const queue=read(queueKey,{});queue[active.id]=active;localStorage.setItem(queueKey,JSON.stringify(Object.fromEntries(Object.entries(queue).slice(-100))));
 }catch{}}
 function initializeVisit(){
- const now=Date.now(),campaign=campaignFromURL(location.href),previous=read(visitKey,null);
+ const now=Date.now(),campaign=android?{source:'googleplay',medium:'android_preview',campaign:'initial_test'}:campaignFromURL(location.href),previous=read(visitKey,null);
  const candidate=previous&&active&&previous.id===active.id&&previous.lastAt>active.lastAt?previous:active||previous;
  const chosen=visitForActivity(candidate,campaign,now,()=>crypto.randomUUID(),deviceCategory(navigator));
  if(active?.id!==chosen.id)lastCountryLookup=0;
