@@ -22,6 +22,7 @@ const repairs=rows.map(([slug,name,thought,result,logTitle,logText,goals,moves,x
 });
 export const refugeMedical={title,key:'refugeMedicalCompleted',system:'refuge-homes',chapter:text('CHAPTER 09 / THE REFUGE','KAPITOLA 09 / ÚTOČIŠTĚ'),hotspotOffset:0,image:'refuge-medical',restoredImage:'refuge-medical-restored',repairs,
  logs:rows.map((r,i)=>({id:repairs[i].id+'-log',repair:repairs[i].id,title:r[4],text:r[5],source:text('Refuge medical log','Deník ošetřovny / Útočiště'),time:title,unlockAt:151+i})),
- complete:text('The refuge is ready for the rescue craft. A new bearing waits in the ship log.','Útočiště je připravené pro záchrannou loď. Nové souřadnice čekají v lodním deníku.'),nextLabel:text('Return to the residential block →','Zpět do obytného bloku →'),
+ nextScene:'return-corridor',
+ complete:text('The refuge is ready for the rescue craft. A new bearing waits in the ship log.','Útočiště je připravené pro záchrannou loď. Nové souřadnice čekají v lodním deníku.'),nextLabel:text('Open the return corridor →','Otevři návratový koridor →'),
  clips:repairs.map(()=> 'inset(0)'),restorationMasks:repairs.map(r=>'radial-gradient(ellipse 34% 27% at '+r.x+'% '+r.y+'%, #000 30%, transparent 100%)')};
 text('Enter the medical bay →','Vstup do ošetřovny →');

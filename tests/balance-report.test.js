@@ -19,11 +19,11 @@ test('summary counts distinct known browsers and median completed duration only'
  assert.equal(funnelPercent(0,0),'—');assert.equal(funnelPercent(18,71),'25 %');
 });
 test('catalog follows chapter progression without losing or duplicating levels',()=>{
- assert.equal(levelCatalog.length,155);
- assert.equal(new Set(levelCatalog.map(r=>r.id)).size,155);
+ assert.equal(levelCatalog.length,161);
+ assert.equal(new Set(levelCatalog.map(r=>r.id)).size,161);
  const position=id=>levelCatalog.findIndex(r=>r.id===id);
  assert.ok(position('wreck-cargo')<position('refuge-dock-beacon'));
- assert.deepEqual(levelCatalog.map(r=>r.number),Array.from({length:155},(_,i)=>i+1));
+ assert.deepEqual(levelCatalog.map(r=>r.number),Array.from({length:161},(_,i)=>i+1));
 });
 test('version filter separates legacy data and preserves all outcomes',()=>{
  const rows=[{build:'v3',outcome:'quit'},{build:'v2'},{}];

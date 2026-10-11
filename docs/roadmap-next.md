@@ -348,3 +348,14 @@ Zdroje ověřené 10. 10. 2026:
 - https://developers.google.com/admob/android/rewarded
 - https://developers.google.com/admob/android/privacy
 - https://support.google.com/admob/answer/14538460
+
+## 2026-10-11 — Další obsah: Cesta domů
+
+Hratelný prototyp Návratového koridoru (156–161) je na `codex/return-corridor`.
+Navazuje na zablokovanou návratovou trasu po ošetřovně; poslední úkol dovede
+záchrannou loď skrz koridor k Útočišti. Texty EN/CZ, vlastní grafika, šest
+různých desek. [Návrh a ověření](return-corridor.md).
+
+Před nasazením: osobní odehrání a ladění, SQL029, ověření cloudového přenosu.
+Případné přistání/setkání je další návrh, ne hotový obsah. Produkční web ani
+probíhající Bounty test se tímto prototypem nemění.

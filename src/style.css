@@ -342,3 +342,14 @@ button.planet-node:hover,button.planet-node:focus-visible { background:#5fd4e51c
 .play-area .refuge-medical-site .scene-caption .primary{font-size:12px;padding:10px;min-height:44px}
 .play-area .refuge-medical-site .hotspot-label-above{width:70%;flex-direction:row;gap:8px}
 .play-area .refuge-medical-site .hotspot-label-above .target{flex-shrink:0}
+
+/* Six paired consoles; keep the bottom pair clear of the return action. */
+.play-area .game.expedition.mine-site.return-corridor-site .scene-top{top:85px!important;padding-top:0!important;left:16px;right:16px}
+.play-area .return-corridor-site .scene-top .eyebrow{font-size:8px;line-height:10px;letter-spacing:1px}
+.play-area .return-corridor-site .scene-top h1{font-size:17px;line-height:20px;margin:4px 0}
+.play-area .return-corridor-site .scene-top p{display:none}
+.play-area .return-corridor-site .hotspot{width:42%;padding:2px;gap:3px;flex-direction:column}
+.play-area .return-corridor-site .hotspot .target{width:32px;height:32px;font-size:20px;flex-shrink:0}
+.play-area .return-corridor-site .hotspot .hotspot-label{width:100%;max-width:none;font-size:10px;line-height:1.2;padding:4px}
+.play-area .return-corridor-site .scene-caption{bottom:8px;padding:8px}
+.play-area .return-corridor-site .scene-caption .primary{font-size:12px;padding:10px;min-height:44px;width:100%}
