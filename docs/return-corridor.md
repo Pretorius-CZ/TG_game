@@ -79,3 +79,8 @@ přenos nového postupu mezi dvěma zařízeními.
   testovací průchod nezapisoval do produkčních statistik.
 - Před zveřejněním: osobně odehrát nové levely, zhodnotit tempo příběhu,
   provést SQL029 a ověřit cloud. Teprve potom sloučit do webové větve.
+
+Aktualizace 11. 10. 2026: uživatel potvrdil spuštění SQL029 bez chyb.
+Tím je dřívější stav čekání na migraci překonaný. Prošlo 180 unit testů
+včetně kontroly limitu hodnocení všech 161 levelů. Přenos postupu mezi
+skutečnými zařízeními zůstává k samostatnému ověření.
