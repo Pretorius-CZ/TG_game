@@ -22,8 +22,14 @@ export function createBoostAudio(ctx,destination){
   const buffer=buffers.get(name);if(!buffer)return fallback.play(name);
   if(ctx.currentTime-last<.12||voices.size>=3)return true;last=ctx.currentTime;
   const source=ctx.createBufferSource(),gain=ctx.createGain();source.buffer=buffer;
-  gain.gain.value=voices.size? .65:.9;source.connect(gain);gain.connect(compressor);
-  voices.add(source);source.onended=()=>{voices.delete(source);source.disconnect();gain.disconnect();};source.start();
+  const gentle=['pulse','nova','emp'].includes(name),t=ctx.currentTime;
+  const volume=(voices.size?.65:.9)*(gentle?.42:1);
+  gain.gain.setValueAtTime(gentle?0:volume,t);
+  if(gentle)gain.gain.linearRampToValueAtTime(volume,t+Math.min(.045,buffer.duration/3));
+  const filter=gentle?ctx.createBiquadFilter():null;
+  source.connect(gain);
+  if(filter){filter.type='lowpass';filter.frequency.value=2600;filter.Q.value=.5;gain.connect(filter);filter.connect(compressor);}else gain.connect(compressor);
+  voices.add(source);source.onended=()=>{voices.delete(source);source.disconnect();gain.disconnect();filter?.disconnect();};source.start();
   return true;
  },stop,dispose(){disposed=true;abort.abort();stop();fallback.dispose();compressor.disconnect();}};
 }

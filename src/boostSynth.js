@@ -6,10 +6,10 @@ export function createBoostSynth(ctx,destination){
  compressor.attack.value=.003;compressor.release.value=.18;compressor.connect(destination);
  const noise=ctx.createBuffer(1,ctx.sampleRate*2,ctx.sampleRate);
  const data=noise.getChannelData(0);for(let i=0;i<data.length;i++)data[i]=Math.random()*2-1;
- let last=-Infinity;
+ let last=-Infinity,gentle=false;
  function envelope(source,duration,volume,delay=0,filter=null){
   const t=ctx.currentTime+delay,g=ctx.createGain();g.gain.setValueAtTime(.0001,t);
-  g.gain.exponentialRampToValueAtTime(volume,t+.008);
+  g.gain.exponentialRampToValueAtTime(volume*(gentle?.35:1),t+(gentle?.035:.008));
   g.gain.exponentialRampToValueAtTime(.0001,t+duration);
   source.connect(filter??g);if(filter)filter.connect(g);g.connect(compressor);
   source.start(t);source.stop(t+duration+.02);
@@ -30,6 +30,7 @@ export function createBoostSynth(ctx,destination){
   if(!boostSounds.includes(name))return false;
   // One composite blast per wave; rapid chains cannot stack unlimited voices.
   if(ctx.currentTime-last<.12)return true;last=ctx.currentTime;
+  gentle=['pulse','nova','emp'].includes(name);
   if(name==='laser'){
    sweep(500,1800,.10,.09,'triangle');sweep(2400,120,.30,.23,'sawtooth',.06);
    hiss(5000,700,.23,.16,.06);sweep(170,45,.25,.15,'sine',.07);

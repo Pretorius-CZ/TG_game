@@ -50,7 +50,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     try{localStorage.setItem(tutorialKey,JSON.stringify([...new Set([...readTutorials(localStorage,tutorialKey),tutorial])]));}catch{}
     setTutorialQueue(queue=>queue.slice(1));
   }
-  function explainUsedBoosts(used){
+  function explainBoosts(used){
     const unseen=[...new Set(used)].filter(id=>!seenTutorials.current.has(id));
     if(unseen.length)setTutorialQueue(queue=>[...new Set([...queue,...unseen])]);
   }
@@ -162,8 +162,9 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     const activation=helper==null&&a===b&&isBooster(board[a]);
     if (resonatorHelp || fault || board[a] == null || board[b] == null || lock.current || !admitted || won || moves>=limit || (helper==null&&(ice.includes(a)||ice.includes(b)))|| (helper==null&&!activation && (!adjacent(a, b, level.cols)||isBooster(board[a])||isBooster(board[b])))) return;
     if(helper!=null&&(!toolsLeft[helper]||(helper===2&&(ice.includes(a)||ice.includes(b)||!adjacent(a,b,level.cols)||a===b))))return;
+    if(activation&&!seenTutorials.current.has(board[a]===11?'nova':'pulse')){setTutorialQueue([board[a]===11?'nova':'pulse']);return;}
     const token=++run.current;
-    const usedBoosts=new Set();let completedAction=false;
+    const createdBoosts=new Set();let completedAction=false;
     let activeTicks=0;
     watchdog.current=setInterval(()=>{if(!document.hidden && ++activeTicks>=60 && token===run.current)failSafely();},1000);
     try{
@@ -208,7 +209,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
         }
         const resolved=wave(next,frozen,level,{enabled:boosts,activate:activation&&cascades===0?a:null,preferred:cascades===0?[b,a]:[],hit:cascades===0?toolHit:null,refillRandom:collected=>goalRefillRandom(level,goals,collectGoals(goals,totals,next,collected),next,frozen,collected,refillHistory.current)});
         found=resolved.hit;
-        found.filter(i=>isBooster(next[i])).forEach(i=>usedBoosts.add(next[i]===11?'nova':'pulse'));
+        resolved.created.forEach(r=>createdBoosts.add(r.type===11?'nova':'pulse'));
         const detonations=activation&&cascades===0?found.filter(i=>isBooster(next[i])).map(i=>({i,type:next[i]})):[];
         setBlastFx(detonations.length?{detonations,hit:found}:null);
         if(detonations.length)sound(detonations.some(d=>d.type===11)?'nova':'pulse');
@@ -232,11 +233,10 @@ export default function MiniGame({ onWin, onQuit, repair }) {
           setMessage('No possible matches. Board refreshed — no extra move or energy used.');
         }
       }
-      if(helper!=null)usedBoosts.add(helperTutorials[helper]);
       completedAction=true;
     }
     }catch{if(alive.current && token===run.current)failSafely();}
-    finally{if(token===run.current){clearInterval(watchdog.current);lock.current=false;if(alive.current){setShuffling(false);setBusy(false);if(completedAction)explainUsedBoosts([...usedBoosts]);}}}
+    finally{if(token===run.current){clearInterval(watchdog.current);lock.current=false;if(alive.current){setShuffling(false);setBusy(false);if(completedAction)explainBoosts([...createdBoosts]);}}}
 
   }
   function choose(i) {
@@ -266,8 +266,8 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     const j = moving[0] === i ? moving[1] : moving[0];
     return { transform: `translate(${(j % level.cols - i % level.cols) * 100}%, ${(Math.floor(j / level.cols) - Math.floor(i / level.cols)) * 100}%)`, zIndex: 2 };
   }
-  return createPortal(<dialog className={`mini-dialog ${exhausted||won||fault?'mini-result':''}`} ref={dialog} aria-labelledby="level-title" onCancel={event => { event.preventDefault(); if (!busy) setConfirmQuit(true); }}>
-    {tutorial&&!fault&&admitted&&<MechanicTutorial topic={tutorial} language={language} remaining={tutorialQueue.length} onNext={dismissTutorial}/>}
+  return createPortal(<dialog className={`mini-dialog ${exhausted||won||fault?'mini-result':''}`} ref={dialog} aria-labelledby="level-title" onCancel={event => { event.preventDefault(); if(tutorial){dismissTutorial();return;}if (!busy) setConfirmQuit(true); }}>
+    {tutorial&&!fault&&admitted&&<MechanicTutorial topic={tutorial} language={language} remaining={tutorialQueue.length} onNext={dismissTutorial} onClose={()=>{dismissTutorial();setTutorialQueue([]);}} onTopic={id=>setTutorialQueue([id])} topics={[...topics,...helperTutorials]}/>}
     <div className="level-hud"><div className="energy-audio"><LivesBar/><AudioControls/></div><button className="hint-control" aria-label={t(`Show a hint, ${hintsLeft} remaining`)} title={t(hintsLeft?"One free hint per attempt":crazyGames?"Extra hint":"Ad · extra hint")} disabled={busy||exhausted||won||fault||!admitted||(hintsLeft===0&&adsUsed.hint)||Boolean(hint)} onClick={()=>hintsLeft?showHint():requestHelp("hint")}><span aria-hidden="true">{t("Hint")}</span><small>{t(hintsLeft?'1/1':adsUsed.hint?'0':crazyGames?'+':'AD')}</small></button><div className={`moves-counter ${limit-moves<=5?'low-moves':''}`} role="status" aria-label={t(`${Math.max(0,limit-moves)} moves left`)}><span>{t("MOVES")}</span><strong>{t(Math.max(0,limit-moves))}</strong></div></div>
     <div className="mini-header"><button className="mechanics-help" disabled={busy||exhausted||won||fault||!admitted} aria-label={language==='cs'?'Pravidla a pomůcky':'Mechanics help'} onClick={()=>{setResonatorHelp(false);setTutorialQueue(topics);}}>ⓘ</button><span className="eyebrow">{t(repair.room ?? 'COCKPIT')}{t(" / REPAIR LESSON")}</span><button className="close" aria-label={t("Leave level")} disabled={busy} onClick={() => setConfirmQuit(true)}>{t("×")}</button><h2 id="level-title">{t(repair.lesson)}</h2></div>
     <div className="objective-list" style={{"--goal-count":goals.length+(initialIce(repair).length?1:0)+(resonators.length?1:0)}}>{t(goals.map((goal,i)=><div className="charge" key={i}><span>{t(goal.type!=null&&<img className="objective-icon" src={`./tiles/${sprites[goal.type]}.png`} alt={t("")}/>)}</span><strong translate="no" aria-live="polite" aria-atomic="true">{`${counts[i] ?? 0} / ${goal.target}`}</strong><progress aria-label={t(goal.label)} max={goal.target} value={counts[i]}/></div>))}{resonators.length>0&&<div className="charge" title={t('Match beside each ring to charge it. Blasts do not charge rings.')}><button className="resonator-help-button" aria-label={t('Charge the ring')} onClick={()=>setResonatorHelp(v=>!v)}>◎ ?</button><strong>{resonance.reduce((a,b)=>a+b,0)} / {resonators.reduce((a,r)=>a+r.target,0)}</strong><progress aria-label={t('Resonators')} value={resonance.reduce((a,b)=>a+b,0)} max={resonators.reduce((a,r)=>a+r.target,0)}/></div>}{initialIce(repair).length>0&&<div className="charge" title={t('Protective covers')}><span><i className="cover-objective-icon" aria-hidden="true"/></span><strong translate="no">{initialIce(repair).length-ice.length} / {initialIce(repair).length}</strong><progress aria-label={t('Protective covers')} max={initialIce(repair).length} value={initialIce(repair).length-ice.length}/></div>}</div>
@@ -292,10 +292,10 @@ export default function MiniGame({ onWin, onQuit, repair }) {
         </svg>)}
       </div>
 
-    </div> : <div className="win-panel" ref={resultPanel} tabIndex={-1}><Stars hero value={earnedStars(moveBudget(repair),moves)}/><p className="rating-note">{language==='cs'?'Nejlepší výsledek':'Best result'}: <Stars value={Math.max(stars[repair.id]??0,earnedStars(moveBudget(repair),moves))}/><br/>{language==='cs'?'Hvězdy závisí na zbývajících tazích z původního limitu; bonusové tahy se nepočítají.':'Stars are based on moves left from the original limit; bonus moves do not count.'}</p><h3>{t("Objective complete.")}</h3><p>{t("You have completed the objective.")}<br/>{t("Continue your journey.")}</p><button className="primary" disabled={busy} onClick={()=>{recordResult("won");award(repair.id,moveBudget(repair),moves);onWin();}}>{t(repair.action)} <span>{t("→")}</span></button></div>)}
+    </div> : <div className="win-panel" ref={resultPanel} tabIndex={-1}><p className="stars-optional">{language==='cs'?'K postupu stačí výhra. Tři hvězdy jsou dobrovolná výzva.':'Winning is enough to progress. Three stars are an optional challenge.'}</p><p className="replay-tip">{language==='cs'?'Znovu hrát: otevři ☰ Kapitoly, navštiv místnost a klepni na dokončenou opravu ✓.':'To replay: open ☰ Chapters, visit a room and tap a completed repair ✓.'}</p><Stars hero value={earnedStars(moveBudget(repair),moves)}/><p className="rating-note">{language==='cs'?'Nejlepší výsledek':'Best result'}: <Stars value={Math.max(stars[repair.id]??0,earnedStars(moveBudget(repair),moves))}/><br/>{language==='cs'?'Hvězdy závisí na zbývajících tazích z původního limitu; bonusové tahy se nepočítají.':'Stars are based on moves left from the original limit; bonus moves do not count.'}</p><h3>{t("Objective complete.")}</h3><p>{t("You have completed the objective.")}<br/>{t("Continue your journey.")}</p><button className="primary" disabled={busy} onClick={()=>{recordResult("won");award(repair.id,moveBudget(repair),moves);onWin();}}>{t(repair.action)} <span>{t("→")}</span></button></div>)}
     {!fault&&!won&&!exhausted&&admitted&&<div className="helper-panel">
       <div className="helper-prompt" role="status">{tool!=null?<>{t(helpers[tool][2])}<button onClick={()=>{setTool(null);setSelected(null);}}>{t('Cancel')}</button></>:null}</div>
-      <div className="helper-bar">{helpers.map(([icon,name],i)=><button key={name} className={`helper-tile helper-type-${i} ${toolsLeft[i]?"in-stock":"empty-stock"}`} aria-label={`${t(name)} · ${toolsLeft[i]}`} aria-pressed={tool===i} disabled={busy||confirmQuit||(!toolsLeft[i]&&adsUsed.helper)} onClick={()=>{if(!toolsLeft[i]){requestHelp("helper",i);return;}setSelected(null);setHint(null);if(i===1)play(board.findIndex(v=>v!=null),board.findIndex(v=>v!=null),i);else setTool(tool===i?null:i);}}><span className="helper-art"><HelperIcon index={i}/></span><small>{t(name)}</small><b className="helper-badge">{toolsLeft[i]||(!adsUsed.helper?<><svg viewBox="0 0 12 12" aria-hidden="true"><path d="m4 2 6 4-6 4z" fill="currentColor"/></svg>{crazyGames?'+':'AD'}</>:"0")}</b></button>)}</div>
+      <div className="helper-bar">{helpers.map(([icon,name],i)=><button key={name} className={`helper-tile helper-type-${i} ${toolsLeft[i]?"in-stock":"empty-stock"}`} aria-label={`${t(name)} · ${toolsLeft[i]}`} aria-pressed={tool===i} disabled={busy||confirmQuit||(!toolsLeft[i]&&adsUsed.helper)} onClick={()=>{if(!toolsLeft[i]){requestHelp("helper",i);return;}if(!seenTutorials.current.has(helperTutorials[i])){setTool(null);setSelected(null);setTutorialQueue([helperTutorials[i]]);return;}setSelected(null);setHint(null);if(i===1)play(board.findIndex(v=>v!=null),board.findIndex(v=>v!=null),i);else setTool(tool===i?null:i);}}><span className="helper-art"><HelperIcon index={i}/></span><small>{t(name)}</small><b className="helper-badge">{toolsLeft[i]||(!adsUsed.helper?<><svg viewBox="0 0 12 12" aria-hidden="true"><path d="m4 2 6 4-6 4z" fill="currentColor"/></svg>{crazyGames?'+':'AD'}</>:"0")}</b></button>)}</div>
     </div>}
     {t(import.meta.env.DEV&&!fault&&!won&&!exhausted&&!confirmQuit&&<button className="preview-complete" disabled={busy} onClick={()=>{if(lock.current)return;lock.current=true;onWin();}}>{t("✓ Complete level ")}<small>{t("Preview · skip match-3")}</small></button>)}
 
