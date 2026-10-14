@@ -34,3 +34,5 @@ Nejdřív spustit `supabase/030_refuge_arrival.sql` v Supabase SQL Editoru; kumu
 ## Ověření
 
 183 unit testů prošlo: přístupnost kapitoly, zákaz přeskočení, replay, uložení/sloučení/reset, hvězdy, překlady a platné otevírací desky. Build prošel, velikost JS má dosavadní upozornění. Browser ověření používá pouze lokální prostředí a vývojové dokončení; osobní hraní a cloud mezi skutečnými zařízeními zůstávají pro následné ověření.
+
+Aktualizace 14.10.2026: uživatel potvrdil dokončení SQL030. Dřívější stav čekání na migraci je překonaný; následuje autorizovaný produkční push. Živý cloud mezi zařízeními ještě samostatně neověřen.
