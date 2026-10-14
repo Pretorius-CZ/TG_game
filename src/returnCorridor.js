@@ -61,6 +61,7 @@ const repairs=rows.map(([slug,name,thought,result,logTitle,logText,goals,moves,x
 });
 export const returnCorridor={title,key:'returnCorridorCompleted',system:'refuge-medical',chapter:text('CHAPTER 10 / THE WAY HOME','KAPITOLA 10 / CESTA DOMŮ'),hotspotOffset:0,image:'return-corridor',restoredImage:'return-corridor-restored',repairs,
  logs:rows.map((r,i)=>({id:repairs[i].id+'-log',repair:repairs[i].id,title:r[4],text:r[5],source:text('Return corridor log','Deník návratového koridoru'),time:title,unlockAt:156+i})),
- complete:text('The corridor is clear. The rescue craft is approaching the refuge.','Koridor je volný. Záchranná loď se blíží k Útočišti.'),nextLabel:text('Return to the refuge →','Zpět do Útočiště →'),
+ complete:text('The corridor is clear. The rescue craft is approaching the refuge.','Koridor je volný. Záchranná loď se blíží k Útočišti.'),nextLabel:text('Receive the rescue craft →','Převzít záchrannou loď →'),
+ nextScene:'refuge-arrival',
  clips:repairs.map(()=> 'inset(0)'),restorationMasks:repairs.map(r=>'radial-gradient(ellipse 34% 24% at '+r.x+'% '+r.y+'%, #000 35%, transparent 100%)')};
 text('Open the return corridor →','Otevři návratový koridor →');

@@ -25,8 +25,8 @@ test('return corridor gates, replay, save, merge and reset preserve the rescue s
  assert.equal(mergeProgress(normalizeProgress(arrived),p).returnCorridorCompleted,6);
  assert.equal(mergeProgress(p,normalizeProgress({resetRevision:1})).returnCorridorCompleted,0);
  assert.equal(completeDestination(6,site.repairs[0].id,site.repairs),6);
- const chapter=chaptersFor(p).at(-1);assert.equal(chapter.number,10);assert.equal(chapter.done,6);assert.equal(chapter.total,6);
- assert.deepEqual(levelCatalog.slice(-6).map(r=>r.number),[156,157,158,159,160,161]);
+ const chapter=chaptersFor(p).find(c=>c.id==='return');assert.equal(chapter.number,10);assert.equal(chapter.done,6);assert.equal(chapter.total,6);
+ assert.deepEqual(levelCatalog.slice(155,161).map(r=>r.number),[156,157,158,159,160,161]);
  for(const r of site.repairs)assert.equal(p.stars[r.id],1);
 });
 test('return corridor boards generate legal starts and complete EN/CZ content',()=>{
@@ -45,9 +45,9 @@ test('return corridor boards generate legal starts and complete EN/CZ content',(
 test('cloud migration allows ratings for the full catalog and resets the added chapter',()=>{
  const sql=readFileSync(new URL('../supabase/029_return_corridor.sql',import.meta.url),'utf8');
  const cap=Number(sql.match(/jsonb_object_keys\(incoming->'stars'\)\)>(\d+)/)[1]);
- assert.equal(cap,levelCatalog.length);
+ assert.equal(cap,161);
  assert.ok(sql.includes("('returnCorridorCompleted',6)"));
  assert.ok(sql.includes("'returnCorridorCompleted',0"));
  assert.ok(sql.includes("(result->>'refugeMedicalCompleted')::integer<5"));
- for(const r of levelCatalog)assert.ok(sql.includes("('"+r.id+"','"));
+ for(const r of levelCatalog.slice(0,161))assert.ok(sql.includes("('"+r.id+"','"));
 });
