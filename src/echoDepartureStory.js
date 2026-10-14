@@ -7,7 +7,7 @@ export const echoDeparturePanels=[
  {image:'echo-departure-flight',title:text('One question beyond the chart','Otázka za hranicí mapy'),caption:text('Something has changed the signal on its way to us. Before we fly beyond the surveyed system, we will check the clocks and establish a reliable bearing. The way home stays open.','Něco změnilo signál na cestě k nám. Než vyletíme za hranici prozkoumané soustavy, ověříme hodiny a určíme spolehlivý směr. Cesta domů zůstává otevřená.')}
 ];
 export const echoDepartureReady=p=>elysiumComplete(p);
-export const shouldShowEchoDeparture=p=>echoDepartureReady(p)&&['rift','rift-echo'].includes(p.scene)&&(p.riftEchoCompleted??0)===0;
+export const shouldShowEchoDeparture=p=>echoDepartureReady(p)&&['rift','rift-echo'].includes(p.scene);
 text('Elysium departure story','Příběh odletu z Elysia');
 text('Investigate the echo','Prozkoumat ozvěnu');
 text('Replay the Elysium departure','Přehrát odlet z Elysia');

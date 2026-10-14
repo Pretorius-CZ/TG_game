@@ -11,14 +11,14 @@ export default function useSceneFit(key){
     const width=shell.clientWidth-parseFloat(getComputedStyle(shell).paddingLeft)-parseFloat(getComputedStyle(shell).paddingRight);
     const header=shell.querySelector('.masthead')?.getBoundingClientRect().height||52;
     const footer=shell.querySelector('footer')?.getBoundingClientRect().height||30;
-    const available=Math.max(200,viewport-header-footer-12);
+    const available=Math.max(200,viewport-header-footer-(shell.querySelector('.journey-guide')?.getBoundingClientRect().height||0)-20);
     game.style.width=width+'px';game.style.maxWidth='none';game.style.zoom='1';
     const scale=Math.min(1,available/game.offsetHeight);
     // Fit the whole scene, including the sibling HUD, as one unit.
     area.style.zoom=String(scale);area.style.width=width+'px';
    });
   }
-  const observer=new ResizeObserver(fit);const game=area.querySelector('.game');if(game)observer.observe(game);
+  const observer=new ResizeObserver(fit);const game=area.querySelector('.game');if(game)observer.observe(game);const guide=shell.querySelector('.journey-guide');if(guide)observer.observe(guide);
   window.addEventListener('resize',fit);window.visualViewport?.addEventListener('resize',fit);fit();
   return()=>{cancelAnimationFrame(frame);observer.disconnect();window.removeEventListener('resize',fit);window.visualViewport?.removeEventListener('resize',fit);};
  },[key]);

@@ -7,7 +7,7 @@ const scenes=[
  ['emergency','Then the emergency system took control.'],
  ['aftermath',"I'm alive. The ship is barely holding together. And the signal is still there."]
 ];
-export default function Welcome({hasProgress,seen,onFinish,settings,onChapters}){
+export default function Welcome({hasProgress,seen,onFinish,settings,onChapters,recap}){
  const {t,language,setLanguage}=useLanguage();
  const [step,setStep]=useState(null),[ready,setReady]=useState(false),[failed,setFailed]=useState(false),[retry,setRetry]=useState(0);
  const next=useRef(null),finish=useRef(onFinish);finish.current=onFinish;
@@ -27,7 +27,7 @@ export default function Welcome({hasProgress,seen,onFinish,settings,onChapters})
    </div>
   </>:<>
    <h1 className="welcome-title">BEYOND<span>THE SIGNAL</span></h1>
-   <div className="welcome-menu">
+   <div className="welcome-menu">{recap&&<p className="journey-recap">{recap}</p>}
     <button className="welcome-play" onClick={()=>hasProgress||seen?onFinish():setStep(0)}>{t(hasProgress||seen?'CONTINUE':'PLAY')}</button>
     {hasProgress&&<button className="welcome-secondary" onClick={onChapters}>{t('Chapters')}</button>}
     <button className="welcome-replay" onClick={()=>setStep(0)}>{t('Watch intro')}</button>

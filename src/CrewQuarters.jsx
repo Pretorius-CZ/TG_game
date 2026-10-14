@@ -26,6 +26,10 @@ export default function CrewQuarters({completed,onCompleted,onBack,onLog,room='c
   const roomScenes=exterior?['./scenes/exterior-portrait.webp','./scenes/exterior-cockpit-lit.webp','./scenes/exterior-hull.webp','./scenes/exterior-engines.webp','./scenes/exterior-gear.webp','./scenes/fuel-depot.webp','./scenes/fuel-depot-repaired.webp']:airlock?[0,1,2,4].map(i=>`./scenes/airlock-${i}.webp`):navigation?['./scenes/navigation-console.webp']:Array.from({length:tasks.length+1},(_,i)=>`./scenes/${room}-${i}.webp`);
   useEffect(()=>{let alive=true;setFailed(false);Promise.all(roomScenes.map(src=>new Promise((resolve,reject)=>{const img=new Image();img.onload=resolve;img.onerror=reject;img.src=src;}))).then(()=>alive&&setLoaded(true)).catch(()=>alive&&setFailed(true));return()=>{alive=false;};},[attempt]);
   useEffect(()=>{duckMusic(Boolean(playing));return()=>duckMusic(false);},[playing]);
+ useEffect(()=>{
+  const open=e=>{if(e.detail.scene!==room)return;const i=tasks.findIndex(r=>r.id===e.detail.id);if(i<0||i!==completed)return;setReveal(null);setOutside(false);setBubble(i);};
+  window.addEventListener('journey-repair',open);return()=>window.removeEventListener('journey-repair',open);
+ },[room,completed]);
   function closeBubble(){setBubble(null);requestAnimationFrame(()=>action.current?.focus());}
   function win(repair=playing){if(!repairsUnlocked)return;if(repair.id==='exterior-refuel'&&!canRefuel(completed,engineCompleted))return;const next=tasks[completed]?.id===repair.id?completed+1:completed;if(next!==completed){onCompleted(next);setReveal(repair);sound('repair');}setPlaying(null);requestAnimationFrame(()=>action.current?.focus());}
   return <>

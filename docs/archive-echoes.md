@@ -62,7 +62,7 @@ ID scén, oprav a uložená pole původních oblastí se nemění. Číslování
 
 Čtyři pole archiveEntryCompleted, archiveDataCompleted, archiveSimulationCompleted a archiveCoreCompleted0–5. Normalizace/sloučení/reset zachovávají předpoklady, deníky a hvězdy. Další oblast až po5/5 předchozí, replay nezvyšuje postup. Nové místní scény nejsou vydávány za uložené online, pokud starý server tato pole nepodporuje.
 
-Spustit `supabase/031_archive_echoes.sql` v Supabase SQL Editoru po030. Kumulativní herní migrace v transakci rozšiřuje pole, povolené scény, hodnocení187 a reset. Nezasahuje do samostatné analytiky026–028. Živé provedení SQL031 zatím nepotvrzené; produkční push až po potvrzení.
+Spustit `supabase/031_archive_echoes.sql` v Supabase SQL Editoru po030. Kumulativní herní migrace v transakci rozšiřuje pole, povolené scény, hodnocení187 a reset. Nezasahuje do samostatné analytiky026–028. Uživatel2026-10-14 potvrdil úspěšné provedení SQL031; produkční push je autorizovaný.
 
 ## Ověření
 

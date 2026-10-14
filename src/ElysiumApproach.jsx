@@ -1,3 +1,6 @@
+import {storySeenKey,rememberStory} from './storySeen.js';
+import {useAccount} from './Account.jsx';
+import {createPortal} from 'react-dom';
 import React,{useEffect,useRef,useState} from 'react';
 import {useLanguage} from './i18n/Language.jsx';
 import RepairBubble from './RepairBubble.jsx';
@@ -11,13 +14,14 @@ import {duckMusic} from './audio.js';
 function Ready({onPlay,onClose}){
  const {t}=useLanguage(),ref=useRef(null);
  useEffect(()=>{ref.current.showModal();},[]);
- return <dialog ref={ref} className="repair-bubble elysium-ready" aria-label={t('Approach route ready')} onCancel={e=>{e.preventDefault();onClose();}}><div className="bubble-inner"><h2>{t('Approach route ready')}</h2><p>{t('The records agree. A vast station waits beyond the dust cloud.')}</p><button className="primary" onClick={onPlay}>{t('Follow signal →')}</button><button onClick={onClose}>{t('Close')}</button></div></dialog>;
+ return createPortal(<dialog ref={ref} className="repair-bubble repair-bubble-dialog elysium-ready" style={{left:'50%',top:'50%',transform:'translate(-50%,-50%)',width:'min(420px,calc(100vw - 24px))'}} aria-label={t('Approach route ready')} onCancel={e=>{e.preventDefault();onClose();}}><div className="bubble-inner"><h2>{t('Approach route ready')}</h2><p>{t('The records agree. A vast station waits beyond the dust cloud.')}</p><button className="primary" onClick={onPlay}>{t('Follow signal →')}</button><button onClick={onClose}>{t('Close')}</button></div></dialog>,document.body);
 }
 export default function ElysiumApproach({progress,onProgress,sceneRef,onClose}){
+ const {user}=useAccount();
  const [playing,setPlaying]=useState(false),[flying,setFlying]=useState(false);
  useEffect(()=>{duckMusic(playing);return()=>duckMusic(false);},[playing]);
  const win=()=>{setPlaying(false);onProgress(p=>asterComplete(p)?{...p,elysiumRouteCompleted:1}:p);};
- const arrive=()=>{onProgress(completeElysiumArrival);onClose();};
+ const arrive=()=>{rememberStory(storySeenKey('arrival',user?.id||'guest',progress.resetRevision??0));onProgress(completeElysiumArrival);onClose();};
  if(flying)return <ElysiumArrival onFinish={arrive}/>;
  if(progress.elysiumRouteCompleted===1)return <Ready onPlay={()=>setFlying(true)} onClose={onClose}/>;
  if(playing)return <MiniGame repair={elysiumRoute} onQuit={()=>setPlaying(false)} onWin={win}/>;

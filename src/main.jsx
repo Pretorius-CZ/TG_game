@@ -1,3 +1,8 @@
+import {chaptersFor} from './chapters.js';
+import {journeyFor,destinationName} from './journey.js';
+import JourneyGuide from './JourneyGuide.jsx';
+import StoryComic from './StoryComic.jsx';
+import {journeyStories} from './journeyStories.js';
 import {archiveDestinations,archiveScenes} from './archive.js';
 import {refugeArrival} from './refugeArrival.js';
 import {returnCorridor} from './returnCorridor.js';
@@ -41,7 +46,7 @@ import {asterDestinations,asterScenes,canVisitAster} from './aster.js';
 import {LanguageProvider,useLanguage} from './i18n/Language.jsx';
 import {currentShipStage,chapterEntry,canVisitChapter,shipStages} from './chapterFlow.js';
 import {havenLogs,jumpLog,gateReady} from './haven.js';
-import {iceLogs,wreckLogs,havenLog,havenLocated} from './destinations.js';
+import {destinations,iceLogs,wreckLogs,havenLog,havenLocated} from './destinations.js';
 import Exploration from './Exploration.jsx';
 import {mineLogs} from './exploration.js';
 import Departure from './Departure.jsx';
@@ -83,7 +88,7 @@ function SceneArt({inside,airlock,completed,airlockCompleted}) {
 }
 function finishedRoomIds(cockpitRepairs) { return cockpitRepairs === repairs.length ? ['cockpit'] : []; }
 function App() {
- const {t}=useLanguage();
+ const {t,language}=useLanguage();
   useEffect(mountAudio, []);
   useEffect(()=>{if(!crazyGames)return startBalanceCloud();}, []);
   useEffect(()=>{if(!crazyGames)return startPlayerPresence();}, []);
@@ -98,31 +103,52 @@ function App() {
   const introKey=`beyond-the-signal-intro:${user?.id||'guest'}:${progress.resetRevision??0}`;
   const hasProgress=progress.launchDone||Object.entries(progress).some(([k,v])=>(k==='completed'||k.endsWith('Completed'))&&typeof v==='number'&&v>0);
   let introSeen=false;try{introSeen=localStorage.getItem(introKey)==='seen';}catch{}
-  function finishIntro(){try{localStorage.setItem(introKey,'seen');}catch{}setWelcome(false);}
+  function finishIntro(resume=true){try{localStorage.setItem(introKey,'seen');}catch{}setWelcome(false);if(resume){const next=journeyFor(progress);continueStory(next.kind==='choice'&&next.choices.includes(progress.scene)?progress.scene:undefined);}}
 
   const [launching,setLaunching]=useState(false);
   const [departureStory,setDepartureStory]=useState(false);
   const [jumpStory,setJumpStory]=useState(false);
   const [riftStoryReplay,setRiftStoryReplay]=useState(false);
+  const [bridge,setBridge]=useState(null),[pendingJourney,setPendingJourney]=useState(null);
+  const history=useRef([]);
+  const goal=journeyFor(progress);
+  useEffect(()=>{
+    if(welcome||bridge)return;
+    const story=journeyStories.find(s=>s.scene===progress.scene&&s.ready(progress)&&(goal.scene===s.scene&&goal.kind!=='end'||s.id==='archive-answer'&&goal.kind==='end')&&!hasSeenStory(storySeenKey(s.id,user?.id||'guest',progress.resetRevision??0)));
+    if(story)setBridge({...story,replay:false});
+  },[welcome,progress.scene,progress.refugeMedicalCompleted,progress.returnCorridorCompleted,progress.refugeArrivalCompleted,progress.archiveCoreCompleted,user?.id,progress.resetRevision,bridge,goal.scene,goal.kind]);
+  function finishBridge(){if(!bridge.replay)rememberStory(storySeenKey(bridge.id,user?.id||'guest',progress.resetRevision??0));setBridge(null);}
+  function continueStory(destination){
+    let next=journeyFor(progress);
+    if(destination&&next.kind==='choice'){const site=destinations[destination];next={...next,kind:'repair',scene:destination,repair:site.repairs[progress[site.key]??0]};}
+    if(next.kind!=='end'&&next.kind!=='choice')setPendingJourney({...next,requestId:crypto.randomUUID()});
+    if(progress.scene!==next.scene)goTo(next.scene);
+  }
+  function goBack(){const previous=history.current.pop();goTo(previous??destinations[progress.scene]?.system??({system:'exterior',system2:'haven',elysium:'system2',rift:'elysium',cockpit:'airlock',airlock:'exterior',corridor:'airlock',crew:'corridor',galley:'corridor',engine:'corridor',navigation:'cockpit'}[progress.scene]??'system'),{remember:false});}
+  function replayStory(id){
+    const story=journeyStories.find(s=>s.id===id);if(story){setBridge({...story,replay:true});return;}
+    if(id==='departure')setDepartureStory(true);else if(id==='jump')setJumpStory(true);else if(id==='arrival')setArrivalReplay(true);else if(id==='echo')setEchoDeparture('replay');else if(id==='rift')setRiftStoryReplay(true);else if(id==='research')setResearchStory('replay');else if(id==='relay')setRelayStory('replay');else if(id==='caretaker')setEncounter(true);
+  }
   const [echoDeparture,setEchoDeparture]=useState(null);
   const echoDepartureKey=storySeenKey('elysium-departure',user?.id||'guest',progress.resetRevision??0);
   useEffect(()=>{
-    if(!welcome&&shouldShowEchoDeparture(progress)&&!hasSeenStory(echoDepartureKey))setEchoDeparture('arrival');
+    if(!welcome&&shouldShowEchoDeparture(progress)&&(goal.scene.startsWith('rift-')||goal.action==='cross')&&!hasSeenStory(echoDepartureKey))setEchoDeparture('arrival');
   },[welcome,progress.scene,progress.riftEchoCompleted,progress.elysiumDockCompleted,progress.elysiumCoreCompleted,progress.elysiumRingCompleted,progress.elysiumHomesCompleted,progress.elysiumGardenCompleted,progress.elysiumObservatoryCompleted,echoDepartureKey]);
   function finishEchoDeparture(){if(echoDeparture==='arrival')rememberStory(echoDepartureKey);setEchoDeparture(null);}
   const [researchStory,setResearchStory]=useState(null);
   const researchStoryKey=storySeenKey('research-return',user?.id||'guest',progress.resetRevision??0);
   useEffect(()=>{
-    if(!welcome&&progress.scene==='elysium-research'&&progress.gardenCompleted===6&&progress.researchCompleted===0&&!hasSeenStory(researchStoryKey))setResearchStory('arrival');
+    if(!welcome&&progress.scene==='elysium-research'&&goal.scene==='elysium-research'&&progress.gardenCompleted===6&&!hasSeenStory(researchStoryKey))setResearchStory('arrival');
   },[welcome,progress.scene,progress.gardenCompleted,progress.researchCompleted,researchStoryKey]);
   function finishResearchStory(){if(researchStory==='arrival')rememberStory(researchStoryKey);setResearchStory(null);}
   const [relayStory,setRelayStory]=useState(null);
   const relayStoryKey=storySeenKey('relay-descent',user?.id||'guest',progress.resetRevision??0);
   useEffect(()=>{
-    if(!welcome&&progress.scene==='night-glade'&&progress.relayCompleted===4&&progress.nightGladeCompleted===0&&!hasSeenStory(relayStoryKey))setRelayStory('arrival');
+    if(!welcome&&progress.scene==='night-glade'&&goal.scene==='night-glade'&&progress.relayCompleted===4&&!hasSeenStory(relayStoryKey))setRelayStory('arrival');
   },[welcome,progress.scene,progress.relayCompleted,progress.nightGladeCompleted,relayStoryKey]);
   function finishRelayStory(){if(relayStory==='arrival')rememberStory(relayStoryKey);setRelayStory(null);}
   const {mineCompleted,launchDone,finaleDone,scene,readIds,completed,crewCompleted,galleyCompleted,engineCompleted,airlockCompleted,exteriorCompleted,navigationCompleted}=progress;
+  const viewedChapter=chaptersFor(progress).find(c=>c.entry===scene||c.sections.some(s=>s.scene===scene))??chaptersFor(progress)[0];
   const setter=key=>value=>setProgress(previous=>({...previous,[key]:typeof value==='function'?value(previous[key]):value}));
   const setFinaleDone=setter('finaleDone'),setScene=setter('scene'),setReadIds=setter('readIds'),setCompleted=setter('completed'),setCrewCompleted=setter('crewCompleted'),setGalleyCompleted=setter('galleyCompleted'),setEngineCompleted=setter('engineCompleted'),setAirlockCompleted=setter('airlockCompleted'),setExteriorCompleted=setter('exteriorCompleted'),setNavigationCompleted=setter('navigationCompleted');
   const [chaptersOpen,setChaptersOpen]=useState(false);
@@ -142,7 +168,36 @@ function App() {
   const [inspected, setInspected] = useState(0);
   const [showList, setShowList] = useState(false);
   const [celebration, setCelebration] = useState(null);
-  useGameUpdate(saveStatus, Boolean(playing || launching || transition || celebration || bubble != null || chaptersOpen || mapOpen || logView || encounter || arrivalReplay || departureStory || jumpStory || riftStoryReplay || relayStory || researchStory || echoDeparture));
+  function rememberLegacy(id){rememberStory(storySeenKey(id,user?.id||'guest',progress.resetRevision??0));}
+  useEffect(()=>{
+    if(welcome||bridge||departureStory||jumpStory||arrivalReplay||riftStoryReplay||echoDeparture||researchStory||relayStory)return;
+    const unseen=id=>!hasSeenStory(storySeenKey(id,user?.id||'guest',progress.resetRevision??0));
+    if(progress.launchDone&&goal.scene==='mine'&&['mine','system'].includes(scene)&&unseen('departure'))setDepartureStory(true);
+    else if(progress.jumpDone&&goal.scene==='buoy'&&['buoy','system2'].includes(scene)&&unseen('jump'))setJumpStory(true);
+    else if(progress.elysiumArrival===1&&goal.scene==='elysium-dock'&&['elysium','elysium-dock'].includes(scene)&&unseen('arrival'))setArrivalReplay(true);
+    else if(progress.riftCrossed===1&&goal.scene==='beyond-rift'&&scene==='beyond-rift'&&unseen('rift-crossing'))setRiftStoryReplay(true);
+  },[welcome,progress,goal.scene,scene,bridge,departureStory,jumpStory,arrivalReplay,riftStoryReplay,echoDeparture,researchStory,relayStory,user?.id]);
+  useEffect(()=>{
+    if(!pendingJourney||welcome||transition)return;
+    if(scene!==pendingJourney.scene){goTo(pendingJourney.scene);return;}
+    const current=journeyFor(progress);
+    const stillCurrent=current.kind==='choice'?current.choices.includes(pendingJourney.scene):current.scene===pendingJourney.scene&&(current.repair?.id??current.action)===(pendingJourney.repair?.id??pendingJourney.action);
+    if(!stillCurrent){setPendingJourney(null);return;}
+    let timer,elapsed=0;
+    const perform=()=>{
+      if(document.querySelector('dialog[open]'))return;
+      if(pendingJourney.kind==='repair'){
+        if(scene==='cockpit'){const i=repairs.findIndex(r=>r.id===pendingJourney.repair.id);if(i>=0){setCelebration(null);setBubble(i);}}
+        else if(pendingJourney.repair.id===finaleRepair.id)setPlaying(finaleRepair);
+        else window.dispatchEvent(new CustomEvent('journey-repair',{detail:{scene,id:pendingJourney.repair.id}}));
+      }else if(pendingJourney.action==='encounter')setEncounter(true);
+      else{const button=document.querySelector(`[data-journey-action="${pendingJourney.action}"]`);if(!button||button.disabled)return;button.click();}
+      setPendingJourney(null);
+    };
+    timer=setInterval(()=>{if(document.querySelector('dialog[open]'))return;elapsed+=100;if(elapsed>20000){clearInterval(timer);setPendingJourney(null);return;}perform();},100);
+    return()=>clearInterval(timer);
+  },[pendingJourney,welcome,transition,scene,bridge,echoDeparture,researchStory,relayStory,progress]);
+  useGameUpdate(saveStatus, Boolean(bridge || pendingJourney || playing || launching || transition || celebration || bubble != null || chaptersOpen || mapOpen || logView || encounter || arrivalReplay || departureStory || jumpStory || riftStoryReplay || relayStory || researchStory || echoDeparture));
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
   const [attempt, setAttempt] = useState(0);
@@ -188,7 +243,7 @@ function App() {
   }, [attempt]);
   useEffect(() => () => timers.current.forEach(clearTimeout), []);
 
-  function goTo(next) {
+  function goTo(next,{remember=true}={}) {
     if(next==='airlock-work')next='airlock';
     if(['system','mine','ice','wreck','haven','system2',...asterScenes,...elysiumScenes,...riftScenes].includes(next)&&!launchDone)return;
     if(['ice','wreck'].includes(next)&&!progress.scannerInstalled)return;
@@ -199,6 +254,7 @@ function App() {
     if(next==='system2'&&!(gateReady(progress)&&progress.jumpDone))return;
     if(!exploring&&!['system','mine','ice','wreck','haven','system2',...asterScenes,...elysiumScenes,...riftScenes].includes(next)&&!canVisitChapter(progress,next))return;
     if (busy.current || next === scene) return;
+    if(remember)history.current.push(scene);
     setCelebration(null); busy.current = true; setTransition(true);
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     timers.current.push(setTimeout(() => setScene(next), reduced ? 0 : 320));
@@ -226,11 +282,11 @@ function App() {
     mainAction.current?.focus();
   }
 
-  if(welcome)return <Welcome hasProgress={hasProgress} seen={introSeen} onFinish={finishIntro} onChapters={()=>{finishIntro();setChaptersOpen(true);}} settings={<AccountButton onRestart={saveStatus.resetGame} onImport={saveStatus.importGuest}/>}/>;
+  if(welcome)return <Welcome hasProgress={hasProgress} seen={introSeen} onFinish={finishIntro} onChapters={()=>{finishIntro(false);setChaptersOpen(true);}} recap={hasProgress?goal.purpose[language==='cs'?1:0]+(goal.kind==='repair'?' '+t(goal.repair.name):''):null} settings={<AccountButton onRestart={saveStatus.resetGame} onImport={saveStatus.importGuest}/>}/>;
   return <StarProvider progress={progress} onProgress={setProgress}><main className="shell">
     <header className="masthead"><a className="brand" href="#" onClick={e => {e.preventDefault();setWelcome(true);}}><span className="brand-mark">{t("✦")}</span>{t(" BEYOND THE SIGNAL")}</a><AccountButton onRestart={saveStatus.resetGame} onImport={saveStatus.importGuest}/></header>
-    <div className="play-area"><nav className="scene-tools" aria-label={t("Scene controls")}>{t(launchDone&&<button aria-label={t("Go back")} disabled={transition} onClick={()=>goTo(exploring?(riftScenes.includes(scene)?scene==='rift'?'elysium':'rift':elysiumScenes.includes(scene)?scene==='elysium'?'system2':archiveScenes.includes(scene)?archiveDestinations[scene].system:scene==='refuge-arrival'?'return-corridor':scene==='return-corridor'?'refuge-medical':scene==='refuge-medical'?'refuge-homes':scene==='refuge-homes'?'refuge-dock':scene==='refuge-dock'?'night-sanctuary':scene==='night-sanctuary'?'night-root':scene==='night-root'?'night-grove':scene==='night-grove'?'night-glade':'elysium':asterScenes.includes(scene)?'system2':scene==='system2'?'haven':scene!=='system'?'system':'cockpit'):navigation?'cockpit':airlockWork?'airlock':crew||galley||engine?'corridor':inside||corridor?'airlock':airlock?'exterior':'airlock')}>{t("←")}</button>)}<button className="chapters-control" aria-label={t("Chapters")} disabled={transition} onClick={()=>setChaptersOpen(true)}>☰</button><button aria-label={t("Open ship log")} onClick={e=>openLog(e)}>{t("▤")}</button></nav><div className="scene-lives"><LivesBar/><AudioControls/></div>
-    {t(scene==='rift'?<Rift progress={progress} onProgress={setProgress} onNavigate={goTo} onLog={id=>setLogView({id})}/>:scene==='elysium'?<Elysium progress={progress} onNavigate={goTo} onLog={id=>setLogView({id})}/>:exploring?<Exploration key={scene} onJumpStory={()=>setJumpStory(true)} onEncounter={()=>setEncounter(true)} progress={progress} onProgress={setProgress} onNavigate={goTo} onLog={id=>setLogView({id})}/>:crew || galley || engine || airlock || airlockWork || navigation || exterior ? <CrewQuarters key={scene} room={airlock||airlockWork?'airlock':scene} repairsUnlocked={stageActive} guided={guided} nextScene={nextEntry} continueLabel={continueLabel} onContinue={continueChapter} canEnterCockpit={launchDone||(airlockCompleted===3&&['cockpit','navigation'].includes(stage.scene))} canEnterCorridor={launchDone||['crew','galley','engine'].includes(stage.scene)} canEnterShip={launchDone||stage.scene==='airlock'} launchControl={exterior&&allSystemsReady?<button className="hotspot launch-control" style={{left:'52%',top:'60%'}} aria-label={t(finaleDone?'Launch':'Start final launch challenge')} onClick={()=>finaleDone?setLaunching(true):setPlaying(finaleRepair)}><span className="target">{t("✦")}</span><span className="hotspot-label">{t(finaleDone?'Launch →':'Launch check · HARD')}</span>{finaleDone&&<Stars id={finaleRepair.id}/>}</button>:null} engineCompleted={engineCompleted} onNavigate={goTo} completed={exterior?exteriorCompleted:navigation?navigationCompleted:airlock||airlockWork?airlockCompleted:engine?engineCompleted:galley?galleyCompleted:crewCompleted} onCompleted={exterior?setExteriorCompleted:navigation?setNavigationCompleted:airlock||airlockWork?setAirlockCompleted:engine?setEngineCompleted:galley?setGalleyCompleted:setCrewCompleted} onBack={()=>guided?continueChapter():goTo(exploring?(riftScenes.includes(scene)?scene==='rift'?'elysium':'rift':elysiumScenes.includes(scene)?scene==='elysium'?'system2':archiveScenes.includes(scene)?archiveDestinations[scene].system:scene==='refuge-arrival'?'return-corridor':scene==='return-corridor'?'refuge-medical':scene==='refuge-medical'?'refuge-homes':scene==='refuge-homes'?'refuge-dock':scene==='refuge-dock'?'night-sanctuary':scene==='night-sanctuary'?'night-root':scene==='night-root'?'night-grove':scene==='night-grove'?'night-glade':'elysium':asterScenes.includes(scene)?'system2':scene==='system2'?'haven':scene!=='system'?'system':'cockpit'):navigation?'cockpit':airlockWork?'airlock':'corridor')} exteriorView={<ExteriorArt cockpit={completed} completed={exteriorCompleted} seals={airlockCompleted===3} antenna={navigationCompleted>0}/>} onLog={id=>setLogView({id})}/> : <>
+    <JourneyGuide chapter={viewedChapter} goal={goal} scene={scene} onContinue={continueStory} onChapters={()=>setChaptersOpen(true)}/><div className="play-area"><nav className="scene-tools" aria-label={t("Scene controls")}>{t(launchDone&&<button aria-label={t("Go back")} disabled={transition} onClick={goBack}>{t("←")}</button>)}<button className="chapters-control" aria-label={t("Chapters")} disabled={transition} onClick={()=>setChaptersOpen(true)}>☰</button><button aria-label={t("Open ship log")} onClick={e=>openLog(e)}>{t("▤")}</button></nav><div className="scene-lives"><LivesBar/><AudioControls/></div>
+    {t(scene==='rift'?<Rift onStoryViewed={()=>rememberLegacy('rift-crossing')} progress={progress} onProgress={setProgress} onNavigate={goTo} onLog={id=>setLogView({id})}/>:scene==='elysium'?<Elysium onContinueStory={continueStory} progress={progress} onNavigate={goTo} onLog={id=>setLogView({id})}/>:exploring?<Exploration storyGoal={goal} onContinueStory={continueStory} key={scene} onJumpStory={()=>setJumpStory(true)} onEncounter={()=>setEncounter(true)} progress={progress} onProgress={setProgress} onNavigate={goTo} onLog={id=>setLogView({id})}/>:crew || galley || engine || airlock || airlockWork || navigation || exterior ? <CrewQuarters key={scene} room={airlock||airlockWork?'airlock':scene} repairsUnlocked={stageActive} guided={guided} nextScene={nextEntry} continueLabel={continueLabel} onContinue={continueChapter} canEnterCockpit={launchDone||(airlockCompleted===3&&['cockpit','navigation'].includes(stage.scene))} canEnterCorridor={launchDone||['crew','galley','engine'].includes(stage.scene)} canEnterShip={launchDone||stage.scene==='airlock'} launchControl={exterior&&allSystemsReady?<button data-journey-action="departure" className="hotspot launch-control" style={{left:'52%',top:'60%'}} aria-label={t(finaleDone?'Launch':'Start final launch challenge')} onClick={()=>finaleDone?setLaunching(true):setPlaying(finaleRepair)}><span className="target">{t("✦")}</span><span className="hotspot-label">{t(finaleDone?'Launch →':'Launch check · HARD')}</span>{finaleDone&&<Stars id={finaleRepair.id}/>}</button>:null} engineCompleted={engineCompleted} onNavigate={goTo} completed={exterior?exteriorCompleted:navigation?navigationCompleted:airlock||airlockWork?airlockCompleted:engine?engineCompleted:galley?galleyCompleted:crewCompleted} onCompleted={exterior?setExteriorCompleted:navigation?setNavigationCompleted:airlock||airlockWork?setAirlockCompleted:engine?setEngineCompleted:galley?setGalleyCompleted:setCrewCompleted} onBack={()=>guided?continueChapter():goTo(exploring?(riftScenes.includes(scene)?scene==='rift'?'elysium':'rift':elysiumScenes.includes(scene)?scene==='elysium'?'system2':archiveScenes.includes(scene)?archiveDestinations[scene].system:scene==='refuge-arrival'?'return-corridor':scene==='return-corridor'?'refuge-medical':scene==='refuge-medical'?'refuge-homes':scene==='refuge-homes'?'refuge-dock':scene==='refuge-dock'?'night-sanctuary':scene==='night-sanctuary'?'night-root':scene==='night-root'?'night-grove':scene==='night-grove'?'night-glade':'elysium':asterScenes.includes(scene)?'system2':scene==='system2'?'haven':scene!=='system'?'system':'cockpit'):navigation?'cockpit':airlockWork?'airlock':'corridor')} exteriorView={<ExteriorArt cockpit={completed} completed={exteriorCompleted} seals={airlockCompleted===3} antenna={navigationCompleted>0}/>} onLog={id=>setLogView({id})}/> : <>
     <section ref={sceneRef} className={`game ${bubble != null ? 'story-open' : ''} ${corridor ? 'corridor' : airlock ? 'airlock' : inside ? 'inside' : 'outside'} ${celebration ? 'show-repair' : ''} ${transition ? 'travel' : ''}`} aria-label={t("Chapter one: the damaged ship")} aria-busy={transition}>
       {t(corridor ? <CorridorArt completedRoomIds={completedRoomIds}/> : <SceneArt inside={inside} airlock={airlock} completed={completed} airlockCompleted={airlockCompleted} navigationCompleted={navigationCompleted}/>)}
       {t(completed >= 2 && !airlock && !corridor && <div className={`ridge-lights ${inside ? 'ridge-inside' : 'ridge-outside'}`} aria-hidden="true"><i/><i/><i/><i/><i/></div>)}
@@ -257,11 +313,11 @@ function App() {
     </section>
     </>)}
     </div>
-    {chaptersOpen&&<Chapters onReplay={id=>{setChaptersOpen(false);setPlaying(id===finaleRepair.id?finaleRepair:elysiumRoute);}} progress={progress} onClose={()=>setChaptersOpen(false)} onNavigate={next=>{setChaptersOpen(false);goTo(next);}}/>}
+    {chaptersOpen&&<Chapters onReplayStory={replayStory} onReplay={id=>{setChaptersOpen(false);setPlaying(id===finaleRepair.id?finaleRepair:elysiumRoute);}} progress={progress} onClose={()=>setChaptersOpen(false)} onNavigate={next=>{setChaptersOpen(false);goTo(next);}}/>}
     {t(mapOpen&&<div className="ship-map-backdrop" onClick={()=>setMapOpen(false)}><dialog ref={mapDialog} className="ship-map" onCancel={()=>setMapOpen(false)} aria-label={t("Ship map")} onClick={e=>e.stopPropagation()}><button className="close" autoFocus onClick={()=>setMapOpen(false)}>{t("×")}</button><h2>{t("Ship map")}</h2><div className="readiness-list">{t(shipStages.map(r=>{const done=(progress[r.key]??0)===r.total;return <button key={r.scene} disabled={guided} data-system={r.scene} data-ready={done} onClick={()=>{setMapOpen(false);goTo(r.scene);}}><span>{t(done?'✓':stage.scene===r.scene?'→':'🔒')} {t(r.name)}</span><b>{t(progress[r.key]??0)}{t("/")}{t(r.total)}</b></button>;}))}</div><button className="primary" onClick={()=>{setMapOpen(false);guided?continueChapter():goTo('exterior');}}>{t(guided?continueLabel:'View ship')}</button></dialog></div>)}
     {t(launching&&<Departure onClose={()=>setLaunching(false)} onComplete={()=>{setProgress(current=>({...current,launchDone:true,scene:'system'}));setLaunching(false);setDepartureStory(true);}}/>)}
 
-    <footer><span>{t("01 — A SHIP THAT WILL FLY AGAIN")}</span><span role="status">{t(saveStatus.local==='unavailable'?'Device saving unavailable':saveStatus.local==='unsupported'?'Save from a newer version — update the game':saveStatus.cloud==='saved'?'Progress saved online':saveStatus.cloud==='syncing'?'Syncing progress…':saveStatus.cloud==='offline'?'Cloud unavailable — saved locally; retrying':saveStatus.local==='saved'?'Progress saved on this device':saveStatus.local==='unsupported'?'Save from a newer version — update the game':'Saving unavailable — progress may be lost')}</span></footer>
+    <footer><span>{String(viewedChapter.number).padStart(2,'0')} · {language==='cs'?viewedChapter.cs:viewedChapter.en}</span><span role="status">{t(saveStatus.local==='unavailable'?'Device saving unavailable':saveStatus.local==='unsupported'?'Save from a newer version — update the game':saveStatus.cloud==='saved'?'Progress saved online':saveStatus.cloud==='syncing'?'Syncing progress…':saveStatus.cloud==='offline'?'Cloud unavailable — saved locally; retrying':saveStatus.local==='saved'?'Progress saved on this device':saveStatus.local==='unsupported'?'Save from a newer version — update the game':'Saving unavailable — progress may be lost')}</span></footer>
     <dialog ref={dialog} aria-labelledby="repair-title" onClose={() => opener.current?.focus()} onClick={e => {if(e.target === dialog.current) closeRepair();}}><div className="repair-panel"><button className="close" aria-label={t("Close")} onClick={closeRepair}>{t("×")}</button><span className="eyebrow">{t("CHAPTER 01 / COCKPIT")}</span>
       {t(showList ? <><h2 id="repair-title">{t("Four steps to life.")}</h2><p>{t("Repair these systems in order. This is one stage of restoring the whole ship.")}</p><ol className="repair-list">{t(repairs.map((repair, i) => <li key={repair.id}><button onClick={e => openRepair(e, i)}><span className={`repair-badge ${repairState(i,completed)}`}>{t(i < completed ? '✓' : i + 1)}</span><span><strong>{t(repair.name)}</strong><small>{t(repairState(i,completed) === 'complete' ? 'Restored · view or replay' : i === completed ? 'Ready to repair' : `Requires ${repairs[i - 1].name.toLowerCase()}`)}</small></span><span>{t("→")}</span></button></li>))}</ol><div className="demo-note">{t("After the cockpit: navigation, living quarters, supplies, the engine room and exterior repairs. Departure comes at the end of the ship chapter.")}</div></> : <>
         <div className="repair-symbol">{t(detail.icon)}</div><h2 id="repair-title">{t(detail.name)}</h2><p>{t(detailState === 'complete' ? detail.result : detail.description)}</p>
@@ -271,13 +327,14 @@ function App() {
       </>)}
     </div></dialog>
     {t(bubble != null && <RepairBubble repair={repairs[bubble]} replay={bubble < completed} sceneRef={sceneRef} onComplete={()=>{const repair=repairs[bubble];setBubble(null);finishLesson(repair);}} onClose={() => {setBubble(null);requestAnimationFrame(() => {if(opener.current?.isConnected && !opener.current.closest('dialog:not([open])')) opener.current.focus();else mainAction.current?.focus();});}} onPlay={() => {setPlaying(repairs[bubble]);setBubble(null);}}/>)}
+    {bridge&&<StoryComic key={bridge.id} panels={bridge.panels} chapter={t(bridge.chapter==='archive'?'Archive of echoes':'The Refuge')} title={bridge.title} finishLabel={bridge.finishLabel} onFinish={finishBridge}/>}
     {echoDeparture&&echoDepartureReady(progress)&&<EchoDepartureStory replay={echoDeparture==='replay'} onFinish={finishEchoDeparture}/>}
     {researchStory&&progress.gardenCompleted===6&&<ResearchStory replay={researchStory==='replay'} onFinish={finishResearchStory}/>}
     {relayStory&&progress.relayCompleted===4&&<RelayStory replay={relayStory==='replay'} onFinish={finishRelayStory}/>}
-    {riftStoryReplay&&progress.riftCrossed===1&&<RiftStory replay onFinish={()=>setRiftStoryReplay(false)}/>}
-    {jumpStory&&progress.jumpDone&&<AsterJumpStory onFinish={()=>setJumpStory(false)}/>}
-    {departureStory&&launchDone&&<DepartureStory onFinish={()=>setDepartureStory(false)}/>}
-    {arrivalReplay&&progress.elysiumArrival===1&&<ElysiumArrival onFinish={()=>setArrivalReplay(false)}/>}
+    {riftStoryReplay&&progress.riftCrossed===1&&<RiftStory replay onFinish={()=>{rememberLegacy('rift-crossing');setRiftStoryReplay(false);}}/>}
+    {jumpStory&&progress.jumpDone&&<AsterJumpStory onFinish={()=>{rememberLegacy('jump');setJumpStory(false);}}/>}
+    {departureStory&&launchDone&&<DepartureStory onFinish={()=>{rememberLegacy('departure');setDepartureStory(false);}}/>}
+    {arrivalReplay&&progress.elysiumArrival===1&&<ElysiumArrival onFinish={()=>{rememberLegacy('arrival');setArrivalReplay(false);}}/>}
     {encounter&&caretakerReady(progress)&&<CaretakerEncounter onFinish={finishEncounter}/>}
     {t(logView && <ShipLog onReplayEchoDeparture={()=>{setLogView(null);setEchoDeparture('replay');}} onReplayResearch={()=>{setLogView(null);setResearchStory('replay');}} onReplayRelay={()=>{setLogView(null);setRelayStory('replay');}} onReplayRift={()=>{setLogView(null);setRiftStoryReplay(true);}} onReplayJump={()=>{setLogView(null);setJumpStory(true);}} onReplayDeparture={()=>{setLogView(null);setDepartureStory(true);}} onReplayArrival={()=>{setLogView(null);setArrivalReplay(true);}} onReplayEncounter={()=>{setLogView(null);setEncounter(true);}} entries={archive} completed={completed} readIds={readIds} initialId={logView.id} onRead={id => setReadIds(ids => ids.includes(id) ? ids : [...ids, id])} onClose={closeLog}/>)}
     {t(playing && <MiniGame key={playing.id} repair={playing} onQuit={() => {setPlaying(null); mainAction.current?.focus();}} onWin={()=>{if(playing.id===finaleRepair.id){if(allSystemsReady){setFinaleDone(true);setPlaying(null);sound('repair');}}else if(playing.id===elysiumRoute.id){setPlaying(null);}else finishLesson();}}/>)}

@@ -1,11 +1,12 @@
+import {journeyFor,destinationName} from './journey.js';
 import React from 'react';
 import {useLanguage} from './i18n/Language.jsx';
 import {elysiumDestinations,elysiumSectorOrder,elysiumComplete,canVisitElysium} from './elysium.js';
 const positions=[[25,59],[81,64],[50,43],[22,29],[79,31],[50,15]];
 const requirements=['','Restore the dock first','Restore the core first','Restore the ring first','Restore the residential sector first','Restore the biosphere first'];
 const nextSteps=['Restore the arrival dock to enter the station safely.','The dock is safe. Restore the energy core next.','The core is stable. Reopen the central ring.','Restore the residential sector next.','Restore the biosphere to support the habitats.','Restore the observatory and send the welcome beacon.'];
-export default function Elysium({progress,onNavigate,onLog}){
- const {t}=useLanguage(),finished=elysiumSectorOrder.map(id=>progress[elysiumDestinations[id].key]===4),complete=elysiumComplete(progress),count=finished.filter(Boolean).length;
+export default function Elysium({progress,onNavigate,onLog,onContinueStory}){
+ const {t,language}=useLanguage(),finished=elysiumSectorOrder.map(id=>progress[elysiumDestinations[id].key]===4),complete=elysiumComplete(progress),count=finished.filter(Boolean).length;
  return <section className={`game elysium-map ${complete?'elysium-complete':''}`} aria-label={t('Elysium station')}>
   <div className="elysium-art" aria-hidden="true"><img src="./scenes/elysium.webp" alt=""/>
    {finished[0]&&<img src="./scenes/elysium-restored.webp" alt="" className="elysium-lit dock-lit"/>}
@@ -16,13 +17,13 @@ export default function Elysium({progress,onNavigate,onLog}){
    {complete&&<img src="./scenes/elysium-city-exterior.webp" alt="" className="elysium-lit city-lit"/>}
   </div>
   <div className="scene-top"><span className="eyebrow">{t(complete?'CHAPTER 04 COMPLETE':'CHAPTER 04 / ELYSIUM')}</span><h1>{t(complete?'A city awake.':'The sleeping city.')}</h1><p>{t(complete?'Station restoration complete':'A silent city. One sector at a time.')}</p></div>
-  {progress.gardenCompleted===6&&<button className="station-sector research-entry" style={{left:"50%",top:"62%"}} onClick={()=>onNavigate(progress.caretakerMet===1?(progress.refugeDockCompleted===5?"refuge-homes":"refuge-dock"):progress.nightRootCompleted===5?"night-sanctuary":progress.nightGroveCompleted===5?"night-root":progress.nightGladeCompleted===5?"night-grove":progress.relayCompleted===4?"night-glade":progress.researchCompleted===5?"fading-relay":"elysium-research")}><span className="sector-marker">✦</span><strong>{t(progress.caretakerMet===1?"Travel to the Refuge →":progress.nightRootCompleted===5?"Enter the caretaker sanctuary →":progress.nightGroveCompleted===5?"Enter the root chamber →":progress.nightGladeCompleted===5?"Enter the luminous grove →":progress.relayCompleted===4?"Descend to the night garden →":progress.researchCompleted===5?"Travel to the silent relay →":"Research the living map →")}</strong><small>{progress.caretakerMet===1?((progress.refugeDockCompleted??0)+(progress.refugeHomesCompleted??0))+"/10":progress.nightRootCompleted===5?(progress.nightSanctuaryCompleted??0)+"/5":progress.nightGroveCompleted===5?(progress.nightRootCompleted??0)+"/5":progress.nightGladeCompleted===5?(progress.nightGroveCompleted??0)+"/5":progress.relayCompleted===4?(progress.nightGladeCompleted??0)+"/5":progress.researchCompleted===5?(progress.relayCompleted??0)+"/4":(progress.researchCompleted??0)+"/5"}</small></button>}
+  {progress.gardenCompleted===6&&journeyFor(progress).kind!=='end'&&<button className="station-sector research-entry" style={{left:'50%',top:'62%'}} onClick={onContinueStory}><span className="sector-marker">✦</span><strong>{language==='cs'?'Pokračovat v příběhu →':'Continue the story →'}</strong><small>{t(destinationName(journeyFor(progress).scene))}</small></button>}
   {elysiumSectorOrder.map((id,i)=>{
    const site=elysiumDestinations[id],playable=canVisitElysium(progress,id),[x,y]=positions[i];
    return <button key={id} className={`station-sector ${playable?'sector-open':''}`} style={{left:`${x}%`,top:`calc(150px + (100% - ${complete?330:240}px) * ${y/100})`}} disabled={!playable} onClick={()=>onNavigate(id)}>
     <span className="sector-marker">{finished[i]?'✓':playable?'↗':'◇'}</span><strong>{t(site.title)}</strong><small>{playable?`${progress[site.key]??0}/4`:t(requirements[i])}</small>
    </button>;
   })}
-  <div className="scene-bottom scene-caption"><span className="eyebrow">{count}/6 · {t('SECTORS ONLINE')}</span><p>{t(complete?'All six sectors are online. Elysium is ready for the returning crew.':nextSteps[count])}</p>{complete&&<button className="primary" onClick={()=>onLog(elysiumDestinations['elysium-observatory'].logs.at(-1).id)}>{t('Read the reply →')}</button>}{complete&&<button className="primary" onClick={()=>onNavigate('rift')}>{t('Investigate the echo →')}</button>}</div>
+  <div className="scene-bottom scene-caption"><span className="eyebrow">{count}/6 · {t('SECTORS ONLINE')}</span><p>{t(complete?'All six sectors are online. Elysium is ready for the returning crew.':nextSteps[count])}</p>{complete&&<button className="keep-playing" onClick={()=>onLog(elysiumDestinations['elysium-observatory'].logs.at(-1).id)}>{t('Read the reply →')}</button>}{complete&&<button className="keep-playing" onClick={()=>onNavigate('rift')}>{t(progress.riftEchoCompleted?'Revisit the Rift →':'Investigate the echo →')}</button>}</div>
  </section>;
 }

@@ -1,3 +1,4 @@
+import {createPortal} from 'react-dom';
 import {useLanguage} from './i18n/Language.jsx';
 import {boostersEnabled} from './boosters.js';
 import {moveBudget,initialIce} from './levelRules.js';
@@ -7,23 +8,23 @@ export default function RepairBubble({ repair, replay, sceneRef, onClose, onPlay
  const {t}=useLanguage();
   const dialog = useRef(null);
   useLayoutEffect(() => {
+    const opener=document.activeElement;
     const element = dialog.current;
     element.showModal();
     function position() {
-      const scene = sceneRef.current.getBoundingClientRect();
-      const width = Math.min(scene.width - 32, 420);
+      const width = Math.min(window.innerWidth - 24, 420);
       element.style.width = `${width}px`;
-      element.style.left = `${scene.left + (scene.width - width) / 2}px`;
-      element.style.top = `${Math.max(12, Math.min(scene.bottom - element.offsetHeight - 16, window.innerHeight - element.offsetHeight - 12))}px`;
+      element.style.left = `${(window.innerWidth - width) / 2}px`;
+      element.style.top = `${Math.max(12, (window.innerHeight - element.offsetHeight) / 2)}px`;
     }
     position();
     const observer = new ResizeObserver(position);
-    observer.observe(element); observer.observe(sceneRef.current);
+    observer.observe(element);
     window.addEventListener('scroll', position, true);
     window.addEventListener('resize', position);
-    return () => { observer.disconnect(); window.removeEventListener('scroll', position, true); window.removeEventListener('resize', position); };
+    return () => { observer.disconnect(); window.removeEventListener('scroll', position, true); window.removeEventListener('resize', position);if(opener?.isConnected)opener.focus({preventScroll:true}); };
   }, []);
-  return <dialog ref={dialog} className="repair-bubble" style={{'--tail-x': `${repair.x}%`}} aria-labelledby="bubble-title" aria-describedby="bubble-story" onCancel={e => {e.preventDefault();onClose();}} onClick={e => {if(e.target === dialog.current) onClose();}}>
+  return createPortal(<dialog ref={dialog} className="repair-bubble repair-bubble-dialog" style={{'--tail-x': `${repair.x}%`}} aria-labelledby="bubble-title" aria-describedby="bubble-story" onCancel={e => {e.preventDefault();onClose();}} onClick={e => {if(e.target === dialog.current) onClose();}}>
     <div className="bubble-inner">
       <button className="close" aria-label={t("Close pilot thought")} onClick={onClose}>{t("×")}</button>
       <div className="bubble-speaker"><span className="pilot-emblem" aria-hidden="true">{t("✦")}</span><span>{t("PILOT")}<small>{t(replay ? 'BACK AT THE CONSOLE' : 'PERSONAL LOG / PRESENT')}</small></span></div>
@@ -35,5 +36,5 @@ export default function RepairBubble({ repair, replay, sceneRef, onClose, onPlay
       <button className="primary" onClick={onPlay}>{t(replay ? 'Replay lesson' : 'Play')} <span>{t("→")}</span></button>
       {t(import.meta.env.DEV&&onComplete&&!replay&&<button className="preview-complete" onClick={onComplete}>{t("✓ Complete level ")}<small>{t("Preview · skip match-3")}</small></button>)}
     </div>
-  </dialog>;
+  </dialog>,document.body);
 }

@@ -11,11 +11,11 @@ test('Elysium departure has three bilingual shipped panels',()=>{
   for(const key of ['title','caption'])assert.notEqual(translate(panel[key],'cs'),panel[key]);
  }
 });
-test('departure introduction requires the restored station and never interrupts later Rift progress',()=>{
+test('departure introduction remains available when a player entered the Rift before seeing it',()=>{
  const p={scene:'rift',riftEchoCompleted:0,...Object.fromEntries(Object.values(elysiumDestinations).map(s=>[s.key,s.repairs.length]))};
  assert.equal(shouldShowEchoDeparture(p),true);
  assert.equal(shouldShowEchoDeparture({...p,scene:'rift-echo'}),true);
  for(const s of Object.values(elysiumDestinations))assert.equal(shouldShowEchoDeparture({...p,[s.key]:3}),false);
  for(const scene of ['elysium','rift-platform','rift-beacons','beyond-rift'])assert.equal(shouldShowEchoDeparture({...p,scene}),false);
- assert.equal(shouldShowEchoDeparture({...p,riftEchoCompleted:1}),false);
+ assert.equal(shouldShowEchoDeparture({...p,riftEchoCompleted:1}),true);
 });
