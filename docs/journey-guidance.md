@@ -2,13 +2,13 @@
 
 `src/journey.js` určuje jediný další příběhový úkol z uloženého postupu. Používá jej úvodní nabídka, průvodce nad scénou a pokračování po dokončení oblasti. Prohlížení starých míst tento cíl nemění. Volný výběr zůstává jen u dvojic expedic, které je potřeba dokončit obě.
 
-Průvodce ukazuje aktuální kapitolu, místo, smysl práce a konkrétní další opravu nebo cestu. CONTINUE při návratu otevře aktuální úkol; pokud hráč skončil v nedokončené volitelné expedici, pokračuje v ní. Dokončená místa a návraty mají vedlejší ovládání. Zpět používá historii míst v aktuální relaci, po obnovení hierarchický návrat. Kapitoly umožňují návštěvy, replay oprav i přehrání odemčených příběhových sekvencí.
+Průvodce ukazuje aktuální kapitolu, místo, smysl práce a konkrétní další opravu nebo cestu. Na přání uživatele je sbalený do šipky vedle mapy/deníku; otevření překryje scénu, nepřidává výšku stránky. Při změně místa/úkolu nebo výběru akce se zavře, Escape vrací fokus na šipku. CONTINUE při návratu otevře aktuální úkol; pokud hráč skončil v nedokončené volitelné expedici, pokračuje v ní. Dokončená místa a návraty mají vedlejší ovládání. Zpět používá historii míst v aktuální relaci, po obnovení hierarchický návrat. Kapitoly umožňují návštěvy, replay oprav i přehrání odemčených příběhových sekvencí.
 
 Čtyři nové komiksy propojují přípravu návratové trasy, přílet posádky, přivítání v Útočišti a závěrečné odhalení Archivu. Přivítání a navigátor mají nové WebP ilustrace. Starší sekvence lze obnovit i po zmeškaném prvním vstupu, ale automaticky se otevírají pouze v odpovídající fázi příběhu. Historické návštěvy nevracejí hráče do starých problémů.
 
 Zhlédnutí nebo přeskočení komiksu se pamatuje pro prohlížeč, profil a revizi restartu. Jde o místní prezentační preference, nikoli nové cloudové pole; na novém zařízení lze komiks vidět znovu. Replay nemění opravy, hvězdy ani energii. Po levelu187 je explicitně uveden konec vydaného obsahu a budoucí síť majáků.
 
-Opravové bubliny, komiksy a potvrzení příletu se zobrazují portálem do body, takže se nezmenšují spolu s portrétovou scénou. Přizpůsobení scén odečítá výšku průvodce. EN/CZ překlady zahrnují nové texty.
+Opravové bubliny, komiksy a potvrzení příletu se zobrazují portálem do body, takže se nezmenšují spolu s portrétovou scénou. Průvodce je uvnitř scénového ovládání a nezmenšuje scénu. EN/CZ překlady zahrnují nové texty. Kontrola dok/archiv/mapa/komora na320×568,360×640,390×844 a430×740 měří nulový přesah dokumentu a nepřekrývající se horní ovládání; otevřený průvodce také neposouvá dokument.
 
 ## Ověření
 
