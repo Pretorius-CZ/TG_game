@@ -25,7 +25,7 @@ test('return corridor gates, replay, save, merge and reset preserve the rescue s
  assert.equal(mergeProgress(normalizeProgress(arrived),p).refugeArrivalCompleted,6);
  assert.equal(mergeProgress(p,normalizeProgress({resetRevision:1})).refugeArrivalCompleted,0);
  assert.equal(completeDestination(6,site.repairs[0].id,site.repairs),6);
- const chapter=chaptersFor(p).find(c=>c.id==='arrival');assert.equal(chapter.number,11);assert.equal(chapter.done,6);assert.equal(chapter.total,6);
+ const chapter=chaptersFor(p).find(c=>c.id==='refuge');assert.equal(chapter.number,8);assert.equal(chapter.done,27);assert.equal(chapter.total,27);
  assert.deepEqual(levelCatalog.slice(161,167).map(r=>r.number),[162,163,164,165,166,167]);
  for(const r of site.repairs)assert.equal(p.stars[r.id],1);
 });
@@ -45,9 +45,9 @@ test('return corridor boards generate legal starts and complete EN/CZ content',(
 test('cloud migration allows ratings for the full catalog and resets the added chapter',()=>{
  const sql=readFileSync(new URL('../supabase/030_refuge_arrival.sql',import.meta.url),'utf8');
  const cap=Number(sql.match(/jsonb_object_keys\(incoming->'stars'\)\)>(\d+)/)[1]);
- assert.equal(cap,levelCatalog.length);
+ assert.equal(cap,167);
  assert.ok(sql.includes("('refugeArrivalCompleted',6)"));
  assert.ok(sql.includes("'refugeArrivalCompleted',0"));
  assert.ok(sql.includes("(result->>'refugeMedicalCompleted')::integer<5"));
- for(const r of levelCatalog)assert.ok(sql.includes("('"+r.id+"','"));
+ for(const r of levelCatalog.slice(0,167))assert.ok(sql.includes("('"+r.id+"','"));
 });

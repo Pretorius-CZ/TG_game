@@ -25,7 +25,7 @@ test('return corridor gates, replay, save, merge and reset preserve the rescue s
  assert.equal(mergeProgress(normalizeProgress(arrived),p).returnCorridorCompleted,6);
  assert.equal(mergeProgress(p,normalizeProgress({resetRevision:1})).returnCorridorCompleted,0);
  assert.equal(completeDestination(6,site.repairs[0].id,site.repairs),6);
- const chapter=chaptersFor(p).find(c=>c.id==='return');assert.equal(chapter.number,10);assert.equal(chapter.done,6);assert.equal(chapter.total,6);
+ const chapter=chaptersFor(p).find(c=>c.id==='refuge');assert.equal(chapter.number,8);assert.equal(chapter.done,21);assert.equal(chapter.total,27);
  assert.deepEqual(levelCatalog.slice(155,161).map(r=>r.number),[156,157,158,159,160,161]);
  for(const r of site.repairs)assert.equal(p.stars[r.id],1);
 });

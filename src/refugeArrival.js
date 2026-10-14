@@ -30,6 +30,7 @@ const repairs=rows.map(([slug,name,thought,result,logTitle,logText,goals,moves,x
 });
 export const refugeArrival={title,key:'refugeArrivalCompleted',system:'return-corridor',chapter:text('CHAPTER 11 / WELCOME HOME','KAPITOLA 11 / VÍTEJTE DOMA'),hotspotOffset:0,image:'refuge-arrival',restoredImage:'refuge-arrival-restored',repairs,
  logs:rows.map((r,i)=>({id:repairs[i].id+'-log',repair:repairs[i].id,title:r[4],text:r[5],source:text('Arrival dock log','Deník příletového doku'),time:title,unlockAt:162+i})),
- complete:text('The crew is safe inside the refuge.','Posádka je v bezpečí uvnitř Útočiště.'),nextLabel:text('Visit the return corridor →','Navštívit návratový koridor →'),
+ complete:text('The crew is safe inside the refuge.','Posádka je v bezpečí uvnitř Útočiště.'),nextLabel:text('Investigate the archive →','Prozkoumat archiv →'),
+ nextScene:'archive-entry',
  clips:repairs.map(()=> 'inset(0)'),restorationMasks:repairs.map(r=>'radial-gradient(ellipse 22% 16% at '+r.x+'% '+r.y+'%, #000 35%, transparent 100%)')};
 text('Open the return corridor →','Otevři návratový koridor →');

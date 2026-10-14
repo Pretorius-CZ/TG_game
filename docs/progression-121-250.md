@@ -1,5 +1,13 @@
 # Plán pokračování: levely 121–240 a epilog 241–250
 
+## Aktuální stav 14.10.2026
+
+Produkce má167 levelů. Místně je hotový Archiv ozvěn168–187 (20levelů, čtyři oblasti); SQL031 a produkční nasazení čekají na potvrzení. Živá mapa nově spojuje prstenec/výzkum/retranslátor, Útočiště spojuje domov/návratovou trasu/přílet. Detailní současné číslování: [archive-echoes.md](archive-echoes.md).
+
+Původní rozsahy níže jsou historický návrh. Řídicí centrum a konvoj byly nahrazené kratší návratovou trasou a příletem. Archiv se tedy posunul na168–187. Zbývá Síť majáků, centrální záchranná stanice a volitelný epilog. Jejich přesné počty a čísla se stanoví před implementací; nepřidávat výplň pouze kvůli původní hranici240.
+
+## Původní návrh
+
 Zapsáno 2026-10-01 na žádost uživatele jako podklad pro další vývoj. Jde o obsahový návrh, nikoli implementované levely ani definitivní konfigurace. Původní návrh vycházel ze 120 unikátních miniher. Aktualizace 2026-10-01: Noční zahrada 121–140 je nyní implementovaná, první dávka Útočiště 141–145 také; katalog má 145 miniher, obytný blok 146–150 je implementovaný od 2026-10-04; katalog má nyní 150 miniher, ošetřovna 151–155 je implementovaná od 2026-10-06; katalog má 155 miniher, zbývající rozsah 156–250 je stále plán. Nový obsah navazuje na živou mapu, výzkum a rezonátory v poslední oblasti. Dosavadní číslování kapitol a názvy scén je před implementací nutné sladit s tímto návrhem.
 
 ## Směr příběhu
