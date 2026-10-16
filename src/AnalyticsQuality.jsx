@@ -13,17 +13,17 @@ export function AnalyticsControls({data,error,includeTesters,setIncludeTesters,a
   <h2>Hráči a naše testování</h2>
   <p>Označení testerů je společné pro správce a platí zpětně. Data zůstávají uložená. Jeden člověk může mít více zařízení; každé označ zvlášť. Zařízení bez identifikátoru nelze spolehlivě přiřadit.</p>
   {error&&<p role="alert">{error}</p>}
-  {!data?<p>Rozšířená analytika čeká na načtení. Vyžaduje migraci 028 a přihlášení správce. Dosavadní přehled níže zatím zahrnuje všechny testery.</p>:<>
+  {!data?<p>Rozšířená analytika čeká na načtení. Vyžaduje migraci 032 a přihlášení správce. Rozdělené pohledy se zobrazí po načtení.</p>:<>
    <div className="controls"><label><input type="checkbox" checked={includeTesters} onChange={e=>setIncludeTesters(e.target.checked)}/> Zahrnout označené testery</label><span>{data.testers.length} označených zařízení · {includeTesters?'Zobrazuji všechny':'Testery vynechávám z návštěv, zemí, pokusů a průchodu levely'}.</span></div>
    <div className="controls"><button disabled={busy||!devices.some(d=>d.id===own)} onClick={()=>onMark(own,!data.testers.includes(own))}>{data.testers.includes(own)?'Zrušit označení tohoto prohlížeče':'Označit tento prohlížeč jako tester'}</button>
    <label>Zařízení <select aria-label="Zařízení testera" value={selected} onChange={e=>setSelected(e.target.value)}><option value="">Vyber podle ID z pokusu</option>{devices.map(d=><option key={d.id} value={d.id}>{d.id.slice(0,8)} · {d.attempts} pokusů · {d.visits} návštěv{d.id===own?' · tento prohlížeč':''}{d.tester?' · TESTER':''}</option>)}</select></label>
    <button disabled={busy||!selectedDevice} onClick={()=>onMark(selected,!selectedDevice.tester)}>{selectedDevice?.tester?'Zrušit označení testera':'Označit vybrané zařízení jako tester'}</button></div>
-   <p>Označ pouze známé testovací zařízení. Samotný vysoký počet výher není důvod k vyřazení hráče. Horní živé počítadlo aktivity zůstává za všechna zařízení.</p>
+   <p>Označ pouze známé testovací zařízení. Samotný vysoký počet výher není důvod k vyřazení hráče. Horní aktivita respektuje výběr provozu i tento přepínač.</p>
   </>}
  </section>;
 }
 
-export function AnalyticsInsights({data,visits,allVisits=visits}){
+export function AnalyticsInsights({data,visits,allVisits=visits,includeTesters=false}){
  const [cohortMode,setCohortMode]=useState('new');
  if(!data)return null;
  const report=onboardingReport(visits,levelCatalog,cohortMode==='new'?data.startedAt:null,allVisits),devices=visitGroups(visits,['device']);
@@ -37,7 +37,7 @@ export function AnalyticsInsights({data,visits,allVisits=visits}){
   </section>
   <section className="recent-attempts" aria-label="Typ zařízení"><h2>Mobil a desktop</h2><p>Hrubý typ prohlížeče, bez ukládání celého user-agentu. Mobil zahrnuje tablet. Starší a nerozpoznaná data jsou Neznámá; typ může prohlížeč hlásit nepřesně.</p><div className="recent-wrap"><table><thead><tr><th>Typ</th><th>Návštěvy</th><th>Zařízení</th><th>Spustili minihru</th><th>Vyhráli</th></tr></thead><tbody>{devices.map(row=><tr key={row.device}><td>{{mobile:'Mobil / tablet',desktop:'Desktop',unknown:'Neznámá'}[row.device]||'Neznámá'}</td><td>{row.visits}</td><td>{row.devices}</td><td>{row.started} ({funnelPercent(row.started,row.visits)})</td><td>{row.won} ({funnelPercent(row.won,row.started)} ze spuštěných)</td></tr>)}</tbody></table></div></section>
   <section className="recent-attempts" aria-label="Návraty hráčů"><h2>Návraty nově zaznamenaných zařízení</h2><p>Všechny kampaně — tento přehled nereaguje na filtr kampaně.</p>
-   <p>Měření od {new Date(data.startedAt).toLocaleString('cs-CZ',{timeZone:'Europe/Prague'})}. Skupina vzniká první přijatou návštěvou zařízení po tomto okamžiku. Starší zařízení a označení testeři jsou vždy vynecháni. Dny jsou UTC; výsledek vyhodnocujeme až po skončení celého sledovaného období.</p>
+   <p>Měření od {new Date(data.startedAt).toLocaleString('cs-CZ',{timeZone:'Europe/Prague'})}. Skupina vzniká první přijatou návštěvou zařízení po tomto okamžiku. Starší zařízení jsou vynechána. {includeTesters?'Označení testeři jsou zahrnuti.':'Označení testeři jsou vynecháni.'} Platí výběr Hráči / Boti / Všichni. Dny jsou UTC; výsledek vyhodnocujeme až po skončení celého sledovaného období.</p>
    <p>Návrat další den: {sum('returned_d1')} / {sum('eligible_d1')} ({funnelPercent(sum('returned_d1'),sum('eligible_d1'))}). Návrat během dnů 1–7: {sum('returned_week')} / {sum('eligible_week')} ({funnelPercent(sum('returned_week'),sum('eligible_week'))}). Návrat znamená zachycenou viditelnou hru, ne nutně odehraný level.</p>
    <div className="recent-wrap"><table><thead><tr><th>První den (UTC)</th><th>Nová zařízení</th><th>Další den</th><th>Během dnů 1–7</th></tr></thead><tbody>{data.retention.map(row=><tr key={row.day}><td>{row.day}</td><td>{row.devices}</td><td>{row.eligible_d1?`${row.returned_d1} / ${row.eligible_d1} (${funnelPercent(row.returned_d1,row.eligible_d1)})`:'Čeká na celý další den'}</td><td>{row.eligible_week?`${row.returned_week} / ${row.eligible_week} (${funnelPercent(row.returned_week,row.eligible_week)})`:'Čeká na celý týden'}</td></tr>)}</tbody></table></div>
    {!data.retention.length&&<p>Zatím žádná nová zařízení od zapnutí tohoto měření. Historické návraty zpětně nedopočítáváme.</p>}

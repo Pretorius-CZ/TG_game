@@ -4,7 +4,7 @@ async function rpc(name,args){
  if(error)throw error;return data;
 }
 export async function fetchAnalytics(){
- const overview=await rpc('read_analytics_overview');
+ const overview=await rpc('read_traffic_overview');
  const visits=[];
  for(let offset=0;offset<100000;offset+=1000){
   const page=await rpc('read_analytics_visits',{page_offset:offset,page_size:1000});
