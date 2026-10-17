@@ -56,6 +56,11 @@ Pozor: původní adresa tuto stránku získá až nasazením přípravných změ
 na její produkční větev. Dokud dobíhají staré iOS testy, nasazení původní
 hry neprovádět. Nový web je do té doby zkušební; živý přenos ještě není
 otevřený, místní cross-origin testy nepovažovat za živé ověření.
+Pro tuto přechodnou fázi je otevření původního přenosového okna ve veřejném
+buildu vypnuté a stránka pošle hráče pokračovat na původní web. Po ověření
+staré transfer.html přes HTTPS nastavit v TG_game-hosting Actions variable
+LEGACY_TRANSFER_READY=true a znovu nasadit. Výchozí hodnota je bezpečně
+vypnutá; místní DEV testy mají přenos zapnutý.
 
 1. Na nové adrese otevřít přenos a stisknout Open original saved game.
 2. V původním okně potvrdit Send saved game.

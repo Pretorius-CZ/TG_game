@@ -38,6 +38,8 @@ jobs:
         run: |
           source_revision="$(git rev-parse HEAD)"
           GITHUB_SHA="$source_revision" npm run build
+        env:
+          VITE_LEGACY_TRANSFER_READY: ${{ vars.LEGACY_TRANSFER_READY }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

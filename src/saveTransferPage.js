@@ -4,6 +4,7 @@ import {transferOrigins,validTransferMessage} from './transferOrigins.js';
 
 const origins=transferOrigins(location,import.meta.env.DEV);
 const target=location.origin===origins.target,source=location.origin===origins.source;
+const sourceReady=import.meta.env.DEV||import.meta.env.VITE_LEGACY_TRANSFER_READY==='true';
 const fragment=new URLSearchParams(location.hash.slice(1));
 const sourceNonce=fragment.get('nonce');
 history.replaceState(null,'',location.pathname+location.search);
@@ -55,12 +56,17 @@ try{
   }
   const online=el('section');el('h2',text('Transfer between addresses','Přenos mezi adresami'),online);
   if(target){
-   button(text('Open original saved game','Otevřít původní uloženou hru'),()=>{
+   if(!sourceReady){
+    el('p',text('Transfer from the original website is being prepared. Your existing game is still there; please continue there for now.','Přenos z původního webu připravujeme. Tvoje dosavadní hra zůstává tam; zatím v ní prosím pokračuj na původní adrese.'),online);
+    link(text('Continue on the original website','Pokračovat na původním webu'),`${origins.source}/`,online);
+   }
+   const openOriginal=button(text('Open original saved game','Otevřít původní uloženou hru'),()=>{
     if(peer&&!peer.closed)peer.close();nonce=crypto.randomUUID();
     peer=window.open(`${origins.source}/transfer.html#nonce=${encodeURIComponent(nonce)}`,'_blank','popup,width=500,height=720');
     if(!peer){status(text('The popup was blocked. Allow it, or download a backup on the original website and import it below.','Nové okno bylo zablokováno. Povol ho nebo na původním webu stáhni zálohu a níže ji importuj.'),true);return;}
     status(text('In the opened window, choose “Send saved game”. Keep this page open.','V otevřeném okně zvol „Odeslat uloženou hru“. Tuto stránku nech otevřenou.'));
    },online);
+   openOriginal.disabled=!sourceReady;
    window.addEventListener('message',event=>{
     if(!validTransferMessage(event,{origin:origins.source,source:peer,nonce},'backup'))return;
     try{offer(event.data.backup);}catch(error){status(error.message,true);}
