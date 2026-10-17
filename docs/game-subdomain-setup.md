@@ -84,6 +84,18 @@ hromadně nepřesouváme.
 
 ## Ověření
 
+Nasazení 2026-10-17: zdroj 5936553b9ce67726af6b9ab7d41fca1b73966445,
+Actions v TG_game-hosting 39054875150 success. HTTP version.json ověřen
+1792258927812-5936553b9ce6. Veřejný resolver 1.1.1.1 vrací správné CNAME.
+HTTPS dosud selhává ERR_TLS_CERT_ALTNAME_INVALID, Pages https_enforced=false;
+čeká vydání certifikátu. DNS health API zahájilo kontrolu (202). Nepřeskakovat
+varování prohlížeče a nepoužívat HTTP k přihlášení/přenosu.
+Původní HTTPS stále vrací 1792252501390-9c75024f46d6 a jeho Pages cname je
+playbeyondthesignal.com. Změny tedy neaktualizovaly původní běžící QA.
+206 unit a 50 browser kontrol asset/layout/transfer prošlo. Produkční
+vypnutý přenos navíc ověřen přes výsledné dist v Chromiu i WebKitu,
+320 × 568 bez vodorovného přetečení. Fyzické Safari zatím neověřeno.
+
 Unit testy pokrývají izolaci profilů, zakázané klíče, energii, pomůcky,
 opakované importy, reset, přerušený zápis, rollback a původ zprávy.
 Browser testy mezi 127.0.0.1 a localhost ověřují skutečný cross-origin popup,
