@@ -6,6 +6,7 @@ test.beforeEach(async({page})=>{
 });
 const energy=page=>page.evaluate(()=>JSON.parse(localStorage.getItem('to-the-stars-lives-v1')||'{"count":5}').count);
 async function move(page){
+ await expect(page.locator('.board')).toBeVisible();
  const board=await page.locator('[data-cell]').evaluateAll(c=>c.map(el=>+el.dataset.type));
  const pair=findMove(board,7);expect(pair).toBeTruthy();
  for(const i of pair)await page.locator(`[data-cell="${i}"]`).click();

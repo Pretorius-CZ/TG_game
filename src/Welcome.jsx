@@ -1,6 +1,7 @@
 import React,{useEffect,useRef,useState} from 'react';
 import {useLanguage} from './i18n/Language.jsx';
 import AudioControls from './AudioControls.jsx';
+import useSceneAssets from './useSceneAssets.js';
 import './Welcome.css';
 const scenes=[
  ['signal',"That signal should not exist. It belonged to an expedition that never returned."],
@@ -9,14 +10,14 @@ const scenes=[
 ];
 export default function Welcome({hasProgress,seen,onFinish,settings,onChapters,recap}){
  const {t,language,setLanguage}=useLanguage();
- const [step,setStep]=useState(null),[ready,setReady]=useState(false),[failed,setFailed]=useState(false),[retry,setRetry]=useState(0);
+ const [step,setStep]=useState(null);
  const next=useRef(null),finish=useRef(onFinish);finish.current=onFinish;
  const intro=step!==null,art=scenes[step??0][0];
- useEffect(()=>{setReady(false);setFailed(false);const image=new Image();let live=true;image.onload=()=>live&&setReady(true);image.onerror=()=>live&&setFailed(true);image.src=`./intro/${art}.webp`;return()=>{live=false;};},[art,retry]);
+ const {loaded:ready,error:failed,retry}=useSceneAssets([`./intro/${art}.webp`]);
  useEffect(()=>{if(!intro||!ready)return;next.current?.focus({preventScroll:true});let elapsed=0;const timer=setInterval(()=>{if(document.hidden)return;elapsed+=250;if(elapsed>=7000){clearInterval(timer);if(step===2)finish.current();else setStep(s=>s+1);}},250);return()=>clearInterval(timer);},[step,ready]);
  function advance(){if(step===2)onFinish();else setStep(s=>s+1);}
- return <main className={`welcome ${intro?'welcome-intro':''}`} aria-label="Beyond the Signal">
-  <img key={art} className={`welcome-art ${ready?'ready':''}`} src={`./intro/${art}.webp`} alt=""/>
+ return <main className={`welcome ${intro?'welcome-intro':''}`} aria-label="Beyond the Signal" data-art-ready={ready}>
+  <img key={art} className={`welcome-art ${ready?'ready':''}`} src={`./intro/${art}.webp`} alt="" fetchPriority="high" decoding="async"/>
   <div className="welcome-shade"/>
   {intro?<>
    <button className="intro-skip" onClick={onFinish}>{t('Skip intro')}</button>
@@ -34,6 +35,6 @@ export default function Welcome({hasProgress,seen,onFinish,settings,onChapters,r
     <div className="welcome-settings">{settings}<label><span aria-hidden="true">◎ </span><select aria-label={t('Language')} value={language} onChange={e=>setLanguage(e.target.value)}><option value="en">EN</option><option value="cs">CZ</option></select></label><AudioControls/></div>
    </div>
   </>}
-  {!ready&&<div className="intro-loading" role="status">{t(failed?'The scene could not be loaded.':'Loading…')}{failed&&<button onClick={()=>setRetry(n=>n+1)}>{t('Try again')}</button>}</div>}
+  {!ready&&<div className="intro-loading" role="status">{t(failed?'The scene could not be loaded.':'Loading…')}{failed&&<button onClick={retry}>{t('Try again')}</button>}</div>}
  </main>;
 }

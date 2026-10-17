@@ -17,3 +17,10 @@ export function exteriorScene(cockpit,completed){
 }
 
 export function canRefuel(exteriorCompleted,engineCompleted){return exteriorCompleted>=3&&engineCompleted>=2;}
+
+export function exteriorAssets({cockpit=0,completed=0,seals=false,antenna=false}={}){
+ return [exteriorScene(cockpit,completed),
+  ...(antenna?['./scenes/exterior-antenna-source.webp']:[]),
+  ...(cockpit>=4?[seals?'./scenes/exterior-sealed.webp':'./scenes/exterior-cockpit-lit.webp']:[]),
+  completed>=4?'./scenes/fuel-depot-repaired.webp':'./scenes/fuel-depot.webp'];
+}

@@ -741,3 +741,48 @@ Navazující práce: rozbor GitHub botích reportů po zařízeních. Pixel7/CZ 
 2026-10-17 — Na žádost promyslet návrh obtížnosti přečten i nalezený Downloads/balanc-1.zip (187levelů,200her/profil). VšechnaID/čísla/limity odpovídajíaktuálnímu katalogu. Úspěšnostcasual80,3% do100;66%101–120;57,7%121–140;51,7%141–160. Připraven konkrétní návrh limitů a oddělených variant krytů v docs/balance-proposal-2026-10-17.md; zatím pouze návrh, herní data nebyla změněna. Nedoporučeno slepě+5–8všem a přebrat limity48–56;156/159 ponechat.154 nemá rezonátor:8×8/6typů,6krytů,30semen+27chladiva, kandidat36tahů/kryty4. Stuck není doložený softlock bez zdrojůsimulátoru. Přesných17nad10%:53,67,120,125,134,138,144,148,149,150,153,154,155,158,164,174,177;151/152 do nich nepatří. Živá hráčská data neověřena. Při budoucím nasazení změnitverzipravidel v recordResult, zachovatID/postup a porovnat stejnéseedy A=tahy,B=kryty,C=obojí.
 
 2026-10-17 — Uživatel výslovně zadal provést a pushnout návrh balance. Implementována kombinovaná varianta C z docs/balance-proposal-2026-10-17.md:19limitů (138+vybrané141–160), čtyři kryty138=[9,12,37,40],149/154=[9,14,49,54].156/159 bezezměny; barevné cíle/rezonátory/desky/ID/postup zachované. Nová analytická verze2026-10-17-refuge-balance-v1 v BALANCE_RULES_VERSION.196unit testů/build prošly,300otevření upravených desek platných, všech187ID/pořadí a ostatní limity ověřené proti balanc-1.zip. Snapshot katalogu aktualizovaný pro schválené limity. Nový úplný balance běh provede uživatel; zlepšení win-rate zatím neměřené.
+
+2026-10-17 — Balance úprava pushnutá a nasazená:6182768d03ac2792c1d1469bb65db6b21b36207c, Pages39026706799 success, živá verze1792234525027-6182768d03ac ověřená.196unit testů/build prošly; Browser layout checks39026706824 při předání ještě běží. Uživatel může spustit nový balance test na nasazené kombinované variantě C, verzepravidel2026-10-17-refuge-balance-v1.
+
+2026-10-17 — Vyhodnocen balanc-2.zip proti balanc-1.zip (187levelů,200pokusů/profil). Čísla/ID/limity odpovídají nasazené sadě,168nezměněných výsledků identických,19upravených se zlepšilo pro oba profily.141–160 casual51,7→70,1%,skilled77,4→88,4%;13832→77%,stuck12→1,5%. Celkemproblemstuck>10%17→12. Přetrvává14862%/14,5%stuck,14957,5%/17%,15366%/11,5%,15458%/18%. Dále zacílit149/154(barevné cíle versuszbytkové kryty)a148/153(nabitíkruhu), nejprvediagnostikazbytkovýchcílů/definicestuck. Reportneobsahujesimulátor ani konfiguracikrytů;stucknenípotvrzenýsoftlock, měníseislimitemtahů. Návrh dalších samostatnýchvariant:149kapsle33→27,154cíle24+24,případněkruhy148/1533→2podledůkazů. Dokumentdocs/balance-comparison-2026-10-17.md. Tento krok měnil jen dokumentaci; žádné další herní změny/push. Reálná hráčská analytika neověřená.
+
+2026-10-17 — Uživatel po balanc-2 upřesnil cíl: hra nemá být úplně lehká ani frustrující. Nevyrovnávat každý level na75%simulace. Průměr70,1%v141–160 může být vhodný; zachovat výzvy/HARD a sledovat série těžkých levelů a dlouhé nedohrané konce. Další číselné návrhy v porovnání jsou pouze varianty, nikoli schválené další zlehčení. Přednostně diagnostikovat149a154,148/153 automaticky neměnit jen kvůliwinratepod75%. Bez dalších změn herníchdat.
+
+2026-10-17 — Vyhodnocen cestina-1.zip:1075kontrolovaných textů/0chybějících překladů, Desktop/GalaxyS9+/iPhoneSE všechny0angličtiny/0ořezů/0JS. Přečteny všechnyJSON a114snímků přehledově na6listech, zvětšené nastavení/deník/výhra. Bez nové potvrzené chyby; docs/qa-czech-review-2026-10-17.md. Herní část jen prvních8levelů,výhry,kapitoly,seznamzamčenýchdeníků,nastavení; po-levelu snímky opakujíwinpanel,neověřují nové scény po odměně. Následně doplnitpozdníkapitoly,příběhové scény,otevřenédeníky a negativní/reklamnístavy. Zdrojová úplnost není ruční korektura1075textů. Tento krok pouze dokumentace, žádná změna hry/push.
+
+2026-10-17 — Vyhodnocen a11y-1.zip, docs/qa-accessibility-review-2026-10-17.md. JSON pouze EN desktop/SE,9stavů;14snímků EN/CZ vizuálně bez zásadního rozbití. Nálezy:38opakovaných label-content-name-mismatch(6prvků×3stavy+1výhra/profil; příkladHint1/1vsShowahint1remaining, dalších5pravděpodobněpomůcky nutnoověřit),4aria-prohibited-attr(hvězdovýspanbezrole,potvrzenzdroj),1kontrastCloseSE(bezbarev/poměru/screenshotu,zreprodukovat),1chybějícíh1nastavenídesktop(ověřitstránku/kontextskenu). PrioritaP1názvy/hvězdy,P2kontrast/nadpis. CSvýsledkyJSONchybí,CSsnímky končí potvrzením odchodu v1levelu. Keyboard[]nedokládáúplnéklávesnicovéovládání. Žádná změna hry/push, zapsánopravnýbacklog.
+
+2026-10-17 — Vyhodnocen perf-1.zip:12JSON/6herních běhů×10levelů, všechny výhry/0JS;66PNG přehledově na3listech. Galaxy medián60/59FPS, notebook26/27, Pixel44/46; server bez GPU, nejde o fyzické telefony.4,61MB/25requestů při startu; potvrzeno main.jsx mount přednačítá16scén včetně budoucích oprav, globální loaded navíc podmiňuje část ovládání. P1omezit preload/oddělit připravenost scén; P1profilovat notebook a odlehlé LCP18,652s(PLAY2,346s), bez trace příčina nepotvrzená. Paměť+0,7–0,8MB mezi1.a10.výhrou,listeners381→376; není důkaz leak ani úplné čistoty. P2dlouhý test stejných stavů/GC/procesní paměti/pozdních kapitol/iOS. Detail docs/qa-performance-review-2026-10-17.md. Tento krok jen rozbor a dokumentace, herní kód/push beze změny.
+
+## 2026-10-17 — Společné opravy QA, přístupnosti a výkonu
+
+Na žádost uživatele zapracované zbývající potvrzené nálezy všech reportů.
+Nově: aktuální scény a nezávislé vrstvy místo startovního preloadu16obrazů;
+chyba budoucího obrazu neblokuje místnost, dekódovaný úvod s prioritou/retry.
+Přístupné názvy odpovídají viditelným počtům/REKL., hvězdy mají roliimg,
+kontrast Close a nadpisy čtečky opravené. Settings/quit mají ověřené
+klávesnicové ovládání a návrat fokusu včetně WebKitu.
+Reprodukován další překryv při168→169: čtyři ovladače pozdního HUD se
+v nízkém desktopovém okně nevešly vedle energie. Šířka nyní podle skutečných
+rozměrů obou skupin, scéna se škáluje samostatně; zbytečné přepisování zoomu
+odstraněno. Vykreslování na SwiftShaderu zpomaloval fullscreen blur minihry;
+statický dimmer ve srovnání vrací16,7ms/snímek proti33–50ms s efektem.
+Nejde o garanci fyzických telefonů, WebKit runner má jiné limity.
+
+Ověřeno196unit, build a104browser kontrol Chromium/WebKit (52/engine).
+Včetně EN/CZ axe/klávesnice, energie/refresh/retry/fault, prvních oprav všech
+7oblastí a168→deník→169,50dohraných mount/unmount cyklů/engine.
+Chromium po zavření stabilně52DOM uzlů/334listenerů, WebKit21prvků,
+oba0animací. Metadata/JSON/trace uložené v .local/browser-results.
+Pět studených produkčních načtení každé varianty na stejném lokálním serveru
+CPU4×/50ms/750000Bps: prostředky5,55→1,24MB(-77,6%),25→9requestů,
+medián dekódované ilustrace3807→2336ms. Bez gzip/stubované externí služby;
+nejde o přímé srovnání s původním CDN reportem4,61MB.
+
+Detail docs/qa-complete-fixes-2026-10-17.md. Předávací bot ZIPv2 ve
+vizualizační složce navíc správně audituje nejvyšší orientation-guard.
+Cizí QA GitHub nebyl změněný. Nové změny zatím místní, bez commitu/pushe;
+SQL není potřeba. Obtížnost zůstává odsouhlasená refuge-balance-v1.
+Úplných187levelů všech zařízení, fyzické iOS, staré400 s chybovou odpovědí
+a původní LCP18,652s musí potvrdit další armádní běh; neprohlašovat
+nedoložené příčiny za definitivně opravené. Nová Firefox sada čeká Linux CI.

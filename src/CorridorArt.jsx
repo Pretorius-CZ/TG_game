@@ -19,9 +19,9 @@ export default function CorridorArt({ completedRoomIds }) {
         <filter id={`${id}-soft`} x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="4"/></filter>
         {t(Object.entries(fixtures).map(([room,d])=><mask key={room} id={`${id}-${room}`} maskUnits="userSpaceOnUse" x="0" y="0" width="941" height="1672"><path d={d} fill="none" stroke="white" strokeWidth="26" strokeLinecap="round" filter={`url(#${id}-soft)`}/></mask>))}
       </defs>
-      {t(Object.keys(fixtures).map(room=><image key={room} data-door-light={room} href="./scenes/corridor-concept.webp" width="941" height="1672" mask={`url(#${id}-${room})`} style={{opacity:doors.includes(room)?1:0}}/>))}
+      {t(doors.map(room=><image key={room} data-door-light={room} href="./scenes/corridor-concept.webp" width="941" height="1672" mask={`url(#${id}-${room})`}/>))}
     </svg>
-    <img className="scene-image corridor-lit" src="./scenes/corridor-concept.webp" alt={t("")} style={{opacity:ceiling ? 1 : 0}}/>
+    {ceiling&&<img className="scene-image corridor-lit" src="./scenes/corridor-concept.webp" alt=""/>}
     <div className="shade"/>
   </div>;
 }

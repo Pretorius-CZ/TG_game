@@ -2,6 +2,8 @@
 
 Stav: rozbor dokončen, následně implementována první sada oprav.
 Aktuální stav jednotlivých bodů a ověření: [qa-fixes-2026-10-17.md](qa-fixes-2026-10-17.md).
+Navazující opravy přístupnosti, výkonu a pozdního HUD:
+[qa-complete-fixes-2026-10-17.md](qa-complete-fixes-2026-10-17.md).
 Tento seznam je podklad k opravám, nikoli tvrzení, že každé hlášení bota je
 chyba hry. Nahrazuje předběžné odhady z inventáře
 [qa-device-review-2026-10-17.md](qa-device-review-2026-10-17.md).
