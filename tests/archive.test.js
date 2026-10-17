@@ -34,8 +34,9 @@ test('archive follows the rescued crew; its four areas persist and cannot be ski
 test('chapter regrouping preserves catalog order and gates within the living map',()=>{
  const p=arrived(),rows=chaptersFor(p);assert.deepEqual(rows.map(c=>c.total),[29,24,16,24,12,15,20,27,20]);
  const living=rows.find(c=>c.id==='ring');assert.equal(chapterSectionOpen({...p,riftCrossed:0},living,'elysium-research'),false);
- // Snapshot of the production catalog at 065b30c: IDs, order, names, budgets and sizes.
- assert.equal(createHash('sha256').update(JSON.stringify(levelCatalog.slice(0,167))).digest('hex'),'81f3ba9235bc3cbdffa1273cea3d914efed757e21bf4300d4278ae34dcaef42a');
+ // Catalog after the approved 2026-10-17 refuge rebalance: IDs, order,
+ // names and sizes preserved; nineteen move budgets intentionally changed.
+ assert.equal(createHash('sha256').update(JSON.stringify(levelCatalog.slice(0,167))).digest('hex'),'460d9e6cf487ad534eaa8b94cafc452a29585c93d6f39a37a076b4d060a3d2f1');
 });
 test('archive boards, bilingual content, images and migration cover all twenty tasks',()=>{
  missingTranslations.clear();let seed=2701;const random=()=>((seed=(seed*1664525+1013904223)>>>0)/4294967296);

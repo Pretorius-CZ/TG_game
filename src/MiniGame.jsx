@@ -9,7 +9,7 @@ import {goalRefillRandom,makeGoalBoard} from './goalRefill.js';
 import {useAccount} from './Account.jsx';
 import MechanicTutorial from './MechanicTutorial.jsx';
 import {relevantTutorials,initialTutorials,helperTutorials,readTutorials} from './tutorials.js';
-import {saveAttempt} from './balanceTracking.js';
+import {saveAttempt,BALANCE_RULES_VERSION} from './balanceTracking.js';
 import {chargeResonators,resonatorsComplete} from './resonators.js';
 import HelperIcon from './HelperIcon.jsx';
 import {useRewardAd} from './RewardAd.jsx';
@@ -89,7 +89,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   function recordResult(outcome,terminal=true){
     if(recorded.current)return;if(terminal)recorded.current=true;
     if(!crazyGames)trackCampaignAttempt(attemptId.current,repair.id,outcome);
-    if(!crazyGames)saveAttempt({build:'2026-10-06-fair-refill-v4',attemptId:attemptId.current,level:repair.id,outcome,moves,budget:limit,baseBudget:moveBudget(repair),remaining:Math.max(0,limit-moves),at:Date.now(),durationMs:Date.now()-attemptStarted.current,configuration:{cols:level.cols,rows:level.rows,types:level.types,goals,ice:initialIce(repair),resonators},counts,remainingCovers:ice.length,resonance,...assistance.current});
+    if(!crazyGames)saveAttempt({build:BALANCE_RULES_VERSION,attemptId:attemptId.current,level:repair.id,outcome,moves,budget:limit,baseBudget:moveBudget(repair),remaining:Math.max(0,limit-moves),at:Date.now(),durationMs:Date.now()-attemptStarted.current,configuration:{cols:level.cols,rows:level.rows,types:level.types,goals,ice:initialIce(repair),resonators},counts,remainingCovers:ice.length,resonance,...assistance.current});
   }
   function requestHelp(kind,index){
     if(tutorial||busy||lock.current||adsUsed[kind])return;

@@ -1159,3 +1159,7 @@ Na žádost uživatele realizována společná sada oprav z QA backlogu; rozsah,
 ## 2026-10-17 — Uzavření energetické mezery při refreshi
 
 Chaos-2: refresh po tahu zachovával5/5 na desktopu, Pixelu, iPadu iSE. Oprava rezervuje energii při prvním platném tahu ještě před animací, výhra/technický fault vrací jednou; prohra/quit/refresh již nic dalšího nestrhnou. Před placeným tahem stále zdarma, včetně neplatné výměny a pomůcky. Počet je proto během pokusu o1nižší a při výhře se vrátí; od rezervace běží stávající obnova10/30min. +5a retry respektují tentýž pokus.196unit testů a16cílených browser kontrol prošly; docs/refresh-energy-2026-10-17.md. Žádná SQL migrace ani změna cílových počtů/tahů.
+
+## 2026-10-17 — Zkušební změkčení pozdních levelů
+
+Po výslovném pokynu realizována kombinovaná varianta z docs/balance-proposal-2026-10-17.md:19nových limitů a snížení krytů138/149/154 na4. Barevné cíle a kruhy bezezměny,156a159 zůstávají. Analytika rozlišuje2026-10-17-refuge-balance-v1.196unit testů/build a300počátečních desek prošlo; uživatel následně zopakuje balance simulaci. Nová procenta úspěšnosti nejsou zatím známá.
