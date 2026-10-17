@@ -2,6 +2,7 @@ import {crazyGames} from './platform.js';
 import {useLanguage} from './i18n/Language.jsx';
 import React, {createContext, useContext, useEffect, useRef, useState} from 'react';
 import {supabase} from './supabase.js';
+import {gameAddress} from './gameAddress.js';
 const itch=import.meta.env.MODE==='itch';
 const guestOnly=itch||crazyGames;
 export const AccountContext = createContext(null);
@@ -55,6 +56,7 @@ export function AccountButton({onImport,onRestart}){
  {crazyGames?<p>{language==='cs'?'Postup se ukládá automaticky.':'Progress is saved automatically.'}</p>:itch?<p>{language==='cs'?'Verze itch.io ukládá postup v tomto prohlížeči. Google přihlášení je dostupné na našem webu.':'The itch.io edition saves progress in this browser. Google sign-in is available on our website.'} <a href="https://playbeyondthesignal.com/" target="_blank" rel="noopener">playbeyondthesignal.com</a></p>:<><h3>{t("Account & cloud save")}</h3>
  <p>{t(user?user.email:'Sign in with Google to save repairs and your ship log across devices. Guest progress stays on this device.')}</p>
  <p>{t("Energy is saved only in this browser. Unfinished puzzles are not saved.")}</p>{t(user&&<button disabled={busy} onClick={importGuest}>{t("Import guest progress from this device")}</button>)}
+ {location.hostname==='game.playbeyondthesignal.com'&&<p><a href={gameAddress(location.href,{transfer:true})}>{language==='cs'?'Převzít původní postup, energii a pomůcky':'Recover original progress, energy and helpers'}</a></p>}
  {importMessage&&<p className="import-feedback" role="status" aria-live="polite">{importMessage}</p>}
  <button className="primary" disabled={busy} onClick={user?logout:login}>{t(user?'Sign out':'Continue with Google')}</button>
  {t(error&&<p role="alert">{t(error)}</p>)}</>}

@@ -1,4 +1,6 @@
-import {normalizeProgress} from './progressStorage.js';
+import {normalizeProgress,mergeProgress} from './progressStorage.js';
+import {recoverLives,RECHARGE_MS} from './livesRules.js';
+import {stockKey,freshStock} from './helperStock.js';
 
 export const TRANSFER_PENDING='beyond-signal-transfer-pending-v1';
 const receiptsKey='beyond-signal-transfer-receipts-v1';
@@ -11,18 +13,20 @@ const seenKey=new RegExp(`^beyond-the-signal-(?:intro:${profile}:\\d+|story:${pr
 const analyticsKeys=new Set(['beyond-signal-balance-reporter-v1','beyond-signal-balance-attempts-v1','beyond-signal-balance-outbox-v1','beyond-signal-balance-cloud-migrated-v1','beyond-signal-campaign-visit-v1','beyond-signal-campaign-outbox-v1']);
 const preferences=new Set(['ship-audio','to-the-stars-language']);
 const energyKey='to-the-stars-lives-v1';
+const trafficKey='beyond-signal-migrated-traffic-v1';
 const maxBytes=4*1024*1024;
 const plain=value=>value!==null&&typeof value==='object'&&!Array.isArray(value)&&Object.getPrototypeOf(value)===Object.prototype;
 function fail(){throw new Error('Invalid or unsupported save backup.');}
-export function isTransferKey(key){return progressKey.test(key)||helpersKey.test(key)||tutorialsKey.test(key)||seenKey.test(key)||analyticsKeys.has(key)||preferences.has(key)||key===energyKey;}
+export function isTransferKey(key){return progressKey.test(key)||helpersKey.test(key)||tutorialsKey.test(key)||seenKey.test(key)||analyticsKeys.has(key)||preferences.has(key)||key===energyKey||key===trafficKey;}
 function validateValue(key,value){
  if(typeof value!=='string'||value.length>maxBytes)fail();
  if(key==='to-the-stars-language'){if(!['en','cs'].includes(value))fail();return value;}
  if(seenKey.test(key)){if(value!=='seen')fail();return value;}
  if(key==='beyond-signal-balance-cloud-migrated-v1'){if(value!=='1')fail();return value;}
  let data;try{data=JSON.parse(value);}catch{fail();}
+ if(key===trafficKey&&(!plain(data)||data.source!=='automated_test'||data.medium!=='bot'||typeof data.campaign!=='string'||!/^[a-zA-Z0-9_.-]{1,80}$/.test(data.campaign)))fail();
  if(progressKey.test(key)){
-  if(!plain(data)||data.version!==1||!Number.isSafeInteger(data.resetRevision)||data.resetRevision<0)fail();
+  if(!plain(data)||data.version!==1||!Number.isSafeInteger(data.resetRevision??0)||(data.resetRevision??0)<0)fail();
   return JSON.stringify(normalizeProgress(data));
  }
  if(helpersKey.test(key)&&(!Array.isArray(data)||data.length!==5||data.some(n=>n!==0&&n!==1)))fail();
@@ -39,33 +43,72 @@ function validateValue(key,value){
 export function validateBackup(input){
  if(JSON.stringify(input)?.length>maxBytes||!plain(input)||input.format!=='beyond-signal-save'||input.version!==1||!new RegExp(`^${uuid}$`,'i').test(input.id)||!Number.isSafeInteger(input.createdAt)||input.createdAt<0||!plain(input.entries))fail();
  const entries=Object.entries(input.entries);if(entries.length>512)fail();
- return {format:input.format,version:1,id:input.id,createdAt:input.createdAt,entries:Object.fromEntries(entries.map(([key,value])=>{if(!isTransferKey(key))fail();return [key,validateValue(key,value)];}))};
+ const validated=Object.fromEntries(entries.map(([key,value])=>{if(!isTransferKey(key))fail();return [key,validateValue(key,value)];}));
+ const visits=[...(validated['beyond-signal-campaign-visit-v1']?[JSON.parse(validated['beyond-signal-campaign-visit-v1'])]:[]),...Object.values(JSON.parse(validated['beyond-signal-campaign-outbox-v1']||'{}'))];
+ const bot=visits.find(v=>v?.source==='automated_test'&&v?.medium==='bot');
+ if(bot)validated[trafficKey]=JSON.stringify({source:'automated_test',medium:'bot',campaign:typeof bot.campaign==='string'&&/^[a-zA-Z0-9_.-]{1,80}$/.test(bot.campaign)?bot.campaign:'migration'});
+ return {format:input.format,version:1,id:input.id,createdAt:input.createdAt,entries:validated};
 }
-export function exportBackup(storage,{id=crypto.randomUUID(),now=Date.now()}={}){
+export function exportBackup(storage,{id=crypto.randomUUID(),now=Date.now(),includeUnusedStock=false}={}){
  const entries={};for(let i=0;i<storage.length;i++){const key=storage.key(i);if(isTransferKey(key)){const value=storage.getItem(key);if(value!==null)entries[key]=value;}}
+ if(includeUnusedStock)for(const [key,value] of Object.entries(entries))if(progressKey.test(key)){
+  const save=JSON.parse(validateValue(key,value)),user=key.includes(':user:')?key.split(':user:')[1]:undefined,stock=stockKey(user,save.resetRevision);
+  if(entries[stock]===undefined)entries[stock]=JSON.stringify(freshStock());
+ }
  return validateBackup({format:'beyond-signal-save',version:1,id,createdAt:now,entries});
 }
 function receipts(storage){const raw=storage.getItem(receiptsKey);if(raw===null)return [];const data=JSON.parse(raw);if(!Array.isArray(data)||data.some(x=>typeof x!=='string'))throw Error('Transfer history is unreadable.');return data;}
-export function planImport(storage,input,{replace=false}={}){
+export function isEmptyProgress(value){
+ const save=normalizeProgress(value);
+ return save.resetRevision===0&&!Object.entries(save).some(([key,n])=>(key==='completed'||key.endsWith('Completed')||key==='caretakerMet'||key==='riftCrossed')&&n>0);
+}
+export function summarizeBackup(input){
+ const backup=validateBackup(input),saves=Object.entries(backup.entries).filter(([key])=>progressKey.test(key));
+ return {guest:saves.some(([key,value])=>key==='to-the-stars-progress-v1'&&!isEmptyProgress(JSON.parse(value))),accounts:saves.filter(([key])=>key.includes(':user:')).length,energy:backup.entries[energyKey]?JSON.parse(backup.entries[energyKey]).count:null};
+}
+export function planImport(storage,input,{replace=false,now=Date.now()}={}){
  const backup=validateBackup(input),seen=receipts(storage);if(seen.includes(backup.id))return {backup,changes:[],conflicts:[],skipped:[],already:true};
  const conflicts=[],skipped=[],changes=[];
  const analytics=Object.entries(backup.entries).filter(([k])=>analyticsKeys.has(k));
  // Identity and queued reports travel together; never attach old reports to a new reporter.
  const analyticsConflict=[...analyticsKeys].some(k=>{const value=storage.getItem(k);return value!==null&&value!==backup.entries[k];});
- for(const [key,value] of Object.entries(backup.entries)){
+ for(const [key,original] of Object.entries(backup.entries)){
+  let value=original;
   const before=storage.getItem(key);if(before===value)continue;
   if(analyticsKeys.has(key)){
    if(analyticsConflict){skipped.push(key);continue;}
    if(analytics.length&&!backup.entries['beyond-signal-balance-reporter-v1']){skipped.push(key);continue;}
   }
   if(before!==null){
+   if(progressKey.test(key)){
+    const current=JSON.parse(validateValue(key,before)),incoming=JSON.parse(value);
+    // The same account has one reset lineage. Guest saves may be independent games.
+    if(key.includes(':user:')){
+     const merged=mergeProgress(current,incoming);
+     value=JSON.stringify(merged);
+     if(value!==before)changes.push({key,before,after:value});
+     continue;
+    }
+    if(!replace&&isEmptyProgress(current)){
+     changes.push({key,before,after:value});continue;
+    }
+   }
+   if(key===energyKey){
+    const a=JSON.parse(validateValue(key,before)),b=JSON.parse(value);
+    const current={...recoverLives(a,now,a.interval??RECHARGE_MS),interval:a.interval??RECHARGE_MS};
+    const incoming={...recoverLives(b,now,b.interval??RECHARGE_MS),interval:b.interval??RECHARGE_MS};
+    // A second export must not refill charges spent on the new address.
+    const merged=incoming.count<current.count?incoming:current;
+    if(incoming.count===current.count&&incoming.nextAt&&current.nextAt)merged.nextAt=Math.min(incoming.nextAt,current.nextAt);
+    value=JSON.stringify(merged);if(value!==before)changes.push({key,before,after:value});continue;
+   }
+   if(helpersKey.test(key)){
+    const current=JSON.parse(validateValue(key,before)),incoming=JSON.parse(value);
+    value=JSON.stringify(current.map((n,i)=>Math.min(n,incoming[i])));
+    if(value!==before)changes.push({key,before,after:value});continue;
+   }
    conflicts.push(key);
    if(!replace){skipped.push(key);continue;}
-   // An older account reset must never overwrite a newer reset on this device.
-   if(progressKey.test(key)&&key.includes(':user:')){
-    const current=JSON.parse(validateValue(key,before)),incoming=JSON.parse(value);
-    if(current.resetRevision>incoming.resetRevision){skipped.push(key);continue;}
-   }
   }
   changes.push({key,before,after:value});
  }

@@ -1,6 +1,6 @@
 import {supabase} from './supabase.js';
 import {reporterIdentity} from './balanceOutbox.js';
-import {campaignFromURL,visitForActivity,deviceCategory,mergeVisitAttempts} from './campaignPolicy.js';
+import {campaignFromURL,visitForActivity,deviceCategory,mergeVisitAttempts,migrationCampaign} from './campaignPolicy.js';
 import {lookupCountry,normalizeCountry} from './countryTracking.js';
 const visitKey='beyond-signal-campaign-visit-v1',queueKey='beyond-signal-campaign-outbox-v1';
 const statusKey='beyond-signal-campaign-status-v1';
@@ -15,7 +15,7 @@ function persist(){try{
  localStorage.setItem(visitKey,JSON.stringify(active));const queue=read(queueKey,{});queue[active.id]=active;localStorage.setItem(queueKey,JSON.stringify(Object.fromEntries(Object.entries(queue).slice(-100))));
 }catch{}}
 function initializeVisit(){
- const now=Date.now(),campaign=campaignFromURL(location.href),previous=read(visitKey,null);
+ const now=Date.now(),campaign=migrationCampaign(campaignFromURL(location.href),read('beyond-signal-migrated-traffic-v1',null)),previous=read(visitKey,null);
  const candidate=previous&&active&&previous.id===active.id&&previous.lastAt>active.lastAt?previous:active||previous;
  const chosen=visitForActivity(candidate,campaign,now,()=>crypto.randomUUID(),deviceCategory(navigator));
  if(active?.id!==chosen.id)lastCountryLookup=0;

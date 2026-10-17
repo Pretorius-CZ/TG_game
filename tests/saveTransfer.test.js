@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import {normalizeProgress,SAVE_KEY} from '../src/progressStorage.js';
 import {exportBackup,validateBackup,planImport,importBackup,recoverTransfer,readPending,TRANSFER_PENDING} from '../src/saveTransfer.js';
 import {validTransferMessage} from '../src/transferOrigins.js';
+import {migrationCampaign} from '../src/campaignPolicy.js';
+import {stockKey} from '../src/helperStock.js';
 const id='12345678-1234-4234-9234-123456789abc';
 function memory(initial={}){const data=new Map(Object.entries(initial));return {get length(){return data.size;},key:i=>[...data.keys()][i]??null,getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v),removeItem:k=>data.delete(k)};}
 const save=n=>JSON.stringify(normalizeProgress({airlockCompleted:n}));
@@ -62,4 +64,36 @@ test('cross-origin handshake requires the exact origin, window, nonce and messag
  const source={},nonce=id,expected={origin:'https://playbeyondthesignal.com',source,nonce},event={origin:expected.origin,source,data:{channel:'beyond-signal-transfer-v1',nonce,type:'backup'}};
  assert.equal(validTransferMessage(event,expected,'backup'),true);
  for(const bad of [{...event,origin:'https://evil.example'},{...event,source:{}},{...event,data:{...event.data,nonce:'wrong'}},{...event,data:{...event.data,type:'saved'}}])assert.equal(validTransferMessage(bad,expected,'backup'),false);
+});
+test('a default save created by opening the new website does not block the original guest progress',()=>{
+ const target=memory({[SAVE_KEY]:save(0)}),backup=exportBackup(memory({[SAVE_KEY]:save(3)}),{id});
+ const plan=planImport(target,backup);assert.equal(plan.conflicts.length,0);importBackup(target,backup);assert.equal(JSON.parse(target.getItem(SAVE_KEY)).airlockCompleted,3);
+});
+test('older version-one saves from before account resets migrate with revision zero',()=>{
+ const backup=exportBackup(memory({[SAVE_KEY]:'{"version":1,"airlockCompleted":2}'}),{id}),target=memory();importBackup(target,backup);
+ assert.equal(JSON.parse(target.getItem(SAVE_KEY)).resetRevision,0);assert.equal(JSON.parse(target.getItem(SAVE_KEY)).airlockCompleted,2);
+});
+test('source export materializes unused starter stock while target export cannot invent it',()=>{
+ const key=`${SAVE_KEY}:user:${id}`,source=memory({[key]:save(3)});
+ const old=exportBackup(source,{id,includeUnusedStock:true});assert.equal(old.entries[stockKey(id)],'[1,1,1,1,1]');
+ assert.equal(exportBackup(source,{id}).entries[stockKey(id)],undefined);
+});
+test('account copies merge progress rather than replacing a newer completed task',()=>{
+ const key=`${SAVE_KEY}:user:${id}`,target=memory({[key]:save(3)}),backup=exportBackup(memory({[key]:save(1)}),{id});
+ importBackup(target,backup,{replace:true});assert.equal(JSON.parse(target.getItem(key)).airlockCompleted,3);
+});
+test('a different backup ID cannot refill energy or helpers spent after an earlier migration',()=>{
+ const now=Date.now(),target=memory({'to-the-stars-lives-v1':JSON.stringify({count:1,nextAt:now+300000,interval:600000}),'to-the-stars-helpers-v1:guest:0':'[0,0,1,0,0]'}),backup=exportBackup(memory({'to-the-stars-lives-v1':JSON.stringify({count:4,nextAt:now+400000,interval:600000}),'to-the-stars-helpers-v1:guest:0':'[1,1,1,1,1]'}),{id});
+ importBackup(target,backup,{replace:true,now});assert.equal(JSON.parse(target.getItem('to-the-stars-lives-v1')).count,1);assert.equal(target.getItem('to-the-stars-helpers-v1:guest:0'),'[0,0,1,0,0]');
+});
+test('fresh target energy is replaced by the original pending recovery without creating charges',()=>{
+ const now=Date.now(),target=memory({'to-the-stars-lives-v1':'{"count":5,"nextAt":null,"interval":600000}'}),backup=exportBackup(memory({'to-the-stars-lives-v1':JSON.stringify({count:2,nextAt:now+300000,interval:600000})}),{id});
+ importBackup(target,backup,{now});assert.equal(JSON.parse(target.getItem('to-the-stars-lives-v1')).count,2);assert.equal(JSON.parse(target.getItem('to-the-stars-lives-v1')).nextAt,now+300000);
+});
+test('bot classification survives transfer even when target analytics already has its own identity',()=>{
+ const target=memory({'beyond-signal-balance-reporter-v1':'{"id":"target","token":"private","sequence":0}'}),backup=exportBackup(memory({'beyond-signal-campaign-visit-v1':'{"source":"automated_test","medium":"bot","campaign":"qa_01"}'}),{id});
+ importBackup(target,backup);const marker=JSON.parse(target.getItem('beyond-signal-migrated-traffic-v1'));
+ assert.equal(migrationCampaign({source:'direct',medium:'none',campaign:'none'},marker).medium,'bot');
+ assert.equal(target.getItem('beyond-signal-balance-reporter-v1'),' {"id":"target","token":"private","sequence":0}'.trim());
+ assert.equal(migrationCampaign({source:'automated_test',medium:'bot',campaign:'qa_02'},marker).campaign,'qa_02');
 });

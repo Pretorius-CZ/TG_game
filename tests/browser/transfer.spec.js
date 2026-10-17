@@ -50,3 +50,14 @@ test('interrupted imports route game startup to recovery and can finish after re
  expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('to-the-stars-progress-v1')).airlockCompleted)).toBe(3);
  expect(await page.evaluate(()=>localStorage.getItem('beyond-signal-transfer-pending-v1'))).toBeNull();
 });
+test('opening the new game before migration does not keep a default empty save or grant energy',async({context,page})=>{
+ await prepare(context);await page.goto(`${target}/`);await expect(page.locator('.welcome')).toBeVisible();
+ expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('to-the-stars-progress-v1')).airlockCompleted)).toBe(0);
+ await page.goto(`${target}/transfer.html`);const opened=page.waitForEvent('popup');await page.getByRole('button',{name:'Open original saved game',exact:true}).click();const popup=await opened;
+ await popup.getByRole('button',{name:'Send saved game',exact:true}).click();await page.getByRole('button',{name:'Import saved game',exact:true}).click();
+ await expect(page.locator('#status')).toContainText('Saved and verified');
+ expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('to-the-stars-progress-v1')).airlockCompleted)).toBe(2);
+ expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('to-the-stars-lives-v1')).count)).toBe(2);
+ await page.getByRole('link',{name:'Continue to the game',exact:true}).click();await expect(page.locator('.welcome')).toBeVisible();
+ expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('to-the-stars-progress-v1')).airlockCompleted)).toBe(2);
+});

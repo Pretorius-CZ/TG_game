@@ -4,6 +4,10 @@ export function campaignFromURL(url){
  return {source:clean('utm_source')||'direct',medium:clean('utm_medium')||'none',campaign:clean('utm_campaign')||'none'};
 }
 export function sameCampaign(a,b){return ['source','medium','campaign'].every(key=>a?.[key]===b?.[key]);}
+export function migrationCampaign(campaign,migrated){
+ if(campaign.source==='automated_test'&&campaign.medium==='bot')return campaign;
+ return migrated?.source==='automated_test'&&migrated?.medium==='bot'?{source:'automated_test',medium:'bot',campaign:migrated.campaign||'migration'}:campaign;
+}
 export function reusableVisit(visit,campaign,now){return Boolean(visit?.id&&now-visit.lastAt<30*60*1000&&now>=visit.lastAt&&(campaign.source==='direct'||sameCampaign(visit,campaign)));}
 export function visitForActivity(previous,campaign,now,newId,device='unknown'){
  if(reusableVisit(previous,campaign,now))return {...previous,device:previous.device||device,attempts:{...previous.attempts}};

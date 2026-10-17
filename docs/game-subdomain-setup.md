@@ -90,6 +90,11 @@ artefaktu chyběly (404), proto se aplikace ani nespustila. Oba enginy to
 reprodukovaly; přímé index.html přitom fungovalo. Samotné ověření TLS a
 version.json tuto chybu neodhalí.
 
+Oprava nasazena jako 07ded92c9c2a, Actions39056685376 success včetně živého
+startu obou URL. Version1792260437903-07ded92c9c2a. Následná kontrola v
+Chromiu i WebKitu potvrdila vykreslenou úvodní obrazovku bez JS/chybějících
+prostředků. Původní doména stále používá1792252501390-9c75024f46d6.
+
 Workflow proto před publikací obnovuje chybějící immutable assets ze tří
 posledních úspěšných artefaktů, maximální stáří sedm dnů. Aktuální soubory
 nepřepisuje; starým zachovává mtime, aby se stáří při dalším nasazení

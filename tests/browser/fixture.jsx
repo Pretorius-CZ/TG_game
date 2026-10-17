@@ -23,4 +23,4 @@ function Fixture(){
  const finish=result=>{document.body.dataset.finished=result;if(params.has('cycles'))setOpen(false);};
  return open?<MiniGame repair={repair} onWin={()=>finish('won')} onQuit={()=>finish('quit')}/>:<button id="reopen" onClick={()=>setOpen(true)}>Open level</button>;
 }
-createRoot(document.getElementById('root')).render(<LanguageProvider><OrientationGuard/><RewardAdProvider><LivesProvider><AccountContext.Provider value={{user:null}}><Fixture/></AccountContext.Provider></LivesProvider></RewardAdProvider></LanguageProvider>);
+createRoot(document.getElementById('root')).render(<LanguageProvider><OrientationGuard/><RewardAdProvider><LivesProvider><AccountContext.Provider value={{user:params.has('stock-user')?{id:params.get('stock-user')}:null}}><Fixture/></AccountContext.Provider></LivesProvider></RewardAdProvider></LanguageProvider>);

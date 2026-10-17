@@ -4,6 +4,7 @@ import {accountStorage,accountKey} from './accountStorage.js';
 import {useAccount} from './Account.jsx';
 import {useLives} from './Lives.jsx';
 import {supabase} from './supabase.js';
+import {stockKey,freshStock} from './helperStock.js';
 const local={getItem:key=>window.localStorage.getItem(key),setItem:(key,value)=>window.localStorage.setItem(key,value)};
 function validateCloudProgress(current,data){
     if(data?.version!==1)throw new Error('Unsupported cloud save');
@@ -99,6 +100,7 @@ export default function useProgressSave(progress,restore){
    }
    // Replace only this profile. Never remove authentication or another account's save.
    local.setItem(accountKey(id),JSON.stringify(fresh));
+   local.setItem(stockKey(id,fresh.resetRevision),JSON.stringify(freshStock()));
    lives.refill();restartView();
   }catch(error){resetting.current=false;throw error;}
  }

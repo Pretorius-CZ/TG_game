@@ -22,16 +22,17 @@ export async function retainAssets(previous,current,{now=Date.now(),maxAge=7*864
 }
 async function run(){
  const repository=process.env.GITHUB_REPOSITORY;
- if(repository!=='Pretorius-CZ/TG_game-hosting')throw Error('Asset retention is configured only for the separate game hosting repository.');
+ if(!['Pretorius-CZ/TG_game-hosting','Pretorius-CZ/TG_game'].includes(repository))throw Error('Asset retention is configured only for the two game repositories.');
  const gh=args=>execFileSync('gh',args,{encoding:'utf8',stdio:['ignore','pipe','pipe']});
  const runs=JSON.parse(gh(['api',`repos/${repository}/actions/workflows/pages.yml/runs?status=success&per_page=3`])).workflow_runs;
  let total=0;
  for(const run of runs){
   if(!Number.isSafeInteger(run.id))throw Error('Unexpected workflow run ID');
   const artifacts=JSON.parse(gh(['api',`repos/${repository}/actions/runs/${run.id}/artifacts`])).artifacts;
-  if(!artifacts.some(a=>a.name==='github-pages'&&!a.expired))continue;
+  const artifact=artifacts.find(a=>/^github-pages(?:-|$)/.test(a.name)&&!a.expired);
+  if(!artifact)continue;
   const directory=path.resolve('.local',`previous-game-${run.id}`);await mkdir(directory,{recursive:true});
-  gh(['run','download',String(run.id),'--repo',repository,'--name','github-pages','--dir',directory]);
+  gh(['run','download',String(run.id),'--repo',repository,'--name',artifact.name,'--dir',directory]);
   const archive=path.join(directory,'artifact.tar');
   const entries=execFileSync('tar',['-tf',archive],{encoding:'utf8'}).split('\n').filter(Boolean);
   if(entries.some(name=>path.isAbsolute(name)||name.split('/').includes('..')))throw Error('Unsafe artifact paths');

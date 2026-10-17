@@ -3,6 +3,12 @@ on:
   push:
     branches: [codex/cockpit-stage]
   workflow_dispatch:
+    inputs:
+      site_mode:
+        description: Main domain content (game now, website at cutover)
+        type: choice
+        options: [game, website]
+        default: game
 permissions:
   contents: read
   actions: read
@@ -26,6 +32,14 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build
+      - name: Prepare main-domain mode
+        run: node scripts/prepare-main-site.mjs
+        env:
+          MAIN_SITE_MODE: ${{ inputs.site_mode || vars.MAIN_SITE_MODE || 'game' }}
+      - name: Keep dependencies of cached HTML
+        run: node scripts/retain-game-assets.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
@@ -51,3 +65,10 @@ jobs:
         uses: actions/deploy-pages@v4
         with:
           artifact_name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Install browser for startup verification
+        run: npx playwright install --with-deps chromium
+      - name: Verify published main-domain content
+        run: node scripts/check-game-deployment.mjs
+        env:
+          LIVE_GAME_ORIGIN: https://playbeyondthesignal.com
+          LIVE_SITE_MODE: ${{ inputs.site_mode || vars.MAIN_SITE_MODE || 'game' }}

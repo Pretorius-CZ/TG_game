@@ -1,10 +1,11 @@
 import './saveTransferPage.css';
-import {exportBackup,validateBackup,planImport,importBackup,readPending,recoverTransfer} from './saveTransfer.js';
+import {exportBackup,validateBackup,planImport,importBackup,readPending,recoverTransfer,summarizeBackup} from './saveTransfer.js';
 import {transferOrigins,validTransferMessage} from './transferOrigins.js';
 
 const origins=transferOrigins(location,import.meta.env.DEV);
 const target=location.origin===origins.target,source=location.origin===origins.source;
 const sourceReady=import.meta.env.DEV||import.meta.env.VITE_LEGACY_TRANSFER_READY==='true';
+const snapshot=()=>exportBackup(storage,{includeUnusedStock:source});
 const fragment=new URLSearchParams(location.hash.slice(1));
 const sourceNonce=fragment.get('nonce');
 history.replaceState(null,'',location.pathname+location.search);
@@ -18,7 +19,7 @@ function button(label,action,parent=main){const b=el('button',label,parent);b.ty
 function link(label,url,parent=main){const a=el('a',label,parent);a.href=url;a.className='transfer-link';return a;}
 el('h1',text('Keep your saved game','Zachovat uloženou hru'));
 el('p',target?text('Copy your saved game from the original address, or restore a backup file.','Zkopíruj uloženou hru z původní adresy nebo obnov zálohu ze souboru.'):text('Your original saved game stays in this browser. This page copies it; it does not delete it.','Původní uložená hra zůstává v tomto prohlížeči. Tato stránka ji kopíruje, nemaže.'));
-el('p',text('Close other game tabs here before importing. Account sign-in is separate; use the same Google account after the transfer. Energy, helper stock and guest saves are included. Unfinished puzzles are not saved.','Před importem zavři ostatní karty s hrou na této adrese. Přihlášení je samostatné; po přenosu použij stejný Google účet. Přenáší se i energie, zásoba pomůcek a postup hosta. Rozehrané desky se neukládají.'));
+el('p',text('First transfer your saved game, then sign in with the same Google account if you used one before. Guest players can continue without signing in. Energy and helpers are included. Close other game tabs here before importing; unfinished puzzles are not saved.','Nejdřív přenes uloženou hru a potom se přihlas stejným Google účtem, pokud jsi ho používal. Host může pokračovat bez přihlášení. Přenáší se i energie a pomůcky. Před importem zavři ostatní karty hry na této adrese; rozehrané desky se neukládají.'));
 const statusNode=el('p');statusNode.id='status';statusNode.setAttribute('role','status');statusNode.setAttribute('aria-live','polite');
 function status(message,error=false){statusNode.textContent=message;statusNode.dataset.error=String(error);}
 function download(backup){const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`beyond-signal-save-${new Date().toISOString().slice(0,10)}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
@@ -44,14 +45,16 @@ try{
    const result=importBackup(storage,incoming,{replace:replace.checked});
    if(!result.already&&!result.changes.length&&result.conflicts.length){status(text('Nothing was changed. The existing saved game was kept.','Nic se nezměnilo. Současná uložená hra zůstala zachována.'));return;}
    preview.hidden=true;
-   status(text(`Saved and verified. ${result.skipped.length} existing entries were kept. You can continue playing.`,`Uloženo a ověřeno. Zachováno ${result.skipped.length} stávajících položek. Můžeš pokračovat ve hře.`));
+   const accounts=summarizeBackup(incoming).accounts;
+   status(text(`Saved and verified. ${accounts?'Continue to the game and sign in with the same Google account to open your account save.':'You can continue playing as a guest.'}${result.skipped.length?' Some existing settings or saved data were kept.':''}`,`Uloženo a ověřeno. ${accounts?'Pokračuj do hry a přihlas se stejným Google účtem, aby se otevřel jeho postup.':'Můžeš pokračovat jako host.'}${result.skipped.length?' Část stávajících nastavení nebo dat zůstala zachovaná.':''}`));
    if(peer&&!peer.closed)peer.postMessage({channel:'beyond-signal-transfer-v1',type:'saved',nonce},origins.source);
   },preview);
   function offer(input){
    incoming=validateBackup(input);const plan=planImport(storage,incoming);
    if(plan.already){status(text('This backup has already been imported. No energy or helpers were restored again.','Tato záloha už byla importována. Energie ani pomůcky se znovu nedoplnily.'));preview.hidden=true;return;}
    replace.checked=false;replaceLabel.hidden=!plan.conflicts.length;
-   summary.textContent=text(`${Object.keys(incoming.entries).length} entries; ${plan.conflicts.length} conflicts. Existing entries are kept unless you choose otherwise.`,`${Object.keys(incoming.entries).length} položek; ${plan.conflicts.length} konfliktů. Stávající položky se zachovají, pokud nezvolíš jinak.`);
+   const details=summarizeBackup(incoming);
+   summary.textContent=text(`${details.guest?'Guest progress found. ':''}${details.accounts?`Saved Google accounts: ${details.accounts}. `:''}${details.energy!==null?`Original energy: ${details.energy}/5. `:''}${plan.conflicts.length?'There is also saved data here. Existing conflicting data is kept unless you choose the original copy below.':'Your saved data is ready to import. Account progress is combined safely; used energy and helpers are not refilled.'}`,`${details.guest?'Nalezen postup hosta. ':''}${details.accounts?`Uložené Google účty: ${details.accounts}. `:''}${details.energy!==null?`Původní energie: ${details.energy}/5. `:''}${plan.conflicts.length?'Na této adrese už jsou uložená data. Odlišná stávající data se zachovají, pokud níže nezvolíš původní kopii.':'Uložená data jsou připravená k převzetí. Postup účtu se bezpečně spojí; spotřebovaná energie a pomůcky se nedoplňují.'}`);
    preview.hidden=false;apply.focus();
   }
   const online=el('section');el('h2',text('Transfer between addresses','Přenos mezi adresami'),online);
@@ -74,7 +77,7 @@ try{
   }else{
    if(window.opener&&sourceNonce&&sourceNonce.length>=32){
     button(text('Send saved game','Odeslat uloženou hru'),()=>{
-     const backup=exportBackup(storage);window.opener.postMessage({channel:'beyond-signal-transfer-v1',type:'backup',nonce:sourceNonce,backup},origins.target);
+     const backup=snapshot();window.opener.postMessage({channel:'beyond-signal-transfer-v1',type:'backup',nonce:sourceNonce,backup},origins.target);
      status(text('Sent for review. Return to the new website to confirm the import. The original copy is unchanged.','Odesláno ke kontrole. Vrať se na nový web a potvrď import. Původní kopie se nezměnila.'));
     },online);
     window.addEventListener('message',event=>{if(validTransferMessage(event,{origin:origins.target,source:window.opener,nonce:sourceNonce},'saved'))status(text('The new website confirmed saving your data. The original copy is still here.','Nový web potvrdil uložení dat. Původní kopie zůstává zde.'));});
@@ -84,7 +87,7 @@ try{
    }
   }
   const files=el('section');el('h2',text('Backup file','Záložní soubor'),files);
-  button(text('Download this browser’s backup','Stáhnout zálohu z tohoto prohlížeče'),()=>download(exportBackup(storage)),files);
+  button(text('Download this browser’s backup','Stáhnout zálohu z tohoto prohlížeče'),()=>download(snapshot()),files);
   const label=el('label',text('Restore a backup file','Obnovit záložní soubor'),files),file=document.createElement('input');file.type='file';file.accept='.json,application/json';label.append(file);
   file.addEventListener('change',async()=>{try{const selected=file.files[0];if(!selected)return;if(selected.size>4*1024*1024)throw Error('Backup is too large.');offer(JSON.parse(await selected.text()));}catch(error){status(error.message,true);}finally{file.value='';}});
   const game=new URL('./',location.href),campaign=new URLSearchParams(location.search);

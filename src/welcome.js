@@ -1,4 +1,11 @@
 import {updates} from './welcomeUpdates.js';
+import {gameAddress,hasOriginalSave,ORIGINAL_ORIGIN} from './gameAddress.js';
+
+// Finish callbacks on their original origin, where the PKCE verifier is stored.
+const callback=new URLSearchParams(location.search);
+if(location.origin===ORIGINAL_ORIGIN&&(callback.has('code')||callback.has('error')||callback.has('error_code')||/access_token=/.test(location.hash))){
+ location.replace(new URL(`./legacy-game.html${location.search}${location.hash}`,location.href));
+}
 
 const key='to-the-stars-language';
 const cs={
@@ -38,7 +45,7 @@ let language='en';try{if(localStorage.getItem(key)==='cs')language='cs';}catch{}
 setLanguage(language);
 for(const button of document.querySelectorAll('[data-language]'))button.addEventListener('click',()=>setLanguage(button.dataset.language));
 // Carry campaign attribution into the game, without forwarding arbitrary URL parameters.
-const params=new URLSearchParams(location.search),game=new URL('./',location.href);
-for(const name of ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'])if(params.has(name))game.searchParams.set(name,params.get(name));
-for(const link of document.querySelectorAll('.game-link'))link.href=game.href;
+let restore=false;try{restore=location.origin===ORIGINAL_ORIGIN&&hasOriginalSave(localStorage);}catch{}
+const game=gameAddress(location.href,{transfer:restore});
+for(const link of document.querySelectorAll('.game-link'))link.href=game;
 document.getElementById('year').textContent=String(new Date().getFullYear());

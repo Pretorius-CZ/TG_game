@@ -3,6 +3,7 @@ import {useLanguage} from './i18n/Language.jsx';
 import AudioControls from './AudioControls.jsx';
 import useSceneAssets from './useSceneAssets.js';
 import './Welcome.css';
+import {gameAddress,ORIGINAL_ORIGIN} from './gameAddress.js';
 const scenes=[
  ['signal',"That signal should not exist. It belonged to an expedition that never returned."],
  ['emergency','Then the emergency system took control.'],
@@ -31,7 +32,8 @@ export default function Welcome({hasProgress,seen,onFinish,settings,onChapters,r
    <div className="welcome-menu">{recap&&<p className="journey-recap">{recap}</p>}
     <button className="welcome-play" onClick={()=>hasProgress||seen?onFinish():setStep(0)}>{t(hasProgress||seen?'CONTINUE':'PLAY')}</button>
     {hasProgress&&<button className="welcome-secondary" onClick={onChapters}>{t('Chapters')}</button>}
-    {location.hostname==='game.playbeyondthesignal.com'&&<a className="welcome-secondary" href="./transfer.html">{language==='cs'?'Přenést původní postup':'Recover original saved game'}</a>}
+    {location.hostname==='game.playbeyondthesignal.com'&&<a className="welcome-secondary" href={gameAddress(location.href,{transfer:true})}>{language==='cs'?'Přenést původní postup':'Recover original saved game'}</a>}
+    {location.origin===ORIGINAL_ORIGIN&&<a className="welcome-secondary" href={gameAddress(location.href,{transfer:true})}>{language==='cs'?'Přenést hru na novou adresu':'Move your saved game to the new address'}</a>}
     <button className="welcome-replay" onClick={()=>setStep(0)}>{t('Watch intro')}</button>
     <div className="welcome-settings">{settings}<label><span aria-hidden="true">◎ </span><select aria-label={t('Language')} value={language} onChange={e=>setLanguage(e.target.value)}><option value="en">EN</option><option value="cs">CZ</option></select></label><AudioControls/></div>
    </div>

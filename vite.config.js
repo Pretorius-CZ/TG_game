@@ -13,5 +13,6 @@ export default defineConfig(({mode})=>({base:'./',server:{watch:{ignored:['**/.l
    if(file.type==='asset'&&file.fileName.endsWith('.html'))file.source=String(file.source).replace(/\.css"/g,`.css?v=${version}"`);
   }
   this.emitFile({type:'asset',fileName:'version.json',source:JSON.stringify({version})});
+  this.emitFile({type:'asset',fileName:'migration-policy.json',source:JSON.stringify({version:1,transferReady:process.env.VITE_LEGACY_TRANSFER_READY==='true',gameOrigin:'https://game.playbeyondthesignal.com'})});
  }
 }],build:{outDir:mode==='itch'?'dist-itch':mode==='crazygames'?'dist-crazygames':'dist',rollupOptions:{input:['itch','crazygames','telegram'].includes(mode)?{game:'index.html'}:{game:'index.html',balance:'balance.html',welcome:'welcome.html',transfer:'transfer.html'}}}}));
