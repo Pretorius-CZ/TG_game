@@ -10,6 +10,7 @@ on:
         required: true
 permissions:
   contents: read
+  actions: read
   pages: write
   id-token: write
 concurrency:
@@ -40,6 +41,10 @@ jobs:
           GITHUB_SHA="$source_revision" npm run build
         env:
           VITE_LEGACY_TRANSFER_READY: ${{ vars.LEGACY_TRANSFER_READY }}
+      - name: Keep dependencies of cached HTML
+        run: node scripts/retain-game-assets.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
@@ -47,3 +52,12 @@ jobs:
       - name: Deploy separate game website
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Install browser for live startup verification
+        run: npx playwright install --with-deps chromium
+      - name: Verify the published root and index page actually start
+        run: node scripts/check-game-deployment.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: game-startup-check
+          path: .local/deployment-smoke

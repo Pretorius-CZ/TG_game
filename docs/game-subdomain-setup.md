@@ -84,6 +84,19 @@ hromadně nepřesouváme.
 
 ## Ověření
 
+Oprava nasazování po bílé stránce: kořen `/` vydával staré HTML, zatímco
+`/index.html` a version.json byly nové. Staré JS/CSS soubory po nahrazení
+artefaktu chyběly (404), proto se aplikace ani nespustila. Oba enginy to
+reprodukovaly; přímé index.html přitom fungovalo. Samotné ověření TLS a
+version.json tuto chybu neodhalí.
+
+Workflow proto před publikací obnovuje chybějící immutable assets ze tří
+posledních úspěšných artefaktů, maximální stáří sedm dnů. Aktuální soubory
+nepřepisuje; starým zachovává mtime, aby se stáří při dalším nasazení
+neprodlužovalo. Po publikaci vyžaduje skutečný start přes `/` i `/index.html`,
+načtenou grafiku a otevření prvního úkolu, nikoli pouze HTTP200. Testovací
+prohlížeč blokuje Supabase a geolokaci, takže nezapisuje analytiku.
+
 Nasazení 2026-10-17: zdroj 5936553b9ce67726af6b9ab7d41fca1b73966445,
 Actions v TG_game-hosting 39054875150 success. HTTP version.json ověřen
 1792258927812-5936553b9ce6. Veřejný resolver 1.1.1.1 vrací správné CNAME.
