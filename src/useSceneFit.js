@@ -13,9 +13,14 @@ export default function useSceneFit(key){
     const footer=shell.querySelector('footer')?.getBoundingClientRect().height||30;
     const available=Math.max(200,viewport-header-footer-20);
     game.style.width=width+'px';game.style.maxWidth='none';game.style.zoom='1';
-    const scale=Math.min(1,available/game.offsetHeight);
-    // Fit the whole scene, including the sibling HUD, as one unit.
-    area.style.zoom=String(scale);area.style.width=width+'px';
+    const naturalHeight=game.offsetHeight;
+    // The scene artwork scales; navigation, energy and audio retain their
+    // CSS pixel size. On short frames reserve a separate row for the HUD.
+    const hudRow=available/naturalHeight<.8?76:0;
+    const scale=Math.min(1,(available-hudRow)/naturalHeight);
+    area.style.zoom='1';area.style.width=Math.max(width*scale,Math.min(width,320))+'px';
+    area.style.paddingTop=hudRow+'px';
+    game.style.zoom=String(scale);game.style.marginInline='auto';
    });
   }
   const observer=new ResizeObserver(fit);const game=area.querySelector('.game');if(game)observer.observe(game);

@@ -1138,3 +1138,20 @@ Uživatel schválil sledování pouze zemí. Country.is z browseru, jen country 
 
 ## 2026-10-06 — Skryté poslední pokusy
 Zpětná vazba odhalila Date.parse na číselném timestampu: latest feed zahazoval reálné pokusy. Opraveno pro ms i ISO; diagnostika odesílání přidána, nedostupná geolokace opakuje bez restartu hry.159 testů/build/browser. Bez SQL změny, dosud lokální.
+
+
+## 2026-10-16 — Oddělení botí analytiky a rozbor testů
+
+
+2026-10-16 — Rozdělení analytiky Hráči/Boti/Všichni nasazeno na produkční web, commit b8e6788, GitHub Pages běh38927923908 úspěšný. Veřejná verze a nový balance bundle ověřené; uživatel potvrdil viditelnost přepínače. SQL032 podle jeho potvrzení nasazená. Nahrazuje starší stav pouze lokálních změn. Správnost živých součtů všech skupin dosud samostatně neověřená.
+
+Botí zařízení určuje kombinace utm_source=automated_test a utm_medium=bot v libovolné kampani (aktuálně qa_01), klasifikace celé historie reporter ID. Podrobnosti docs/bot-traffic.md. Pokračovat rozborem reportů: Pixel7/CZ končí v deníku po výhře168; příčina HTTP400 analytiky zatím neznámá. Další zařízení a opravy hry teprve následují.
+
+
+## 2026-10-17 — Podrobný QA backlog
+
+Na žádost uživatele dokončen rozbor reportů a uložen seznam oprav v docs/qa-fix-backlog-2026-10-17.md. Šest problémů zobrazení a doporučených UI úprav, čtyři neuzavřené diagnostiky, šest úprav testování. Všech devět ZIPů a1367snímků prošlo přehledovou kontrolou, kritické případy zvětšeny. Neprovádět plošné změny obtížnosti podle botích výher/proher. Samotný5,5h timeout iOS není důkaz vadného posledního levelu; hvězdové překryvy nejsou automaticky neškodný potomek. Implementace následuje samostatně; tato práce měnila jen dokumentaci.
+
+## 2026-10-17 — Opravy zobrazení a příprava přesnějšího retestu
+
+Na žádost uživatele realizována společná sada oprav z QA backlogu; rozsah, jednotlivé stavy a ověření v docs/qa-fixes-2026-10-17.md. Větší desky, stabilní rozměry scénových tlačítek, výzva k otočení telefonu, čitelnější výsledky, menší rezonátory a opravené pořadí CSS. Zachována obtížnost a postup, žádné SQL. Lokálně191unit testů/build a38browser kontrol Chromium/WebKit; krátký český bot2výhry bez nálezů. Firefox ověřit Linux CI, na Windows selhalo spuštění samotného prohlížeče. Místní botí aktualizace se předává zvlášť, není automaticky nasazená do cizího repozitáře. Příčina starých HTTP400 ani dlouhých iOS běhů není prohlášena za vyřešenou; doplněná diagnostika a krátký WebKit test zpomalení nezopakoval.

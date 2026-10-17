@@ -8,6 +8,7 @@
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",
     "test": "node --test tests/*.test.js",
+    "test:browser": "playwright test",
     "build:itch": "vite build --mode itch && node scripts/package-itch.mjs",
     "build:crazygames": "vite build --mode crazygames && node scripts/package-crazygames.mjs"
   },
@@ -17,6 +18,7 @@
     "react-dom": "^19.3.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
     "vite": "^8.3.0"
   }
 }

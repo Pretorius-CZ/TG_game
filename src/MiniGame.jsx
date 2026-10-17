@@ -1,4 +1,5 @@
 import {createPortal} from 'react-dom';
+import usePuzzleFit from './usePuzzleFit.js';
 import {crazyGames} from './platform.js';
 import {reportGameplay} from './crazyGames.js';
 import {trackCampaignAttempt} from './campaignTracking.js';
@@ -19,7 +20,6 @@ import { adjacent, swap } from './match3';
 
 import {moveBudget,initialIce,iceMatches,iceMove,ensurePlayableBoard} from './levelRules.js';
 import {useLives,LivesBar,NoLives} from './Lives.jsx';
-import './compactGame.css';
 import AudioControls from './AudioControls.jsx';
 import useHelperStock from './useHelperStock.js';
 import { sound } from './audio.js';
@@ -119,6 +119,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   // Keep the board visible until the entire cascade and its animations settle.
   const won = goalsComplete(goals, counts) && resonatorsComplete(resonators,resonance) && ice.length===0 && !busy && !fault;
   const exhausted=moves>=limit&&!won&&!busy&&!fault;
+  usePuzzleFit(dialog,admitted&&!won&&!fault&&!exhausted,level.cols,level.rows);
   useEffect(()=>{const active=admitted&&!fault&&!won&&!exhausted&&!tutorial&&!confirmQuit;reportGameplay(active);return()=>reportGameplay(false);},[admitted,fault,won,exhausted,tutorial,confirmQuit]);
   useEffect(()=>{if(exhausted)recordResult("exhausted",false);if(exhausted&&!spent.current){spent.current=true;lives.spend();}},[exhausted]);
   useEffect(()=>{if(exhausted||won||fault){dialog.current?.scrollTo({top:0});resultPanel.current?.focus({preventScroll:true});}},[exhausted,won,fault]);
@@ -266,7 +267,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     const j = moving[0] === i ? moving[1] : moving[0];
     return { transform: `translate(${(j % level.cols - i % level.cols) * 100}%, ${(Math.floor(j / level.cols) - Math.floor(i / level.cols)) * 100}%)`, zIndex: 2 };
   }
-  return createPortal(<dialog className={`mini-dialog ${exhausted||won||fault?'mini-result':''}`} ref={dialog} aria-labelledby="level-title" onCancel={event => { event.preventDefault(); if(tutorial){dismissTutorial();return;}if (!busy) setConfirmQuit(true); }}>
+  return createPortal(<dialog className={`mini-dialog ${exhausted||won||fault||!admitted?'mini-result':''}`} ref={dialog} aria-labelledby="level-title" onCancel={event => { event.preventDefault(); if(tutorial){dismissTutorial();return;}if (!busy) setConfirmQuit(true); }}>
     {tutorial&&!fault&&admitted&&<MechanicTutorial topic={tutorial} language={language} remaining={tutorialQueue.length} onNext={dismissTutorial} onClose={()=>{dismissTutorial();setTutorialQueue([]);}} onTopic={id=>setTutorialQueue([id])} topics={[...topics,...helperTutorials]}/>}
     <div className="level-hud"><div className="energy-audio"><LivesBar/><AudioControls/></div><button className="hint-control" aria-label={t(`Show a hint, ${hintsLeft} remaining`)} title={t(hintsLeft?"One free hint per attempt":crazyGames?"Extra hint":"Ad · extra hint")} disabled={busy||exhausted||won||fault||!admitted||(hintsLeft===0&&adsUsed.hint)||Boolean(hint)} onClick={()=>hintsLeft?showHint():requestHelp("hint")}><span aria-hidden="true">{t("Hint")}</span><small>{t(hintsLeft?'1/1':adsUsed.hint?'0':crazyGames?'+':'AD')}</small></button><div className={`moves-counter ${limit-moves<=5?'low-moves':''}`} role="status" aria-label={t(`${Math.max(0,limit-moves)} moves left`)}><span>{t("MOVES")}</span><strong>{t(Math.max(0,limit-moves))}</strong></div></div>
     <div className="mini-header"><button className="mechanics-help" disabled={busy||exhausted||won||fault||!admitted} aria-label={language==='cs'?'Pravidla a pomůcky':'Mechanics help'} onClick={()=>{setResonatorHelp(false);setTutorialQueue(topics);}}>ⓘ</button><span className="eyebrow">{t(repair.room ?? 'COCKPIT')}{t(" / REPAIR LESSON")}</span><button className="close" aria-label={t("Leave level")} disabled={busy} onClick={() => setConfirmQuit(true)}>{t("×")}</button><h2 id="level-title">{t(repair.lesson)}</h2></div>

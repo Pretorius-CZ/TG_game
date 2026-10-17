@@ -37,8 +37,15 @@ Místní data bez načteného adresáře zařízení lze zobrazit přes Všichni
 neprokazatelné rozdělení se nezobrazuje jako hotové.
 
 Ověřeno unit testy klasifikace a sdílených agregací a produkčním buildem.
-SQL zatím nebyla spuštěna na živém serveru; živé ověření následuje po migraci.
+SQL032 byla podle potvrzení uživatele spuštěna na živém serveru.
 
 Uživatel 2026-10-16 potvrdil úspěšné provedení SQL032 na živém Supabase.
 191 unit testů a produkční build prošly. Vizuální kontrola místního náhledu
-skončila timeoutem integrovaného browseru; živé ověření po nasazení zbývá.
+skončila timeoutem integrovaného browseru; následovalo ověření veřejné verze a bundle.
+
+## Stav po nasazení
+
+
+2026-10-16 — Rozdělení analytiky Hráči/Boti/Všichni nasazeno na produkční web, commit b8e6788, GitHub Pages běh38927923908 úspěšný. Veřejná verze a nový balance bundle ověřené; uživatel potvrdil viditelnost přepínače. SQL032 podle jeho potvrzení nasazená. Nahrazuje starší stav pouze lokálních změn. Správnost živých součtů všech skupin dosud samostatně neověřená.
+
+Veřejný version.json:1792166185372-b8e6788a2e12. Přepínač respektují všechny statistické přehledy i export. Interní testeři zůstávají samostatný filtr.

@@ -5,6 +5,7 @@
 .journey-guide{margin:0;padding:0;border:0;background:none;position:static}.journey-guide>summary{list-style:none;width:32px;height:36px;display:grid;place-items:center;border:1px solid #b79a68;border-radius:50%;background:#102432e8;color:#efd39e;font-size:18px;cursor:pointer}.journey-guide>summary::-webkit-details-marker{display:none}.journey-panel{position:absolute;left:0;top:48px;width:280px;max-width:calc(100vw - 36px);padding:12px;background:#102432f5;border:1px solid #74949d;border-radius:10px;box-shadow:0 8px 25px #0008}.journey-guide>summary:focus-visible{outline:3px solid #a8eee7;outline-offset:3px}
 .scene-tools .journey-panel button{width:auto;height:auto;min-height:36px;border-radius:7px;font-size:12px;background:#d8b57c;color:#17232a}
 .scene-tools:has(.journey-guide[open]){z-index:8}.journey-panel{background:#102432}
+.journey-guide:not([open])>.journey-panel{display:none}
 
 /* Archive navigation stays in the scene; rewards never open the next task. */
 .archive-navigation{position:absolute;z-index:4;bottom:12px;left:12px;right:12px;display:flex;gap:8px;justify-content:space-between}.archive-navigation button{max-width:48%;min-height:44px;padding:8px;border:1px solid #83a6ad;border-radius:8px;background:#102432ed;color:#e4efee;font-size:12px;line-height:1.25}.archive-navigation button:disabled{opacity:.55;cursor:default}.archive-site .repair-reveal{max-height:calc(100% - 90px);overflow-y:auto}.repair-bubble-dialog{overflow:hidden}.repair-bubble-dialog .bubble-inner{max-height:calc(100dvh - 26px);overscroll-behavior:contain}

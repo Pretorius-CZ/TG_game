@@ -1,6 +1,7 @@
 import {chaptersFor} from './chapters.js';
 import {journeyFor,destinationName} from './journey.js';
 import JourneyGuide from './JourneyGuide.jsx';
+import OrientationGuard from './OrientationGuard.jsx';
 import StoryComic from './StoryComic.jsx';
 import {journeyStories} from './journeyStories.js';
 import {archiveDestinations,archiveScenes} from './archive.js';
@@ -54,6 +55,7 @@ import {departureLog} from './departure.js';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './style.css';
+import './compactGame.css';
 import useProgressSave,{initialProgress} from './useProgressSave.js';
 import {AccountProvider,AccountButton,useAccount} from './Account.jsx';
 import {mergeProgress} from './progressStorage.js';
@@ -341,5 +343,5 @@ function App() {
     <span className="sr-only" role="status" aria-live="polite">{t(exploring ? 'Exploring the star system.' : corridor ? 'Inside the corridor. Emergency lighting only.' : airlock ? 'Inside the airlock.' : inside ? 'Inside the cockpit.' : 'Outside the damaged ship.')} {t(completed)}{t(" of ")}{t(repairs.length)}{t(" cockpit repairs complete.")}</span>
   </main></StarProvider>;
 }
-async function start(){await initializeCrazyGames();createRoot(document.getElementById('root')).render(<LanguageProvider><RewardAdProvider><LivesProvider><AccountProvider><App/></AccountProvider></LivesProvider></RewardAdProvider></LanguageProvider>);}
+async function start(){await initializeCrazyGames();createRoot(document.getElementById('root')).render(<LanguageProvider><OrientationGuard/><RewardAdProvider><LivesProvider><AccountProvider><App/></AccountProvider></LivesProvider></RewardAdProvider></LanguageProvider>);}
 start().catch(error=>{document.getElementById('root').textContent=error.message;});

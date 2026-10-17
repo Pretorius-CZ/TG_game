@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 const version = `${Date.now()}-${process.env.GITHUB_SHA?.slice(0,12)||'local'}`;
 const artwork = text => text.replace(/\.(webp|png|jpg|jpeg|svg)(?![\w?])/g,`.$1?v=${version}`);
-export default defineConfig(({mode})=>({base:'./',define:{__GAME_VERSION__:JSON.stringify(version)},plugins:[{
+export default defineConfig(({mode})=>({base:'./',server:{watch:{ignored:['**/.local/**','**/testovani_boty/reports/**']}},define:{__GAME_VERSION__:JSON.stringify(version)},plugins:[{
  name:'game-version',
  transformIndexHtml(html){
    if(!['itch','crazygames','telegram'].includes(mode))html=html.replace('</head>','<meta name="google-adsense-account" content="ca-pub-4627613906098117"/></head>');

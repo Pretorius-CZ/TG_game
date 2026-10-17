@@ -2,13 +2,18 @@ import {supabase} from './supabase.js';
 import {readQueue,reporterIdentity,drainQueue,enqueueAttempts} from './balanceOutbox.js';
 import {readAttempts,balanceKey} from './balanceTracking.js';
 let running=false,started=false;
-export const balanceCloudStatus={state:'idle',pending:0,error:''};
+export const balanceCloudStatus={state:'idle',pending:0,error:'',diagnostic:null};
 function announce(state){balanceCloudStatus.state=state;balanceCloudStatus.pending=readQueue().length;window.dispatchEvent(new CustomEvent('balance-cloud-status',{detail:{...balanceCloudStatus}}));}
 export async function flushBalance(){
  if(running||navigator.onLine===false)return;
  if(!readQueue().length){announce('saved');return;}
  running=true;announce('sending');
- try{await drainQueue(async(identity,item)=>{const {error}=await supabase.rpc('record_balance_attempt',{reporter_id:identity.id,reporter_token:identity.token,incoming:item.payload,incoming_revision:item.revision}).abortSignal(AbortSignal.timeout(8000));if(error)throw error;});balanceCloudStatus.error='';announce(readQueue().length?'pending':'saved');}
+ try{await drainQueue(async(identity,item)=>{const {error,status}=await supabase.rpc('record_balance_attempt',{reporter_id:identity.id,reporter_token:identity.token,incoming:item.payload,incoming_revision:item.revision}).abortSignal(AbortSignal.timeout(8000));if(error){
+  // Keep the server's reason available to QA without exposing reporter tokens
+  // or request payloads. Failed attempts remain in the existing retry queue.
+  balanceCloudStatus.diagnostic={rpc:'record_balance_attempt',status,code:error.code??null,message:error.message,details:error.details??null,hint:error.hint??null,attemptId:item.payload.attemptId,level:item.payload.level,revision:item.revision};
+  window.dispatchEvent(new CustomEvent('balance-cloud-error',{detail:balanceCloudStatus.diagnostic}));throw error;
+ }});balanceCloudStatus.error='';balanceCloudStatus.diagnostic=null;announce(readQueue().length?'pending':'saved');}
  catch(error){balanceCloudStatus.error=error?.message||'Odeslání pokusu selhalo.';announce('pending');}finally{running=false;}
 }
 export function startBalanceCloud(){
