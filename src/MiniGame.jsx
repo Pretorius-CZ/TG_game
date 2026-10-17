@@ -100,7 +100,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
       if(kind==='helper'&&!await rewardTool(index))return false;
       if(kind==='moves'){
         // Exhaustion is provisional when the player continues the same attempt.
-        if(spent.current){lives.reward();spent.current=false;}
+        if(spent.current){lives.reward();lives.reserveAttempt(attemptId.current);spent.current=false;}
         setExtraMoves(n=>n+5);assistance.current.extraMoves=true;
       }
       if(kind==='hint')setHintsLeft(1);
@@ -121,7 +121,8 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   const exhausted=moves>=limit&&!won&&!busy&&!fault;
   usePuzzleFit(dialog,admitted&&!won&&!fault&&!exhausted,level.cols,level.rows);
   useEffect(()=>{const active=admitted&&!fault&&!won&&!exhausted&&!tutorial&&!confirmQuit;reportGameplay(active);return()=>reportGameplay(false);},[admitted,fault,won,exhausted,tutorial,confirmQuit]);
-  useEffect(()=>{if(exhausted)recordResult("exhausted",false);if(exhausted&&!spent.current){spent.current=true;lives.spend();}},[exhausted]);
+  useEffect(()=>{if(won)lives.settleAttempt(attemptId.current,true);},[won]);
+  useEffect(()=>{if(exhausted)recordResult("exhausted",false);if(exhausted&&!spent.current){spent.current=true;lives.settleAttempt(attemptId.current);}},[exhausted]);
   useEffect(()=>{if(exhausted||won||fault){dialog.current?.scrollTo({top:0});resultPanel.current?.focus({preventScroll:true});}},[exhausted,won,fault]);
   function showHint(){
     if(tutorial||lock.current||busy||exhausted||won||fault||!admitted||hintsLeft<=0||hint)return;
@@ -129,8 +130,9 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     if(!next)return;
     assistance.current.hints++;setHint(next);setHintsLeft(n=>n-1);setMessage('Swap the glowing pieces, or tap a glowing charge to activate it.');
   }
-  function leave(){recordResult("quit");if(moves>0&&!won&&!fault&&!spent.current){spent.current=true;lives.spend();}onQuit();}
+  function leave(){recordResult("quit");lives.settleAttempt(attemptId.current,won||fault);onQuit();}
   function failSafely(){
+    lives.settleAttempt(attemptId.current,true);
     run.current++;clearInterval(watchdog.current);lock.current=false;
     setResonatorFx([]);setShuffling(false);setBlastFx(null);setFault(true);setBusy(false);setMoving(null);setFalling([]);setCleared([]);setSelected(null);setHint(null);setConfirmQuit(false);
   }
@@ -164,6 +166,9 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     if (resonatorHelp || fault || board[a] == null || board[b] == null || lock.current || !admitted || won || moves>=limit || (helper==null&&(ice.includes(a)||ice.includes(b)))|| (helper==null&&!activation && (!adjacent(a, b, level.cols)||isBooster(board[a])||isBooster(board[b])))) return;
     if(helper!=null&&(!toolsLeft[helper]||(helper===2&&(ice.includes(a)||ice.includes(b)||!adjacent(a,b,level.cols)||a===b))))return;
     if(activation&&!seenTutorials.current.has(board[a]===11?'nova':'pulse')){setTutorialQueue([board[a]===11?'nova':'pulse']);return;}
+    // Reserve before the first animation/await, including a charge activation.
+    // Invalid swaps and helpers do not spend a move and need no reservation.
+    if(helper==null&&(activation||iceMatches(swap(board,a,b),level.cols,ice).length)&&!lives.reserveAttempt(attemptId.current)){failSafely();return;}
     const token=++run.current;
     const createdBoosts=new Set();let completedAction=false;
     let activeTicks=0;
@@ -298,7 +303,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
       <div className="helper-prompt" role="status">{tool!=null?<>{t(helpers[tool][2])}<button onClick={()=>{setTool(null);setSelected(null);}}>{t('Cancel')}</button></>:null}</div>
       <div className="helper-bar">{helpers.map(([icon,name],i)=><button key={name} className={`helper-tile helper-type-${i} ${toolsLeft[i]?"in-stock":"empty-stock"}`} aria-label={`${t(name)} · ${toolsLeft[i]}`} aria-pressed={tool===i} disabled={busy||confirmQuit||(!toolsLeft[i]&&adsUsed.helper)} onClick={()=>{if(!toolsLeft[i]){requestHelp("helper",i);return;}if(!seenTutorials.current.has(helperTutorials[i])){setTool(null);setSelected(null);setTutorialQueue([helperTutorials[i]]);return;}setSelected(null);setHint(null);if(i===1)play(board.findIndex(v=>v!=null),board.findIndex(v=>v!=null),i);else setTool(tool===i?null:i);}}><span className="helper-art"><HelperIcon index={i}/></span><small>{t(name)}</small><b className="helper-badge">{toolsLeft[i]||(!adsUsed.helper?<><svg viewBox="0 0 12 12" aria-hidden="true"><path d="m4 2 6 4-6 4z" fill="currentColor"/></svg>{crazyGames?'+':'AD'}</>:"0")}</b></button>)}</div>
     </div>}
-    {t(import.meta.env.DEV&&!fault&&!won&&!exhausted&&!confirmQuit&&<button className="preview-complete" disabled={busy} onClick={()=>{if(lock.current)return;lock.current=true;onWin();}}>{t("✓ Complete level ")}<small>{t("Preview · skip match-3")}</small></button>)}
+    {t(import.meta.env.DEV&&!fault&&!won&&!exhausted&&!confirmQuit&&<button className="preview-complete" disabled={busy} onClick={()=>{if(lock.current)return;lock.current=true;lives.settleAttempt(attemptId.current,true);onWin();}}>{t("✓ Complete level ")}<small>{t("Preview · skip match-3")}</small></button>)}
 
     {t(confirmQuit && <div className="quit-panel"><h3>{t("Leave this level?")}</h3><p>{t("Leaving after a move uses one energy charge. Completed repairs stay safe.")}</p><button className="primary" onClick={leave}>{t("Leave level")}</button><button className="keep-playing" onClick={() => setConfirmQuit(false)}>{t("Keep playing")}</button></div>)}
   </dialog>,document.body);

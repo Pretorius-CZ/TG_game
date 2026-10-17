@@ -1155,3 +1155,7 @@ Na žádost uživatele dokončen rozbor reportů a uložen seznam oprav v docs/q
 ## 2026-10-17 — Opravy zobrazení a příprava přesnějšího retestu
 
 Na žádost uživatele realizována společná sada oprav z QA backlogu; rozsah, jednotlivé stavy a ověření v docs/qa-fixes-2026-10-17.md. Větší desky, stabilní rozměry scénových tlačítek, výzva k otočení telefonu, čitelnější výsledky, menší rezonátory a opravené pořadí CSS. Zachována obtížnost a postup, žádné SQL. Lokálně191unit testů/build a38browser kontrol Chromium/WebKit; krátký český bot2výhry bez nálezů. Firefox ověřit Linux CI, na Windows selhalo spuštění samotného prohlížeče. Místní botí aktualizace se předává zvlášť, není automaticky nasazená do cizího repozitáře. Příčina starých HTTP400 ani dlouhých iOS běhů není prohlášena za vyřešenou; doplněná diagnostika a krátký WebKit test zpomalení nezopakoval.
+
+## 2026-10-17 — Uzavření energetické mezery při refreshi
+
+Chaos-2: refresh po tahu zachovával5/5 na desktopu, Pixelu, iPadu iSE. Oprava rezervuje energii při prvním platném tahu ještě před animací, výhra/technický fault vrací jednou; prohra/quit/refresh již nic dalšího nestrhnou. Před placeným tahem stále zdarma, včetně neplatné výměny a pomůcky. Počet je proto během pokusu o1nižší a při výhře se vrátí; od rezervace běží stávající obnova10/30min. +5a retry respektují tentýž pokus.196unit testů a16cílených browser kontrol prošly; docs/refresh-energy-2026-10-17.md. Žádná SQL migrace ani změna cílových počtů/tahů.
