@@ -1,0 +1,47 @@
+# Install this workflow ONLY in Pretorius-CZ/TG_game-hosting.
+# Installing it in TG_game would deploy over the existing main-domain site.
+name: Publish game subdomain
+on:
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: Tested TG_game branch or commit
+        default: codex/cockpit-stage
+        required: true
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: game-pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    if: github.repository == 'Pretorius-CZ/TG_game-hosting'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: Pretorius-CZ/TG_game
+          ref: ${{ inputs.source_ref }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Build the selected source revision
+        run: |
+          source_revision="$(git rev-parse HEAD)"
+          GITHUB_SHA="$source_revision" npm run build
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - name: Deploy separate game website
+        id: deployment
+        uses: actions/deploy-pages@v4

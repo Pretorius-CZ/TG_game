@@ -336,5 +336,12 @@ function App() {
     <span className="sr-only" role="status" aria-live="polite">{t(exploring ? 'Exploring the star system.' : corridor ? 'Inside the corridor. Emergency lighting only.' : airlock ? 'Inside the airlock.' : inside ? 'Inside the cockpit.' : 'Outside the damaged ship.')} {t(completed)}{t(" of ")}{t(repairs.length)}{t(" cockpit repairs complete.")}</span>
   </main></StarProvider>;
 }
-async function start(){await initializeCrazyGames();createRoot(document.getElementById('root')).render(<LanguageProvider><OrientationGuard/><RewardAdProvider><LivesProvider><AccountProvider><App/></AccountProvider></LivesProvider></RewardAdProvider></LanguageProvider>);}
+async function start(){
+ // Do not let default saves or analytics run over an interrupted local transfer.
+ if(!['itch','crazygames','telegram'].includes(import.meta.env.MODE)){
+  let pending=false;try{pending=localStorage.getItem('beyond-signal-transfer-pending-v1')!==null;}catch{}
+  if(pending){location.replace(new URL('./transfer.html',location.href));return;}
+ }
+ await initializeCrazyGames();createRoot(document.getElementById('root')).render(<LanguageProvider><OrientationGuard/><RewardAdProvider><LivesProvider><AccountProvider><App/></AccountProvider></LivesProvider></RewardAdProvider></LanguageProvider>);
+}
 start().catch(error=>{document.getElementById('root').textContent=error.message;});
