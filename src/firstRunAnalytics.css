@@ -1,0 +1,10 @@
+.analytics-first-run{box-sizing:border-box;width:min(420px,calc(100vw - 24px));max-height:calc(100dvh - 24px);margin:auto;overflow:auto;padding:20px;border:1px solid #678d97;border-radius:18px;background:#102833;color:#e6f1ef;font:14px/1.45 system-ui,sans-serif;box-shadow:0 12px 70px #0009}
+.analytics-first-run::backdrop{background:#020b16d9}
+.analytics-first-run h2{margin:10px 0;font-size:22px;line-height:1.2;font-weight:650}
+.analytics-first-run p{margin:12px 0}.analytics-first-run a{color:#a5dfef}
+.analytics-first-run button{box-sizing:border-box;min-height:44px;padding:10px;border:1px solid #83a9b3;border-radius:8px;background:#173b45;color:#e6f1ef;font:inherit;cursor:pointer}
+.analytics-first-run :focus-visible{outline:2px solid #f5d78d;outline-offset:3px}
+.analytics-first-languages{display:flex;gap:8px;justify-content:flex-end}.analytics-first-languages button{min-width:44px;padding:6px}
+.analytics-first-languages button[aria-pressed=true]{border-color:#f5d78d}
+.analytics-first-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+@media(max-height:600px){.analytics-first-run{padding:16px}.analytics-first-run p{margin:10px 0}}

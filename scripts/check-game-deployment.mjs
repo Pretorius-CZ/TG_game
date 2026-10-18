@@ -24,6 +24,7 @@ try{
    console.log(JSON.stringify({url:origin+pathname,website:true,gameLinks:true,failedResources:0}));await context.close();continue;
   }
   await page.locator('.welcome[data-art-ready="true"]').waitFor({timeout:20000});
+  if(await page.locator('.analytics-first-run').count())await page.locator('.analytics-first-run').getByRole('button',{name:'No, thanks',exact:true}).click();
   await page.locator('.welcome-play').click();
   await page.locator('.intro-skip').click();
   await page.locator('.repair-bubble-dialog').waitFor({timeout:15000});

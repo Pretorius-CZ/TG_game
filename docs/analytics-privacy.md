@@ -110,3 +110,20 @@ SQL test lze zopakovat z kořene projektu (závislost jen v ignorované .local):
 npm install --prefix .local/sql-check --no-package-lock --no-audit --no-fund @electric-sql/pglite
 node scripts/check-analytics-privacy-sql.mjs
 ```
+
+## Nabídka při prvním spuštění
+
+FirstRunAnalytics se otevře hned na úvodní obrazovce, pokud v tomto prohlížeči
+a originu chybí platná dřívější volba. EN/CZ lze změnit přímo v dialogu.
+Povolení i odmítnutí jsou stejně dostupná tlačítka a pamatují se; nejde
+o dotaz při každém spuštění. Escape znamená odmítnutí. Při blokovaném
+úložišti lze pokračovat bez statistik, ale volbu nelze trvale zapamatovat.
+Po povolení zůstává sběr zapnutý do změny v nastavení. Před odpovědí neběží.
+Existující uložené povolení/odmítnutí se znovu nepřepisuje. CrazyGames
+používá dosavadní oddělenou integraci, tento dialog tam není.
+
+/balance výslovně upozorňuje na dobrovolný výběr prohlížečů a starší data
+před zavedením volby. Pro nové botí testovací profily je nutné v první
+nabídce zvolit Povolit statistiky, jinak výsledky do Supabase neposílají.
+Běžné UI testy mají připravený odmítnutý profil; první nabídku testuje vlastní
+samostatná sada. Deployment smoke první nabídku odmítá bez odesílání dat.

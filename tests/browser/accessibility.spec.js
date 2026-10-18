@@ -1,4 +1,5 @@
 import {test,expect} from '@playwright/test';
+test.beforeEach(async({page})=>{await page.addInitScript(()=>{if(!localStorage.getItem('beyond-signal-analytics-choice-v1'))localStorage.setItem('beyond-signal-analytics-choice-v1',JSON.stringify({version:1,state:'denied',at:Date.now()}));});});
 import {createRequire} from 'node:module';
 import {findMove} from '../../src/match3.js';
 const require=createRequire(import.meta.url),axePath=require.resolve('axe-core/axe.min.js');

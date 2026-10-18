@@ -1,4 +1,5 @@
 import {test,expect} from '@playwright/test';
+test.beforeEach(async({page})=>{await page.addInitScript(()=>{if(!localStorage.getItem('beyond-signal-analytics-choice-v1'))localStorage.setItem('beyond-signal-analytics-choice-v1',JSON.stringify({version:1,state:'denied',at:Date.now()}));});});
 async function mock(page,{deletionFails=false}={}){
  const requests=[];
  await page.route('**/rest/v1/rpc/**',async route=>{const name=route.request().url().split('/').pop();requests.push(name);const failure=name==='delete_browser_analytics'&&(typeof deletionFails==='function'?deletionFails():deletionFails);await route.fulfill({status:failure?503:200,contentType:'application/json',body:failure?'{"message":"offline"}':'null'});});

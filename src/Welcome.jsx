@@ -1,6 +1,7 @@
 import React,{useEffect,useRef,useState} from 'react';
 import {useLanguage} from './i18n/Language.jsx';
 import AudioControls from './AudioControls.jsx';
+import FirstRunAnalytics from './FirstRunAnalytics.jsx';
 import useSceneAssets from './useSceneAssets.js';
 import './Welcome.css';
 import {gameAddress,ORIGINAL_ORIGIN} from './gameAddress.js';
@@ -20,6 +21,7 @@ export default function Welcome({hasProgress,seen,onFinish,settings,onChapters,r
  return <main className={`welcome ${intro?'welcome-intro':''}`} aria-label="Beyond the Signal" data-art-ready={ready}>
   <img key={art} className={`welcome-art ${ready?'ready':''}`} src={`./intro/${art}.webp`} alt="" fetchPriority="high" decoding="async"/>
   <div className="welcome-shade"/>
+  <FirstRunAnalytics/>
   {intro?<>
    <button className="intro-skip" onClick={onFinish}>{t('Skip intro')}</button>
    <div className="intro-caption" key={step}>

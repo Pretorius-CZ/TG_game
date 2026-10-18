@@ -1,4 +1,5 @@
 import {test,expect} from '@playwright/test';
+test.beforeEach(async({page})=>{await page.addInitScript(()=>{if(!localStorage.getItem('beyond-signal-analytics-choice-v1'))localStorage.setItem('beyond-signal-analytics-choice-v1',JSON.stringify({version:1,state:'denied',at:Date.now()}));});});
 import {mockSDK} from './googleAdsMock.js';
 const sdk='**/pagead/js/adsbygoogle.js?*';
 test.beforeEach(async({page})=>{

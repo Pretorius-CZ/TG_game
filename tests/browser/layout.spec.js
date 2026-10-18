@@ -1,4 +1,5 @@
 import {test,expect} from '@playwright/test';
+test.beforeEach(async({page})=>{await page.addInitScript(()=>{if(!localStorage.getItem('beyond-signal-analytics-choice-v1'))localStorage.setItem('beyond-signal-analytics-choice-v1',JSON.stringify({version:1,state:'denied',at:Date.now()}));});});
 import {findMove} from '../../src/match3.js';
 import {iceMove} from '../../src/levelRules.js';
 import {normalizeProgress} from '../../src/progressStorage.js';
