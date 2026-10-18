@@ -33,3 +33,15 @@ nálože s nápovědou, přehled bez horizontálního přetékání a výherní 
 Offline render vzorků: RMS Pulse0,140→0,092, Nova0,165→0,105, EMP0,136→0,087
 (před společným efektním mixem). Jde o měření, nikoli osobní poslech testerů.
 Produkční analytika při browser testu blokovaná. Žádná SQL migrace.
+
+## 2026-10-18 — Krátké nápovědy na telefonu
+
+Pulse/Nova nyní dvě obrazovky Vytvoření/Použití místo celé dlouhé stránky:
+čtyři malé vzory a potom dva účinky. Přepínání i hlavní akce mají alespoň
+44px; potvrzení tématu až po poslední obrazovce, zavření stále okamžité.
+Zkrácené opakované vysvětlení použití pomůcky a přehled společných zásob.
+Malé diagramy mají omezenou velikost, rostoucí šířka dialogu je nezvětšuje.
+Na krátkých displejích menší mezery bez zmenšování textu. Při zvětšeném
+písmu zůstává nouzový scroll, obsah se neořezává. Herní pravidla beze změny.
+
+Ověření: 218 unit testů a build; 18 kontrol nápověd/webu a 16 kontrol přístupnosti Chromium/WebKit. Všechny témata v EN/CZ na320×568,390×664,430×739 bez vnitřního posouvání a s dostupnou hlavní akcí; deska po zavření shodná. Jeden přístupnostní test přerušilo obnovení Vite po úpravě zdroje během běhu, samostatné opakování prošlo. Produkční website preview nové/vracející se profily v obou enginech prošlo (4případy).

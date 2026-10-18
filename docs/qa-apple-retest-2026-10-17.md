@@ -5,6 +5,9 @@ z Downloads, porovnány s odpovídajícími původními archivy bez (1).
 Zpracovány celé JSON reporty. Nové archivy obsahují 206 a 203 PNG;
 počty a automatické vizuální nálezy nejsou náhradou ručního prohlédnutí
 každého obrázku. Tento rozbor se soustředí na dokončení a časy.
+Navíc prohlédnut reprezentativní vzorek šesti snímků každého profilu
+(úvod, desky napříč průchodem, závěr); bez další zjevné kolize rozložení.
+Závěr opět ukazuje návratový koridor, ne samotné závěrečné titulky.
 
 | Profil | Původní výhry | Nové různé výhry | Nejdelší nový level | Součet zaznamenaných časů levelů |
 | --- | ---: | ---: | ---: | ---: |

@@ -10,6 +10,24 @@ if(location.origin===ORIGINAL_ORIGIN&&(callback.has('code')||callback.has('error
 const key='to-the-stars-language';
 const cs={
  skip:'Přejít k obsahu',playShort:'Hrát ↗',genre:'SCI-FI DOBRODRUŽSTVÍ SE SPOJOVÁNÍM KAMENŮ',
+ navLabel:'Hlavní navigace',navAbout:'O hře',navUpdates:'Novinky',navGuides:'Jak hrát',
+ contentNote:'187 levelů · Příběh, průzkum a opravy · Česky / anglicky',
+ guidesLabel:'TVŮJ LETOVÝ MANUÁL',guidesTitle:'Malá pomoc na cestu.',
+ guideMatchTitle:'01 / První hlavolam',
+ guideMatch:'Prohoď sousední kameny a spoj alespoň tři stejného typu. Cíle najdeš nad deskou: někdy sbíráš konkrétní barvy, jindy rozbíjíš kryty nebo nabíjíš kruhy. Splň všechny cíle, než ti dojdou tahy.',
+ guideStars:'Výhra odemkne další úkol. Tři hvězdy jsou dobrovolná výzva; dokončené opravy si můžeš zopakovat přes Kapitoly.',
+ guideChargesTitle:'02 / Pulse, Nova a pomůcky',
+ guideCharges:'Čtyři kameny v řadě nebo pět do T či L vytvoří Pulse, který zasáhne oblast 3×3. Pět a více v řadě vytvoří Novu, která zasáhne řádek i sloupec. Klepnutím odpálíš nálož za jeden tah; řetězové výbuchy jsou zdarma.',
+ guideTools:'Pomůcky pod deskou spotřebují zásobu místo tahu. Laser zasáhne kámen, Míchání přeskupí desku, Výměna prohodí sousedy, Paprsek zasáhne řádek a EMP oblast 3×3. Obrázkovou nápovědu znovu otevřeš přes ⓘ v minihře.',
+ guideObstaclesTitle:'03 / Kryty a rezonátory',
+ guideCovers:'Zakrytý kámen nelze přesouvat. Zapoj ho do spojení a kryt praskne; kámen zůstane pro další spojení. Kryty rozbíjejí i výbuchy.',
+ guideRings:'Kruhy nabíjíš spojením přímo vedle nich: shora, zdola, zleva nebo zprava. Každá vlna spojení přidá kruhu jeden náboj. Úhlopříčka ani přímý výbuch kruh nenabíjí.',
+ guideEnergyTitle:'04 / Energie a přestávky',
+ guideEnergy:'První platný tah rezervuje jeden článek energie. Výhra ho vrátí; prohra, odchod po tahu nebo obnovení stránky jej ponechá spotřebovaný. Otevření minihry bez tahu energii nestojí. U energie vidíš, kdy se článek obnoví.',
+ guideSaveTitle:'05 / Uložení tvé cesty',
+ guideSave:'Postup hosta se ukládá v tomto prohlížeči. Přihlášení přes Google ukládá postup do cloudu pro stejný účet na dalších zařízeních. Energie a zásoby pomůcek se ukládají místně.',
+ guideTransfer:'Hrál jsi na původní adrese? Nejdřív přenes uloženou hru, potom se na nové adrese přihlas stejným Google účtem. Samotné přihlášení nepřenese místní energii a pomůcky. Původní uložená hra zůstane dostupná.',
+ transferLink:'Přenést uloženou hru ↗',
  title1:'Vzdálený signál.',title2:'Nový začátek.',intro:'Tvoje loď je poškozená. Tajemný signál se pořád ozývá. Spojuj kameny, vrať lodi život a zjisti, co se skrývá v dálce.',
  play:'Hrát zdarma',availability:'V prohlížeči · Mobil i počítač · Bez stahování',discover:'Objev dobrodružství',
  aboutLabel:'VÍC NEŽ SPOJOVÁNÍ KAMENŮ',aboutTitle:'Každý hlavolam vrací tvému světu život.',
@@ -48,4 +66,5 @@ for(const button of document.querySelectorAll('[data-language]'))button.addEvent
 let restore=false;try{restore=location.origin===ORIGINAL_ORIGIN&&hasOriginalSave(localStorage);}catch{}
 const game=gameAddress(location.href,{transfer:restore});
 for(const link of document.querySelectorAll('.game-link'))link.href=game;
+for(const link of document.querySelectorAll('.transfer-link'))link.href=gameAddress(location.href,{transfer:true});
 document.getElementById('year').textContent=String(new Date().getFullYear());

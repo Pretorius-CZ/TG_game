@@ -1,5 +1,15 @@
 # Souběžné nasazení hry — game.playbeyondthesignal.com
 
+Aktuální stav po dokončení 2026-10-17: commit ed6a5fadd743 na obou
+doménách, původní Actions39062838554 success a game39062937484 success.
+Přenos je živý na obou HTTPS originách, LEGACY_TRANSFER_READY=true v game
+hostingu. Supabase Redirect URL uživatel potvrdil přidanou. Živý test v
+Chromiu i WebKitu převzal hosta, místní kopii účtu, hvězdy, deník,
+energii a pomůcky; původní kopie zůstala a opakování nic nedoplnilo.
+Preflight set-main-site-mode bez --apply prošel. Kořen stále mode=game.
+Aktuální provozní postup je docs/game-cutover-checklist.md. Historické
+poznámky o vypnutém přenosu nebo čekání na HTTPS již neplatí.
+
 Hlavní web se při tomto kroku nemění. Zdroj zůstává v Pretorius-CZ/TG_game;
 příprava je ve větvi codex/game-subdomain, produkce codex/cockpit-stage.
 Nový veřejný repozitář Pretorius-CZ/TG_game-hosting
@@ -52,15 +62,12 @@ přepisovat; ověřit nastavení Google klienta podle jeho konkrétního režimu
 Nová adresa nabízí na úvodní obrazovce Recover original saved game /
 Přenést původní postup. Odkaz otevře transfer.html. Stránku lze navštívit
 i přímo. Původní adresa má také transfer.html pro odeslání a zálohu.
-Pozor: původní adresa tuto stránku získá až nasazením přípravných změn
-na její produkční větev. Dokud dobíhají staré iOS testy, nasazení původní
-hry neprovádět. Nový web je do té doby zkušební; živý přenos ještě není
-otevřený, místní cross-origin testy nepovažovat za živé ověření.
-Pro tuto přechodnou fázi je otevření původního přenosového okna ve veřejném
-buildu vypnuté a stránka pošle hráče pokračovat na původní web. Po ověření
-staré transfer.html přes HTTPS nastavit v TG_game-hosting Actions variable
-LEGACY_TRANSFER_READY=true a znovu nasadit. Výchozí hodnota je bezpečně
-vypnutá; místní DEV testy mají přenos zapnutý.
+Původní přenosová stránka je nasazená a v TG_game-hosting je nastavená
+Actions variable LEGACY_TRANSFER_READY=true. Vydané game migration-policy
+potvrzuje transferReady=true. Stejný příznak na původním hostingu není
+rozhodující: původní origin je odesílatel a jeho formulář není tímto
+přepínačem vypnutý. Výchozí prázdná hodnota přepínače u nového přijímacího
+nasazení zůstává bezpečně vypnutá, aby jej nešlo otevřít předčasně.
 
 1. Na nové adrese otevřít přenos a stisknout Open original saved game.
 2. V původním okně potvrdit Send saved game.
