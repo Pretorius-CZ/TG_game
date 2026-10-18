@@ -6,6 +6,16 @@ export function moveBudget(repair){
 }
 export function initialIce(repair){if(repair.ice)return repair.ice;if(!thirdRepairs.includes(repair.id))return [];const c=repair.level.cols;return [2*c+2,2*c+c-3,4*c+2,4*c+c-3].filter((v,i,a)=>a.indexOf(v)===i);}
 export function iceMatches(board,cols,ice=[]){return matches(board,cols);}
+// A charge may move only when the ordinary tile swapped into its place matches.
+export function swapMatches(board,a,b,cols,ice=[]){
+ if(board[a]==null||board[b]==null||ice.includes(a)||ice.includes(b)||!adjacent(a,b,cols))return [];
+ const hit=iceMatches(swap(board,a,b),cols,ice);
+ if(board[a]>=10||board[b]>=10){
+  if(board[a]>=10&&board[b]>=10)return [];
+  if(!hit.includes(board[a]>=10?a:b))return [];
+ }
+ return hit;
+}
 export function iceMove(board,cols,ice=[]){const charge=board.findIndex((v,i)=>v>=10&&!ice.includes(i));if(charge>=0)return[charge,charge];for(let a=0;a<board.length;a++)for(const b of[a+1,a+cols]){if(board[a]==null||board[b]==null||ice.includes(a)||ice.includes(b)||!adjacent(a,b,cols))continue;if(iceMatches(swap(board,a,b),cols,ice).length)return[a,b];}return null;}
 export function resolveIce(board,cleared,ice,level,random=Math.random,pinned=[]){
  const frozen=new Set(ice),thawed=ice.filter(i=>cleared.includes(i));

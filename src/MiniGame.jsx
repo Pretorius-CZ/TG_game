@@ -18,7 +18,7 @@ import {useLanguage} from './i18n/Language.jsx';
 import React, { useEffect, useRef, useState } from 'react';
 import { adjacent, swap } from './match3';
 
-import {moveBudget,initialIce,iceMatches,iceMove,ensurePlayableBoard} from './levelRules.js';
+import {moveBudget,initialIce,iceMatches,iceMove,swapMatches,ensurePlayableBoard} from './levelRules.js';
 import {useLives,LivesBar,NoLives} from './Lives.jsx';
 import AudioControls from './AudioControls.jsx';
 import useHelperStock from './useHelperStock.js';
@@ -168,12 +168,13 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   async function play(a, b, helper=null) {
     if(tutorial)return;
     const activation=helper==null&&a===b&&isBooster(board[a]);
-    if (resonatorHelp || fault || board[a] == null || board[b] == null || lock.current || !admitted || won || moves>=limit || (helper==null&&(ice.includes(a)||ice.includes(b)))|| (helper==null&&!activation && (!adjacent(a, b, level.cols)||isBooster(board[a])||isBooster(board[b])))) return;
+    if (resonatorHelp || fault || board[a] == null || board[b] == null || lock.current || !admitted || won || moves>=limit || (helper==null&&(ice.includes(a)||ice.includes(b)))|| (helper==null&&!activation && !adjacent(a, b, level.cols))) return;
     if(helper!=null&&(!toolsLeft[helper]||(helper===2&&(ice.includes(a)||ice.includes(b)||!adjacent(a,b,level.cols)||a===b))))return;
     if(activation&&!seenTutorials.current.has(board[a]===11?'nova':'pulse')){setTutorialQueue([board[a]===11?'nova':'pulse']);return;}
     // Reserve before the first animation/await, including a charge activation.
     // Invalid swaps and helpers do not spend a move and need no reservation.
-    if(helper==null&&(activation||iceMatches(swap(board,a,b),level.cols,ice).length)&&!lives.reserveAttempt(attemptId.current)){failSafely();return;}
+    const swapHit=helper==null&&!activation?swapMatches(board,a,b,level.cols,ice):[];
+    if(helper==null&&(activation||swapHit.length)&&!lives.reserveAttempt(attemptId.current)){failSafely();return;}
     const token=++run.current;
     const createdBoosts=new Set();let completedAction=false;
     let activeTicks=0;
@@ -198,7 +199,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
       toolHit=next.flatMap((v,i)=>v!=null&&(helper===0?i===a:helper===3?Math.floor(i/level.cols)===Math.floor(a/level.cols):Math.abs(i%level.cols-a%level.cols)<=1&&Math.abs(Math.floor(i/level.cols)-Math.floor(a/level.cols))<=1)?[i]:[]);
       toolHit=[...new Set([...toolHit,...blast(next,level.cols,toolHit.filter(i=>isBooster(next[i])))])];
     }
-    let found=toolHit??(activation?[a]:iceMatches(next,level.cols,frozen));
+    let found=toolHit??(activation?[a]:helper==null?swapHit:iceMatches(next,level.cols,frozen));
     if(helper!=null){if(!await consumeTool(helper)){setMoving(null);setTool(null);return;}if(!alive.current||token!==run.current)return;assistance.current.helpers.push(helpers[helper][1]);if(helper!==1)sound(["laser","shuffle","tool-swap","beam","emp"][helper]);setTool(null);if(helper===1&&!await animateShuffle(next,token))return;}
     if (!found.length&&helper==null) { sound('invalid');
       setMoving(null); setMessage('Almost! A swap needs to make a line of 3 matching pieces.');
@@ -256,10 +257,10 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     if (fault || busy || won || exhausted) return;
     if(tool!=null){if(tool===2){if(ice.includes(i))return;if(selected==null||!adjacent(selected,i,level.cols)){setSelected(i);return;}play(selected,i,tool);}else play(i,i,tool);return;}
     if(ice.includes(i))return;
+    if(selected!=null&&adjacent(selected,i,level.cols)){play(selected,i);return;}
     if(isBooster(board[i])){play(i,i);return;}
     sound('select');
     if (selected === i) setSelected(null);
-    else if (selected != null && adjacent(selected, i, level.cols)) play(selected, i);
     else setSelected(i);
   }
   function endSwipe(event) {

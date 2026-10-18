@@ -3,7 +3,25 @@ import assert from 'node:assert/strict';
 import {PULSE,NOVA,rewards,blast,wave,boostersEnabled} from '../src/boosters.js';
 import {matches,swap,refill} from '../src/match3.js';
 import {collectGoals} from '../src/objectives.js';
-import {iceMove,ensurePlayableBoard} from '../src/levelRules.js';
+import {iceMove,swapMatches,ensurePlayableBoard} from '../src/levelRules.js';
+
+test('charges swap only when the opposing ordinary tile joins a match',()=>{
+ for(const charge of [PULSE,NOVA]){
+  const board=[0,0,charge,0,1,2];
+  assert.deepEqual(swapMatches(board,2,3,6),[0,1,2]);
+  assert.deepEqual(swapMatches(board,3,2,6),[0,1,2]);
+  assert.deepEqual(swapMatches(board,1,2,6),[]);
+  assert.deepEqual(swapMatches(board,2,3,6,[2]),[]);
+  assert.deepEqual(swapMatches(board,2,3,6,[3]),[]);
+  assert.deepEqual(swapMatches([0,0,charge,null],2,3,4),[]);
+  assert.deepEqual(swapMatches([0,0,charge,NOVA],2,3,4),[]);
+  // A pre-existing remote match does not legalize moving the charge.
+  assert.deepEqual(swapMatches([1,1,1,2,charge,3],4,5,6),[]);
+  const result=wave(swap(board,2,3),[],{rows:1,cols:6,types:4},{random:()=>0.7});
+  assert.equal(result.board[3],charge);
+  assert.ok(!result.hit.includes(3));
+ }
+});
 
 test('four, five and T matches create one reward, preferring the swapped cell',()=>{
   assert.deepEqual(rewards([1,1,1,1,2],5,[],[2]),[{at:2,type:PULSE}]);
