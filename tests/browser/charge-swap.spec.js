@@ -22,7 +22,9 @@ for(const charge of [10,11])for(const input of ['drag','click'])test(`charge ${c
  await drag(16,23);await expect(moves).toHaveText('80');await expect(cell(16)).toHaveAttribute('data-type',String(charge));
  if(input==='drag')await drag(16,17);
  else{await cell(17).click();await cell(16).click();await expect(page.locator('.board')).toHaveAttribute('aria-busy','false');}
- await expect(moves).toHaveText('79');await expect(cell(17)).toHaveAttribute('data-type',String(charge));
- await cell(17).click();await expect(page.locator('.board')).toHaveAttribute('aria-busy','false');await expect(moves).toHaveText('78');
+ await expect(moves).toHaveText('79');
+ // Later cascades may let the moved charge fall; moving must not detonate it.
+ const remainingCharge=page.locator(`[data-type="${charge}"]`).first();await expect(remainingCharge).toBeVisible();
+ await remainingCharge.click();await expect(page.locator('.board')).toHaveAttribute('aria-busy','false');await expect(moves).toHaveText('78');
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });

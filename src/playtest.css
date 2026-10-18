@@ -1,0 +1,9 @@
+.blind-test-page{overflow:auto;background:#081421;color:#e8f2f5;min-height:100dvh}
+.blind-playtest{width:min(100%,640px);margin:auto;padding:24px 18px;min-height:100dvh;box-sizing:border-box}
+.blind-playtest h1{font-size:28px;margin:0 0 8px}.blind-playtest h2{font-size:21px}.blind-playtest p{line-height:1.55}.blind-playtest section{padding:16px 0}
+.blind-playtest button{min-height:44px;padding:10px 16px;margin:4px;border:1px solid #779fac;border-radius:12px;background:#153544;color:#eef8fb;cursor:pointer;font:inherit}
+.blind-playtest button.primary{background:#e6c477;color:#14212b;font-weight:700;width:100%;margin:10px 0}.blind-playtest button:disabled{opacity:.5;cursor:default}
+.blind-playtest button[aria-pressed=true]{border:2px solid #efce88;background:#2c4956}.blind-playtest label{display:block;margin-top:16px}.blind-playtest textarea{display:block;width:100%;box-sizing:border-box;min-height:90px;margin:8px 0;background:#102632;color:#eef8fb;border:1px solid #779fac;border-radius:8px;padding:10px;font:inherit}
+.blind-playtest a{color:#a2def4}.playtest-progress{font-weight:bold}.test-footer{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.blind-playtest [role=alert]{border:1px solid #edab9c;padding:12px}
+.blind-test-page .mini-dialog .lives-bar,.blind-test-page .stars-optional,.blind-test-page .replay-tip,.blind-test-page .rating-note,.blind-test-page .win-panel>.rating-stars{display:none}
+.blind-test-page .helper-tile.empty-stock{display:none}.blind-test-page .hint-control:disabled{opacity:.5}

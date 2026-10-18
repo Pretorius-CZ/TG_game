@@ -1,13 +1,16 @@
-import {useEffect,useState} from 'react';
+import {useContext,useEffect,useState} from 'react';
+import {PlaytestContext} from './PlaytestContext.js';
 import {useAccount} from './Account.jsx';
 import {accountKey} from './accountStorage.js';
 import {readStock,spendStock,stockKey,rewardStock,starterStockAllowed,freshStock} from './helperStock.js';
 export default function useHelperStock(){
+ const playtest=useContext(PlaytestContext);
  const {user}=useAccount();
  const [key]=useState(()=>{
+  if(playtest)return playtest.stockKey;
   try{return stockKey(user?.id,JSON.parse(localStorage.getItem(accountKey(user?.id)))?.resetRevision??0);}catch{return stockKey(user?.id);}
  });
- const [initial]=useState(()=>{try{return starterStockAllowed({hostname:location.hostname,userId:user?.id,progress:JSON.parse(localStorage.getItem(accountKey(user?.id)))})?freshStock():[0,0,0,0,0];}catch{return [0,0,0,0,0];}});
+ const [initial]=useState(()=>{if(playtest)return freshStock();try{return starterStockAllowed({hostname:location.hostname,userId:user?.id,progress:JSON.parse(localStorage.getItem(accountKey(user?.id)))})?freshStock():[0,0,0,0,0];}catch{return [0,0,0,0,0];}});
  function read(){try{return readStock(localStorage,key,initial);}catch{return [0,0,0,0,0];}}
  const [stock,setStock]=useState(read);
  useEffect(()=>{const sync=()=>setStock(read());window.addEventListener('storage',sync);window.addEventListener('helper-stock-change',sync);return()=>{window.removeEventListener('storage',sync);window.removeEventListener('helper-stock-change',sync);};},[key]);
