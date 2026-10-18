@@ -1,2 +1,6 @@
 .reward-ad{box-sizing:border-box;width:min(90vw,360px);max-height:90dvh;overflow:auto;border:1px solid #65949c;border-radius:20px;background:#102530;color:#e6f1ef;padding:24px;text-align:center}.reward-ad::backdrop{background:#020c14dd}.reward-ad button{display:block;width:100%;margin-top:12px;padding:12px;border-radius:10px}.ad-placeholder{padding:22px;background:#071820;border:1px dashed #65949c;border-radius:12px;font:700 22px sans-serif}.reward-ad p{line-height:1.5}
 .reward-ad button:not(.primary){background:#193943;border:1px solid #51747c;color:#e6f1ef;font:inherit}.reward-ad button:disabled{opacity:.5}.reward-ad button:focus-visible{outline:2px solid #e3bc81;outline-offset:3px}
+.reward-ad[data-ad-mode]{padding:20px}
+.reward-ad[data-ad-mode] h2{font-size:24px;line-height:1.2;margin:12px 0}
+.reward-ad[data-ad-mode] p{font-size:14px;line-height:1.45;margin:10px 0}
+.reward-ad .ad-explanation{text-align:left;color:#c2d9df}

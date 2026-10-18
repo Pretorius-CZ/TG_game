@@ -111,3 +111,8 @@ Zdroje ověřené 2026-10-18:
 - https://developers.google.com/ad-placement/docs/test
 - https://developers.google.com/ad-placement/apis/adbreak
 - https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng
+
+## Vysvětlení nedostupné reklamy
+Na podnět uživatele po blokování Brave Shields UI rozlišuje selhání načtení SDK (možné štíty/blokátor/ochrana/připojení, povolení reklam výslovně dobrovolné), offline signál prohlížeče, noAdPreloaded, frequencyCapped a timeout. SDK chybu nevydává za prokázaný blokátor. Neznámý důvod je výslovně neurčený. EN/CZ vždy uvádí nepřidělenou odměnu a zachovanou hru, žádná výzva k nebezpečnému reloadu rozehraného pokusu. Pravidla bonusů a výchozí simulace se nemění.
+
+Ověření této úpravy: build/diff-check a6cílených prohlížečových kontrol Chromium/WebKit (EN blocked/no-fill, české vysvětlení320×568 bez scrollu a funkční návrat). Google dialog má kompaktní mezery a14px text, aby vysvětlení neodsunulo hlavní akci.

@@ -40,7 +40,11 @@ for(const outcome of ['viewed','dismissed','no-fill','blocked','cancelled'])test
  }else if(outcome==='cancelled'){
   await expect(reward.locator('.primary')).toBeVisible();await reward.locator('button').last().click();
   await page.evaluate(()=>{window.mockPlacement.adViewed();window.mockPlacement.adBreakDone({breakStatus:'viewed'});});
- }else {await expect(reward).toContainText('No ad is available');await reward.locator('button').last().click();}
+ }else {
+  await expect(reward).toContainText(outcome==='blocked'?'The ad service could not load':'No ad is available');
+  await expect(reward).toContainText(outcome==='blocked'?'Brave Shields':'Test mode intentionally alternates');
+  await expect(reward).toContainText('No reward was granted');await reward.locator('button').last().click();
+ }
  await expect(page.locator('.mini-dialog')).toHaveJSProperty('open',true);
  expect(await page.locator('.board').innerHTML()).toBe(board);
  expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('to-the-stars-helpers-v1:guest:0')))).toEqual(outcome==='viewed'?[1,0,0,0,0]:[0,0,0,0,0]);
@@ -66,4 +70,16 @@ test('QA traffic cannot load the Google SDK even with the test query',async({pag
  let loads=0;await page.route(sdk,r=>{loads++;return r.abort();});
  await page.goto('/tests/browser/fixture.html?result=performance&ads_test=google&utm_source=automated_test&utm_medium=bot');
  await page.locator('.helper-tile').first().click();await expect(page.locator('.reward-ad')).toContainText('TEST MODE · NO REAL AD');expect(loads).toBe(0);
+});
+test('Czech blocked-ad explanation and exit fit a small phone',async({page},testInfo)=>{
+ await page.setViewportSize({width:320,height:568});
+ await page.addInitScript(()=>localStorage.setItem('to-the-stars-language','cs'));
+ await page.route(sdk,r=>r.abort());
+ await page.goto('/tests/browser/fixture.html?result=performance&ads_test=google');
+ await page.locator('.helper-tile').first().click();
+ const dialog=page.locator('.reward-ad');await expect(dialog).toContainText('štíty Brave');
+ await expect(dialog).toContainText('Je to dobrovolné');
+ expect(await dialog.evaluate(d=>d.scrollHeight-d.clientHeight)).toBeLessThanOrEqual(2);
+ await page.screenshot({path:testInfo.outputPath('blocked-cs.png')});
+ await dialog.getByRole('button',{name:'Zpět do hry'}).click();await expect(page.locator('.board')).toBeVisible();
 });
