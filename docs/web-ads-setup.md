@@ -1,5 +1,44 @@
 # Webové reklamy — příprava 2026-10-18
 
+## Aktuální pokračování: testovací H5 adaptér
+
+Uživatel potvrdil uložení konceptu evropské CMP zprávy a snímkem doložil
+odeslání žádosti H5 Games Ads. Ani jedno není potvrzením schváleného
+ostrého provozu. Zpráva stále není zveřejněná/propojená.
+
+Implementace src/webAdsPolicy.js, googleH5Ads.js, GoogleRewardAd.jsx:
+- Výchozí režim simulation zachovává dosavadní chování veřejné hry.
+- Odkaz `https://game.playbeyondthesignal.com/?ads_test=google` dovoluje
+  ruční test Google SDK. Načítá se až po vyžádání odměny, povinně
+  data-adbreak-test=on. Nejde o produkční monetizaci ani důkaz eligibility.
+- VITE_WEB_ADS_MODE=disabled: dostupná zpráva bez SDK/bonusu. test:
+  explicitní Google test. live: úmyslně zablokovaný do dalších kroků.
+- Aktuální UTM automated_test/bot, uložená botí návštěva i přenesený BOT
+  marker vynutí původní simulaci. itch/Telegram zachované, CrazyGames
+  zachovává vlastní dosavadní bezplatnou cestu. Žádný query parametr
+  nezapne placené reklamy. Změna buildového režimu vyžaduje nasazení.
+- adViewed vytvoří oprávnění k odměně; afterAd/adBreakDone ukončí placement.
+  Status viewed bez adViewed nestačí. Duplicity/pozdní callbacky se ignorují.
+- Načtení SDK timeout15s, dostupnost placementu15s, zobrazení/čekání180s
+  viditelné karty; skrytá karta tento watchdog nevyčerpává.
+- Nativní dialogy se při beforeAd dočasně zavřou a při návratu obnoví,
+  aktivní navrch; React/deska zůstávají připojené. Zvuk se pozastaví.
+- No-fill, blokátor, zrušení a timeout nepřidají bonus. Chyba uložení
+  nabídne retry samotného připsání, bez druhé reklamy. Limity odměn zůstávají.
+
+Ověřeno: šest unit testů protokolu a režimů,14 browser scénářů Chromium/
+WebKit s řízeným SDK (včetně +5 na stejném DOM/desce a zachované energie).
+Nejde jen o mock: oficiální Google SDK v lokálním náhledu v obou enginech
+zobrazilo Rewarded ad example, dokončilo odpočet a po zavření připsalo
+právě1Laser/obnovilo desku, bez JS chyby. Jeden lokální page.goto timeout
+při startu opakován úspěšně. H5 účet/ostrá reklama/CMP tím nejsou ověřené.
+Fyzické telefony a změna reklamního souhlasu následují samostatně.
+
+Další krok: propojit CMP a právo změnit volbu; ověřit nastavení Auto ads
+v účtu (na hře je nepoužívat). Dokončit pravidla vlastní analytiky/retence
+a teprve po schválení otevřít ostrý adaptér. Žádné bannery nenahrazují
+odměňovanou reklamu, když video není dostupné.
+
 ## Ověřený stav
 
 - Uživatelovy snímky: AdSense playbeyondthesignal.com stav Příprava,
