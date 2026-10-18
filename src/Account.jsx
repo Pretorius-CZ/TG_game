@@ -3,6 +3,7 @@ import {useLanguage} from './i18n/Language.jsx';
 import React, {createContext, useContext, useEffect, useRef, useState} from 'react';
 import {supabase} from './supabase.js';
 import {gameAddress} from './gameAddress.js';
+import AdChoicesButton from './AdChoicesButton.jsx';
 const itch=import.meta.env.MODE==='itch';
 const guestOnly=itch||crazyGames;
 export const AccountContext = createContext(null);
@@ -61,7 +62,7 @@ export function AccountButton({onImport,onRestart}){
  <button className="primary" disabled={busy} onClick={user?logout:login}>{t(user?'Sign out':'Continue with Google')}</button>
  {t(error&&<p role="alert">{t(error)}</p>)}</>}
 
- {!guestOnly&&import.meta.env.MODE!=='telegram'&&<p><a href="./privacy.html" target="_blank" rel="noopener">{language==='cs'?'Ochrana soukromí':'Privacy'}</a>{' · '}<a href="./contact.html" target="_blank" rel="noopener">{language==='cs'?'Kontakt':'Contact'}</a></p>}
+ {!guestOnly&&import.meta.env.MODE!=='telegram'&&<><p><a href="./privacy.html" target="_blank" rel="noopener">{language==='cs'?'Ochrana soukromí':'Privacy'}</a>{' · '}<a href="./contact.html" target="_blank" rel="noopener">{language==='cs'?'Kontakt':'Contact'}</a></p><AdChoicesButton/></>}
  <button className="keep-playing account-close" disabled={busy} onClick={close}>{t("Close")}</button>
  </section>)}</div>;
 }

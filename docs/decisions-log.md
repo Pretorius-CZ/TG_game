@@ -1163,3 +1163,21 @@ Chaos-2: refresh po tahu zachovával5/5 na desktopu, Pixelu, iPadu iSE. Oprava r
 ## 2026-10-17 — Zkušební změkčení pozdních levelů
 
 Po výslovném pokynu realizována kombinovaná varianta z docs/balance-proposal-2026-10-17.md:19nových limitů a snížení krytů138/149/154 na4. Barevné cíle a kruhy bezezměny,156a159 zůstávají. Analytika rozlišuje2026-10-17-refuge-balance-v1.196unit testů/build a300počátečních desek prošlo; uživatel následně zopakuje balance simulaci. Nová procenta úspěšnosti nejsou zatím známá.
+
+## 2026-10-18 — Nápad k dopracování: malé dobrovolné nákupy
+
+Uživatel navrhl možnost koupit si za nízkou částku balíček nebo booster,
+například přes Google Play, jako alternativu při nedostupnosti reklam.
+Jde o námět k návrhu, nikoli schválení implementace obchodu či plateb.
+
+K dopracování:
+- Obsah malých balíčků: konkrétní pomůcky, případně energie; složení,
+  množství, ceny a limity zatím nejsou schválené.
+- Prověřit Google Play pro budoucí Android distribuci a zvlášť platební
+  možnosti pro samostatný web. Nezaměňovat přihlášení přes Google s platbou.
+- Dobrovolná alternativa k reklamě a čekání; zachovat zvládnutelnost hry
+  bez nákupů, neměnit skrytě obtížnost podle útraty.
+- Před realizací navrhnout cloudový inventář, serverové ověřování nákupů,
+  jednorázové připsání, přenos zařízení, chybové stavy a vratky.
+  Dosavadní místní zásoby pomůcek nejsou hotový základ placeného inventáře.
+- Nezavádí se tím měna ani obchod; nic se nyní neimplementuje.

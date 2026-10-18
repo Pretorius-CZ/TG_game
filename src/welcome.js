@@ -1,5 +1,6 @@
 import {updates} from './welcomeUpdates.js';
 import {gameAddress,hasOriginalSave,ORIGINAL_ORIGIN} from './gameAddress.js';
+import {attachAdChoices} from './consentUI.js';
 
 // Finish callbacks on their original origin, where the PKCE verifier is stored.
 const callback=new URLSearchParams(location.search);
@@ -12,6 +13,7 @@ const cs={
  skip:'Přejít k obsahu',playShort:'Hrát ↗',genre:'SCI-FI DOBRODRUŽSTVÍ SE SPOJOVÁNÍM KAMENŮ',
  navLabel:'Hlavní navigace',navAbout:'O hře',navUpdates:'Novinky',navGuides:'Jak hrát',
  contact:'Kontakt',privacy:'Ochrana soukromí',
+ adChoices:'Reklamní souhlasy',
  contentNote:'187 levelů · Příběh, průzkum a opravy · Česky / anglicky',
  guidesLabel:'TVŮJ LETOVÝ MANUÁL',guidesTitle:'Malá pomoc na cestu.',
  guideMatchTitle:'01 / První hlavolam',
@@ -69,3 +71,4 @@ const game=gameAddress(location.href,{transfer:restore});
 for(const link of document.querySelectorAll('.game-link'))link.href=game;
 for(const link of document.querySelectorAll('.transfer-link'))link.href=gameAddress(location.href,{transfer:true});
 document.getElementById('year').textContent=String(new Date().getFullYear());
+attachAdChoices();

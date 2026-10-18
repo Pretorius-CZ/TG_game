@@ -1,22 +1,7 @@
+import {mockSDK} from './googleAdsMock.js';
 import {test,expect} from '@playwright/test';
 import {findMove} from '../../src/match3.js';
 const sdk='**/pagead/js/adsbygoogle.js?*';
-function mockSDK(outcome){return `(()=>{
- const q=window.adsbygoogle;
- function process(c){
-  if(c.onReady){queueMicrotask(c.onReady);return;}
-  if(c.type!=='reward')return;
-  window.mockPlacement=c;window.mockCalls=(window.mockCalls||0)+1;
-  if(${JSON.stringify(outcome)}==='no-fill'){c.adBreakDone({breakStatus:'noAdPreloaded'});return;}
-  c.beforeReward(()=>{
-   c.beforeAd();
-   const button=document.createElement('button');button.id='google-test-finish';button.textContent='Finish Google mock';
-   button.style='position:fixed;inset:20%;z-index:999999;background:white;color:black';document.body.append(button);
-   button.onclick=()=>{button.remove();if(${JSON.stringify(outcome)}==='dismissed')c.adDismissed();else {c.adViewed();c.adViewed();}c.afterAd();c.adBreakDone({breakStatus:'viewed'});};
-  });
- }
- q.push=process;for(const c of [...q])process(c);
-})();`;}
 test.beforeEach(async({page})=>{
  await page.setViewportSize({width:320,height:568});
  await page.route(/supabase\.co|api\.country\.is/,r=>r.fulfill({status:204,body:''}));

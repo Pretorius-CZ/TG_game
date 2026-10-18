@@ -6,6 +6,10 @@
 @media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}*{transition:none!important}}
 .step{flex-shrink:0;white-space:nowrap}
 .site-nav{display:flex;align-items:center;gap:28px;min-height:56px;font-size:13px;color:#bbc9d1;flex-wrap:wrap}
+footer{flex-wrap:wrap;align-items:center}
+.privacy-choices{font:inherit;min-height:44px;padding:8px;background:none;border:1px solid #678d97;border-radius:6px;color:#b0e9e2;cursor:pointer}
+.privacy-choices:disabled{opacity:.6;cursor:wait}
+.privacy-choice-status{flex-basis:100%;font-size:13px;line-height:1.5;color:#c2d9df}
 .site-nav a{display:inline-flex;align-items:center;min-height:44px}
 .site-nav a:hover,.transfer-link:hover{color:#ffe0ad}
 .site-nav .nav-play{margin-left:auto;font-weight:bold;color:#e8be82;letter-spacing:1px}

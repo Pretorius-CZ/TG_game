@@ -1,5 +1,52 @@
 # Webové reklamy — příprava 2026-10-18
 
+## Bod 3 — propojení reklamních souhlasů
+
+Technická integrace je v src/adConsent.js, consentUI.js a AdChoicesButton.jsx.
+Google zpráva je podle posledního potvrzení uživatele stále pouze koncept.
+Předchozí odstavce o nepřipojené CMP níže jsou historický stav.
+
+- Hra čte skutečné TCF události přes googlefc.callbackQueue/CONSENT_API_READY
+  a __tcfapi(addEventListener). Samotná dostupnost API není souhlas.
+- Pro GDPR=true vyžaduje dokončenou volbu s neprázdným TC stringem,
+  souhlasem pro účel1 a Google Advertising Products (vendor755). Přesnou
+  způsobilost/personalizaci nadále řídí Google; náš testový gate není její
+  náhrada. GDPR=false musí výslovně oznámit CMP, ne náš odhad podle země.
+- Neznámá/nedostupná data a odmítnutí nepovolí adBreak. Načítání má pojistku,
+  ale čas, který uživatel skutečně tráví v otevřené zprávě, se neomezuje.
+- Výběr se neukládá do vlastního localStorage jako napodobenina TC stringu.
+  Změna/odvolání jde přes podporované showRevocationMessage v callbackQueue.
+- Ovládání v nastavení hry a patičce welcome/privacy/contact, EN/CZ.
+  Google tag se načítá pouze při požadavku na reklamu nebo otevření voleb,
+  stále v povinném H5 test mode; veřejná hra zůstává v simulaci.
+- Hra je během CMP inertní, nativní dialogy a zvuk se bezpečně obnoví.
+  Informační stránky nepouštějí herní audio ani analytiku.
+- Odmítnutí zachová hru a nevytvoří bonus; pozdější změna nepřepisuje postup.
+  Změna během připraveného placementu jej zneplatní. Nedostupná Google zpráva
+  vede k vysvětlení a návratu, ne k automatickému souhlasu.
+
+K dokončení na skutečném účtu:
+1. Po nasazení otevřít AdSense → Ochrana soukromí a zprávy → Evropské předpisy
+   a publikovat uložený koncept pro playbeyondthesignal.com. EN/CZ,
+   Nesouhlasím zapnuté, platná privacy URL a Google v používaných reklamních
+   poskytovatelích. Nezapínat kvůli tomu automatické reklamní plochy.
+2. V novém anonymním okně otevřít game a Nastavení → Změnit reklamní souhlasy.
+   Totéž ověřit na hlavním webu přes tlačítko v patičce.
+3. Pro náhled lze použít ?ads_test=google&fc=alwaysshow&fctype=gdpr;
+   Google vyžaduje publikovanou zprávu i pro tento debug náhled.
+4. Ověřit skutečné přijetí/odmítnutí, opětovné otevření a povolení po změně.
+   Dokud to neproběhne, bod3 není označen za kompletně ověřený na Googlu.
+   Při problému ověřit stav účtu/zprávy/subdomény/poskytovatelů a blokátor.
+
+Ostrý režim stále blokovaný. Tato integrace řeší reklamní TCF volby,
+nikoli samostatný právní základ nebo souhlas pro vlastní Supabase statistiky.
+Retence a vlastní analytika zůstávají explicitní úkol před ostrou reklamou.
+
+Oficiální zdroje ověřené2026-10-18:
+- https://developers.google.com/funding-choices/fc-api-docs
+- https://support.google.com/adsense/answer/10959060
+- https://support.google.com/adsense/answer/9999955?hl=en
+
 ## Aktuální pokračování: testovací H5 adaptér
 
 Uživatel potvrdil uložení konceptu evropské CMP zprávy a snímkem doložil
@@ -116,3 +163,5 @@ Zdroje ověřené 2026-10-18:
 Na podnět uživatele po blokování Brave Shields UI rozlišuje selhání načtení SDK (možné štíty/blokátor/ochrana/připojení, povolení reklam výslovně dobrovolné), offline signál prohlížeče, noAdPreloaded, frequencyCapped a timeout. SDK chybu nevydává za prokázaný blokátor. Neznámý důvod je výslovně neurčený. EN/CZ vždy uvádí nepřidělenou odměnu a zachovanou hru, žádná výzva k nebezpečnému reloadu rozehraného pokusu. Pravidla bonusů a výchozí simulace se nemění.
 
 Ověření této úpravy: build/diff-check a6cílených prohlížečových kontrol Chromium/WebKit (EN blocked/no-fill, české vysvětlení320×568 bez scrollu a funkční návrat). Google dialog má kompaktní mezery a14px text, aby vysvětlení neodsunulo hlavní akci.
+
+Ověření bodu3 před nasazením:231unit testů, build,24CMP/odměnových browser scénářů a8settingsa11y Chromium/WebKit prošlo. Veškeré přijetí/odmítnutí/změny v těchto browser kontrolách používají řízené Google mocky; nenahrazují živou kontrolu po publikaci skutečné zprávy. SDK/network chyby i nefunkční TCF mají unit pojistky. Přístupný vstup má44px a statické stránky žádné herní audio.

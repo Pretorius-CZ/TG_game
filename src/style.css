@@ -68,6 +68,8 @@
 .account-panel {position:absolute;right:0;top:40px;width:min(320px,80vw);padding:20px;background:#10232f;border:1px solid #527381;border-radius:16px;box-shadow:0 15px 60px #000;color:#e5efed;line-height:1.5}
 .account-panel h2 {font-size:22px}.account-panel button {margin:6px 0}.account-panel p {overflow-wrap:anywhere}
 .account-panel .account-close{min-height:44px;padding:10px 16px;border:1px solid #8baab9;border-radius:8px;background:#213747;color:#f1f7fa}
+.account-panel .ad-choices-control button{width:100%;min-height:44px;padding:10px;border:1px solid #678d97;border-radius:7px;background:#173b45;color:#e6f1ef;text-align:left}
+.account-panel .ad-choices-control p{font-size:13px;line-height:1.5}
 .departure-invite{margin:16px 0;padding:24px;border:1px solid #5c797e;border-radius:20px;background:linear-gradient(135deg,#173743,#0d1925)}
 .departure-invite h2{font-size:26px}.departure-invite p{line-height:1.6;color:#cee0df}.departure-invite button{margin:8px 8px 0 0}
 .departure-dialog{padding:0;width:min(100vw,520px);max-width:100vw;height:min(100dvh,924px);max-height:100dvh;border:1px solid #45616d;border-radius:18px;overflow:hidden;background:#06121d;color:#edf8f7}

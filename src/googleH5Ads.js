@@ -1,7 +1,7 @@
 export const GOOGLE_AD_CLIENT='ca-pub-4627613906098117';
 let loading;
 // Only the Google mock-ad API is exposed here. No caller can remove test mode.
-export function loadGoogleTestAds(win=window,doc=document){
+export function loadGoogleTestTag(win=window,doc=document){
  if(loading)return loading;
  loading=new Promise((resolve,reject)=>{
   if(doc.querySelector('script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]')){reject(Error('Unexpected advertising script'));return;}
@@ -9,17 +9,25 @@ export function loadGoogleTestAds(win=window,doc=document){
   const push=value=>win.adsbygoogle.push(value);
   win.adBreak=win.adConfig=push;
   let settled=false;
+  let readyResolve;const ready=new Promise(done=>{readyResolve=done;});
   const timer=setTimeout(()=>fail(),15000);
-  function fail(){if(settled)return;settled=true;clearTimeout(timer);reject(Error('Ad service unavailable'));}
+  function fail(){if(settled)return;settled=true;clearTimeout(timer);const error=Error('Ad service unavailable');error.code='ad-tag-unavailable';reject(error);}
   const script=doc.createElement('script');script.async=true;script.crossOrigin='anonymous';
   script.dataset.adbreakTest='on';script.dataset.adFrequencyHint='30s';
   script.src=`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${GOOGLE_AD_CLIENT}`;
   script.onerror=fail;
-  push({preloadAdBreaks:'on',sound:'off',onReady:()=>{if(settled)return;settled=true;clearTimeout(timer);resolve(push);}});
+  script.onload=()=>{if(settled)return;settled=true;clearTimeout(timer);resolve({ready,adBreak:push});};
+  push({preloadAdBreaks:'on',sound:'off',onReady:()=>readyResolve(push)});
   doc.head.append(script);
  });
  // A failed loader is intentionally not retried into the same partly loaded SDK.
  return loading;
+}
+export async function loadGoogleTestAds(win=window,doc=document){
+ const {ready}=await loadGoogleTestTag(win,doc);
+ let timer;
+ try{return await Promise.race([ready,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Ad service unavailable')),15000);})]);}
+ finally{clearTimeout(timer);}
 }
 
 // A placement owns its callbacks; late callbacks can never reward a cancelled request.

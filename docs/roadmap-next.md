@@ -359,3 +359,21 @@ různých desek. [Návrh a ověření](return-corridor.md).
 Před nasazením: osobní odehrání a ladění, SQL029, ověření cloudového přenosu.
 Případné přistání/setkání je další návrh, ne hotový obsah. Produkční web ani
 probíhající Bounty test se tímto prototypem nemění.
+
+## 2026-10-18 — Nápad k dopracování: malé dobrovolné nákupy
+
+Uživatel navrhl možnost koupit si za nízkou částku balíček nebo booster,
+například přes Google Play, jako alternativu při nedostupnosti reklam.
+Jde o námět k návrhu, nikoli schválení implementace obchodu či plateb.
+
+K dopracování:
+- Obsah malých balíčků: konkrétní pomůcky, případně energie; složení,
+  množství, ceny a limity zatím nejsou schválené.
+- Prověřit Google Play pro budoucí Android distribuci a zvlášť platební
+  možnosti pro samostatný web. Nezaměňovat přihlášení přes Google s platbou.
+- Dobrovolná alternativa k reklamě a čekání; zachovat zvládnutelnost hry
+  bez nákupů, neměnit skrytě obtížnost podle útraty.
+- Před realizací navrhnout cloudový inventář, serverové ověřování nákupů,
+  jednorázové připsání, přenos zařízení, chybové stavy a vratky.
+  Dosavadní místní zásoby pomůcek nejsou hotový základ placeného inventáře.
+- Nezavádí se tím měna ani obchod; nic se nyní neimplementuje.

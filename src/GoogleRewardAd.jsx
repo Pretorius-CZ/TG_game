@@ -2,6 +2,8 @@ import React,{useEffect,useRef,useState} from 'react';
 import {useLanguage} from './i18n/Language.jsx';
 import {pauseForAd} from './audio.js';
 import {createRewardedPlacement,loadGoogleTestAds,suspendGameDialogs} from './googleH5Ads.js';
+import {getAdConsent,consentAllowsAds} from './adConsent.js';
+import {showAdConsent} from './consentUI.js';
 
 export default function GoogleRewardAd({offer,close}){
  const {language}=useLanguage(),cs=language==='cs',dialog=useRef(null),placement=useRef(null),alive=useRef(true),claiming=useRef(false),verified=useRef(false);
@@ -16,8 +18,13 @@ export default function GoogleRewardAd({offer,close}){
   alive.current=true;const opener=document.activeElement;
   dialog.current.showModal();dialog.current.querySelector('button:not(:disabled)')?.focus();
   let resume;
-  if(offer.mode==='test')loadGoogleTestAds().then(adBreak=>{
+  const unsubscribe=getAdConsent().subscribe(()=>{if(!consentAllowsAds(getAdConsent().getStatus()))placement.current?.cancel();});
+  if(offer.mode==='test')showAdConsent(false,{pause:pauseForAd}).then(async status=>{
    if(!alive.current)return;
+   if(!consentAllowsAds(status)){setIssue(navigator.onLine===false?'offline':getAdConsent().getFailure()==='load'?'load':status==='denied'?'consent-denied':'consent-unavailable');setPhase('unavailable');return;}
+   const adBreak=await loadGoogleTestAds();
+   if(!alive.current)return;
+   if(!consentAllowsAds(getAdConsent().getStatus())){setIssue('consent-denied');setPhase('unavailable');return;}
    placement.current=createRewardedPlacement({adBreak,onReady:fn=>{setShow(()=>fn);setPhase('ready');},
     onPause:()=>{resume=suspendGameDialogs();pauseForAd(true);},
     onResume:()=>{resume?.();resume=null;pauseForAd(false);}
@@ -25,10 +32,10 @@ export default function GoogleRewardAd({offer,close}){
    placement.current.result.then(result=>{
     if(!alive.current)return;
     if(result.viewed){verified.current=true;void claim();}
-    else {setIssue(navigator.onLine===false?'offline':result.status);setPhase(result.status==='dismissed'?'dismissed':'unavailable');}
+    else {const consent=getAdConsent().getStatus();setIssue(navigator.onLine===false?'offline':!consentAllowsAds(consent)?consent==='denied'?'consent-denied':'consent-unavailable':result.status);setPhase(result.status==='dismissed'?'dismissed':'unavailable');}
    });
   }).catch(()=>{if(alive.current){setIssue(navigator.onLine===false?'offline':'load');setPhase('unavailable');}});
-  return()=>{alive.current=false;placement.current?.cancel();resume?.();pauseForAd(false);if(opener?.isConnected)opener.focus();};
+  return()=>{alive.current=false;unsubscribe();placement.current?.cancel();resume?.();pauseForAd(false);if(opener?.isConnected)opener.focus();};
  },[]);
  const messages=cs?{
   loading:'Připravuji testovací reklamu…',ready:'Je připravená testovací reklama Googlu. Nevytváří reklamní výnos.',
@@ -38,6 +45,8 @@ export default function GoogleRewardAd({offer,close}){
   showing:'Test ad in progress…',unavailable:'No ad is available right now. Nothing was spent and your game is preserved.',
   dismissed:'The ad was not completed. No reward was granted.',claiming:'Saving your reward…','claim-error':'Your reward could not be saved. Retry saving without watching another ad.'};
  const problems=cs?{
+  'consent-denied':['Reklamu nespustíme podle tvých voleb soukromí.','Bez reklam můžeš dál hrát. Volbu můžeš změnit v Nastavení → Změnit reklamní souhlasy.'],
+  'consent-unavailable':['Reklamní souhlasy se nepodařilo ověřit.','Google zpráva možná ještě není zveřejněná, nebo ji blokuje prohlížeč či připojení. Reklamu bez ověřené volby nespustíme.'],
   load:['Reklamní službu se nepodařilo načíst.','Příčinou mohou být štíty Brave, blokátor reklam, ochrana soukromí nebo problém s připojením. Pokud chceš reklamu zhlédnout, můžeš pro tento web povolit reklamy. Je to dobrovolné.'],
   offline:['Prohlížeč hlásí, že jsi offline.','Zkontroluj připojení a nabídku zkus znovu později.'],
   noAdPreloaded:['Poskytovatel teď nemá připravenou reklamu.','Zkus nabídku později. V testovacím režimu se dostupná a nedostupná reklama záměrně střídají.'],
@@ -45,6 +54,8 @@ export default function GoogleRewardAd({offer,close}){
   timeout:['Načítání reklamy trvalo příliš dlouho.','Zkontroluj připojení. Reklamu mohou omezovat také ochranné funkce prohlížeče.'],
   disabled:['Reklamy jsou nyní vypnuté.','Ve hře můžeš pokračovat bez reklamy.']
  }:{
+  'consent-denied':['Your privacy choices do not allow us to start this ad.','You can keep playing without ads. To change your choice, open Settings → Advertising privacy choices.'],
+  'consent-unavailable':['Advertising consent could not be verified.','The Google message may not be published yet, or your browser or connection may be blocking it. We will not start an ad without a verified choice.'],
   load:['The ad service could not load.','Brave Shields, an ad blocker, privacy protection or a connection problem may be responsible. If you want to watch an ad, you can allow ads for this site. This is optional.'],
   offline:['Your browser reports that you are offline.','Check your connection and try the offer again later.'],
   noAdPreloaded:['No ad is available right now.','Try the offer later. Test mode intentionally alternates between available and unavailable ads.'],
