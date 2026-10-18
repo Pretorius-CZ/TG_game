@@ -1,0 +1,10 @@
+[hidden]{display:none!important}
+.legal{max-width:860px;padding-block:44px 70px}
+.legal h1{font-size:clamp(36px,6vw,54px);letter-spacing:-1px}
+.legal h2{font-size:26px;margin:32px 0 12px}
+.legal p,.legal li{font-size:16px;line-height:1.8;color:#bbc9d1;overflow-wrap:anywhere}
+.legal a{color:#8ed6d4;text-decoration:underline;text-underline-offset:4px}
+.legal .button{color:#111c25;text-decoration:none;margin-top:18px}
+.legal .updated{font-size:13px;color:#8fa2b4}
+.legal .notice{padding:16px 20px;border-left:3px solid #e8be82;background:#142633}
+.legal ul{padding-left:24px}

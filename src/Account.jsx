@@ -61,6 +61,7 @@ export function AccountButton({onImport,onRestart}){
  <button className="primary" disabled={busy} onClick={user?logout:login}>{t(user?'Sign out':'Continue with Google')}</button>
  {t(error&&<p role="alert">{t(error)}</p>)}</>}
 
+ {!guestOnly&&import.meta.env.MODE!=='telegram'&&<p><a href="./privacy.html" target="_blank" rel="noopener">{language==='cs'?'Ochrana soukromí':'Privacy'}</a>{' · '}<a href="./contact.html" target="_blank" rel="noopener">{language==='cs'?'Kontakt':'Contact'}</a></p>}
  <button className="keep-playing account-close" disabled={busy} onClick={close}>{t("Close")}</button>
  </section>)}</div>;
 }

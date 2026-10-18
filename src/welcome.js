@@ -11,6 +11,7 @@ const key='to-the-stars-language';
 const cs={
  skip:'Přejít k obsahu',playShort:'Hrát ↗',genre:'SCI-FI DOBRODRUŽSTVÍ SE SPOJOVÁNÍM KAMENŮ',
  navLabel:'Hlavní navigace',navAbout:'O hře',navUpdates:'Novinky',navGuides:'Jak hrát',
+ contact:'Kontakt',privacy:'Ochrana soukromí',
  contentNote:'187 levelů · Příběh, průzkum a opravy · Česky / anglicky',
  guidesLabel:'TVŮJ LETOVÝ MANUÁL',guidesTitle:'Malá pomoc na cestu.',
  guideMatchTitle:'01 / První hlavolam',
