@@ -1,0 +1,158 @@
+[
+  {
+    "policy": "fair-v4-with-resonators",
+    "name": "Cool the beacon shelter",
+    "id": "signal-solar-cooling",
+    "moves": 24,
+    "samples": 100,
+    "targeted": {
+      "wins": 75,
+      "winPercent": 75,
+      "meanMovesLeftOnWin": 5.3
+    }
+  },
+  {
+    "policy": "fair-v4-with-resonators",
+    "name": "Separate the beacon circuits",
+    "id": "signal-solar-power",
+    "moves": 22,
+    "samples": 100,
+    "targeted": {
+      "wins": 85,
+      "winPercent": 85,
+      "meanMovesLeftOnWin": 4.8
+    }
+  },
+  {
+    "policy": "fair-v4-with-resonators",
+    "name": "Confirm the first safe link",
+    "id": "signal-solar-bearing",
+    "moves": 25,
+    "samples": 100,
+    "targeted": {
+      "wins": 85,
+      "winPercent": 85,
+      "meanMovesLeftOnWin": 5.2
+    }
+  },
+  {
+    "policy": "fair-v4-with-resonators",
+    "name": "Track the drifting antenna",
+    "id": "signal-orbit-alignment",
+    "moves": 25,
+    "samples": 100,
+    "targeted": {
+      "wins": 79,
+      "winPercent": 79,
+      "meanMovesLeftOnWin": 5.2
+    }
+  },
+  {
+    "policy": "fair-v4-with-resonators",
+    "name": "Preserve the original distress call",
+    "id": "signal-orbit-buffer",
+    "moves": 25,
+    "samples": 100,
+    "targeted": {
+      "wins": 79,
+      "winPercent": 79,
+      "meanMovesLeftOnWin": 5.9
+    }
+  },
+  {
+    "policy": "fair-v4-with-resonators",
+    "name": "Stop the stale message loop",
+    "id": "signal-orbit-clock",
+    "moves": 29,
+    "samples": 100,
+    "targeted": {
+      "wins": 76,
+      "winPercent": 76,
+      "meanMovesLeftOnWin": 7.8
+    }
+  },
+  {
+    "policy": "fair-v4-with-resonators",
+    "name": "Reconnect the garden receiver",
+    "id": "signal-garden-receiver",
+    "moves": 25,
+    "samples": 100,
+    "targeted": {
+      "wins": 79,
+      "winPercent": 79,
+      "meanMovesLeftOnWin": 5.9
+    }
+  },
+  {
+    "policy": "fair-v4-with-resonators",
+    "name": "Align the return channel",
+    "id": "signal-garden-prism",
+    "moves": 25,
+    "samples": 100,
+    "targeted": {
+      "wins": 83,
+      "winPercent": 83,
+      "meanMovesLeftOnWin": 4.9
+    }
+  },
+  {
+    "policy": "fair-v4-with-resonators",
+    "name": "Hand over the verified route",
+    "id": "signal-garden-handover",
+    "moves": 29,
+    "samples": 100,
+    "targeted": {
+      "wins": 68,
+      "winPercent": 68,
+      "meanMovesLeftOnWin": 6.3
+    }
+  },
+  {
+    "policy": "fair-v4-with-resonators",
+    "name": "Open the receiving hall",
+    "id": "signal-station-arrival",
+    "moves": 23,
+    "samples": 100,
+    "targeted": {
+      "wins": 94,
+      "winPercent": 94,
+      "meanMovesLeftOnWin": 5.1
+    }
+  },
+  {
+    "policy": "fair-v4-with-resonators",
+    "name": "Restore the station receiver",
+    "id": "signal-station-receiver",
+    "moves": 28,
+    "samples": 100,
+    "targeted": {
+      "wins": 66,
+      "winPercent": 66,
+      "meanMovesLeftOnWin": 5.7
+    }
+  },
+  {
+    "policy": "fair-v4-with-resonators",
+    "name": "Verify the crew’s return report",
+    "id": "signal-station-verification",
+    "moves": 30,
+    "samples": 100,
+    "targeted": {
+      "wins": 76,
+      "winPercent": 76,
+      "meanMovesLeftOnWin": 7.5
+    }
+  },
+  {
+    "policy": "fair-v4-with-resonators",
+    "name": "Deliver the answer · 200",
+    "id": "signal-station-answer",
+    "moves": 26,
+    "samples": 100,
+    "targeted": {
+      "wins": 94,
+      "winPercent": 94,
+      "meanMovesLeftOnWin": 5.7
+    }
+  }
+]

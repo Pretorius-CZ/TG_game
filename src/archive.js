@@ -242,7 +242,7 @@ export const archiveDestinations=Object.fromEntries(sections.map(([scene,key,en,
  return [scene,{title,key,system:section?sections[section-1][0]:'refuge-arrival',chapter:text('CHAPTER 09 / ARCHIVE OF ECHOES','KAPITOLA 09 / ARCHIV OZVĚN'),hotspotOffset:0,image:scene,art:'archive',repairs,clips:[],
   logs:rows.map((r,i)=>({id:repairs[i].id+'-log',repair:repairs[i].id,title:repairs[i].name,source:text('Archive investigation log','Deník průzkumu archivu'),time:title,unlockAt:168+section*5+i,text:text(r[5],r[6])})),
   complete:section===3?text('The crew’s return is recorded. Three beacon links remain to be restored.','Návrat posádky je zaznamenaný. Zbývá obnovit tři spojení majáků.'):text('Records verified. The next archive section is accessible.','Záznamy jsou ověřené. Další oblast archivu je přístupná.'),
-  ...(section<3?{nextScene:sections[section+1][0],nextLabel:text('Continue to '+sections[section+1][2].toLowerCase()+' →','Pokračovat: '+sections[section+1][3]+' →')}:{nextLabel:text('Return to the simulation chamber →','Zpět do simulační komory →')})}];
+  ...(section<3?{nextScene:sections[section+1][0],nextLabel:text('Continue to '+sections[section+1][2].toLowerCase()+' →','Pokračovat: '+sections[section+1][3]+' →')}:{nextScene:'signal-solar',nextLabel:text('Continue to the solar beacon →','Pokračovat ke slunečnímu majáku →')})}];
 }));
 export const archiveScenes=Object.keys(archiveDestinations);
 export function canVisitArchive(p,scene){

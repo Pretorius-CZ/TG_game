@@ -27,12 +27,12 @@ test('archive follows the rescued crew; its four areas persist and cannot be ski
  for(const s of Object.values(sites))assert.equal(mergeProgress(before,p)[s.key],5);
  assert.equal(mergeProgress(p,normalizeProgress({resetRevision:1})).archiveCoreCompleted,0);
  const invalid=normalizeProgress({...p,refugeArrivalCompleted:5});for(const s of Object.values(sites))assert.equal(invalid[s.key],0);
- const chapter=chaptersFor(p).at(-1);assert.equal(chapter.number,9);assert.equal(chapter.total,20);assert.equal(chapter.done,20);
- assert.deepEqual(levelCatalog.slice(167).map(r=>r.number),Array.from({length:20},(_,i)=>168+i));
+ const chapter=chaptersFor(p).find(c=>c.id==='archive');assert.equal(chapter.number,9);assert.equal(chapter.total,20);assert.equal(chapter.done,20);
+ assert.deepEqual(levelCatalog.slice(167,187).map(r=>r.number),Array.from({length:20},(_,i)=>168+i));
  for(const s of Object.values(sites))for(const r of s.repairs)assert.equal(p.stars[r.id],1);
 });
 test('chapter regrouping preserves catalog order and gates within the living map',()=>{
- const p=arrived(),rows=chaptersFor(p);assert.deepEqual(rows.map(c=>c.total),[29,24,16,24,12,15,20,27,20]);
+ const p=arrived(),rows=chaptersFor(p);assert.deepEqual(rows.map(c=>c.total),[29,24,16,24,12,15,20,27,20,13]);
  const living=rows.find(c=>c.id==='ring');assert.equal(chapterSectionOpen({...p,riftCrossed:0},living,'elysium-research'),false);
  // Catalog after the approved 2026-10-17 refuge rebalance: IDs, order,
  // names and sizes preserved; nineteen move budgets intentionally changed.

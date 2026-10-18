@@ -22,13 +22,13 @@ test('best rating survives both merge orders and reset defeats old ratings',()=>
  assert.equal(mergeProgress(old,best).stars['airlock-power'],3);
  assert.deepEqual(mergeProgress(best,normalizeProgress({resetRevision:1})).stars,{});
 });
-test('all 187 completed levels receive stars, including launch and approach',()=>{
+test('all 200 completed levels receive stars, including launch and approach',()=>{
  const raw=Object.fromEntries(Object.keys(normalizeProgress()).filter(k=>k.endsWith('Completed')||k==='completed').map(k=>[k,6]));
  const p=normalizeProgress({...raw,elysiumRouteCompleted:1,elysiumArrival:1,riftCrossed:1,caretakerMet:1,finaleDone:true,launchDone:true,scannerInstalled:true,jumpDone:true});
- assert.equal(Object.keys(p.stars).length,187);
+ assert.equal(Object.keys(p.stars).length,200);
  assert.deepEqual(new Set(completedLevelIds(p)),new Set(levelCatalog.map(r=>r.id)));
  assert.ok(Object.values(p.stars).every(n=>n===1));
- const sql=readFileSync(new URL('../supabase/031_archive_echoes.sql',import.meta.url),'utf8');
+ const sql=readFileSync(new URL('../supabase/034_signal_answer.sql',import.meta.url),'utf8');
  for(const r of levelCatalog)assert.ok(sql.includes("('"+r.id+"','"));
  assert.ok(sql.includes("'stars','{}'::jsonb"));
 });

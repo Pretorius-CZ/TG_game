@@ -377,3 +377,9 @@ K dopracování:
   jednorázové připsání, přenos zařízení, chybové stavy a vratky.
   Dosavadní místní zásoby pomůcek nejsou hotový základ placeného inventáře.
 - Nezavádí se tím měna ani obchod; nic se nyní neimplementuje.
+
+## 2026-10-18 — Připravené završení na levelu200
+
+Uživatel schválil mezník200. Kapitola Odpověď188–200 je místně implementovaná: tři spojení majáků3+3+3 a hlavní stanice4, potvrzený návrat a uzavření nouzového volání. Nové scény, deník, příběhové předěly a ukládání. Před nasazením uživatel spustí SQL034; produkce zatím zůstává187. Podrobnosti signal-answer-200.md.
+
+2026-10-18 — Uživatel potvrdil nasazení SQL034 a výslovně zadal push. Předchozí poznámky o čekání na SQL již neplatí. Připravuje se zveřejnění levelů188–200 na obou doménách; živý přenos nového postupu mezi účty/zařízeními zatím nebyl samostatně ověřen.

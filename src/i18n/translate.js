@@ -1,3 +1,4 @@
+import {signalTranslations} from '../signalNetwork.js';
 import {returnCorridorTranslations} from '../returnCorridor.js';
 import {refugeMedicalTranslations} from '../refugeMedical.js';
 import {refugeHomesTranslations} from '../refugeHomes.js';
@@ -22,7 +23,7 @@ import baseCatalog from './cs.json' with {type:'json'};
 import {refugeArrivalTranslations} from '../refugeArrival.js';
 import {archiveTranslations} from '../archive.js';
 import {journeyStoryTranslations} from '../journeyStories.js';
-const catalog={...journeyStoryTranslations,...archiveTranslations,...refugeArrivalTranslations,...baseCatalog,...echoDepartureTranslations,...researchStoryTranslations,...relayStoryTranslations,...riftStoryTranslations,...asterJumpTranslations,...departureStoryTranslations,...elysiumArrivalTranslations,...riftTranslations,...gardenTranslations,...researchTranslations,...relayTranslations,...nightTranslations,...groveTranslations,...rootTranslations,...sanctuaryTranslations,...caretakerTranslations,...refugeTranslations,...refugeHomesTranslations,...refugeMedicalTranslations,...returnCorridorTranslations};
+const catalog={...signalTranslations,...journeyStoryTranslations,...archiveTranslations,...refugeArrivalTranslations,...baseCatalog,...echoDepartureTranslations,...researchStoryTranslations,...relayStoryTranslations,...riftStoryTranslations,...asterJumpTranslations,...departureStoryTranslations,...elysiumArrivalTranslations,...riftTranslations,...gardenTranslations,...researchTranslations,...relayTranslations,...nightTranslations,...groveTranslations,...rootTranslations,...sanctuaryTranslations,...caretakerTranslations,...refugeTranslations,...refugeHomesTranslations,...refugeMedicalTranslations,...returnCorridorTranslations};
 export const LANGUAGE_KEY='to-the-stars-language';
 export const validLanguage=value=>value==='cs'?'cs':'en';
 catalog['CHAPTER 07 / THE NIGHT GARDEN']='KAPITOLA 07 / NOČNÍ ZAHRADA';

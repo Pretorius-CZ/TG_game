@@ -1,3 +1,4 @@
+import {signalScenes,canVisitSignal} from './signalNetwork.js';
 import {archiveScenes,canVisitArchive} from './archive.js';
 import {elysiumLaterDestinations} from './elysiumLater.js';
 import {asterComplete} from './aster.js';
@@ -701,12 +702,13 @@ export const elysiumArrivalLog={
   "unlockAt": 72,
   "text": "Our ship is a speck beside the dock. Six great sectors surround a silent ring. A single beacon welcomes us. Haven, we have reached Elysium."
 };
-export const elysiumScenes=[...archiveScenes,'refuge-arrival','return-corridor','elysium','elysium-research','fading-relay','night-glade','night-grove','night-root','night-sanctuary','refuge-dock','refuge-homes','refuge-medical',...Object.keys(elysiumDestinations)];
+export const elysiumScenes=[...signalScenes,...archiveScenes,'refuge-arrival','return-corridor','elysium','elysium-research','fading-relay','night-glade','night-grove','night-root','night-sanctuary','refuge-dock','refuge-homes','refuge-medical',...Object.keys(elysiumDestinations)];
 export const elysiumSectorOrder=Object.keys(elysiumDestinations);
 export const elysiumComplete=p=>Object.values(elysiumDestinations).every(s=>p[s.key]===s.repairs.length);
 export function canVisitElysium(p,scene){
  if(!asterComplete(p)||p.elysiumRouteCompleted!==1||p.elysiumArrival!==1||!elysiumScenes.includes(scene))return false;
  if(scene==='elysium')return true;
+ if(signalScenes.includes(scene))return canVisitSignal(p,scene)&&canVisitElysium(p,'archive-core');
  if(archiveScenes.includes(scene))return canVisitArchive(p,scene)&&canVisitElysium(p,'refuge-arrival');
  if(scene==='refuge-arrival')return p.returnCorridorCompleted===6&&canVisitElysium(p,'return-corridor');
  if(scene==='return-corridor')return p.refugeMedicalCompleted===5&&canVisitElysium(p,'refuge-medical');

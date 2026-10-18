@@ -1,3 +1,4 @@
+import {signalScenes} from './signalNetwork.js';
 import {shipStages} from './chapterFlow.js';
 import {repairs} from './repairs.js';
 import {airlockRepairs} from './airlockRepairs.js';
@@ -37,6 +38,7 @@ export function journeyFor(p){
  if(p.caretakerMet!==1)return action('night-sanctuary','encounter','Meet the caretaker','Setkat se se správcem',purposes.night);
  for(const s of ['refuge-dock','refuge-homes','refuge-medical','return-corridor','refuge-arrival']){next=siteTask(p,s,purposes.refuge);if(next)return next;}
  for(const s of archiveScenes){next=siteTask(p,s,purposes.archive);if(next)return next;}
- return {kind:'end',scene:'archive-core',purpose:['You have completed the current story. The beacon network is coming next. You can revisit repairs and replay the story.','Dokončil jsi aktuální příběh. Obnova sítě majáků přijde v pokračování. Můžeš opakovat opravy a přehrát příběh.']};
+ for(const s of signalScenes){next=siteTask(p,s,['Restore the beacon links and deliver the crew’s answer.','Obnov spojení majáků a doruč odpověď posádky.']);if(next)return next;}
+ return {kind:'end',scene:'signal-station',purpose:['200 levels completed. The crew is home and the rescue network has acknowledged their return. You can revisit repairs and replay the story.','Dokončil jsi 200 levelů. Posádka je doma a záchranná síť potvrdila její návrat. Můžeš opakovat opravy a přehrát příběh.']};
 }
 export function destinationName(scene){return destinations[scene]?.title??({system:'Kepler Reach',system2:'Aster Veil',elysium:'Elysium',rift:'The Rift',exterior:'Exterior',airlock:'Airlock',cockpit:'Cockpit',navigation:'Communications & navigation',crew:'Crew quarters',galley:'Galley & supplies',engine:'Engine room',corridor:'Corridor'}[scene]??scene);}

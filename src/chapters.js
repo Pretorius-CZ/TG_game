@@ -13,6 +13,7 @@ const groups=[
  ['night','The night garden','Noční zahrada',['night-glade','night-grove','night-root','night-sanctuary'],'night-glade'],
  ['refuge','The Refuge','Útočiště',['refuge-dock','refuge-homes','refuge-medical','return-corridor','refuge-arrival'],'refuge-dock'],
  ['archive','Archive of echoes','Archiv ozvěn',['archive-entry','archive-data','archive-simulation','archive-core'],'archive-entry'],
+ ['signal','The answer','Odpověď',['signal-solar','signal-orbit','signal-garden','signal-station'],'signal-solar'],
 ];
 export function chaptersFor(p){return groups.map(([id,en,cs,scenes,entry],index)=>{
  const sites=scenes.map(scene=>({scene,...destinations[scene]}));
@@ -20,7 +21,7 @@ export function chaptersFor(p){return groups.map(([id,en,cs,scenes,entry],index)
  let total=sections.reduce((n,s)=>n+s.repairs.length,0),done=sections.reduce((n,s)=>n+Math.min(s.repairs.length,p[s.key]??0),0);
  if(id==='ship'){total++;done+=p.finaleDone?1:0;}
  if(id==='aster'){total++;done+=p.elysiumRouteCompleted===1?1:0;}
- const open=id==='ship'||id==='kepler'&&p.launchDone||id==='aster'&&p.jumpDone||id==='elysium'&&canVisitElysium(p,'elysium')||id==='rift'&&canVisitRift(p,'rift')||id==='ring'&&canVisitRift(p,entry)||['night','refuge','archive'].includes(id)&&canVisitElysium(p,entry);
+ const open=id==='ship'||id==='kepler'&&p.launchDone||id==='aster'&&p.jumpDone||id==='elysium'&&canVisitElysium(p,'elysium')||id==='rift'&&canVisitRift(p,'rift')||id==='ring'&&canVisitRift(p,entry)||['night','refuge','archive','signal'].includes(id)&&canVisitElysium(p,entry);
  const next=id==='ship'?chapterEntry(p):id==='kepler'&&!p.scannerInstalled?'system':id==='aster'&&done===15?'system2':sites.find(s=>(p[s.key]??0)<s.repairs.length)?.scene??entry;
  return {id,en,cs,image:id==='ship'?'exterior-portrait':sites[0]?.image,number:index+1,entry,next,sections,total,done,open:Boolean(open),partial:false};
 });}
