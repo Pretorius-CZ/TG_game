@@ -11,6 +11,6 @@ test('balance separates help, quits and faults and avoids inventing old remainin
  const s=summarizeAttempts(data,'x');assert.equal(s.attempts,3);assert.equal(s.rate,67);assert.equal(s.cleanRate,50);assert.equal(s.help,33);assert.equal(s.remaining,6);assert.equal(s.quits,1);assert.equal(s.faults,1);assert.equal(s.verdict,'Málo dat');
 });
 test('continued win updates the exhausted attempt instead of counting two attempts',()=>{
- const store=new Map();globalThis.localStorage={getItem:k=>store.get(k)??null,setItem:(k,v)=>store.set(k,v)};
- try{saveAttempt({attemptId:'a',level:'x',outcome:'exhausted',moves:12});saveAttempt({attemptId:'a',level:'x',outcome:'won',moves:14,extraMoves:true});assert.equal(readAttempts().length,1);assert.equal(summarizeAttempts(readAttempts(),'x').rate,100);}finally{delete globalThis.localStorage;}
+ const store=new Map([['beyond-signal-analytics-choice-v1',JSON.stringify({version:1,state:'granted',at:0})]]);globalThis.localStorage={getItem:k=>store.get(k)??null,setItem:(k,v)=>store.set(k,v)};
+ try{saveAttempt({at:Date.now(),attemptId:'a',level:'x',outcome:'exhausted',moves:12});saveAttempt({at:Date.now(),attemptId:'a',level:'x',outcome:'won',moves:14,extraMoves:true});assert.equal(readAttempts().length,1);assert.equal(summarizeAttempts(readAttempts(),'x').rate,100);}finally{delete globalThis.localStorage;}
 });

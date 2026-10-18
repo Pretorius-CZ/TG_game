@@ -8,9 +8,9 @@ export function countryName(code){
  if(!normalized)return 'Neznámá';
  try{return new Intl.DisplayNames(['cs'],{type:'region'}).of(normalized)||normalized;}catch{return normalized;}
 }
-export async function lookupCountry(fetcher=fetch){
+export async function lookupCountry(fetcher=fetch,signal=AbortSignal.timeout(4000)){
  try{
- const response=await fetcher('https://api.country.is/',{credentials:'omit',referrerPolicy:'no-referrer',cache:'no-store',signal:AbortSignal.timeout(4000)});
+ const response=await fetcher('https://api.country.is/',{credentials:'omit',referrerPolicy:'no-referrer',cache:'no-store',signal});
  if(!response.ok)return null;
  return normalizeCountry((await response.json()).country);
  }catch{return null;}

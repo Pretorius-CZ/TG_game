@@ -4,6 +4,7 @@ import React, {createContext, useContext, useEffect, useRef, useState} from 'rea
 import {supabase} from './supabase.js';
 import {gameAddress} from './gameAddress.js';
 import AdChoicesButton from './AdChoicesButton.jsx';
+import AnalyticsChoices from './AnalyticsChoices.jsx';
 const itch=import.meta.env.MODE==='itch';
 const guestOnly=itch||crazyGames;
 export const AccountContext = createContext(null);
@@ -53,7 +54,7 @@ export function AccountButton({onImport,onRestart}){
  <h2 ref={heading} tabIndex={-1}>{t("Game settings")}</h2><fieldset className="language-picker"><legend>{t("Language")}</legend><button type="button" aria-pressed={language==='en'} onClick={()=>setLanguage('en')}>EN · English</button><button type="button" aria-pressed={language==='cs'} onClick={()=>setLanguage('cs')}>CZ · Čeština</button></fieldset>
  {t(confirmReset?<div className="restart-confirm" role="alert"><h3>{t("Start over?")}</h3><p>{t(user?"This resets all game progress for this account on every device, including repairs, the ship log and completed chapters.":"This resets all guest progress in this browser, including repairs, the ship log and completed chapters.")}{t(" You will start with 5 energy charges here. This cannot be undone.")}</p><button disabled={busy} onClick={restart}>{t("Yes, restart game")}</button><button disabled={busy} onClick={()=>setConfirmReset(false)}>{t("Cancel")}</button></div>:<button className="restart-game-button" disabled={busy} onClick={()=>setConfirmReset(true)}>{t("Restart entire game")}</button>)}
  {!guestOnly&&<a className="balance-report-link" href="./balance.html" target="_blank" rel="noopener">{language==='cs'?'Přehled testování obtížnosti':'Difficulty testing report'}</a>}
- {!crazyGames&&<p>{language==='cs'?'Pro ladění obtížnosti odesíláme výsledky her pod náhodným ID prohlížeče, bez jména a e-mailu.':'To tune difficulty, we send gameplay results under a random browser ID, without your name or email.'}</p>}
+ {!crazyGames&&<AnalyticsChoices/>}
  {crazyGames?<p>{language==='cs'?'Postup se ukládá automaticky.':'Progress is saved automatically.'}</p>:itch?<p>{language==='cs'?'Verze itch.io ukládá postup v tomto prohlížeči. Google přihlášení je dostupné na našem webu.':'The itch.io edition saves progress in this browser. Google sign-in is available on our website.'} <a href="https://playbeyondthesignal.com/" target="_blank" rel="noopener">playbeyondthesignal.com</a></p>:<><h3>{t("Account & cloud save")}</h3>
  <p>{t(user?user.email:'Sign in with Google to save repairs and your ship log across devices. Guest progress stays on this device.')}</p>
  <p>{t("Energy is saved only in this browser. Unfinished puzzles are not saved.")}</p>{t(user&&<button disabled={busy} onClick={importGuest}>{t("Import guest progress from this device")}</button>)}

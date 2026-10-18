@@ -1,3 +1,4 @@
+import {analyticsAllowed,analyticsSince,analyticsSignal,analyticsRetentionMs,analyticsEpoch} from './analyticsPrivacy.js';
 import {supabase} from './supabase.js';
 import {reporterIdentity} from './balanceOutbox.js';
 import {campaignFromURL,visitForActivity,deviceCategory,mergeVisitAttempts,migrationCampaign} from './campaignPolicy.js';
@@ -16,13 +17,15 @@ function persist(){try{
 }catch{}}
 function initializeVisit(){
  const now=Date.now(),campaign=migrationCampaign(campaignFromURL(location.href),read('beyond-signal-migrated-traffic-v1',null)),previous=read(visitKey,null);
- const candidate=previous&&active&&previous.id===active.id&&previous.lastAt>active.lastAt?previous:active||previous;
+ const validPrevious=previous?.lastAt>=analyticsSince()?previous:null;
+ const candidate=validPrevious&&active&&validPrevious.id===active.id&&validPrevious.lastAt>active.lastAt?validPrevious:active||validPrevious;
  const chosen=visitForActivity(candidate,campaign,now,()=>crypto.randomUUID(),deviceCategory(navigator));
  if(active?.id!==chosen.id)lastCountryLookup=0;
  // Retain the object while a geolocation request is in flight.
  if(active?.id===chosen.id)Object.assign(active,chosen);else active=chosen;
 }
 export function trackCampaignAttempt(id,level,outcome='started'){
+ if(!analyticsAllowed())return;
  const earlier=active?.attempts?.[id];
  initializeVisit();
  const previous=active.attempts[id]||earlier,now=Date.now();
@@ -30,30 +33,35 @@ export function trackCampaignAttempt(id,level,outcome='started'){
  persist();flushCampaign();
 }
 export async function flushCampaign(){
- if(running||navigator.onLine===false)return;
- const identity=reporterIdentity();if(!identity)return;running=true;let sentSuccessfully=false;
- try{for(const visit of Object.values(read(queueKey,{}))){
- const {error}=await supabase.rpc('record_campaign_visit',{reporter_id:identity.id,reporter_token:identity.token,incoming:visit}).abortSignal(AbortSignal.timeout(8000));if(error)throw error;
+ if(!analyticsAllowed()||running||navigator.onLine===false)return;
+ const identity=reporterIdentity();if(!identity)return;running=true;const epoch=analyticsEpoch();let sentSuccessfully=false;
+ try{
+ const eligible=Object.fromEntries(Object.entries(read(queueKey,{})).filter(([,visit])=>visit.lastAt>=Math.max(analyticsSince(),Date.now()-analyticsRetentionMs)));
+ localStorage.setItem(queueKey,JSON.stringify(eligible));
+ for(const visit of Object.values(eligible)){
+ if(!analyticsAllowed()||epoch!==analyticsEpoch())return;
+ const {error}=await supabase.rpc('record_campaign_visit',{reporter_id:identity.id,reporter_token:identity.token,incoming:visit}).abortSignal(analyticsSignal());if(error)throw error;
+ if(epoch!==analyticsEpoch())return;
  const queue=read(queueKey,{});if(queue[visit.id]?.revision===visit.revision){delete queue[visit.id];localStorage.setItem(queueKey,JSON.stringify(queue));}
- }sentSuccessfully=true;status({sendError:'',sentAt:Date.now()});}catch(error){status({sendError:error?.message||'Odeslání návštěvy selhalo.'});}finally{
+ }sentSuccessfully=true;status({sendError:'',sentAt:Date.now()});}catch(error){if(epoch===analyticsEpoch())status({sendError:error?.message||'Odeslání návštěvy selhalo.'});}finally{
  running=false;
  // A result arriving during an in-flight start must be sent without waiting 30 seconds.
- if(sentSuccessfully&&Object.keys(read(queueKey,{})).length)queueMicrotask(flushCampaign);
+ if(analyticsAllowed()&&epoch===analyticsEpoch()&&sentSuccessfully&&Object.keys(read(queueKey,{})).length)queueMicrotask(flushCampaign);
  }
 }
 function resolveCountry(){
- if(import.meta.env.MODE==='itch'||normalizeCountry(active?.country)||countryLookup||Date.now()-lastCountryLookup<60000)return;
+ if(!analyticsAllowed()||import.meta.env.MODE==='itch'||normalizeCountry(active?.country)||countryLookup||Date.now()-lastCountryLookup<60000)return;
  const visit=active;lastCountryLookup=Date.now();status({countryState:'loading'});
- countryLookup=lookupCountry().then(country=>{
+ countryLookup=lookupCountry(undefined,analyticsSignal()).then(country=>{
+ if(!analyticsAllowed())return;
  status({countryState:country?'known':'unavailable',countryCheckedAt:Date.now()});
  if(country&&active===visit){active.country=country;persist();flushCampaign();}
  }).finally(()=>{countryLookup=null;});
 }
 export function startCampaignTracking(){
- initializeVisit();active.lastAt=Date.now();persist();flushCampaign();
- resolveCountry();
- const refresh=()=>{if(!document.hidden){initializeVisit();active.lastAt=Date.now();persist();flushCampaign();resolveCountry();}};
+ const refresh=()=>{if(analyticsAllowed()&&!document.hidden){initializeVisit();active.lastAt=Date.now();persist();flushCampaign();resolveCountry();}};
+ const changed=()=>{active=null;lastCountryLookup=0;refresh();};window.addEventListener('analytics-choice-changed',changed);refresh();
  const timer=setInterval(refresh,30000);window.addEventListener('online',refresh);document.addEventListener('visibilitychange',refresh);
- return()=>{clearInterval(timer);window.removeEventListener('online',refresh);document.removeEventListener('visibilitychange',refresh);};
+ return()=>{window.removeEventListener('analytics-choice-changed',changed);clearInterval(timer);window.removeEventListener('online',refresh);document.removeEventListener('visibilitychange',refresh);};
 }
 export async function fetchCampaignStats(){const {data,error}=await supabase.rpc('read_campaign_stats');if(error)throw error;return data;}

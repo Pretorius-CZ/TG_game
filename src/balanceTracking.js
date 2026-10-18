@@ -1,9 +1,10 @@
+import {analyticsAllowed,analyticsSince,analyticsRetentionMs} from './analyticsPrivacy.js';
 import {enqueueAttempt} from './balanceOutbox.js';
 import {nearMiss} from './analyticsReport.js';
 export const balanceKey='beyond-signal-balance-attempts-v1';
 export const BALANCE_RULES_VERSION='2026-10-17-refuge-balance-v1';
-export function readAttempts(){try{const data=JSON.parse(localStorage.getItem(balanceKey)||'[]');return Array.isArray(data)?data:[];}catch{return [];}}
-export function saveAttempt(row){try{const data=readAttempts().filter(r=>!row.attemptId||r.attemptId!==row.attemptId);localStorage.setItem(balanceKey,JSON.stringify([...data,row].slice(-2000)));enqueueAttempt(row);if(typeof window!=='undefined')window.dispatchEvent(new Event('balance-attempt-saved'));}catch{}}
+export function readAttempts(){try{const data=JSON.parse(localStorage.getItem(balanceKey)||'[]');return Array.isArray(data)?data.filter(row=>Number.isFinite(row.at)&&row.at>=Math.max(analyticsSince(),Date.now()-analyticsRetentionMs)):[];}catch{return [];}}
+export function saveAttempt(row){if(!analyticsAllowed())return;try{const data=readAttempts().filter(r=>!row.attemptId||r.attemptId!==row.attemptId);localStorage.setItem(balanceKey,JSON.stringify([...data,row].slice(-2000)));enqueueAttempt(row);if(typeof window!=='undefined')window.dispatchEvent(new Event('balance-attempt-saved'));}catch{}}
 export function summarizeAttempts(rows,id){
  const relevant=rows.filter(r=>r.level===id);
  const completed=relevant.filter(r=>['won','failed','exhausted'].includes(r.outcome));

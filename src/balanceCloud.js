@@ -1,14 +1,14 @@
+import {analyticsAllowed,analyticsSignal,pruneLocalAnalytics} from './analyticsPrivacy.js';
 import {supabase} from './supabase.js';
-import {readQueue,reporterIdentity,drainQueue,enqueueAttempts} from './balanceOutbox.js';
-import {readAttempts,balanceKey} from './balanceTracking.js';
+import {readQueue,drainQueue} from './balanceOutbox.js';
 let running=false,started=false;
 export const balanceCloudStatus={state:'idle',pending:0,error:'',diagnostic:null};
 function announce(state){balanceCloudStatus.state=state;balanceCloudStatus.pending=readQueue().length;window.dispatchEvent(new CustomEvent('balance-cloud-status',{detail:{...balanceCloudStatus}}));}
 export async function flushBalance(){
- if(running||navigator.onLine===false)return;
+ if(!analyticsAllowed()||running||navigator.onLine===false)return;
  if(!readQueue().length){announce('saved');return;}
  running=true;announce('sending');
- try{await drainQueue(async(identity,item)=>{const {error,status}=await supabase.rpc('record_balance_attempt',{reporter_id:identity.id,reporter_token:identity.token,incoming:item.payload,incoming_revision:item.revision}).abortSignal(AbortSignal.timeout(8000));if(error){
+ try{await drainQueue(async(identity,item)=>{const {error,status}=await supabase.rpc('record_balance_attempt',{reporter_id:identity.id,reporter_token:identity.token,incoming:item.payload,incoming_revision:item.revision}).abortSignal(analyticsSignal());if(error){
   // Keep the server's reason available to QA without exposing reporter tokens
   // or request payloads. Failed attempts remain in the existing retry queue.
   balanceCloudStatus.diagnostic={rpc:'record_balance_attempt',status,code:error.code??null,message:error.message,details:error.details??null,hint:error.hint??null,attemptId:item.payload.attemptId,level:item.payload.level,revision:item.revision};
@@ -17,13 +17,9 @@ export async function flushBalance(){
  catch(error){balanceCloudStatus.error=error?.message||'Odeslání pokusu selhalo.';announce('pending');}finally{running=false;}
 }
 export function startBalanceCloud(){
- if(started)return;started=true;reporterIdentity();
- // Backfill records from the previous local-only build, retaining stable IDs.
- try{if(!localStorage.getItem('beyond-signal-balance-cloud-migrated-v1')){
-  const rows=readAttempts().map(row=>({...row,attemptId:row.attemptId??crypto.randomUUID(),legacy:row.legacy||!row.configuration}));
-  localStorage.setItem(balanceKey,JSON.stringify(rows));enqueueAttempts(rows);
-  localStorage.setItem('beyond-signal-balance-cloud-migrated-v1','1');
- }}catch{}
+ if(started)return;started=true;
+ pruneLocalAnalytics();
+ window.addEventListener('analytics-choice-changed',flushBalance);
  window.addEventListener('balance-attempt-saved',flushBalance);
  window.addEventListener('online',flushBalance);
  window.addEventListener('focus',flushBalance);

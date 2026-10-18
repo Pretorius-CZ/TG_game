@@ -11,10 +11,11 @@ test('analytics failure preserves the attempt, redacts identity and retries once
  });
  await page.goto('/tests/browser/fixture.html');
  const failed=await page.evaluate(async()=>{
+  (await import('/src/analyticsPrivacy.js')).setAnalyticsChoice('granted');
   const {enqueueAttempt,reporterIdentity,readQueue}=await import('/src/balanceOutbox.js');
   const {flushBalance,balanceCloudStatus}=await import('/src/balanceCloud.js');
   const identity=reporterIdentity();
-  enqueueAttempt({attemptId:'qa-retry',level:1});
+  enqueueAttempt({attemptId:'qa-retry',level:1,at:Date.now()});
   await flushBalance();
   return {pending:readQueue().length,diagnostic:balanceCloudStatus.diagnostic,leaked:JSON.stringify(balanceCloudStatus).includes(identity.token)};
  });

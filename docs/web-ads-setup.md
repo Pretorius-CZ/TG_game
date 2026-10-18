@@ -3,7 +3,14 @@
 ## Bod 3 — propojení reklamních souhlasů
 
 Technická integrace je v src/adConsent.js, consentUI.js a AdChoicesButton.jsx.
-Google zpráva je podle posledního potvrzení uživatele stále pouze koncept.
+Google zpráva je podle snímku uživatele zveřejněná. AdSense web stále Příprava,
+domovská stránka účtu uvádí dokončené požadované kroky. Živý Google CMP se
+načte, ale zprávu zatím nezobrazuje; příčina neprokázaná. Štíty Brave nejsou
+příčinou tohoto konkrétního výsledku, reprodukováno i bez blokátoru.
+ads.txt na obou doménách HTTP200 se správným publisher ID, stav Nenalezeno
+v účtu zatím neodpovídá aktuálnímu souboru. Uživatel zvolil počkat na kontrolu.
+Vlastní statistiky a retence: viz docs/analytics-privacy.md (SQL033 připravené,
+zatím neprovedené; nepovažovat automatický úklid za nasazený).
 Předchozí odstavce o nepřipojené CMP níže jsou historický stav.
 
 - Hra čte skutečné TCF události přes googlefc.callbackQueue/CONSENT_API_READY

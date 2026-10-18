@@ -11,6 +11,7 @@ import {returnCorridor} from './returnCorridor.js';
 import {crazyGames} from './platform.js';
 import {initializeCrazyGames} from './crazyGames.js';
 import {startCampaignTracking} from './campaignTracking.js';
+import {startAnalyticsDeletionRetry} from './analyticsDeletion.js';
 import Stars,{StarProvider} from './Stars.jsx';
 import {refugeMedical} from './refugeMedical.js';
 import {refugeHomes} from './refugeHomes.js';
@@ -94,6 +95,7 @@ function App() {
   useEffect(()=>{if(!crazyGames)return startBalanceCloud();}, []);
   useEffect(()=>{if(!crazyGames)return startPlayerPresence();}, []);
   useEffect(()=>{if(!crazyGames)return startCampaignTracking();}, []);
+  useEffect(()=>{if(!crazyGames)return startAnalyticsDeletionRetry();}, []);
   const {user}=useAccount();
   const [progress,setProgress]=useState(()=>initialProgress(user?.id));
   const {configure:configureEnergy}=useLives();
