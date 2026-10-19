@@ -41,13 +41,9 @@ test('cloud migration includes relay cap, arrival prerequisite and reset',()=>{
 });
 
 
-test('resonators count one orthogonal impulse per match wave and cap at target',async()=>{
- const {chargeResonators,resonatorsComplete}=await import('../src/resonators.js');
+test('resonators complete only at their targets and occupy uncovered board holes',async()=>{
+ const {resonatorsComplete}=await import('../src/resonators.js');
  const r=[{at:24,target:2},{at:26,target:3}];
- assert.deepEqual(chargeResonators(r,[0,0],[16,32],7),[0,0]);
- assert.deepEqual(chargeResonators(r,[0,0],[17,23,25,31],7),[1,1]);
- assert.deepEqual(chargeResonators(r,[1,1],[],7),[1,1]);
- assert.deepEqual(chargeResonators(r,[2,3],[25],7),[2,3]);
  assert.equal(resonatorsComplete(r,[2,2]),false);
  assert.equal(resonatorsComplete(r,[2,3]),true);
  for(const repair of site.repairs)for(const resonator of repair.resonators){assert.equal(repair.level.mask[resonator.at],false);assert.ok(!repair.ice.includes(resonator.at));}

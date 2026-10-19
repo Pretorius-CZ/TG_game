@@ -25,11 +25,12 @@ import AudioControls from './AudioControls.jsx';
 import useHelperStock from './useHelperStock.js';
 import { sound } from './audio.js';
 import {goalsFor,collectGoals,goalsComplete} from './objectives.js';
-import {blast,isBooster,boostersEnabled,wave} from './boosters.js';
+import {blast,isBooster,boostersEnabled,wave,awardCascadePulse} from './boosters.js';
 
 
 export default function MiniGame({ onWin, onQuit, repair }) {
  const playtest=useContext(PlaytestContext);
+ const [cascadePulse,setCascadePulse]=useState(null);
  const {t,language}=useLanguage();
  const {award,stars}=useStars();
  const {user}=useAccount();
@@ -88,7 +89,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   const attemptId=useRef(crypto.randomUUID());
   const attemptStarted=useRef(Date.now());
   useEffect(()=>{if(!playtest&&admitted&&!fault)(!crazyGames)&&trackCampaignAttempt(attemptId.current,repair.id);},[admitted,repair.id]);
-  function attemptSnapshot(outcome){return {build:BALANCE_RULES_VERSION,attemptId:attemptId.current,level:repair.id,outcome,moves,budget:limit,baseBudget:moveBudget(repair),remaining:Math.max(0,limit-moves),at:Date.now(),durationMs:Date.now()-attemptStarted.current,configuration:{cols:level.cols,rows:level.rows,types:level.types,goals,ice:initialIce(repair),resonators,...(playtest?{playtest:{chargeActivations:assistance.current.chargeActivations??0,chargeSwaps:assistance.current.chargeSwaps??0,chargesCreated:assistance.current.chargesCreated??0}}:{})},counts,remainingCovers:ice.length,resonance,...assistance.current};}
+  function attemptSnapshot(outcome){return {build:BALANCE_RULES_VERSION,attemptId:attemptId.current,level:repair.id,outcome,moves,budget:limit,baseBudget:moveBudget(repair),remaining:Math.max(0,limit-moves),at:Date.now(),durationMs:Date.now()-attemptStarted.current,configuration:{cols:level.cols,rows:level.rows,types:level.types,goals,ice:initialIce(repair),resonators,...(playtest?{playtest:{chargeActivations:assistance.current.chargeActivations??0,chargeSwaps:assistance.current.chargeSwaps??0,chargesCreated:assistance.current.chargesCreated??0,cascadePulses:assistance.current.cascadePulses??0}}:{})},counts,remainingCovers:ice.length,resonance,...assistance.current};}
   function recordResult(outcome,terminal=true){
     if(recorded.current)return;if(terminal)recorded.current=true;
     if(playtest){recorded.current=true;playtest.onResult(attemptSnapshot(outcome));return;}
@@ -146,7 +147,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   function failSafely(){
     lives.settleAttempt(attemptId.current,true);
     run.current++;clearInterval(watchdog.current);lock.current=false;
-    setResonatorFx([]);setShuffling(false);setBlastFx(null);setFault(true);setBusy(false);setMoving(null);setFalling([]);setCleared([]);setSelected(null);setHint(null);setConfirmQuit(false);
+    setCascadePulse(null);setResonatorFx([]);setShuffling(false);setBlastFx(null);setFault(true);setBusy(false);setMoving(null);setFalling([]);setCleared([]);setSelected(null);setHint(null);setConfirmQuit(false);
   }
   function retry(){
     if(!fault&&!lives.count)return;
@@ -155,7 +156,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
       refillHistory.current={};
       recordResult(fault?"fault":"failed");recorded.current=false;attemptId.current=crypto.randomUUID();attemptStarted.current=Date.now();if(!playtest&&!crazyGames)trackCampaignAttempt(attemptId.current,repair.id);assistance.current={helpers:[],extraMoves:false,hints:0};setAdsUsed({moves:false,hint:false,helper:false});
       run.current++;clearInterval(watchdog.current);lock.current=false;spent.current=false;
-      setResonatorFx([]);setShuffling(false);setBlastFx(null);setFault(false);setBusy(false);setAdmitted(true);setBoard(fresh);setIce(initialIce(repair));setCounts(goals.map(()=>0));setMoves(0);setExtraMoves(0);setResonance(resonators.map(()=>0));setSelected(null);setHint(boosts?null:iceMove(fresh,level.cols,initialIce(repair)));setHintsLeft(1);setTool(null);setConfirmQuit(false);setMessage('A fresh attempt. You can do this.');
+      setCascadePulse(null);setResonatorFx([]);setShuffling(false);setBlastFx(null);setFault(false);setBusy(false);setAdmitted(true);setBoard(fresh);setIce(initialIce(repair));setCounts(goals.map(()=>0));setMoves(0);setExtraMoves(0);setResonance(resonators.map(()=>0));setSelected(null);setHint(boosts?null:iceMove(fresh,level.cols,initialIce(repair)));setHintsLeft(1);setTool(null);setConfirmQuit(false);setMessage('A fresh attempt. You can do this.');
     }catch{failSafely();}
   }
   useEffect(() => { alive.current = true; dialog.current.showModal(); return () => { alive.current = false;run.current++;clearInterval(watchdog.current); }; }, []);
@@ -187,7 +188,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     let activeTicks=0;
     watchdog.current=setInterval(()=>{if(!document.hidden && ++activeTicks>=60 && token===run.current)failSafely();},1000);
     try{
-    sound('swap'); lock.current = true; setBusy(true); setSelected(null); setHint(null); setMoving(helper!=null||activation?null:[a, b]);
+    setCascadePulse(null);sound('swap'); lock.current = true; setBusy(true); setSelected(null); setHint(null); setMoving(helper!=null||activation?null:[a, b]);
     await wait(220); if (!alive.current || token!==run.current) return;
     let frozen=[...ice];
     let next=helper===2?swap(board,a,b):helper!=null||activation?[...board]:swap(board,a,b);
@@ -214,13 +215,14 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     } else {
       setBoard(next); setMoving(null); setMoves(n => n + (helper==null?1:0));
       if(playtest&&helper==null){if(activation)assistance.current.chargeActivations=(assistance.current.chargeActivations??0)+1;else if(isBooster(board[a])||isBooster(board[b]))assistance.current.chargeSwaps=(assistance.current.chargeSwaps??0)+1;}
-      let totals = [...counts]; let cascades = 0;let charged=[...resonance];
+      let totals = [...counts]; let cascades = 0,cascadeMatches=0,lastCascade=[];let charged=[...resonance];
       while (found.length) {
         if(cascades>=40)throw new Error('Cascade safety limit');
         const naturalMatch=(activation||toolHit)&&cascades===0?[]:iceMatches(next,level.cols,frozen);
+        if(cascades>0&&naturalMatch.length){cascadeMatches++;lastCascade=naturalMatch;}
         const previousCharge=charged;
-        charged=chargeResonators(resonators,charged,naturalMatch,level.cols);setResonance(charged);
-        const impulses=resonators.flatMap((r,i)=>charged[i]>previousCharge[i]?[{at:r.at,from:naturalMatch.filter(cell=>adjacent(cell,r.at,level.cols))}]:[]);
+        charged=chargeResonators(resonators,charged,naturalMatch,level.cols,next);setResonance(charged);
+        const impulses=resonators.flatMap((r,i)=>charged[i]>previousCharge[i]?[{at:r.at,amount:charged[i]-previousCharge[i],from:naturalMatch.filter(cell=>adjacent(cell,r.at,level.cols))}]:[]);
         if(impulses.length){
           setResonatorFx(impulses);
           await new Promise(resolve=>setTimeout(resolve,900));
@@ -245,7 +247,15 @@ export default function MiniGame({ onWin, onQuit, repair }) {
         setFalling([]);
         found = iceMatches(next, level.cols,frozen); cascades++;
       }
-      if (goalsComplete(goals, totals) && resonatorsComplete(resonators,charged) && !frozen.length) sound('win');
+      const finished=goalsComplete(goals,totals)&&resonatorsComplete(resonators,charged)&&!frozen.length;
+      const bonus=awardCascadePulse(next,frozen,{cascades:cascadeMatches,enabled:boosts&&helper==null&&!finished,preferred:lastCascade});
+      if(bonus.at!=null){
+        next=bonus.board;setBoard(next);setCascadePulse(bonus.at);createdBoosts.add('cascade');sound('match',3);
+        setMessage('Cascade bonus! A Pulse charge is ready.');
+        assistance.current.cascadePulses=(assistance.current.cascadePulses??0)+1;
+        if(playtest)assistance.current.chargesCreated=(assistance.current.chargesCreated??0)+1;
+      }
+      if (finished) sound('win');
       if (!goalsComplete(goals, totals) || !resonatorsComplete(resonators,charged) || frozen.length) {
         const recovery=ensurePlayableBoard(next,level,frozen);
         if(recovery.reshuffled){
@@ -296,11 +306,12 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     {t(exhausted&&<div className="out-of-moves" ref={resultPanel} tabIndex={-1} role="region" aria-label={t("Out of moves")}><h3>{t("Out of moves")}</h3><p>{t("Your repairs are safe. Try again or continue this attempt.")}</p><button className="primary" disabled={adsUsed.moves} onClick={()=>requestHelp('moves')}>{t(adsUsed.moves?'Extra moves used':crazyGames?'+5 moves · free':'Ad · +5 moves')}</button><button className="keep-playing" disabled={!lives.count} onClick={retry}>{t("Retry level")}</button><button className="keep-playing" onClick={()=>{recordResult(fault?"fault":"failed");onQuit();}}>{t("Back to exploration")}</button>{t(!lives.count&&<NoLives/>)}</div>)}
     {t(fault ? <div className="out-of-moves" ref={resultPanel} tabIndex={-1} role="alert"><h3>{t("Board recovery needed")}</h3><p>{t("This puzzle could not continue safely. No energy was charged for this interrupted attempt.")}</p><button className="primary" onClick={retry}>{t("Restart level · free")}</button><button className="keep-playing" onClick={()=>{recordResult(fault?"fault":"failed");onQuit();}}>{t("Back to exploration")}</button></div> : !admitted ? <><NoLives/>{t(lives.count>0&&<button className="primary" onClick={()=>setAdmitted(true)}>{t("Start level")}</button>)}</> : !won ? <div className="puzzle-area" hidden={exhausted} style={{"--ratio":level.cols/level.rows,"--rows":level.rows}}>
       <div className={`board ${blastFx?'board-blasting':''} ${shuffling?'board-shuffling':''}`} style={{ '--cols': level.cols }} aria-label={t("Match three board")} aria-busy={busy}>
-        {resonatorHelp&&<div className="resonator-guide" role="note"><strong>{t('Charge the ring')}</strong><p>{t("Match at least 3 identical pieces so that one touches the ring above, below, left or right. Each matching wave adds +1 per ring. Blasts do not count.")}</p><button className="primary" onClick={()=>setResonatorHelp(false)}>{t('Got it')}</button></div>}
-        {resonatorFx.length>0&&<svg className="resonator-impulses" viewBox={`0 0 ${level.cols*100} ${level.rows*100}`} aria-hidden="true">{resonatorFx.map(r=><g key={r.at}>{r.from.map(i=><line key={i} x1={i%level.cols*100+50} y1={Math.floor(i/level.cols)*100+50} x2={r.at%level.cols*100+50} y2={Math.floor(r.at/level.cols)*100+50}/>)}<circle cx={r.at%level.cols*100+50} cy={Math.floor(r.at/level.cols)*100+50} r="45"/><text x={r.at%level.cols*100+50} y={Math.floor(r.at/level.cols)*100+15} textAnchor="middle">+1</text></g>)}</svg>}
-        {resonatorFx.length>0&&<span className="resonator-feedback" role="status">{t('Resonator +1')}</span>}
+        {resonatorHelp&&<div className="resonator-guide" role="note"><strong>{t('Charge the ring')}</strong><p>{t("Match at least 3 identical pieces so that one touches the ring above, below, left or right. Each separate match adds +1 per ring, even in the same wave. Blasts do not count.")}</p><button className="primary" onClick={()=>setResonatorHelp(false)}>{t('Got it')}</button></div>}
+        {resonatorFx.length>0&&<svg className="resonator-impulses" viewBox={`0 0 ${level.cols*100} ${level.rows*100}`} aria-hidden="true">{resonatorFx.map(r=><g key={r.at}>{r.from.map(i=><line key={i} x1={i%level.cols*100+50} y1={Math.floor(i/level.cols)*100+50} x2={r.at%level.cols*100+50} y2={Math.floor(r.at/level.cols)*100+50}/>)}<circle cx={r.at%level.cols*100+50} cy={Math.floor(r.at/level.cols)*100+50} r="45"/><text x={r.at%level.cols*100+50} y={Math.floor(r.at/level.cols)*100+15} textAnchor="middle">+{r.amount}</text></g>)}</svg>}
+        {resonatorFx.length>0&&<span className="resonator-feedback" role="status">{(language==='cs'?'Nabití kruhu: ':'Ring charge: ')+resonatorFx.map(r=>'+'+r.amount).join(' / ')}</span>}
+        {cascadePulse!=null&&<span className="resonator-feedback cascade-reward" role="status">{language==='cs'?'3 kaskády · Pulse navíc!':'3 cascades · Bonus Pulse!'}</span>}
         {shuffling&&<div className="shuffle-overlay" role="status" aria-live="polite"><span aria-hidden="true">⤨</span><strong>{t('Shuffling…')}</strong><small>{t('Preparing your next move')}</small></div>}
-        {t(board.map((type, i) => type == null ? resonators.some(r=>r.at===i)?<span key={i} className={'resonator-cell '+((resonance[resonators.findIndex(r=>r.at===i)]??0)>=resonators.find(r=>r.at===i).target?'resonator-ready':'')} role="img" aria-label={t('Resonators')+' '+(resonance[resonators.findIndex(r=>r.at===i)]??0)+'/'+resonators.find(r=>r.at===i).target}><span aria-hidden="true">◎</span><small>{resonance[resonators.findIndex(r=>r.at===i)]??0}/{resonators.find(r=>r.at===i).target}</small></span>:<span key={i} className="board-hole" aria-hidden="true"/> : <button key={i} data-cell={i} data-type={type} data-booster={isBooster(type)?(type===10?"pulse":"nova"):undefined} data-hint={hint?.includes(i) || undefined} className={`cell ${resonators.some((r,n)=>resonance[n]<r.target&&adjacent(i,r.at,level.cols))?'resonator-neighbour':''} ${ice.includes(i)?'frozen-cell':''} ${selected === i ? 'selected' : ''} ${hint?.includes(i) ? 'hinted' : ''}`} disabled={resonatorHelp || busy || confirmQuit || exhausted || (ice.includes(i)&&(tool==null||tool===2))} aria-label={t(`${ice.includes(i)?'Covered ':''}${type===10?'Pulse charge':type===11?'Nova cross':names[type]}, row ${Math.floor(i / level.cols) + 1}, column ${i % level.cols + 1}`)} aria-pressed={selected === i} onClick={() => choose(i)} onPointerDown={e => { suppressClick.current = false; pointer.current = { i, x: e.clientX, y: e.clientY }; e.currentTarget.setPointerCapture(e.pointerId); }} onPointerUp={endSwipe} onPointerCancel={() => {pointer.current = null;}}>
+        {t(board.map((type, i) => type == null ? resonators.some(r=>r.at===i)?<span key={i} className={'resonator-cell '+((resonance[resonators.findIndex(r=>r.at===i)]??0)>=resonators.find(r=>r.at===i).target?'resonator-ready':'')} role="img" aria-label={t('Resonators')+' '+(resonance[resonators.findIndex(r=>r.at===i)]??0)+'/'+resonators.find(r=>r.at===i).target}><span aria-hidden="true">◎</span><small>{resonance[resonators.findIndex(r=>r.at===i)]??0}/{resonators.find(r=>r.at===i).target}</small></span>:<span key={i} className="board-hole" aria-hidden="true"/> : <button key={i} data-cell={i} data-type={type} data-booster={isBooster(type)?(type===10?"pulse":"nova"):undefined} data-hint={hint?.includes(i) || undefined} className={`cell ${cascadePulse===i?"cascade-pulse-cell":""} ${resonators.some((r,n)=>resonance[n]<r.target&&adjacent(i,r.at,level.cols))?'resonator-neighbour':''} ${ice.includes(i)?'frozen-cell':''} ${selected === i ? 'selected' : ''} ${hint?.includes(i) ? 'hinted' : ''}`} disabled={resonatorHelp || busy || confirmQuit || exhausted || (ice.includes(i)&&(tool==null||tool===2))} aria-label={t(`${ice.includes(i)?'Covered ':''}${type===10?'Pulse charge':type===11?'Nova cross':names[type]}, row ${Math.floor(i / level.cols) + 1}, column ${i % level.cols + 1}`)} aria-pressed={selected === i} onClick={() => choose(i)} onPointerDown={e => { suppressClick.current = false; pointer.current = { i, x: e.clientX, y: e.clientY }; e.currentTarget.setPointerCapture(e.pointerId); }} onPointerUp={endSwipe} onPointerCancel={() => {pointer.current = null;}}>
           <span style={tileStyle(i)} className={`gem gem-${type} ${cleared.includes(i) ? 'clearing' : ''} ${falling.includes(i) ? 'falling' : ''}`}><>{t(isBooster(type)?<span className={`booster-art booster-${type}`} aria-hidden="true">{t(type===10?"✹":"✣")}</span>:<img src={`./tiles/${sprites[type]}.png`} alt={t("")} draggable="false"/>)}</></span>
         </button>))}
         {t(blastFx&&<svg className="blast-overlay" viewBox={`0 0 ${level.cols*100} ${level.rows*100}`} preserveAspectRatio="none" aria-hidden="true">

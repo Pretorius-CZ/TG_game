@@ -3,7 +3,7 @@ const refugeArrival={repairs:Object.values(archiveDestinations).flatMap(s=>s.rep
 import {chargeResonators,resonatorsComplete} from '../src/resonators.js';
 import {makeGoalBoard} from '../src/goalRefill.js';
 import {goalRefillRandom} from '../src/goalRefill.js';
-import {wave,blast,isBooster,rewards} from '../src/boosters.js';
+import {wave,blast,isBooster,rewards,awardCascadePulse} from '../src/boosters.js';
 import {adjacent,swap} from '../src/match3.js';
 import {moveBudget,initialIce,iceMatches,ensurePlayableBoard} from '../src/levelRules.js';
 import {goalsFor,collectGoals,goalsComplete} from '../src/objectives.js';
@@ -27,20 +27,22 @@ for(const repair of refugeArrival.repairs){
           if(isBooster(board[a])||isBooster(board[b])||board[a]==null||board[b]==null||ice.includes(a)||ice.includes(b)||!adjacent(a,b,cols))continue;
           const next=swap(board,a,b),hit=iceMatches(next,cols,ice);if(!hit.length)continue;
           const gain=collectGoals(goals,counts,next,hit.filter(i=>!ice.includes(i))).reduce((n,v,i)=>n+v-counts[i],0);
-          choices.push({a,b,value:gain+7*chargeResonators(repair.resonators,charges,hit,cols).reduce((n,v,i)=>n+v-charges[i],0)+5*hit.filter(i=>ice.includes(i)).length+rewards(next,cols,ice,[b,a]).length*4});
+          choices.push({a,b,value:gain+7*chargeResonators(repair.resonators,charges,hit,cols,next).reduce((n,v,i)=>n+v-charges[i],0)+5*hit.filter(i=>ice.includes(i)).length+rewards(next,cols,ice,[b,a]).length*4});
         }
         // The targeted bot sees only the immediate match, never future random drops.
         const best=Math.max(...choices.map(c=>c.value));
         const options=strategy==='random'?choices:choices.filter(c=>c.value===best);
         const move=options[Math.floor(random()*options.length)];board=swap(board,move.a,move.b);
         let hit=move.a===move.b?[move.a]:iceMatches(board,cols,ice),cascade=0;
-        while(hit.length){
+        let lastCascade=[];while(hit.length){
           if(++cascade>40)throw Error('Cascade safety limit');
-          if(!(move.a===move.b&&cascade===1))charges=chargeResonators(repair.resonators,charges,iceMatches(board,cols,ice),cols);
+          if(cascade>1)lastCascade=[...hit];
+          if(!(move.a===move.b&&cascade===1))charges=chargeResonators(repair.resonators,charges,iceMatches(board,cols,ice),cols,board);
           const resolved=wave(board,ice,repair.level,{random,...(fair?{refillRandom:collected=>goalRefillRandom(repair.level,goals,collectGoals(goals,counts,board,collected),board,ice,collected,history,random)}:{}),activate:move.a===move.b&&cascade===1?move.a:null,preferred:cascade===1?[move.b,move.a]:[]});
           counts=collectGoals(goals,counts,board,resolved.collected);board=resolved.board;ice=resolved.ice;hit=iceMatches(board,cols,ice);
         }
         if(goalsComplete(goals,counts)&&!ice.length&&resonatorsComplete(repair.resonators,charges)){wins++;left+=moveBudget(repair)-turn-1;break;}
+        board=awardCascadePulse(board,ice,{cascades:Math.max(0,cascade-1),enabled:repair.boosters!==false,preferred:lastCascade}).board;
       }
     }
     result[strategy]={wins,winPercent:Math.round(100*wins/samples),meanMovesLeftOnWin:wins?+(left/wins).toFixed(1):0};

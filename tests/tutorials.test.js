@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {relevantTutorials,initialTutorials,helperTutorials,readTutorials,tutorialTopics} from '../src/tutorials.js';
 test('only relevant mechanics are introduced',()=>{
  assert.deepEqual(relevantTutorials({boosts:false,covers:false,resonators:false}),['helpers']);
- assert.deepEqual(relevantTutorials({boosts:true,covers:true,resonators:true}),['charges','covers','resonators','helpers']);
+ assert.deepEqual(relevantTutorials({boosts:true,covers:true,resonators:true}),['charges','cascade','covers','resonators','helpers']);
  for(const entry of Object.values(tutorialTopics)){assert.equal(entry.en.length,2);assert.equal(entry.cs.length,2);}
 });
 test('boost explanations do not open at level entry, but covers and resonators still do',()=>{

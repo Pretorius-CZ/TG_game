@@ -24,7 +24,7 @@ const cs={
  guideTools:'Pomůcky pod deskou spotřebují zásobu místo tahu. Laser zasáhne kámen, Míchání přeskupí desku, Výměna prohodí sousedy, Paprsek zasáhne řádek a EMP oblast 3×3. Obrázkovou nápovědu znovu otevřeš přes ⓘ v minihře.',
  guideObstaclesTitle:'03 / Kryty a rezonátory',
  guideCovers:'Zakrytý kámen nelze přesouvat. Zapoj ho do spojení a kryt praskne; kámen zůstane pro další spojení. Kryty rozbíjejí i výbuchy.',
- guideRings:'Kruhy nabíjíš spojením přímo vedle nich: shora, zdola, zleva nebo zprava. Každá vlna spojení přidá kruhu jeden náboj. Úhlopříčka ani přímý výbuch kruh nenabíjí.',
+ guideRings:'Kruhy nabíjíš spojením přímo vedle nich: shora, zdola, zleva nebo zprava. Každá samostatná kombinace přidá kruhu jeden náboj, i v téže vlně. Úhlopříčka ani přímý výbuch kruh nenabíjí.',
  guideEnergyTitle:'04 / Energie a přestávky',
  guideEnergy:'První platný tah rezervuje jeden článek energie. Výhra ho vrátí; prohra, odchod po tahu nebo obnovení stránky jej ponechá spotřebovaný. Otevření minihry bez tahu energii nestojí. U energie vidíš, kdy se článek obnoví.',
  guideSaveTitle:'05 / Uložení tvé cesty',

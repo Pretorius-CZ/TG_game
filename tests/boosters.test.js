@@ -1,6 +1,18 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {PULSE,NOVA,rewards,blast,wave,boostersEnabled} from '../src/boosters.js';
+import {PULSE,NOVA,rewards,blast,wave,boostersEnabled,awardCascadePulse} from '../src/boosters.js';
+
+test('three subsequent cascades award one untriggered Pulse on an ordinary uncovered tile',()=>{
+ const board=[null,NOVA,PULSE,1,2,3],ice=[3];
+ for(const cascades of [0,1,2])assert.equal(awardCascadePulse(board,ice,{cascades}).at,null);
+ const result=awardCascadePulse(board,ice,{cascades:3,preferred:[0,1,2,3,4]});
+ assert.equal(result.at,4);assert.deepEqual(result.board,[null,NOVA,PULSE,1,PULSE,3]);assert.equal(board[4],2);
+ assert.equal(awardCascadePulse(result.board,ice,{cascades:10,used:true}).at,null);
+ assert.equal(awardCascadePulse(board,ice,{cascades:10,enabled:false}).at,null);
+ assert.equal(awardCascadePulse([null,NOVA,PULSE,1],[3],{cascades:3}).at,null);
+ assert.equal(awardCascadePulse(board,ice,{cascades:10}).board.filter(v=>v===PULSE).length,2);
+ assert.deepEqual(matches(result.board,6),[]);
+});
 import {matches,swap,refill} from '../src/match3.js';
 import {collectGoals} from '../src/objectives.js';
 import {iceMove,swapMatches,ensurePlayableBoard} from '../src/levelRules.js';

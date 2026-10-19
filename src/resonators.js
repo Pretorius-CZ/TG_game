@@ -1,8 +1,28 @@
 import {adjacent} from './match3.js';
 export const resonatorsComplete=(devices,charges)=>devices.every((r,i)=>(charges[i]??0)>=r.target);
-// One impulse per device per matching wave, even when several neighbours match.
-export function chargeResonators(devices,charges,matched,cols){
- return devices.map((r,i)=>Math.min(r.target,(charges[i]??0)+(matched.some(cell=>adjacent(cell,r.at,cols))?1:0)));
+// Runs sharing a tile form one combination (T/L/cross), not several impulses.
+export function resonatorMatchGroups(matched,cols,board){
+ const cells=new Set(matched),groups=[];
+ for(const at of cells){
+  if(board[at]==null||board[at]>=10)continue;
+  for(const step of [1,cols]){
+   const previous=at-step;
+   if(cells.has(previous)&&board[previous]===board[at]&&(step===cols||Math.floor(previous/cols)===Math.floor(at/cols)))continue;
+   const run=[at];
+   for(let next=at+step;cells.has(next)&&board[next]===board[at]&&(step===cols||Math.floor(next/cols)===Math.floor(at/cols));next+=step)run.push(next);
+   if(run.length<3)continue;
+   const touching=groups.filter(group=>group.some(cell=>run.includes(cell)));
+   for(const group of touching)groups.splice(groups.indexOf(group),1);
+   groups.push([...new Set([...run,...touching.flat()])]);
+  }
+ }
+ return groups;
+}
+// Independent combinations charge independently, including in the same wave.
+export function chargeResonators(devices,charges,matched,cols,board){
+ if(!devices.length)return [];
+ const groups=resonatorMatchGroups(matched,cols,board);
+ return devices.map((r,i)=>Math.min(r.target,(charges[i]??0)+groups.filter(group=>group.some(cell=>adjacent(cell,r.at,cols))).length));
 }
 
 // Leave the eight neighbouring cells free, and keep covers separated too.

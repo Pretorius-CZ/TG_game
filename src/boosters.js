@@ -4,6 +4,16 @@ import {resolveIce} from './levelRules.js';
 export const PULSE=10, NOVA=11;
 export const isBooster=value=>value===PULSE||value===NOVA;
 export const boostersEnabled=repair=>repair.boosters!==false;
+export const CASCADE_PULSE_THRESHOLD=3;
+
+// Award after the action settles: the bonus cannot extend its own cascade.
+export function awardCascadePulse(board,ice,{cascades=0,enabled=true,used=false,preferred=[]}={}){
+ if(!enabled||used||cascades<CASCADE_PULSE_THRESHOLD)return {board,at:null};
+ const at=[...new Set([...preferred,...board.keys()])].find(i=>board[i]!=null&&!isBooster(board[i])&&!ice.includes(i));
+ if(at==null)return {board,at:null};
+ const next=[...board];next[at]=PULSE;
+ return {board:next,at};
+}
 
 // One reward per connected matching group. Covered cells cannot host a reward.
 export function rewards(board,cols,ice=[],preferred=[]){

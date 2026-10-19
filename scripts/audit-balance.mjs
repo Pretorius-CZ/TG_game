@@ -11,7 +11,7 @@ import {asterDestinations} from '../src/aster.js';
 import {elysiumDestinations,elysiumRoute} from '../src/elysium.js';
 import {riftDestinations} from '../src/rift.js';
 import {mineRepairs} from '../src/exploration.js';
-import {wave,blast,isBooster,rewards} from '../src/boosters.js';
+import {wave,blast,isBooster,rewards,awardCascadePulse} from '../src/boosters.js';
 import {adjacent,swap} from '../src/match3.js';
 import {moveBudget,initialIce,iceMatches,resolveIce,makeIceBoard,ensurePlayableBoard} from '../src/levelRules.js';
 import {goalsFor,collectGoals,goalsComplete} from '../src/objectives.js';
@@ -43,12 +43,14 @@ for(const repair of [...airlockRepairs,...repairs,...navigationRepairs,...crewRe
         const options=strategy==='random'?choices:choices.filter(c=>c.value===best);
         const move=options[Math.floor(random()*options.length)];board=swap(board,move.a,move.b);
         let hit=move.a===move.b?[move.a]:iceMatches(board,cols,ice),cascade=0;
-        while(hit.length){
+        let lastCascade=[];while(hit.length){
           if(++cascade>40)throw Error('Cascade safety limit');
+          if(cascade>1)lastCascade=[...hit];
           const resolved=wave(board,ice,repair.level,{random,...(fair?{refillRandom:collected=>goalRefillRandom(repair.level,goals,collectGoals(goals,counts,board,collected),board,ice,collected,history,random)}:{}),activate:move.a===move.b&&cascade===1?move.a:null,preferred:cascade===1?[move.b,move.a]:[]});
           counts=collectGoals(goals,counts,board,resolved.collected);board=resolved.board;ice=resolved.ice;hit=iceMatches(board,cols,ice);
         }
         if(goalsComplete(goals,counts)&&!ice.length){wins++;left+=moveBudget(repair)-turn-1;break;}
+        board=awardCascadePulse(board,ice,{cascades:Math.max(0,cascade-1),enabled:repair.boosters!==false,preferred:lastCascade}).board;
       }
     }
     result[strategy]={wins,winPercent:Math.round(100*wins/samples),meanMovesLeftOnWin:wins?+(left/wins).toFixed(1):0};
