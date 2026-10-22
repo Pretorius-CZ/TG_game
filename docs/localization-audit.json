@@ -1,0 +1,629 @@
+{
+  "coverage": [
+    {
+      "code": "en",
+      "status": "released",
+      "total": 2209,
+      "translated": 2209,
+      "problems": 0
+    },
+    {
+      "code": "cs",
+      "status": "released",
+      "total": 2209,
+      "translated": 2209,
+      "problems": 0
+    },
+    {
+      "code": "de",
+      "status": "draft",
+      "total": 2209,
+      "translated": 11,
+      "problems": 2198
+    },
+    {
+      "code": "fr",
+      "status": "draft",
+      "total": 2209,
+      "translated": 11,
+      "problems": 2198
+    },
+    {
+      "code": "es",
+      "status": "draft",
+      "total": 2209,
+      "translated": 11,
+      "problems": 2198
+    },
+    {
+      "code": "pt-BR",
+      "status": "draft",
+      "total": 2209,
+      "translated": 11,
+      "problems": 2198
+    }
+  ],
+  "legacySites": [
+    {
+      "path": "src/Account.jsx",
+      "line": 37,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Account.jsx",
+      "line": 38,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Account.jsx",
+      "line": 41,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Account.jsx",
+      "line": 57,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Account.jsx",
+      "line": 59,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Account.jsx",
+      "line": 59,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Account.jsx",
+      "line": 62,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Account.jsx",
+      "line": 67,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Account.jsx",
+      "line": 67,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/AdChoicesButton.jsx",
+      "line": 10,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/AdChoicesButton.jsx",
+      "line": 11,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/AnalyticsChoices.jsx",
+      "line": 9,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/AnalyticsChoices.jsx",
+      "line": 10,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/AnalyticsChoices.jsx",
+      "line": 10,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/AnalyticsChoices.jsx",
+      "line": 11,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/AnalyticsChoices.jsx",
+      "line": 11,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/AnalyticsChoices.jsx",
+      "line": 12,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/AnalyticsChoices.jsx",
+      "line": 13,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/AnalyticsChoices.jsx",
+      "line": 14,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/AnalyticsChoices.jsx",
+      "line": 15,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/AnalyticsChoices.jsx",
+      "line": 16,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/AnalyticsChoices.jsx",
+      "line": 16,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/AnalyticsChoices.jsx",
+      "line": 16,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/AnalyticsChoices.jsx",
+      "line": 16,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/AnalyticsChoices.jsx",
+      "line": 17,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/AnalyticsChoices.jsx",
+      "line": 17,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/AnalyticsChoices.jsx",
+      "line": 18,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/AnalyticsChoices.jsx",
+      "line": 19,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Chapters.jsx",
+      "line": 13,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Chapters.jsx",
+      "line": 13,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Chapters.jsx",
+      "line": 13,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Chapters.jsx",
+      "line": 13,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Chapters.jsx",
+      "line": 13,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Chapters.jsx",
+      "line": 13,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Chapters.jsx",
+      "line": 13,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/consentUI.js",
+      "line": 10,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/consentUI.js",
+      "line": 20,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/consentUI.js",
+      "line": 21,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/consentUI.js",
+      "line": 22,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/consentUI.js",
+      "line": 27,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Elysium.jsx",
+      "line": 20,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Exploration.jsx",
+      "line": 57,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Exploration.jsx",
+      "line": 59,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Exploration.jsx",
+      "line": 59,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Exploration.jsx",
+      "line": 59,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Exploration.jsx",
+      "line": 59,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Exploration.jsx",
+      "line": 59,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Exploration.jsx",
+      "line": 59,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Exploration.jsx",
+      "line": 59,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Exploration.jsx",
+      "line": 59,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Exploration.jsx",
+      "line": 59,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Exploration.jsx",
+      "line": 59,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/FirstRunAnalytics.jsx",
+      "line": 23,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/FirstRunAnalytics.jsx",
+      "line": 24,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/FirstRunAnalytics.jsx",
+      "line": 25,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/FirstRunAnalytics.jsx",
+      "line": 26,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/FirstRunAnalytics.jsx",
+      "line": 27,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/FirstRunAnalytics.jsx",
+      "line": 27,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/FirstRunAnalytics.jsx",
+      "line": 28,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/FirstRunAnalytics.jsx",
+      "line": 28,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/GoogleRewardAd.jsx",
+      "line": 40,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/GoogleRewardAd.jsx",
+      "line": 47,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/GoogleRewardAd.jsx",
+      "line": 66,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/GoogleRewardAd.jsx",
+      "line": 68,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/GoogleRewardAd.jsx",
+      "line": 69,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/GoogleRewardAd.jsx",
+      "line": 71,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/GoogleRewardAd.jsx",
+      "line": 72,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/GoogleRewardAd.jsx",
+      "line": 73,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/GoogleRewardAd.jsx",
+      "line": 74,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/JourneyGuide.jsx",
+      "line": 6,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/JourneyGuide.jsx",
+      "line": 7,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/JourneyGuide.jsx",
+      "line": 12,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/JourneyGuide.jsx",
+      "line": 12,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/JourneyGuide.jsx",
+      "line": 12,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/JourneyGuide.jsx",
+      "line": 14,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/JourneyGuide.jsx",
+      "line": 14,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/JourneyGuide.jsx",
+      "line": 14,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/legal.js",
+      "line": 10,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Lives.jsx",
+      "line": 29,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/main.jsx",
+      "line": 283,
+      "kind": "bilingual data lookup"
+    },
+    {
+      "path": "src/main.jsx",
+      "line": 283,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/main.jsx",
+      "line": 318,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MechanicTutorial.jsx",
+      "line": 8,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MechanicTutorial.jsx",
+      "line": 8,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MechanicTutorial.jsx",
+      "line": 8,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MechanicTutorial.jsx",
+      "line": 8,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MechanicTutorial.jsx",
+      "line": 15,
+      "kind": "bilingual data lookup"
+    },
+    {
+      "path": "src/MechanicTutorial.jsx",
+      "line": 15,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MechanicTutorial.jsx",
+      "line": 25,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MechanicTutorial.jsx",
+      "line": 26,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MechanicTutorial.jsx",
+      "line": 26,
+      "kind": "bilingual data lookup"
+    },
+    {
+      "path": "src/MechanicTutorial.jsx",
+      "line": 26,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MechanicTutorial.jsx",
+      "line": 28,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MechanicTutorial.jsx",
+      "line": 28,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MechanicTutorial.jsx",
+      "line": 28,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MechanicTutorial.jsx",
+      "line": 29,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MechanicTutorial.jsx",
+      "line": 30,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MechanicTutorial.jsx",
+      "line": 30,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MechanicTutorial.jsx",
+      "line": 30,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MechanicTutorial.jsx",
+      "line": 30,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MiniGame.jsx",
+      "line": 303,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MiniGame.jsx",
+      "line": 311,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MiniGame.jsx",
+      "line": 312,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MiniGame.jsx",
+      "line": 327,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MiniGame.jsx",
+      "line": 327,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MiniGame.jsx",
+      "line": 327,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/MiniGame.jsx",
+      "line": 327,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/OrientationGuard.jsx",
+      "line": 27,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/OrientationGuard.jsx",
+      "line": 27,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Playtest.jsx",
+      "line": 73,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/saveTransferPage.js",
+      "line": 15,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Stars.jsx",
+      "line": 13,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/useGameUpdate.js",
+      "line": 30,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Welcome.jsx",
+      "line": 37,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Welcome.jsx",
+      "line": 39,
+      "kind": "bilingual branch"
+    },
+    {
+      "path": "src/Welcome.jsx",
+      "line": 40,
+      "kind": "bilingual branch"
+    }
+  ],
+  "failures": []
+}

@@ -5,13 +5,14 @@ import FirstRunAnalytics from './FirstRunAnalytics.jsx';
 import useSceneAssets from './useSceneAssets.js';
 import './Welcome.css';
 import {gameAddress,ORIGINAL_ORIGIN} from './gameAddress.js';
+import LanguageSelect from './i18n/LanguageSelect.jsx';
 const scenes=[
  ['signal',"That signal should not exist. It belonged to an expedition that never returned."],
  ['emergency','Then the emergency system took control.'],
  ['aftermath',"I'm alive. The ship is barely holding together. And the signal is still there."]
 ];
 export default function Welcome({hasProgress,seen,onFinish,settings,onChapters,recap}){
- const {t,language,setLanguage}=useLanguage();
+ const {t,language,msg}=useLanguage();
  const [step,setStep]=useState(null);
  const next=useRef(null),finish=useRef(onFinish);finish.current=onFinish;
  const intro=step!==null,art=scenes[step??0][0];
@@ -32,12 +33,13 @@ export default function Welcome({hasProgress,seen,onFinish,settings,onChapters,r
   </>:<>
    <h1 className="welcome-title">BEYOND<span>THE SIGNAL</span></h1>
    <div className="welcome-menu">{recap&&<p className="journey-recap">{recap}</p>}
-    <button className="welcome-play" onClick={()=>hasProgress||seen?onFinish():setStep(0)}>{t(hasProgress||seen?'CONTINUE':'PLAY')}</button>
+    <button className="welcome-play" onClick={()=>hasProgress||seen?onFinish():setStep(0)}>{msg(hasProgress||seen?'common.continue':'common.play')}</button>
+    {location.hostname==='game.playbeyondthesignal.com'&&<p className="welcome-migration-note">{language==='cs'?'Přecházíš z původní adresy? Nejdřív použij „Přenést původní postup“ pro energii a pomůcky. Pak se v Nastavení znovu přihlas stejným Google účtem pro cloudový postup.':'Moving from the original address? First use “Recover original saved game” for energy and tools. Then sign in again with the same Google account in Settings to load your cloud progress.'}</p>}
     {hasProgress&&<button className="welcome-secondary" onClick={onChapters}>{t('Chapters')}</button>}
     {location.hostname==='game.playbeyondthesignal.com'&&<a className="welcome-secondary" href={gameAddress(location.href,{transfer:true})}>{language==='cs'?'Přenést původní postup':'Recover original saved game'}</a>}
     {location.origin===ORIGINAL_ORIGIN&&<a className="welcome-secondary" href={gameAddress(location.href,{transfer:true})}>{language==='cs'?'Přenést hru na novou adresu':'Move your saved game to the new address'}</a>}
     <button className="welcome-replay" onClick={()=>setStep(0)}>{t('Watch intro')}</button>
-    <div className="welcome-settings">{settings}<label><span aria-hidden="true">◎ </span><select aria-label={t('Language')} value={language} onChange={e=>setLanguage(e.target.value)}><option value="en">EN</option><option value="cs">CZ</option></select></label><AudioControls/></div>
+    <div className="welcome-settings">{settings}<label><span aria-hidden="true">◎ </span><LanguageSelect compact/></label><AudioControls/></div>
    </div>
   </>}
   {!ready&&<div className="intro-loading" role="status">{t(failed?'The scene could not be loaded.':'Loading…')}{failed&&<button onClick={retry}>{t('Try again')}</button>}</div>}

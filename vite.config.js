@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import {sitePages} from './src/sitePages.js';
 const version = `${Date.now()}-${process.env.GITHUB_SHA?.slice(0,12)||'local'}`;
 const artwork = text => text.replace(/\.(webp|png|jpg|jpeg|svg)(?![\w?])/g,`.$1?v=${version}`);
 export default defineConfig(({mode})=>({base:'./',server:{watch:{ignored:['**/.local/**','**/testovani_boty/reports/**']}},define:{__GAME_VERSION__:JSON.stringify(version)},plugins:[{
@@ -15,4 +16,4 @@ export default defineConfig(({mode})=>({base:'./',server:{watch:{ignored:['**/.l
   this.emitFile({type:'asset',fileName:'version.json',source:JSON.stringify({version})});
   this.emitFile({type:'asset',fileName:'migration-policy.json',source:JSON.stringify({version:1,transferReady:process.env.VITE_LEGACY_TRANSFER_READY==='true',gameOrigin:'https://game.playbeyondthesignal.com'})});
  }
-}],build:{outDir:mode==='itch'?'dist-itch':mode==='crazygames'?'dist-crazygames':'dist',rollupOptions:{input:['itch','crazygames','telegram'].includes(mode)?{game:'index.html'}:{game:'index.html',balance:'balance.html',playtest:'playtest.html',welcome:'welcome.html',transfer:'transfer.html',privacy:'privacy.html',contact:'contact.html'}}}}));
+}],build:{outDir:mode==='itch'?'dist-itch':mode==='crazygames'?'dist-crazygames':'dist',rollupOptions:{input:['itch','crazygames','telegram'].includes(mode)?{game:'index.html'}:{game:'index.html',balance:'balance.html',playtest:'playtest.html',welcome:'welcome.html',transfer:'transfer.html',privacy:'privacy.html',contact:'contact.html',...Object.fromEntries(sitePages.map(page=>[page.id,page.file]))}}}}));

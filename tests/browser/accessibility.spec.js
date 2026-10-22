@@ -62,7 +62,7 @@ for(const language of ['en','cs'])for(const viewport of [{width:320,height:568},
   await toggle.focus();await page.keyboard.press('Enter');
   await expect(page.locator('.account-panel h2')).toBeFocused();
   await audit(page,'body',true);
-  await page.keyboard.press('Tab');await expect(page.locator('.language-picker button').first()).toBeFocused();
+  await page.keyboard.press('Tab');await expect(page.locator('.language-picker select')).toBeFocused();
   await page.keyboard.press('Escape');await expect(toggle).toBeFocused();
   await page.locator('.welcome-play').click();await page.locator('.intro-skip').click();
   await page.locator('.repair-bubble-dialog .close').click();

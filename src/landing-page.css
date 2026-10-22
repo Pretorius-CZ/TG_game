@@ -26,3 +26,4 @@ section[id]{scroll-margin-top:20px}
 summary:focus-visible{outline:3px solid #75d9dc;outline-offset:2px}
 .transfer-link{display:inline-flex;align-items:center;min-height:44px;color:#8ed6d4;text-decoration:underline;text-underline-offset:4px}
 @media(max-width:540px){.site-nav{gap:16px;font-size:12px}.guide-list summary{font-size:17px}.guide-list details>div{padding-left:8px}.guides{margin-top:55px;padding-top:40px}}
+.saved-game-banner{box-sizing:border-box;border:1px solid #678d97;border-radius:8px;padding:18px 22px;background:#112833;margin-top:16px;margin-bottom:20px;font-size:14px;line-height:1.6;color:#d6e8e9}.saved-game-banner[hidden]{display:none}.saved-game-banner p{margin:10px 0}.saved-game-banner>div{display:flex;flex-wrap:wrap;gap:12px 24px}.saved-game-banner a{min-height:44px;display:inline-flex;align-items:center;text-decoration:underline;text-underline-offset:4px;color:#b7e9e1}

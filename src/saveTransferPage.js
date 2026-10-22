@@ -1,6 +1,7 @@
 import './saveTransferPage.css';
 import {exportBackup,validateBackup,planImport,importBackup,readPending,recoverTransfer,summarizeBackup} from './saveTransfer.js';
 import {transferOrigins,validTransferMessage} from './transferOrigins.js';
+import {initialLanguage,addressLanguage,applyDocumentLanguage} from './i18n/locales.js';
 
 const origins=transferOrigins(location,import.meta.env.DEV);
 const target=location.origin===origins.target,source=location.origin===origins.source;
@@ -9,10 +10,10 @@ const snapshot=()=>exportBackup(storage,{includeUnusedStock:source});
 const fragment=new URLSearchParams(location.hash.slice(1));
 const sourceNonce=fragment.get('nonce');
 history.replaceState(null,'',location.pathname+location.search);
-let storage,cs=false;
-try{storage=localStorage;cs=storage.getItem('to-the-stars-language')==='cs';}catch{}
+let storage;try{storage=localStorage;}catch{}
+const language=initialLanguage({storage,languages:navigator.languages,requested:addressLanguage(location.href)}),cs=language==='cs';
 const text=(en,cz)=>cs?cz:en;
-document.documentElement.lang=cs?'cs':'en';
+applyDocumentLanguage(language,document);
 const main=document.getElementById('transfer');
 function el(tag,content,parent=main){const node=document.createElement(tag);if(content)node.textContent=content;parent.append(node);return node;}
 function button(label,action,parent=main){const b=el('button',label,parent);b.type='button';b.addEventListener('click',()=>{try{action();}catch(error){status(error.message,true);}});return b;}
@@ -91,6 +92,7 @@ try{
   const label=el('label',text('Restore a backup file','Obnovit záložní soubor'),files),file=document.createElement('input');file.type='file';file.accept='.json,application/json';label.append(file);
   file.addEventListener('change',async()=>{try{const selected=file.files[0];if(!selected)return;if(selected.size>4*1024*1024)throw Error('Backup is too large.');offer(JSON.parse(await selected.text()));}catch(error){status(error.message,true);}finally{file.value='';}});
   const game=new URL('./',location.href),campaign=new URLSearchParams(location.search);
+  game.searchParams.set('lang',language);
   for(const key of ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'])if(campaign.has(key))game.searchParams.set(key,campaign.get(key));
   link(text('Continue to the game','Pokračovat do hry'),game.href);
  }

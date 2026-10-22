@@ -1,0 +1,13 @@
+{
+  "common.play": "SPIELEN",
+  "common.continue": "WEITER",
+  "common.language": "Sprache",
+  "common.close": "Schließen",
+  "common.next": "Weiter",
+  "common.retry": "Erneut versuchen",
+  "common.settings": "Spieleinstellungen",
+  "common.chapters": "Kapitel",
+  "common.movesLeft": {"one": "Noch {count} Zug", "other": "Noch {count} Züge"},
+  "common.stars": "{count} von {total} Sternen",
+  "web.pageTitle": "Beyond the Signal — Ein Science-Fiction-Puzzle-Abenteuer"
+}

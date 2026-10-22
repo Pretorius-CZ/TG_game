@@ -11,6 +11,10 @@ test('main website mode retains transfer and the original OAuth recovery entry',
  await writeFile(path.join(root,'index.html'),game);await writeFile(path.join(root,'welcome.html'),website);await writeFile(path.join(root,'transfer.html'),'transfer');
  await prepareMainSite(root,'website');assert.equal(await readFile(path.join(root,'index.html'),'utf8'),website);assert.match(await readFile(path.join(root,'legacy-game.html'),'utf8'),/noindex,nofollow/);assert.equal(await readFile(path.join(root,'transfer.html'),'utf8'),'transfer');
  assert.equal(JSON.parse(await readFile(path.join(root,'hosting-policy.json'),'utf8')).mode,'website');
+ const sitemap=await readFile(path.join(root,'sitemap.xml'),'utf8');
+ assert.match(sitemap,/https:\/\/playbeyondthesignal.com\/how-to-play.html/);
+ assert.doesNotMatch(sitemap,/transfer|legacy-game|balance|playtest/);
+ assert.match(await readFile(path.join(root,'robots.txt'),'utf8'),/Sitemap: https:\/\/playbeyondthesignal.com\/sitemap.xml/);
 });
 test('parallel mode leaves the main game untouched and rejects invalid mode',async t=>{
  const root=await mkdtemp(path.join(os.tmpdir(),'main-site-mode-'));t.after(()=>rm(root,{recursive:true,force:true}));await writeFile(path.join(root,'index.html'),'game');

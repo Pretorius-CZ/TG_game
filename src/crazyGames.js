@@ -1,4 +1,5 @@
 import {crazyGames} from './platform.js';
+import {validLanguage} from './i18n/locales.js';
 let sdk;
 export async function initializeCrazyGames(){
  if(!crazyGames)return;
@@ -11,4 +12,4 @@ export function reportGameplay(playing){
  try{playing?sdk.game.gameplayStart():sdk.game.gameplayStop();}catch(error){console.warn('CrazyGames gameplay event failed',error);}
 }
 
-export function crazyGamesLanguage(){try{return /^cs(?:[-_]|$)/i.test(sdk?.user?.systemInfo?.locale||'')?'cs':'en';}catch{return 'en';}}
+export function crazyGamesLanguage(){try{return validLanguage(sdk?.user?.systemInfo?.locale);}catch{return 'en';}}

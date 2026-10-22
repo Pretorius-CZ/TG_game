@@ -1,0 +1,13 @@
+{
+  "common.play": "JOGAR",
+  "common.continue": "CONTINUAR",
+  "common.language": "Idioma",
+  "common.close": "Fechar",
+  "common.next": "Próximo",
+  "common.retry": "Tentar novamente",
+  "common.settings": "Configurações do jogo",
+  "common.chapters": "Capítulos",
+  "common.movesLeft": {"one": "Resta {count} jogada", "many": "Restam {count} jogadas", "other": "Restam {count} jogadas"},
+  "common.stars": "{count} de {total} estrelas",
+  "web.pageTitle": "Beyond the Signal — Uma aventura de ficção científica com quebra-cabeças"
+}

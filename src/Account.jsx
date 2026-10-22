@@ -5,6 +5,7 @@ import {supabase} from './supabase.js';
 import {gameAddress} from './gameAddress.js';
 import AdChoicesButton from './AdChoicesButton.jsx';
 import AnalyticsChoices from './AnalyticsChoices.jsx';
+import LanguageSelect from './i18n/LanguageSelect.jsx';
 const itch=import.meta.env.MODE==='itch';
 const guestOnly=itch||crazyGames;
 export const AccountContext = createContext(null);
@@ -25,7 +26,7 @@ export function AccountProvider({children}) {
  return <AccountContext.Provider value={{user:session?.user,error,setError,restartView:()=>setGeneration(n=>n+1)}}>{t(React.cloneElement(children,{key:`${session?.user.id||'guest'}:${generation}`}))}</AccountContext.Provider>;
 }
 export function AccountButton({onImport,onRestart}){
- const {t,language,setLanguage}=useLanguage();
+ const {t,language}=useLanguage();
  const {user,error,setError}=useAccount();
  const [importMessage,setImportMessage]=useState('');
  const [open,setOpen]=useState(false),[busy,setBusy]=useState(false),[confirmReset,setConfirmReset]=useState(false);
@@ -51,7 +52,7 @@ export function AccountButton({onImport,onRestart}){
   setBusy(false);
  }
  return <div className="account-control"><button ref={toggle} onClick={()=>open?close():setOpen(true)} aria-expanded={open}>{t("⚙ Settings")}</button>{t(open&&<section className="account-panel" aria-label={t("Game settings")} onKeyDown={e=>{if(e.key==='Escape'){e.stopPropagation();close();}}}>
- <h2 ref={heading} tabIndex={-1}>{t("Game settings")}</h2><fieldset className="language-picker"><legend>{t("Language")}</legend><button type="button" aria-pressed={language==='en'} onClick={()=>setLanguage('en')}>EN · English</button><button type="button" aria-pressed={language==='cs'} onClick={()=>setLanguage('cs')}>CZ · Čeština</button></fieldset>
+ <h2 ref={heading} tabIndex={-1}>{t("Game settings")}</h2><fieldset className="language-picker"><legend>{t("Language")}</legend><LanguageSelect/></fieldset>
  {t(confirmReset?<div className="restart-confirm" role="alert"><h3>{t("Start over?")}</h3><p>{t(user?"This resets all game progress for this account on every device, including repairs, the ship log and completed chapters.":"This resets all guest progress in this browser, including repairs, the ship log and completed chapters.")}{t(" You will start with 5 energy charges here. This cannot be undone.")}</p><button disabled={busy} onClick={restart}>{t("Yes, restart game")}</button><button disabled={busy} onClick={()=>setConfirmReset(false)}>{t("Cancel")}</button></div>:<button className="restart-game-button" disabled={busy} onClick={()=>setConfirmReset(true)}>{t("Restart entire game")}</button>)}
  {!guestOnly&&<a className="balance-report-link" href="./balance.html" target="_blank" rel="noopener">{language==='cs'?'Přehled testování obtížnosti':'Difficulty testing report'}</a>}
  {!crazyGames&&<AnalyticsChoices/>}

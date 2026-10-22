@@ -1,5 +1,11 @@
 # Přechod na game. — provozní postup
 
+2026-10-22: Uživatel zadal dokončení veřejného webu a přechod hlavní domény.
+Lokální připravenost včetně živých původních transfer endpointů ověřená.
+Postup nasazení: nový společný commit na obě domény, nejprve ověřit hru,
+potom trvale MAIN_SITE_MODE=website a ověřit web, sitemapu a obnovu save.
+Potvrzený živý stav uvést v poslední aktualizaci AGENTS.md.
+
 ## Připravené souběžné období
 
 Hra na obou HTTPS adresách používá stejnou Supabase databázi, účty a ID

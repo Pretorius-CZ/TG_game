@@ -1,0 +1,13 @@
+{
+  "common.play": "JOUER",
+  "common.continue": "CONTINUER",
+  "common.language": "Langue",
+  "common.close": "Fermer",
+  "common.next": "Suivant",
+  "common.retry": "Réessayer",
+  "common.settings": "Paramètres du jeu",
+  "common.chapters": "Chapitres",
+  "common.movesLeft": {"one": "{count} coup restant", "many": "{count} coups restants", "other": "{count} coups restants"},
+  "common.stars": "{count} étoiles sur {total}",
+  "web.pageTitle": "Beyond the Signal — Une aventure de réflexion de science-fiction"
+}
