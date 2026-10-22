@@ -6,6 +6,9 @@ const artwork = text => text.replace(/\.(webp|png|jpg|jpeg|svg)(?![\w?])/g,`.$1?
 export default defineConfig(({mode,command})=>({base:'./',publicDir:mode==='android'&&command==='build'?false:'public',server:{watch:{ignored:['**/.local/**','**/testovani_boty/reports/**','**/android/**','**/dist-android/**']}},define:{__GAME_VERSION__:JSON.stringify(version)},plugins:[...(mode==='android'?[androidAssets()]:[]),{
  name:'game-version',
  transformIndexHtml(html){
+   // Android owns system-bar/cutout insets at the WebView boundary. Keeping
+   // viewport-fit=cover would require every screen and modal to handle them.
+   if(mode==='android')html=html.replace(/,?\s*viewport-fit=cover/g,'');
    if(!['itch','crazygames','telegram','android'].includes(mode))html=html.replace('</head>','<meta name="google-adsense-account" content="ca-pub-4627613906098117"/></head>');
    return mode==='crazygames'?html.replace('</head>','<script src="https://sdk.crazygames.com/crazygames-sdk-v3.js"></script></head>'):html;},
  renderChunk(code){return {code:artwork(code),map:null};},

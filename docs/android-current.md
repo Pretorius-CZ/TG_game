@@ -83,3 +83,26 @@ Zdroje:
 - https://developer.android.com/build/jdks
 - https://learn.microsoft.com/en-us/java/openjdk/download
 - https://developer.android.com/studio/run/device
+
+## První fyzický test a systémové lišty — 2026-10-22
+
+POCO F7 (24117RK2CG) se spárovalo přes Wi-Fi s PC na LAN. Instalace nejprve
+selhala s INSTALL_FAILED_USER_RESTRICTED; volba Instalace přes USB je v
+HyperOS potřebná i při bezdrátovém ADB. Hra pak běží a uživatel potvrdil
+uložení první opravy po zavření a opětovném spuštění. Úvodní nabídka
+statistik není slepý test.
+
+Na snímku čas a stavové ikony překrývaly název hry a Nastavení. Příčina:
+viewport-fit=cover umožňuje obsah pod lištami, ale všechny obrazovky hry
+nemají jednotnou CSS správu nativních okrajů. Jen v Android buildu se proto
+viewport-fit=cover odstraní. Použitý Capacitor 8.5.3 pak uplatňuje systémové
+lišty a výřez jako nativní padding okna. Platí i pro dialogy, úvod a dostupnou
+výšku WebView. Webový viewport zůstává původní. SystemBars style DARK dává
+světlé ikony, postSplashScreenTheme přechází na tmavý aplikační motiv.
+
+Opravné APK úspěšně sestavené; ověřeno Android HTML, nativní config a
+nezměněný webový viewport-fit. Před potvrzením skutečného vzhledu je nutné
+aktualizaci spustit přes Run na telefonu. Aplikace se v této opravě sama
+neodinstalovávala a její data se nemazala. Sestavovací pomocník už také
+nepřepisuje existující IDE Gradle nastavení při každé kompilaci; počáteční
+mapování modulů používá skutečné cesty do node_modules.
