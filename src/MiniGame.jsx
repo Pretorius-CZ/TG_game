@@ -135,6 +135,13 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   usePuzzleFit(dialog,admitted&&!won&&!fault&&!exhausted,level.cols,level.rows);
   useEffect(()=>{const active=admitted&&!fault&&!won&&!exhausted&&!tutorial&&!confirmQuit;reportGameplay(active);return()=>reportGameplay(false);},[admitted,fault,won,exhausted,tutorial,confirmQuit]);
   useEffect(()=>{if(won)lives.settleAttempt(attemptId.current,true);},[won]);
+  // A completed replay earns its better rating even if the result is closed or reloaded.
+  // First completions still award together with onWin; blind tests never change progress.
+  const savedStars=stars[repair.id];
+  useEffect(()=>{
+    if(won&&!playtest&&savedStars&&earnedStars(moveBudget(repair),moves)>savedStars)
+      award(repair.id,moveBudget(repair),moves);
+  },[won,playtest,savedStars,repair,moves,award]);
   useEffect(()=>{if(exhausted)recordResult("exhausted",false);if(exhausted&&!spent.current){spent.current=true;lives.settleAttempt(attemptId.current);}},[exhausted]);
   useEffect(()=>{if(exhausted||won||fault){dialog.current?.scrollTo({top:0});resultPanel.current?.focus({preventScroll:true});}},[exhausted,won,fault]);
   function showHint(){
