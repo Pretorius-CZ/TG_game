@@ -43,6 +43,19 @@ test('download/upload fallback works without a popup and rejects an auth-token b
  await page.locator('input[type=file]').setInputFiles({name:'bad.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({format:'beyond-signal-save',version:1,id:'12345678-1234-4234-9234-123456789abc',createdAt:1,entries:{'sb-project-auth-token':'secret'}}))});
  await expect(page.locator('#status')).toHaveAttribute('data-error','true');expect(await page.evaluate(()=>localStorage.getItem('sb-project-auth-token'))).toBeNull();
 });
+
+test('continuing after import uses the imported language instead of the transfer page initial language',async({context,page})=>{
+ await prepare(context);await page.goto(`${source}/transfer.html`);
+ await page.evaluate(()=>localStorage.setItem('to-the-stars-language','cs'));
+ const downloadPromise=page.waitForEvent('download');await page.getByRole('button',{name:'Download this browser’s backup'}).click();
+ const download=await downloadPromise,path=await download.path();
+ await page.goto(`${target}/transfer.html`);await page.locator('input[type=file]').setInputFiles(path);
+ await page.getByRole('button',{name:'Import saved game',exact:true}).click();
+ const continueGame=page.getByRole('link',{name:'Continue to the game',exact:true});
+ expect(new URL(await continueGame.getAttribute('href')).searchParams.get('lang')).toBe('cs');
+ await continueGame.click();await expect(page.locator('html')).toHaveAttribute('lang','cs');
+ expect(await page.evaluate(()=>localStorage.getItem('to-the-stars-language'))).toBe('cs');
+});
 test('interrupted imports route game startup to recovery and can finish after reload',async({page})=>{
  await page.goto(`${target}/transfer.html`);await page.evaluate(()=>localStorage.setItem('beyond-signal-transfer-pending-v1',JSON.stringify({version:1,id:'12345678-1234-4234-9234-123456789abc',changes:[{key:'to-the-stars-progress-v1',before:null,after:JSON.stringify({version:1,resetRevision:0,airlockCompleted:3})}]})));
  await page.goto(`${target}/`);await expect(page).toHaveURL(`${target}/transfer.html`);

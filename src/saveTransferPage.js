@@ -46,6 +46,7 @@ try{
    const result=importBackup(storage,incoming,{replace:replace.checked});
    if(!result.already&&!result.changes.length&&result.conflicts.length){status(text('Nothing was changed. The existing saved game was kept.','Nic se nezměnilo. Současná uložená hra zůstala zachována.'));return;}
    preview.hidden=true;
+   updateGameLink();
    const accounts=summarizeBackup(incoming).accounts;
    status(text(`Saved and verified. ${accounts?'Continue to the game and sign in with the same Google account to open your account save.':'You can continue playing as a guest.'}${result.skipped.length?' Some existing settings or saved data were kept.':''}`,`Uloženo a ověřeno. ${accounts?'Pokračuj do hry a přihlas se stejným Google účtem, aby se otevřel jeho postup.':'Můžeš pokračovat jako host.'}${result.skipped.length?' Část stávajících nastavení nebo dat zůstala zachovaná.':''}`));
    if(peer&&!peer.closed)peer.postMessage({channel:'beyond-signal-transfer-v1',type:'saved',nonce},origins.source);
@@ -92,8 +93,9 @@ try{
   const label=el('label',text('Restore a backup file','Obnovit záložní soubor'),files),file=document.createElement('input');file.type='file';file.accept='.json,application/json';label.append(file);
   file.addEventListener('change',async()=>{try{const selected=file.files[0];if(!selected)return;if(selected.size>4*1024*1024)throw Error('Backup is too large.');offer(JSON.parse(await selected.text()));}catch(error){status(error.message,true);}finally{file.value='';}});
   const game=new URL('./',location.href),campaign=new URLSearchParams(location.search);
-  game.searchParams.set('lang',language);
   for(const key of ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'])if(campaign.has(key))game.searchParams.set(key,campaign.get(key));
-  link(text('Continue to the game','Pokračovat do hry'),game.href);
+  const continueGame=link(text('Continue to the game','Pokračovat do hry'),game.href);
+  function updateGameLink(){game.searchParams.set('lang',initialLanguage({storage,languages:[language]}));continueGame.href=game.href;}
+  updateGameLink();
  }
 }catch(error){status(error.message,true);}
