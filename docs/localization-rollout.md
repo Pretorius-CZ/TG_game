@@ -78,4 +78,14 @@ jde o pracovní seznam, nikoli úplný důkaz pokrytí každého viditelného te
 - Španělština pro první vydání neutrální, připravená na pozdější regiony.
   Portugalština výslovně `pt-BR`; `pt-PT` není totéž. Bez vlajek jako jazyků.
 
-První etapa je lokální, bez pushe, nasazení či změny hlavní domény.
+První etapa byla původně lokální. Stav webu a přechodu domén níže tento
+historický stav aktualizuje.
+
+## 2026-10-22 — Samostatné jazykové vydání webu
+
+Na přání uživatele dokončeny webové edice DE/FR/ES/PT-BR vedle EN/CS,
+včetně všech návodů, novinek, kontaktu a soukromí. Jejich PLAY dočasně
+otevírá anglickou hru; CS vede do české. Herní lokalizace zůstává EN/CS,
+čtyři nové herní katalogy nadále draft. Podrobnosti a další údržba:
+`docs/website-localization.md`. Výše uvedený seznam zbývající práce teď
+platí zejména pro hru a přenos, nikoli pro již přeložený informační web.

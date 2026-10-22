@@ -1,9 +1,13 @@
-import {readFileSync,writeFileSync} from 'node:fs';
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
+import {dirname} from 'node:path';
+import {websiteLocales} from '../src/i18n/websiteLocales.js';
+import {localizeSitePage} from './localize-site-pages.mjs';
 import {sitePages,mainSiteOrigin} from '../src/sitePages.js';
 import english from '../src/i18n/catalogs/web/en.json' with {type:'json'};
 import {updates} from '../src/welcomeUpdates.js';
 
 const check=process.argv.includes('--check');
+const outputs=new Map();
 const escape=value=>String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 const text=id=>{const value=english['web.'+id];if(typeof value!=='string')throw Error(`Missing website message: ${id}`);return escape(value);};
 const node=(tag,id,attributes='')=>`<${tag} data-text="${id}"${attributes}>${text(id)}</${tag}>`;
@@ -34,13 +38,23 @@ ${page.sections.length>2?`<nav class="article-contents" aria-label="${text('site
 <footer class="wrap"><span>© <span id="year">2026</span> Beyond the Signal</span>${node('span','site.author')}${node('a','contact',' href="./contact.html"')}${node('a','privacy',' href="./privacy.html"')}<button type="button" class="privacy-choices" data-text="adChoices">${text('adChoices')}</button><span class="privacy-choice-status" role="status" hidden></span></footer>
 <script type="module" src="/src/welcome.js"></script></body></html>
 `;
- if(check){if(readFileSync(page.file,'utf8').replaceAll('\r\n','\n')!==html)throw Error(`${page.file} is out of date. Run npm run site:generate.`);}
- else writeFileSync(page.file,html);
+ outputs.set(page.file,html);
 }
 console.log(`${check?'Checked':'Generated'} ${sitePages.length} static information pages.`);
 // Keep the home page's no-JavaScript news fallback current as well.
 const home=readFileSync('welcome.html','utf8').replaceAll('\r\n','\n'),start=home.indexOf('<div id="update-list">'),end=home.indexOf('\n    </section>',start);
 if(start<0||end<0)throw Error('Home news container is missing');
 const updated=home.slice(0,start)+'<div id="update-list">'+news()+'</div>'+home.slice(end);
-if(check){if(home!==updated)throw Error('Home news fallback is out of date. Run npm run site:generate.');}
-else writeFileSync('welcome.html',updated);
+outputs.set('welcome.html',updated);
+for(const file of ['privacy.html','contact.html'])outputs.set(file,readFileSync(file,'utf8').replaceAll('\r\n','\n'));
+const templates=[...outputs];
+for(const locale of websiteLocales)for(const [source,html] of templates){
+ const file=source==='welcome.html'?'index.html':source;
+ const target=locale.code==='en'?source:`${locale.code}/${file}`;
+ outputs.set(target,localizeSitePage(html,locale.code,file));
+}
+for(const [file,html] of outputs){
+ if(check){if(readFileSync(file,'utf8').replaceAll('\r\n','\n')!==html)throw Error(`${file} is out of date. Run npm run site:generate.`);}
+ else {mkdirSync(dirname(file),{recursive:true});writeFileSync(file,html);}
+}
+console.log(`${check?'Checked':'Generated'} ${outputs.size} website pages in ${websiteLocales.length} languages.`);

@@ -13,7 +13,7 @@
   "web.play": "Hrát zdarma",
   "web.playMigration": "Už hraješ? Nejdřív přenes původní hru kvůli energii a pomůckám. Pak se na game. znovu přihlas stejným Google účtem pro načtení cloudového postupu.",
   "web.availability": "V prohlížeči · Mobil i počítač · Bez stahování",
-  "web.contentNote": "200 levelů · Příběh, průzkum a opravy · Česky / anglicky",
+  "web.contentNote": "200 levelů · Příběh, průzkum a obnova · Hra česky / anglicky",
   "web.discover": "Objev dobrodružství",
   "web.aboutLabel": "VÍC NEŽ SPOJOVÁNÍ KAMENŮ",
   "web.aboutTitle": "Každý hlavolam vrací tvému světu život.",
@@ -148,5 +148,11 @@
   "web.site.allUpdates": "Všechny novinky →",
   "web.site.savedTitle": "Hrál jsi na původní adrese?",
   "web.site.savedBody": "Pokud jsi uloženou hru ještě nepřenesl na game., přenes ji nejdřív, aby ti zůstal postup, energie i pomůcky.",
-  "web.site.alreadyMoved": "Už máš přeneseno? Otevřít hru ↗"
+  "web.site.alreadyMoved": "Už máš přeneseno? Otevřít hru ↗",
+  "web.site.gameLanguage": "Hra i přenos uloženého postupu se otevřou česky.",
+  "web.consent.loading": "Načítání voleb soukromí…",
+  "web.consent.opening": "Otevírám reklamní volby…",
+  "web.consent.unavailable": "Volby souhlasu se nepodařilo načíst. Zpráva možná ještě není zveřejněná, nebo ji blokuje prohlížeč či připojení. Nepovažujeme to za souhlas. Ve hře můžeš pokračovat.",
+  "web.consent.not-required": "Google pro tuto návštěvu nevyžaduje evropskou zprávu souhlasu.",
+  "web.consent.received": "Tvoje reklamní volby byly přijaty Googlem. Kdykoli je můžeš změnit."
 }

@@ -1,3 +1,4 @@
+import {websiteLocales} from './i18n/websiteLocales.js';
 // Public information pages. Player-facing copy lives in i18n/catalogs/web.
 export const sitePages=[
  {id:'about',file:'about.html',image:'./scenes/airlock-corridor-door.webp',sections:['adventure','changes','creator']},
@@ -7,4 +8,6 @@ export const sitePages=[
  {id:'updates',file:'updates.html',sections:[],news:true},
 ];
 export const mainSiteOrigin='https://playbeyondthesignal.com';
-export const publicSitePaths=['/',...sitePages.map(page=>'/'+page.file),'/contact.html','/privacy.html'];
+export const websiteFiles=['index.html',...sitePages.map(page=>page.file),'contact.html','privacy.html'];
+export const localizedSiteFiles=websiteLocales.filter(locale=>locale.code!=='en').flatMap(locale=>websiteFiles.map(file=>`${locale.code}/${file}`));
+export const publicSitePaths=websiteLocales.flatMap(locale=>websiteFiles.map(file=>(locale.code==='en'?'/':`/${locale.code}/`)+(file==='index.html'?'':file)));

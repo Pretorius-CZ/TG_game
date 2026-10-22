@@ -13,7 +13,7 @@
   "web.play": "Play free",
   "web.playMigration": "Already playing? Transfer your original save first to keep energy and tools, then sign in again on game. with the same Google account to load cloud progress.",
   "web.availability": "In your browser · Mobile & desktop · No download",
-  "web.contentNote": "200 levels · Story, exploration & restoration · English / Czech",
+  "web.contentNote": "200 levels · Story, exploration & restoration · Game in English / Czech",
   "web.discover": "Discover the adventure",
   "web.aboutLabel": "MORE THAN A MATCH",
   "web.aboutTitle": "Every puzzle brings your world to life.",
@@ -148,5 +148,11 @@
   "web.site.allUpdates": "All updates →",
   "web.site.savedTitle": "Played on the original address?",
   "web.site.savedBody": "If you have not moved your saved game to game. yet, transfer it first to keep your progress, energy and tools.",
-  "web.site.alreadyMoved": "Already transferred? Open the game ↗"
+  "web.site.alreadyMoved": "Already transferred? Open the game ↗",
+  "web.site.gameLanguage": "The game and saved-game transfer open in English.",
+  "web.consent.loading": "Loading privacy choices…",
+  "web.consent.opening": "Opening advertising choices…",
+  "web.consent.unavailable": "Consent choices could not load. The message may not be published yet, or your browser or connection may be blocking it. We do not treat this as consent. You can continue playing.",
+  "web.consent.not-required": "Google does not require the European consent message for this visit.",
+  "web.consent.received": "Google received your advertising choices. You can change them again at any time."
 }

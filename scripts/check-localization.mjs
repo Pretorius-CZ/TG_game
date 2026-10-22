@@ -3,6 +3,7 @@ import {parseSync} from 'rolldown/utils';
 import {locales,releasedLocales} from '../src/i18n/locales.js';
 import {englishMessages,catalogProblems} from '../src/i18n/messages.js';
 import {updates} from '../src/welcomeUpdates.js';
+import {websiteLocales} from '../src/i18n/websiteLocales.js';
 
 const failures=[],legacySites=[],sourceIds=new Map(Object.entries(englishMessages).filter(([,value])=>typeof value==='string').map(([id,value])=>[value.trim(),id]));
 function walk(node,visit){if(!node||typeof node!=='object')return;visit(node);for(const value of Object.values(node)){if(Array.isArray(value))value.forEach(child=>walk(child,visit));else if(value&&typeof value==='object')walk(value,visit);}}
@@ -35,11 +36,24 @@ for(const locale of locales){
 // Existing EN/CZ paths still contain dynamic grammar and bilingual story arrays.
 // Do not enable another language just by changing its registry status.
 if(releasedLocales.some(locale=>!['en','cs'].includes(locale.code)))failures.push('Additional language release requires migration of dynamic objectives, bilingual story data, consent/transfer/legal copy and the remaining branches. See docs/localization-rollout.md.');
-for(const locale of releasedLocales)for(const file of ['privacy.html','contact.html'])if(!readFileSync(file,'utf8').includes(`data-copy="${locale.code}"`))failures.push(`${file}: missing ${locale.code} copy`);
+// Website translations release independently. A missing key is an error here,
+// even while that language remains an unfinished in-game catalog.
+for(const namespace of ['web','legal']){
+ const source=JSON.parse(readFileSync(`src/i18n/catalogs/${namespace}/en.json`,'utf8'));
+ for(const locale of websiteLocales){
+  const catalog=JSON.parse(readFileSync(`src/i18n/catalogs/${namespace}/${locale.code}.json`,'utf8'));
+  for(const key of Object.keys(source))if(typeof catalog[key]!=='string'||!catalog[key].trim())failures.push(`${namespace}/${locale.code}: missing ${key}`);
+  for(const key of Object.keys(catalog))if(!Object.hasOwn(source,key))failures.push(`${namespace}/${locale.code}: unknown ${key}`);
+ }
+}
+for(const locale of websiteLocales)for(const file of ['privacy.html','contact.html']){
+ const path=(locale.code==='en'?'':locale.code+'/')+file;
+ if(!readFileSync(path,'utf8').includes(`data-copy="${locale.code}"`))failures.push(`${path}: missing ${locale.code} copy`);
+}
 const report={coverage,legacySites,failures};
 if(process.argv.includes('--report')){
  writeFileSync('docs/localization-audit.json',JSON.stringify(report,null,2)+'\n');
  console.log('Wrote docs/localization-audit.json');
 }
 console.table(coverage);console.log(`Remaining bilingual branches/lookups: ${legacySites.length}`);
-if(failures.length){console.error(failures.join('\n'));process.exitCode=1;}else console.log('Localization checks passed; draft languages remain hidden.');
+if(failures.length){console.error(failures.join('\n'));process.exitCode=1;}else console.log('Localization checks passed; six website languages, unfinished game languages remain hidden.');

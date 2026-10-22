@@ -3,44 +3,44 @@
     {
       "code": "en",
       "status": "released",
-      "total": 2209,
-      "translated": 2209,
+      "total": 2215,
+      "translated": 2215,
       "problems": 0
     },
     {
       "code": "cs",
       "status": "released",
-      "total": 2209,
-      "translated": 2209,
+      "total": 2215,
+      "translated": 2215,
       "problems": 0
     },
     {
       "code": "de",
       "status": "draft",
-      "total": 2209,
-      "translated": 11,
-      "problems": 2198
+      "total": 2215,
+      "translated": 166,
+      "problems": 2049
     },
     {
       "code": "fr",
       "status": "draft",
-      "total": 2209,
-      "translated": 11,
-      "problems": 2198
+      "total": 2215,
+      "translated": 166,
+      "problems": 2049
     },
     {
       "code": "es",
       "status": "draft",
-      "total": 2209,
-      "translated": 11,
-      "problems": 2198
+      "total": 2215,
+      "translated": 166,
+      "problems": 2049
     },
     {
       "code": "pt-BR",
       "status": "draft",
-      "total": 2209,
-      "translated": 11,
-      "problems": 2198
+      "total": 2215,
+      "translated": 166,
+      "problems": 2049
     }
   ],
   "legacySites": [
@@ -427,11 +427,6 @@
     {
       "path": "src/JourneyGuide.jsx",
       "line": 14,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/legal.js",
-      "line": 10,
       "kind": "bilingual branch"
     },
     {
