@@ -84,3 +84,17 @@ kontakt. Jde o emulaci prohlížečů, nikoli nové měření fyzických zaříz
 
 Obtížnost, 200 levelů, schválený příběh, SQL a reklamní režim beze změny.
 Překlady samy o sobě nezaručují schválení AdSense; novou kontrolu neposíláme.
+
+## Nasazení
+
+Zdroj `dcf0c6b88fa37b47b0dde7f5ef9a6cbd1afc65de` je zveřejněný na
+obou doménách. GitHub Pages web `39818922248` a hra `39818950413`
+potvrdily success. Verze main `1792688472455-dcf0c6b88fa3`, game
+`1792688485883-dcf0c6b88fa3`. Hlavní doména zůstává informační web.
+
+Živá kontrola ověřila HTTP 200, jazyková metadata a přepínač na všech
+48 adresách, všech 48 záznamů sitemap a v Chromiu i WebKitu navigaci
+úvod → článek → soukromí ve všech šesti jazycích. PLAY vždy předává
+správné EN/CS. Samostatný startup smoke na skutečné game doméně ověřil
+`/` i `/index.html`: úvodní grafiku a první úkol, bez chyb zdrojů.
+Při tom nebyl použit skutečný Google účet ani vytvořen herní report.
