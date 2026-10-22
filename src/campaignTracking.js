@@ -1,4 +1,5 @@
 import {analyticsAllowed,analyticsSince,analyticsSignal,analyticsRetentionMs,analyticsEpoch} from './analyticsPrivacy.js';
+import {android} from './platform.js';
 import {supabase} from './supabase.js';
 import {reporterIdentity} from './balanceOutbox.js';
 import {campaignFromURL,visitForActivity,deviceCategory,mergeVisitAttempts,migrationCampaign} from './campaignPolicy.js';
@@ -16,7 +17,7 @@ function persist(){try{
  localStorage.setItem(visitKey,JSON.stringify(active));const queue=read(queueKey,{});queue[active.id]=active;localStorage.setItem(queueKey,JSON.stringify(Object.fromEntries(Object.entries(queue).slice(-100))));
 }catch{}}
 function initializeVisit(){
- const now=Date.now(),campaign=migrationCampaign(campaignFromURL(location.href),read('beyond-signal-migrated-traffic-v1',null)),previous=read(visitKey,null);
+ const now=Date.now(),campaign=android?{source:'googleplay',medium:'android_preview',campaign:'current_device_test'}:migrationCampaign(campaignFromURL(location.href),read('beyond-signal-migrated-traffic-v1',null)),previous=read(visitKey,null);
  const validPrevious=previous?.lastAt>=analyticsSince()?previous:null;
  const candidate=validPrevious&&active&&validPrevious.id===active.id&&validPrevious.lastAt>active.lastAt?validPrevious:active||validPrevious;
  const chosen=visitForActivity(candidate,campaign,now,()=>crypto.randomUUID(),deviceCategory(navigator));

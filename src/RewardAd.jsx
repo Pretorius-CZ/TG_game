@@ -1,20 +1,21 @@
-import {crazyGames} from './platform.js';
+import {crazyGames,android,rewardAvailable} from './platform.js';
 import React,{createContext,useContext,useEffect,useRef,useState} from 'react';
 import {useLanguage} from './i18n/Language.jsx';
 import {pauseForAd} from './audio.js';
 import './rewardAd.css';
 import GoogleRewardAd from './GoogleRewardAd.jsx';
 import {webAdsMode} from './webAdsPolicy.js';
+import AndroidRewardAd from './AndroidRewardAd.jsx';
 const Context=createContext(null);
 export const useRewardAd=()=>useContext(Context);
 export function RewardAdProvider({children}){
  const [offer,setOffer]=useState(null),pending=useRef(null);
- async function request(reward,grant){if(pending.current)return;if(crazyGames){pending.current={reward,grant};try{await grant();}finally{pending.current=null;}return;}
+ async function request(reward,grant,kind){if(pending.current||!rewardAvailable(kind))return;if(crazyGames){pending.current={reward,grant};try{await grant();}finally{pending.current=null;}return;}
  let storage;try{storage=localStorage;}catch{}
- const mode=webAdsMode({configured:import.meta.env.VITE_WEB_ADS_MODE||'simulation',url:location.href,storage,platform:['itch','telegram'].includes(import.meta.env.MODE)?import.meta.env.MODE:'web'});
+ const mode=android?'android':webAdsMode({configured:import.meta.env.VITE_WEB_ADS_MODE||'simulation',url:location.href,storage,platform:['itch','telegram'].includes(import.meta.env.MODE)?import.meta.env.MODE:'web'});
  pending.current={reward,grant,mode};setOffer(pending.current);}
  function close(){pending.current=null;setOffer(null);}
- return <Context.Provider value={request}>{children}{offer&&(offer.mode==='simulation'?<RewardAd offer={offer} close={close}/>:<GoogleRewardAd offer={offer} close={close}/>)}</Context.Provider>;
+ return <Context.Provider value={request}>{children}{offer&&(offer.mode==='android'?<AndroidRewardAd offer={offer} close={close}/>:offer.mode==='simulation'?<RewardAd offer={offer} close={close}/>:<GoogleRewardAd offer={offer} close={close}/>)}</Context.Provider>;
 }
 function RewardAd({offer,close}){
  const {t}=useLanguage(),dialog=useRef(null),locked=useRef(false);

@@ -892,3 +892,51 @@ nedoložené příčiny za definitivně opravené. Nová Firefox sada čeká Lin
 2026-10-22 — Webové lokalizace EN/CS/DE/FR/ES/PT-BR dokončeny samostatně od hry: 48 statických veřejných stránek včetně úvodu, všech návodů, novinek, kontaktu a soukromí; vlastní title/description/canonical/hreflang a sitemap. Přepínač select, webová preference beyond-signal-website-language-v1 nepřepisuje herní jazyk. CS PLAY/přenos -> lang=cs, všechny ostatní -> lang=en, viditelná jazyková poznámka. Nové herní edice stále draft/skryté; hra ani přenos nejsou přeložené do dalších jazyků. Samostatné katalogy web156+legal51 položek/jazyk, generátor/site:check/i18n:check hlídají úplnost. Web posílá jen statický aktuální text, nenatahuje všechny herní překlady; starý webMessages runtime odstraněný. Opraveno přepisování obyčejných článkových odkazů se vzhledovou třídou transfer-link; nyní se přepisují jen skutečné adresy transfer.html. OAuth callback má přednost před jazykovou autodetekcí a zůstává na původním originu. 255unit/build/checks pass; finální jediná browser sada48/48 Chromium+WebKit (320/1440,6jazyků,bezJS,blokovanéstorage,přenos a nezměněná rozehranáhra). Dva prvotní souběžné Playwright běhy kolidovaly serverem/artefakty, samostatné opakování úspěšné. Produkční náhled192stránek+obrázky/nooverflow a4HTTPSmapped save/BOT/callback scénáře pass; screenshoty .local/localized-production. docs/website-localization.md popisuje údržbu i omezení prvního překladového vydání bez kontroly rodilým mluvčím. Obtížnost,200levelů,příběh,SQL a testovacíreklamy neměněné, AdSense re-review neodesláno. Obě předchozí Pages39812552554 a39812475694 nyní potvrzené success. Připravena publikace lokalizace; její skutečný stav ověřit po pushi.
 
 2026-10-22 — Webová lokalizace ŽIVĚ: zdrojdcf0c6b88fa37b47b0dde7f5ef9a6cbd1afc65de naobou doménách, main1792688472455-dcf0c6b88fa3/game1792688485883-dcf0c6b88fa3. Pages39818922248 a39818950413 obaSUCCESS. HTTP200+metadata na48stránkách, sitemap48adres; živýChromium/WebKit úvod→článek→soukromí všech6jazyků aPLAYEN/CS pass. Game startuproot/index oba artwork+prvníoprava/0failedResources pass. ŽádnýskutečnýGoogleúčeta žádnýherníreport vautomatické kontrole. Předchozípoznámka připravena publikace nahrazena skutečným nasazením. Následnýcommit jenprovoznídokumentace [skip ci], publikovaný kód zůstává dcf0c6b. Viz docs/website-localization.md.
+
+## 2026-10-22 — AdSense a roboti ve slepém testu
+
+Uživatel potvrdil odeslání žádosti o novou kontrolu AdSense po dokončení
+informačního webu. Na výsledek se čeká; nejde o potvrzené schválení.
+
+Uživatel pustil do slepého playtestu také roboty kvůli malému počtu lidských
+testerů. Jejich záznamy budou označené slovem BOT v poznámce. Při dalších
+rozborech tyto záznamy identifikovat a vyhodnocovat odděleně od lidí.
+Slouží pro kontrolu dohratelnosti a technických problémů; nebrat je jako
+lidské hodnocení zábavnosti, frustrace nebo přiměřené obtížnosti a nemíchat
+je do lidských souhrnů úspěšnosti. Chybějící označení samo o sobě není důkaz,
+že záznam vytvořil člověk. Jde o pravidlo interpretace budoucích reportů,
+nikoli o již implementovaný automatický filtr v /balance. Obtížnost zatím
+neměnit: stále platí počkat na průchod všech levelů na více zařízeních.
+
+## 2026-10-22 — Aktuální Android projekt na novém PC
+
+Uživatel dokončil instalaci Android Studia Rabbit 1 (2026.2.1), SDK 36,
+Build-Tools 36.0.0 a Platform-Tools. Chce pokračovat krok za krokem a telefon
+spárovat bezdrátově; PC má na LAN, telefon na Wi-Fi. Propojení s telefonem
+ve Windows není ADB. Android Studio zatím zůstává na Welcome obrazovce.
+
+Ve stejné složce založena větev codex/android-current z e1dc9cd; starší
+codex/google-play není přepnutá přes aktuální hru. Z d1fa153 převzaty pouze
+nativní podklady/adaptér/testy a ručně připojeny k aktuálním komponentám.
+Zachováno 200 levelů, poslední herní opravy, nová analytická volba a webové
+reklamy. Android nabízí místní hostovský postup, bez Google přihlášení,
+a nativní testovací AdMob jen za +5 tahů. Odměna až po Rewarded, pokračování
+po Dismissed; ostatní reklamní odměny skryté. Žádná ostrá ID ani Play release.
+
+JBR 25 dodané Studiem nevyhovuje Gradlu 8.14.3; připraven Microsoft OpenJDK 21
+přenosně v .local/jdk21, globální Java ani JAVA_HOME se neměnily. Nové
+android-environment/build skripty připravují místní ignorované SDK/JDK cesty
+včetně nastavení Gradle JDK pro Android Studio. Npm audit fix kompatibilně
+aktualizovalo Vite na 8.3.5 a source-map-js; audit nyní bez nálezů.
+
+SKUTEČNÉ APK SE SESTAVILO: BUILD SUCCESSFUL, 125 úloh / 4m8s, soubor
+android/app/build/outputs/apk/debug/app-debug.apk, 49107016 B (46,8 MiB),
+ID com.playbeyondthesignal.game.preview, minSDK24/target36 ověřeno aapt.
+259 unit testů, i18n check, Android/web build a Capacitor sync pass;
+2 produkční Android EN/CS startup kontroly a 16 Chromium webových
+accessibility/Google-ad regresí pass. Na fyzickém telefonu zatím nic
+nainstalováno ani reklama ověřena; adb devices prázdné. Další krok pro
+uživatele: Android Studio Open -> tato složka/android -> Gradle sync,
+potom Pair Devices Using Wi-Fi. APK/AAB není zaměňovat za ověřenou distribuci.
+Podrobnosti docs/android-current.md. Běžný místní dist opět připraven jako
+website, Android preview běží na 5185. Produkční web/game neaktualizovány.

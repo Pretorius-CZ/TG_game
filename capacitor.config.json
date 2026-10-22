@@ -1,0 +1,6 @@
+{
+  "appId": "com.playbeyondthesignal.game",
+  "appName": "Beyond the Signal",
+  "webDir": "dist-android",
+  "android": { "allowMixedContent": false }
+}
