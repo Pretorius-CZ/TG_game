@@ -11,7 +11,7 @@ await mkdir('.local/deployment-smoke',{recursive:true});
 const browser=await chromium.launch();
 try{
  for(const pathname of ['/','/index.html']){
-  const context=await browser.newContext({viewport:{width:430,height:739},reducedMotion:'reduce'});
+  const context=await browser.newContext({viewport:{width:430,height:739},reducedMotion:'reduce',locale:'en-US'});
   const page=await context.newPage(),errors=[];
   // Test startup without creating production analytics or using an account.
   await page.route(/supabase\.co|api\.country\.is/,r=>r.fulfill({status:204,body:''}));

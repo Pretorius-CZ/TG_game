@@ -5,10 +5,10 @@ on:
   workflow_dispatch:
     inputs:
       site_mode:
-        description: Main domain content (game now, website at cutover)
+        description: Main domain content (website; game only for deliberate rollback)
         type: choice
         options: [game, website]
-        default: game
+        default: website
 permissions:
   contents: read
   actions: read
