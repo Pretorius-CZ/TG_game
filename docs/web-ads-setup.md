@@ -172,3 +172,21 @@ Na podnět uživatele po blokování Brave Shields UI rozlišuje selhání načt
 Ověření této úpravy: build/diff-check a6cílených prohlížečových kontrol Chromium/WebKit (EN blocked/no-fill, české vysvětlení320×568 bez scrollu a funkční návrat). Google dialog má kompaktní mezery a14px text, aby vysvětlení neodsunulo hlavní akci.
 
 Ověření bodu3 před nasazením:231unit testů, build,24CMP/odměnových browser scénářů a8settingsa11y Chromium/WebKit prošlo. Veškeré přijetí/odmítnutí/změny v těchto browser kontrolách používají řízené Google mocky; nenahrazují živou kontrolu po publikaci skutečné zprávy. SDK/network chyby i nefunkční TCF mají unit pojistky. Přístupný vstup má44px a statické stránky žádné herní audio.
+
+## 2026-10-22 — Obsahové zamítnutí a zveřejnění hlavního webu
+
+Uživatel doložil AdSense „Obsah nízké hodnoty“. Nejde o doloženou chybu
+ads.txt ani důkaz, že herní obsah obecně nelze monetizovat. Konkrétní
+hodnocenou obrazovku Google neuvedl. Před opravou root skutečně stále
+zobrazoval hru; informační náhled byl pouze na /welcome.html.
+
+Na žádost je nyní root veřejný EN/CS web s pěti samostatnými informačními
+stránkami a skutečnými návody podle aktuálních pravidel. Články a publikované
+novinky mají čitelný ENHTML obsah bez JavaScriptu. Kontakt, soukromí,
+canonical, robots a sitemap jsou dostupné; hra na game. a přenos původních
+uložených her živě ověřené. Zdroj2d91eb8, hlavníPages39812552554 success.
+
+Další účetní krok: po vlastní kontrole zveřejněného webu požádat v AdSense
+o novou kontrolu. Automat žádost neodeslal ani nezaškrtl potvrzení nápravy.
+Schválení není zaručené. H5 přístup je samostatná žádost; testovací reklama
+nepotvrzuje schválení a skutečné reklamy se tímto nezapínají.

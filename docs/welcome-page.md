@@ -1,6 +1,22 @@
 # Veřejný web hry
 
-## Stav 2026-10-22 — připravený k přepnutí hlavní domény
+## Stav 2026-10-22 — web zveřejněný na hlavní doméně
+
+Nasazeno: https://playbeyondthesignal.com/ je informační web,
+https://game.playbeyondthesignal.com/ je hra. Obě adresy zveřejňují
+zdrojový commit 2d91eb8f1e737370e90783ce34e249929973b04b.
+Trvalé MAIN_SITE_MODE=website a výchozí ruční website chrání další nasazení.
+Hlavní Pages39812552554 success včetně kontroly veřejných stránek a obnovy.
+Herní Pages39812475694 již zveřejnilo build; poslední zaznamenaný stav
+instaluje browser pro kontrolu. Stejný startup skript spuštěný samostatně
+na živém game root/index prošel: artwork, úvod a první oprava, 0 chyb.
+
+Živě ověřeno všech8veřejnýchstránek v EN/CS Chromium/WebKit320/1440,
+obsah bez JS, původní hráč/bannery, přenos guest+oddělené kopie účtu,
+hvězdy/deník/energie/pomůcky/BOTmarker i zákaz opakovaného refillu.
+OAuth callback byl testovacím kódem vrácen na původní legacy origin;
+automat nepoužíval skutečný Google účet. Robots/sitemap/ads.txt i obě
+obnovovací stránky vracejí200. Nová kontrola AdSense nebyla odeslána.
 
 Uživatel po zamítnutí AdSense „Obsah nízké hodnoty“ zadal dokončení webu.
 Hlavní web má úvod a pět samostatných stránek: about.html, how-to-play.html,
@@ -30,7 +46,7 @@ přístupnosti Chromium/WebKit EN/CS 320/1440 (dvě WebKit kontroly po opravě
 čekání testu na lazy obrázky úspěšně zopakovány). Produkční náhled všech
 8 stránek v 8 kombinacích + bez-JS obsah obou enginů; 4 kontroly nového/
 původního hráče na simulované původní HTTPS doméně zachovaly save a UTM.
-Živé přepnutí a jeho výsledek zapsat až po dokončení nasazení.
+Živé přepnutí a jeho ověření je potvrzené výše.
 
 ## Historie původního náhledu
 

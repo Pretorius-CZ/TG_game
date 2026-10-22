@@ -1,10 +1,10 @@
 # Přechod na game. — provozní postup
 
-2026-10-22: Uživatel zadal dokončení veřejného webu a přechod hlavní domény.
-Lokální připravenost včetně živých původních transfer endpointů ověřená.
-Postup nasazení: nový společný commit na obě domény, nejprve ověřit hru,
-potom trvale MAIN_SITE_MODE=website a ověřit web, sitemapu a obnovu save.
-Potvrzený živý stav uvést v poslední aktualizaci AGENTS.md.
+2026-10-22: Přechod provedený. MAIN_SITE_MODE=website je trvalá GitHub
+proměnná, ruční dispatch má také výchozí website. Root je veřejný web,
+game je hra; obě adresy mají zdroj2d91eb8. Transfer/legacy zůstávají200,
+hlavní nasazení39812552554 success. Živé přenosy oběma enginy potvrdily
+původní data i zásoby a bezpečné opakování. Podrobnosti docs/welcome-page.md.
 
 ## Připravené souběžné období
 
@@ -54,8 +54,8 @@ lidským hráčem. Odkazy přenášejí jen podporované UTM, ne OAuth kódy.
 5. Nastavit Supabase Site URL na https://game.playbeyondthesignal.com/,
    staré Redirect URLs nadále ponechat pro doběhnutí starých přihlášení.
 
-Příkaz --apply nyní není součást běžného nasazení. Kořen během souběžného
-období zůstává hrou. Připravená prezentační stránka je v welcome.html;
+Příkaz --apply není součást běžného nasazení. Souběžné období skončilo
+2026-10-22; kořen je nyní web. Zdroj prezentační stránky je welcome.html;
 website režim ji umístí do index.html. Ponechá transfer.html a původní
 legacy-game.html pro obnovu a dokončení OAuth callbacků na starém originu.
 Obnovovací cestu držet dlouhodobě pro hosty, kteří přijdou po měsících.
