@@ -2061,7 +2061,7 @@
   "ui.of": " of ",
   "ui.cockpitRepairsComplete": " cockpit repairs complete.",
   "ui.repairLesson": " / REPAIR LESSON",
-  "android.localSave": "Android preview saves progress on this device only. Google sign-in is not available yet.",
+  "android.localSave": "Use the same Google account as on the website. After signing in, you can choose to import the guest progress from this phone.",
   "android.privacyUnavailable": "Ad privacy settings are unavailable.",
   "android.adPrivacy": "Ad privacy settings",
   "android.notCompleted": "The ad was not completed. No reward was granted.",
@@ -2085,5 +2085,9 @@
   "undo.waiting": "Undo is still prepared. You can use it after the next ordinary move.",
   "undo.restored": "Move undone.",
   "android.hintUsed": "Hint used",
-  "android.toolsHelp": "Select a tool below the board, then its target. Shuffle acts immediately. Each use spends one tool, not a move. Stock is shared across levels. Refilling tools is not available in this Android preview. Choose a tool in Help topics to learn its effect."
+  "android.toolsHelp": "Select a tool below the board, then its target. Shuffle acts immediately. Each use spends one tool, not a move. Stock is shared across levels. Refilling tools is not available in this Android preview. Choose a tool in Help topics to learn its effect.",
+  "android.localEnergy": "Energy and helpers stay on this device. Unfinished puzzles are not saved.",
+  "android.signInWaiting": "Complete Google sign-in in the browser, then return to the game.",
+  "android.signInCancelled": "Sign-in was closed. You can try again; your guest progress is safe.",
+  "android.signInFailed": "Google sign-in could not be completed. Please try again. Your saved progress is safe."
 }

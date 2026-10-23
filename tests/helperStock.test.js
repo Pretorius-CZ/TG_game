@@ -1,6 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readStock,spendStock,stockKey,rewardStock,starterStockAllowed} from '../src/helperStock.js';
+test('Android sign-in never grants a second starter stock on a fresh account cache',()=>{
+ assert.equal(starterStockAllowed({hostname:'localhost',userId:'web-player',native:true,progress:{}}),false);
+ assert.equal(starterStockAllowed({hostname:'localhost',native:true,progress:{}}),true);
+});
 const storage=()=>{const data=new Map();return {getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v)};};
 test('helper stock survives level changes and reloads, and cannot be spent twice',()=>{
  const db=storage(),key=stockKey();

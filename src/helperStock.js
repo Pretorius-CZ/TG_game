@@ -1,7 +1,8 @@
 // Test stock: one of each helper per profile and full-game reset.
 export const freshStock=()=>[1,1,1,1,1];
 export function stockKey(userId,revision=0){return `to-the-stars-helpers-v1:${userId||'guest'}:${revision}`;}
-export function starterStockAllowed({hostname,userId,progress}={}){
+export function starterStockAllowed({hostname,userId,progress,native=false}={}){
+ if(native&&userId)return false;
  if(hostname!=='game.playbeyondthesignal.com')return true;
  if(userId)return false;
  return !(progress?.resetRevision>0)&&!Object.entries(progress||{}).some(([key,value])=>(key==='completed'||key.endsWith('Completed')||key==='caretakerMet'||key==='riftCrossed')&&value>0);

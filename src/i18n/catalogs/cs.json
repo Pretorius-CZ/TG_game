@@ -2063,7 +2063,7 @@
   "ui.of": " z ",
   "ui.cockpitRepairsComplete": " oprav kokpitu dokončeno.",
   "ui.repairLesson": " / OPRAVA",
-  "android.localSave": "Android náhled ukládá postup jen v tomto zařízení. Google přihlášení zatím není dostupné.",
+  "android.localSave": "Použij stejný Google účet jako na webu. Po přihlášení můžeš výslovně převzít i postup hosta z tohoto telefonu.",
   "android.privacyUnavailable": "Nastavení soukromí reklam teď není dostupné.",
   "android.adPrivacy": "Soukromí reklam",
   "android.notCompleted": "Reklama nebyla dokončená. Odměna nebyla přidělena.",
@@ -2087,5 +2087,9 @@
   "undo.waiting": "Krok zpět zůstává připraven. Můžeš jej použít po dalším běžném tahu.",
   "undo.restored": "Tah vrácen.",
   "android.hintUsed": "Nápověda vyčerpána",
-  "android.toolsHelp": "Vyber pomůcku pod deskou, potom cíl. Míchání se provede hned. Použití stojí jednu pomůcku, nikoli tah. Zásoby sdílíš mezi levely. Doplnění pomůcek v tomto Android náhledu zatím není dostupné. Účinek každé pomůcky najdeš v přehledu nápovědy."
+  "android.toolsHelp": "Vyber pomůcku pod deskou, potom cíl. Míchání se provede hned. Použití stojí jednu pomůcku, nikoli tah. Zásoby sdílíš mezi levely. Doplnění pomůcek v tomto Android náhledu zatím není dostupné. Účinek každé pomůcky najdeš v přehledu nápovědy.",
+  "android.localEnergy": "Energie a pomůcky zůstávají v tomto zařízení. Rozehrané minihry se neukládají.",
+  "android.signInWaiting": "Dokonči Google přihlášení v prohlížeči a vrať se do hry.",
+  "android.signInCancelled": "Přihlášení bylo zavřeno. Můžeš ho zkusit znovu; postup hosta je zachovaný.",
+  "android.signInFailed": "Google přihlášení se nepodařilo dokončit. Zkus to prosím znovu. Uložený postup je zachovaný."
 }

@@ -115,3 +115,16 @@ Zahrnout tuto variantu do plánování vydání Android hry. Před volbou
 publikačního postupu ověřit aktuální dostupnost a podmínky pro náš účet
 v Play Console, včetně vztahu k otevřenému/uzavřenému testování.
 Jde o zaznamenaný podnět uživatele, zatím bez ověření a bez publikace.
+
+## 2026-10-23 — Google účet připravený k fyzickému testu
+
+Předchozí poznámka o verzi pouze pro hosta již pro nové APK neplatí.
+Přidáno Google OAuth přes systémový prohlížeč, návrat do aplikace pomocí
+PKCE a cloudové ukládání stejného účtu jako na webu. Host zůstává oddělený,
+převzetí výslovné. Energie/pomůcky místní; přihlášení nevytváří nový starter
+balíček. Uživatel potvrdil obě Supabase Redirect URLs. 275unit,4AndroidUI
+s mockovaným OAuth/backendem,9regresí produkčníhoAndroidbundle aAPK pass.
+Finální debug APK49587184B sestaveno23.10.2026 19:27. ŽivýGoogleprůchod
+naPOCO a skutečný přenos telefon↔web čekají na fyzický test poRun.
+Postup a omezení: docs/android-google-cloud.md. Žádné novéSQL, webovýdeploy,
+změna ostrýchreklam nebo publikace naGooglePlay.
