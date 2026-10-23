@@ -1,4 +1,4 @@
-import {crazyGames} from './platform.js';
+import {crazyGames,android} from './platform.js';
 import {useRewardAd} from './RewardAd.jsx';
 import {useLanguage} from './i18n/Language.jsx';
 import React,{createContext,useContext,useEffect,useRef,useState,useCallback} from 'react';
@@ -17,7 +17,7 @@ export function LivesProvider({children,storageKey=KEY,practice=false}){
  function reward(){const interval=ref.current.interval??RECHARGE_MS;const current=recoverLives(ref.current,Date.now(),interval);const count=Math.min(5,current.count+1);update({...current,count,nextAt:count===5?null:current.nextAt,interval});return true;}
  const attempts=useRef(null);
  if(!attempts.current)attempts.current=createAttemptEnergy({spend,reward});
- return <LivesContext.Provider value={{...state,configure,reward,reserveAttempt:attempts.current.reserve,settleAttempt:attempts.current.settle,minutes:(state.interval??RECHARGE_MS)/60000,spend,refill:()=>update({count:5,nextAt:null,interval:ref.current.interval})}}>{t(children)}</LivesContext.Provider>;
+ return <LivesContext.Provider value={{...state,configure,reward,reserveAttempt:attempts.current.reserve,settleAttempt:attempts.current.settle,resumeAttempt:attempts.current.resume,minutes:(state.interval??RECHARGE_MS)/60000,spend,refill:()=>update({count:5,nextAt:null,interval:ref.current.interval})}}>{t(children)}</LivesContext.Provider>;
 }
 export function useLives(){return useContext(LivesContext);}
 export function LivesBar(){
@@ -33,4 +33,4 @@ export function LivesBar(){
  </div>;
 }
 export function NoLives(){
- const {t}=useLanguage();const lives=useLives();const ad=useRewardAd();return <div className="out-of-moves"><h3>{t("Energy depleted")}</h3><LivesBar/><p>{t(lives.minutes===10?"One charge returns every 10 minutes.":"One charge returns every 30 minutes.")}</p><button disabled={lives.count>0} onClick={()=>ad(t("+1 energy charge"),lives.reward)}>{t(crazyGames?"+1 energy · free":"Ad · +1 energy")}</button>{t(import.meta.env.DEV&&<button className="preview-complete" onClick={lives.refill}>{t("Preview · refill 5 charges")}</button>)}</div>;}
+ const {t}=useLanguage();const lives=useLives();const ad=useRewardAd();return <div className="out-of-moves"><h3>{t("Energy depleted")}</h3><LivesBar/><p>{t(lives.minutes===10?"One charge returns every 10 minutes.":"One charge returns every 30 minutes.")}</p>{!android&&<button disabled={lives.count>0} onClick={()=>ad(t("+1 energy charge"),lives.reward)}>{t(crazyGames?"+1 energy · free":"Ad · +1 energy")}</button>}{t(import.meta.env.DEV&&<button className="preview-complete" onClick={lives.refill}>{t("Preview · refill 5 charges")}</button>)}</div>;}

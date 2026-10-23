@@ -7,6 +7,20 @@ function ledger(count=5){
  const open=()=>createAttemptEnergy({spend(){if(!disk.count)return false;disk.count--;return true;},reward(){disk.count=Math.min(5,disk.count+1);}});
  return {disk,open};
 }
+
+test('undo from exhaustion preserves the debit on the last life and refunds a later win once',()=>{
+ const {disk,open}=ledger(1),attempt=open();attempt.reserve('turn');attempt.settle('turn');
+ assert.equal(disk.count,0);assert.equal(attempt.resume('turn'),true);assert.equal(disk.count,0);
+ assert.equal(attempt.resume('turn'),false);assert.equal(attempt.settle('turn',true),true);
+ assert.equal(attempt.settle('turn',true),false);assert.equal(disk.count,1);
+ assert.equal(open().resume('turn'),false);assert.equal(open().resume('unknown'),false);
+});
+
+test('undo from exhaustion followed by loss cannot debit twice or resurrect a refund after reload',()=>{
+ const {disk,open}=ledger(1),attempt=open();attempt.reserve('turn');attempt.settle('turn');attempt.resume('turn');
+ assert.equal(attempt.reserve('turn'),true);assert.equal(disk.count,0);
+ attempt.settle('turn');assert.equal(disk.count,0);assert.equal(open().settle('turn',true),false);
+});
 test('reload after paid play retains exactly one durable debit',()=>{
  const {disk,open}=ledger(),attempt=open();
  assert.equal(attempt.reserve('first'),true);

@@ -8,6 +8,7 @@ export function assistanceLabel(row){
  if(Array.isArray(row.helpers)&&row.helpers.length){const counts=new Map();for(const name of row.helpers)counts.set(name,(counts.get(name)||0)+1);parts.push([...counts].map(([name,count])=>`${name} ×${count}`).join(', '));}
  if(row.hints)parts.push(`Nápověda ×${row.hints}`);
  if(row.extraMoves)parts.push('+5 tahů');
+ if(row.configuration?.assistance?.undoUses)parts.push(`Krok zpět ×${row.configuration.assistance.undoUses}`);
  return parts.join(' · ')||((row.helpers!=null&&row.hints!=null&&row.extraMoves!=null)?'Bez pomoci':'—');
 }
 export function missingObjectives(row){
