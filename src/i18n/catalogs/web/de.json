@@ -143,7 +143,7 @@
   "web.saving.privacy.body": "Beim ersten Besuch entscheidest du über Spielstatistiken. Du kannst dies später in Settings ändern; Ablehnen schränkt weder Spiel noch Cloud-Speicherung ein. Werbeeinwilligungen sind getrennt. Die Datenschutzseite erklärt gespeicherte Daten, Anbieter und Löschmöglichkeiten.",
   "web.updates.title": "Neuigkeiten von jenseits des Signals",
   "web.updates.description": "Veröffentlichte Kapitel, Verbesserungen und Entwicklungsneuigkeiten zu Beyond the Signal.",
-  "web.updates.intro": "Verfolge veröffentlichte Änderungen: neue Orte zum Wiederherstellen, klarere Bedienung und Verbesserungen durch Spielerfeedback. Diese Seite dokumentiert fertige Updates, statt Termine für unfertige Funktionen zu versprechen.",
+  "web.updates.intro": "Hier findest du veröffentlichte Änderungen und klar gekennzeichnete Neuigkeiten aus der Entwicklung: neue Orte zum Wiederherstellen, klarere Bedienung und Verbesserungen durch Spielerfeedback. Geplante Funktionen sind von bereits spielbaren Updates getrennt.",
   "web.homeDescription": "Ein rätselhaftes Signal. Ein beschädigtes Schiff. Entdecke Beyond the Signal: ein kostenloses Sci-Fi-Match-3-Abenteuer mit 200 Leveln, Anleitungen und Neuigkeiten.",
   "web.site.allUpdates": "Alle Neuigkeiten →",
   "web.site.savedTitle": "Auf der ursprünglichen Adresse gespielt?",
@@ -154,5 +154,11 @@
   "web.consent.opening": "Werbeeinstellungen werden geöffnet…",
   "web.consent.unavailable": "Die Einwilligungsoptionen konnten nicht geladen werden. Die Nachricht ist möglicherweise noch nicht veröffentlicht oder wird vom Browser oder der Verbindung blockiert. Das gilt nicht als Einwilligung. Du kannst weiterspielen.",
   "web.consent.not-required": "Google benötigt für diesen Besuch keine europäische Einwilligungsnachricht.",
-  "web.consent.received": "Google hat deine Werbeeinstellungen erhalten. Du kannst sie jederzeit ändern."
+  "web.consent.received": "Google hat deine Werbeeinstellungen erhalten. Du kannst sie jederzeit ändern.",
+  "news.challenge-and-replay.tag": "SPIELUPDATE",
+  "news.challenge-and-replay.title": "Mehr Herausforderung und neue Versuche.",
+  "news.challenge-and-replay.body": "Wir haben die Zuglimits in 33 ausgewählten Levels ab Level 20 gesenkt, darunter mehrere HARD-Herausforderungen. Abgeschlossene Schiffsbereiche lassen sich schon vor dem Abflug erneut spielen, um zu üben und mehr Sterne zu verdienen. Rückgängig bereitet zunächst die verfügbare Nutzung vor; erst ein zweites Tippen nimmt den Zug zurück. Dein Fortschritt und deine verdienten Sterne bleiben erhalten.",
+  "news.android-preview.tag": "IN ENTWICKLUNG",
+  "news.android-preview.title": "Die Android-App wird getestet.",
+  "news.android-preview.body": "Die Android-Version von Beyond the Signal wird bereits intern auf einem echten Smartphone getestet. Vor einer breiteren Veröffentlichung prüfen wir Bedienung, gespeicherten Fortschritt und belohnte Werbung. Die App ist noch nicht öffentlich zum Download oder bei Google Play verfügbar. Alle 200 Levels kannst du weiterhin im Browser spielen."
 }

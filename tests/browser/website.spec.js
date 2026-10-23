@@ -1,6 +1,7 @@
 import {test,expect} from '@playwright/test';
 import {sitePages} from '../../src/sitePages.js';
 import {websiteLocales} from '../../src/i18n/websiteLocales.js';
+import {updates} from '../../src/welcomeUpdates.js';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url),axePath=require.resolve('axe-core/axe.min.js');
 
@@ -32,7 +33,7 @@ test('guides and published updates remain readable without JavaScript',async({br
   await expect(page.locator('html')).toHaveAttribute('lang',code);
   await expect(page.locator('h1')).toBeVisible();
   expect((await page.locator('.article-copy').innerText()).length).toBeGreaterThan(500);
-  if(entry.news)await expect(page.locator('.update')).toHaveCount(5);
+  if(entry.news)await expect(page.locator('.update')).toHaveCount(updates.length);
  }
  await context.close();
 });

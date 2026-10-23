@@ -143,7 +143,7 @@
   "web.saving.privacy.body": "A primeira visita oferece a escolha de compartilhar estatísticas do jogo. Você pode mudar em Settings; recusar não limita o jogo nem o salvamento na nuvem. A privacidade de anúncios é uma escolha separada. A página de privacidade explica dados, provedores e opções de exclusão.",
   "web.updates.title": "Novidades de além do sinal",
   "web.updates.description": "Capítulos publicados, melhorias e notícias de desenvolvimento de Beyond the Signal.",
-  "web.updates.intro": "Acompanhe mudanças já disponíveis: novos lugares para restaurar, controles mais claros e melhorias vindas dos comentários dos jogadores. Esta página registra atualizações publicadas, sem prometer datas para recursos inacabados.",
+  "web.updates.intro": "Acompanhe as atualizações publicadas e as notícias de desenvolvimento claramente identificadas: novos lugares para restaurar, controles mais claros e melhorias baseadas nos comentários dos jogadores. Os recursos em preparação são apresentados separadamente das atualizações que você já pode jogar.",
   "web.homeDescription": "Um sinal misterioso. Uma nave danificada. Descubra Beyond the Signal, uma aventura match-3 gratuita de ficção científica com 200 fases, guias e novidades.",
   "web.site.allUpdates": "Todas as novidades →",
   "web.site.savedTitle": "Jogava no endereço original?",
@@ -154,5 +154,11 @@
   "web.consent.opening": "Abrindo opções de anúncios…",
   "web.consent.unavailable": "Não foi possível carregar as opções de consentimento. A mensagem pode não estar publicada ou pode estar bloqueada pelo navegador ou pela conexão. Isso não é considerado consentimento. Você pode continuar jogando.",
   "web.consent.not-required": "O Google não exige a mensagem de consentimento europeia para esta visita.",
-  "web.consent.received": "O Google recebeu suas escolhas de anúncios. Você pode alterá-las a qualquer momento."
+  "web.consent.received": "O Google recebeu suas escolhas de anúncios. Você pode alterá-las a qualquer momento.",
+  "news.challenge-and-replay.tag": "ATUALIZAÇÃO",
+  "news.challenge-and-replay.title": "Mais desafio e novas tentativas.",
+  "news.challenge-and-replay.body": "Reduzimos o limite de jogadas em 33 fases selecionadas a partir da fase 20, incluindo vários desafios HARD. As áreas concluídas da nave podem ser jogadas novamente antes da decolagem para praticar e melhorar suas estrelas. Desfazer agora prepara primeiro um uso disponível; um segundo toque desfaz a jogada. Seu progresso e suas estrelas são preservados.",
+  "news.android-preview.tag": "EM DESENVOLVIMENTO",
+  "news.android-preview.title": "O aplicativo Android está em testes.",
+  "news.android-preview.body": "A versão Android de Beyond the Signal já está em testes internos em um celular real. Estamos verificando os controles, o progresso salvo e os anúncios com recompensa antes de um lançamento mais amplo. O aplicativo ainda não está disponível para download público nem no Google Play. Você pode continuar jogando todas as 200 fases no navegador."
 }

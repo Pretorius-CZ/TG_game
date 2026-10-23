@@ -143,7 +143,7 @@
   "web.saving.privacy.body": "The first visit offers a choice about sharing gameplay statistics. You can change it later in Settings, and declining does not limit play or cloud saving. Advertising privacy choices are separate. The privacy page explains the stored information, providers and deletion options.",
   "web.updates.title": "Updates from beyond the signal",
   "web.updates.description": "Released chapters, improvements and development updates for Beyond the Signal.",
-  "web.updates.intro": "Follow the changes that have reached the game: new places to restore, clearer controls and improvements informed by player feedback. This page records released updates, rather than promising dates for unfinished features.",
+  "web.updates.intro": "Follow released changes and clearly marked development news: new places to restore, clearer controls and improvements informed by player feedback. Features still in development are described separately from updates you can play today.",
   "web.homeDescription": "A mysterious signal. A damaged ship. Discover Beyond the Signal, a free sci-fi match-3 adventure with 200 levels, player guides and development updates.",
   "web.site.allUpdates": "All updates →",
   "web.site.savedTitle": "Played on the original address?",
@@ -154,5 +154,11 @@
   "web.consent.opening": "Opening advertising choices…",
   "web.consent.unavailable": "Consent choices could not load. The message may not be published yet, or your browser or connection may be blocking it. We do not treat this as consent. You can continue playing.",
   "web.consent.not-required": "Google does not require the European consent message for this visit.",
-  "web.consent.received": "Google received your advertising choices. You can change them again at any time."
+  "web.consent.received": "Google received your advertising choices. You can change them again at any time.",
+  "news.challenge-and-replay.tag": "GAME UPDATE",
+  "news.challenge-and-replay.title": "A tighter challenge, with room to try again.",
+  "news.challenge-and-replay.body": "We have reduced move limits in 33 selected levels from level 20 onwards, including several HARD challenges. Completed ship sections can be replayed before departure, so you can practise and improve your stars. Undo now prepares your available use first; a second tap returns the move. Your progress and earned stars are preserved.",
+  "news.android-preview.tag": "IN DEVELOPMENT",
+  "news.android-preview.title": "The Android app is being tested.",
+  "news.android-preview.body": "An Android version of Beyond the Signal is now in internal testing on a real phone. We are checking controls, saved progress and rewarded ads before a wider release. The app is not yet publicly available to download or on Google Play. You can keep playing all 200 levels in your browser."
 }

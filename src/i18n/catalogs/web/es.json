@@ -143,7 +143,7 @@
   "web.saving.privacy.body": "En la primera visita puedes elegir si compartes estadísticas de juego. Puedes cambiarlo en Settings y rechazarlo no limita el juego ni la nube. La privacidad publicitaria se decide aparte. La página de privacidad explica los datos, proveedores y opciones de borrado.",
   "web.updates.title": "Novedades de más allá de la señal",
   "web.updates.description": "Capítulos publicados, mejoras y noticias de desarrollo de Beyond the Signal.",
-  "web.updates.intro": "Sigue los cambios disponibles: nuevos lugares que restaurar, controles más claros y mejoras basadas en comentarios. Esta página recoge actualizaciones publicadas, sin prometer fechas para funciones sin terminar.",
+  "web.updates.intro": "Consulta las actualizaciones publicadas y las noticias de desarrollo claramente identificadas: nuevos lugares que restaurar, controles más claros y mejoras basadas en los comentarios de los jugadores. Las funciones en preparación se presentan por separado de las actualizaciones que ya puedes jugar.",
   "web.homeDescription": "Una señal misteriosa. Una nave dañada. Descubre Beyond the Signal, una aventura match-3 gratuita de ciencia ficción con 200 niveles, guías y novedades.",
   "web.site.allUpdates": "Todas las novedades →",
   "web.site.savedTitle": "¿Jugabas en la dirección original?",
@@ -154,5 +154,11 @@
   "web.consent.opening": "Abriendo opciones publicitarias…",
   "web.consent.unavailable": "No se pudieron cargar las opciones de consentimiento. El mensaje puede no estar publicado o puede estar bloqueado por el navegador o la conexión. Esto no se considera consentimiento. Puedes seguir jugando.",
   "web.consent.not-required": "Google no requiere el mensaje de consentimiento europeo para esta visita.",
-  "web.consent.received": "Google ha recibido tus opciones publicitarias. Puedes cambiarlas cuando quieras."
+  "web.consent.received": "Google ha recibido tus opciones publicitarias. Puedes cambiarlas cuando quieras.",
+  "news.challenge-and-replay.tag": "ACTUALIZACIÓN",
+  "news.challenge-and-replay.title": "Más desafío y nuevas oportunidades.",
+  "news.challenge-and-replay.body": "Hemos reducido el límite de movimientos en 33 niveles seleccionados a partir del nivel 20, incluidos varios desafíos HARD. Las zonas completadas de la nave se pueden volver a jugar antes del despegue para practicar y mejorar tus estrellas. Deshacer prepara primero un uso disponible; un segundo toque revierte el movimiento. Tu progreso y tus estrellas se conservan.",
+  "news.android-preview.tag": "EN DESARROLLO",
+  "news.android-preview.title": "La aplicación Android está en pruebas.",
+  "news.android-preview.body": "La versión Android de Beyond the Signal ya se está probando internamente en un teléfono real. Estamos comprobando los controles, el progreso guardado y los anuncios con recompensa antes de un lanzamiento más amplio. La aplicación aún no está disponible para descarga pública ni en Google Play. Puedes seguir jugando los 200 niveles en tu navegador."
 }
