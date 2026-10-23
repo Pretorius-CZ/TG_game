@@ -128,3 +128,16 @@ Finální debug APK49587184B sestaveno23.10.2026 19:27. ŽivýGoogleprůchod
 naPOCO a skutečný přenos telefon↔web čekají na fyzický test poRun.
 Postup a omezení: docs/android-google-cloud.md. Žádné novéSQL, webovýdeploy,
 změna ostrýchreklam nebo publikace naGooglePlay.
+
+## 2026-10-23 — Doplnění boostů za reklamu
+
+Android rewardPolicy povolovala pouze tahy a Undo, takže prázdné boosty
+byly šedé. Povoleno také helper: stejný nativní AdMob tok připíše jeden
+vybraný boost až po dokončení reklamy a zavření celé obrazovky. Nabídka
+má vlastní EN/CS titulek a vysvětlení následného ručního použití.
+Zůstává jedno reklamní doplnění boostu na pokus; vlastní zásoba jiných
+boostů je použitelná dál. Přihlášení nevytváří novou zásobu.
+Nejde o nákup za peníze; stále oficiální testovací reklamní jednotka.
+275 unit testů a 6 Android UI testů s mockovaným reklamním adaptérem
+(EN/CS × dokončení/zavření/chyba) prošlo, debug APK sestaveno.
+Fyzické zobrazení reklamy ověří uživatel po aktualizaci přes Run.

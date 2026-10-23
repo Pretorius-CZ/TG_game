@@ -17,7 +17,8 @@ export default function AndroidRewardAd({offer,close}){
   finally{locked.current=false;setBusy(false);}
  }
  return <dialog ref={dialog} className="reward-ad" aria-labelledby="android-ad-title" onCancel={event=>{event.preventDefault();if(!locked.current)close();}}>
-  <span className="eyebrow">{msg('android.testAd')}</span><h2 id="android-ad-title">{offer.kind==='undo'?msg('undo.adTitle'):msg('android.movesAd')}</h2><p>{offer.kind==='undo'?offer.reward:msg('android.sameBoard')}</p>
+  <span className="eyebrow">{msg('android.testAd')}</span><h2 id="android-ad-title">{msg(offer.kind==='helper'?'android.helperAd':offer.kind==='undo'?'undo.adTitle':'android.movesAd')}</h2><p>{offer.kind==='moves'?msg('android.sameBoard'):offer.reward}</p>
+  {offer.kind==='helper'&&<p>{msg('android.helperInstructions')}</p>}
   {error&&<p role="alert">{error}</p>}
   <button className="primary" disabled={busy} onClick={watch}>{msg(busy?'android.wait':earned.current?'android.claim':'android.watch')}</button>
   <button disabled={busy} onClick={close}>{msg('android.close')}</button>

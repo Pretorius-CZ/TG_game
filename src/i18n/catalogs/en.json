@@ -2069,6 +2069,8 @@
   "android.adUnavailable": "The ad is unavailable. Try again later; your board is preserved.",
   "android.testAd": "ANDROID · TEST AD",
   "android.movesAd": "Watch an ad for +5 moves",
+  "android.helperAd": "Watch an ad for a boost",
+  "android.helperInstructions": "The ad adds the selected boost to your stock. Then tap its button to use it. One boost refill per attempt; boosts already in stock remain available.",
   "android.sameBoard": "Complete the ad to continue on the same board. Once per attempt.",
   "android.wait": "Please wait…",
   "android.claim": "Claim reward",

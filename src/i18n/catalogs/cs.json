@@ -2071,6 +2071,8 @@
   "android.adUnavailable": "Reklama teď není dostupná. Zkus to později; deska zůstává zachovaná.",
   "android.testAd": "ANDROID · TESTOVACÍ REKLAMA",
   "android.movesAd": "Reklama za +5 tahů",
+  "android.helperAd": "Boost za reklamu",
+  "android.helperInstructions": "Reklama doplní vybraný boost do zásoby. Potom jej použij klepnutím na jeho tlačítko. Jedno doplnění boostu na pokus; boosty, které už máš v zásobě, můžeš dál používat.",
   "android.sameBoard": "Po dokončení reklamy pokračuješ na stejné desce. Jednou za pokus.",
   "android.wait": "Čekej…",
   "android.claim": "Převzít odměnu",

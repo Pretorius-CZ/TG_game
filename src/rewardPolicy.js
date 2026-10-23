@@ -1,3 +1,3 @@
 export function rewardAllowed(mode,kind){
- return mode!=='android'||kind==='moves'||kind==='undo';
+ return mode!=='android'||kind==='moves'||kind==='undo'||kind==='helper';
 }
