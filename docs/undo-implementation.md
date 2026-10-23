@@ -126,3 +126,22 @@ do telefonu novým Run v Android Studiu, bez odinstalace a mazání dat.
 Pracovní složka je opět ve větvi codex/android-current. Fyzické potvrzení
 undo a nativní reklamy na POCO ještě zbývá; šest mock kontrol není jeho
 náhrada. Obtížnost, zásoby a placení zůstaly beze změny.
+
+## Zveřejnění potvrzovacího ovládání
+
+Nová webová verze3110978430045a99ccc7ce163d248f076f8660df nahradila
+okamžité vracení po reklamě. Veřejné verze:
+main1792772275088-311097843004, game1792772257524-311097843004.
+Na živém game. EN/CS ověřeno, že po reklamě je stejná deska i počet tahů,
+zelené tlačítko1 a hláška připraveno. Teprve druhé klepnutí obnoví přesnou
+desku/tahy, zobrazí Tah vrácen a vyčerpá jediné použití. Bez JS chyb,
+bez skutečného účtu, analytických zápisů a skutečné reklamy.
+Živý startup root/index prošel bez chybných zdrojů. Herní workflow
+39985516342 success, hlavní39985517055 v poslední kontrole dokončuje
+instalaci prohlížeče po úspěšném zveřejnění.
+
+Android implementace cfec605 je pushnutá; aktuální synchronizované APK má
+49 554 107 B a obsahuje stejné potvrzování. Web262/Android265 unit testů,
+15undo browser scénářů na obou větvích a6Android mock kontrol pass.
+Na fyzickém telefonu aktualizovat přes Run a potvrdit novou nativní odměnu.
+Rozpracované jiné místní soubory zachovány, pracovní větev opět Android.
