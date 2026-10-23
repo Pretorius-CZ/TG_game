@@ -13,7 +13,7 @@ export function RewardAdProvider({children}){
  async function request(reward,grant,kind){if(pending.current||!rewardAvailable(kind))return;if(crazyGames){pending.current={reward,grant};try{await grant();}finally{pending.current=null;}return;}
  let storage;try{storage=localStorage;}catch{}
  const mode=android?'android':webAdsMode({configured:import.meta.env.VITE_WEB_ADS_MODE||'simulation',url:location.href,storage,platform:['itch','telegram'].includes(import.meta.env.MODE)?import.meta.env.MODE:'web'});
- pending.current={reward,grant,mode};setOffer(pending.current);}
+ pending.current={reward,grant,mode,kind};setOffer(pending.current);}
  function close(){pending.current=null;setOffer(null);}
  return <Context.Provider value={request}>{children}{offer&&(offer.mode==='android'?<AndroidRewardAd offer={offer} close={close}/>:offer.mode==='simulation'?<RewardAd offer={offer} close={close}/>:<GoogleRewardAd offer={offer} close={close}/>)}</Context.Provider>;
 }

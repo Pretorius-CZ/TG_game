@@ -2066,7 +2066,7 @@
   "android.localSave": "Android náhled ukládá postup jen v tomto zařízení. Google přihlášení zatím není dostupné.",
   "android.privacyUnavailable": "Nastavení soukromí reklam teď není dostupné.",
   "android.adPrivacy": "Soukromí reklam",
-  "android.notCompleted": "Reklama nebyla dokončena. Tahy nebyly přidány.",
+  "android.notCompleted": "Reklama nebyla dokončená. Odměna nebyla přidělena.",
   "android.claimFailed": "Odměnu se nepodařilo přidat. Zkus ji převzít znovu.",
   "android.adUnavailable": "Reklama teď není dostupná. Zkus to později; deska zůstává zachovaná.",
   "android.testAd": "ANDROID · TESTOVACÍ REKLAMA",
@@ -2076,6 +2076,12 @@
   "android.claim": "Převzít odměnu",
   "android.watch": "Zhlédnout reklamu",
   "android.close": "Zavřít",
+  "undo.label": "Krok zpět · reklama",
+  "undo.short": "Zpět",
+  "undo.used": "Krok zpět využit · jednou za pokus",
+  "undo.adTitle": "Reklama za krok zpět",
+  "undo.description": "Vrátí poslední tah i všechny jeho kaskády. Jednou za pokus. Použité pomůcky se nevracejí.",
+  "undo.restored": "Tah vrácen. Stejný tah znovu doplní stejné kameny.",
   "android.hintUsed": "Nápověda vyčerpána",
   "android.toolsHelp": "Vyber pomůcku pod deskou, potom cíl. Míchání se provede hned. Použití stojí jednu pomůcku, nikoli tah. Zásoby sdílíš mezi levely. Doplnění pomůcek v tomto Android náhledu zatím není dostupné. Účinek každé pomůcky najdeš v přehledu nápovědy."
 }

@@ -11,9 +11,9 @@ function fake(sequence,{prepareError=false,showError=false}={}){
   showRewardVideoAd(){if(showError)return Promise.reject(Error('native failure'));queueMicrotask(()=>{for(const name of sequence)listeners.get(name)?.();});return new Promise(()=>{});}
  };
 }
-test('Android only enables extra moves, web and portal policies stay unchanged',()=>{
- for(const kind of ['moves','hint','helper','energy',undefined]){
-  assert.equal(rewardAllowed('android',kind),kind==='moves');
+test('Android enables extra moves and undo, web and portal policies stay unchanged',()=>{
+ for(const kind of ['moves','undo','hint','helper','energy',undefined]){
+  assert.equal(rewardAllowed('android',kind),kind==='moves'||kind==='undo');
   assert.equal(rewardAllowed('production',kind),true);
   assert.equal(rewardAllowed('crazygames',kind),true);
  }

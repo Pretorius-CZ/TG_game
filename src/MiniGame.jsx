@@ -7,6 +7,8 @@ import {trackCampaignAttempt} from './campaignTracking.js';
 import Stars,{useStars} from './Stars.jsx';
 import {earnedStars} from './starRating.js';
 import {goalRefillRandom,makeGoalBoard} from './goalRefill.js';
+import {createTurnRandom,createTurnUndo} from './turnUndo.js';
+import './undo.css';
 import {useAccount} from './Account.jsx';
 import MechanicTutorial from './MechanicTutorial.jsx';
 import {relevantTutorials,initialTutorials,helperTutorials,readTutorials} from './tutorials.js';
@@ -43,6 +45,11 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   const {names,sprites}=tileSetFor(repair);
   const goals = goalsFor(repair);
   const refillHistory=useRef({});
+  const turnRandom=useRef(null),turnUndo=useRef(null);
+  if(!turnRandom.current){turnRandom.current=createTurnRandom();turnUndo.current=createTurnUndo(turnRandom.current);}
+  const [undoReady,setUndoReady]=useState(false),[undoUsed,setUndoUsed]=useState(false);
+  const undoOwner=useRef(null);undoOwner.current=`${repair.id}:${user?.id??'guest'}`;
+  useEffect(()=>{turnUndo.current.invalidate();setUndoReady(false);},[repair.id,user?.id]);
   const boosts = boostersEnabled(repair);
   const topics=relevantTutorials({boosts,covers:initialIce(repair).length>0,resonators:resonators.length>0});
   const seenTutorials=useRef(new Set((()=>{try{return readTutorials(localStorage,tutorialKey);}catch{return [];}})()));
@@ -63,7 +70,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   const [ice,setIce]=useState(()=>initialIce(repair));
   const [extraMoves,setExtraMoves]=useState(0);
   const limit=moveBudget(repair)+extraMoves;
-  const [initial] = useState(()=>{try{return {board:makeGoalBoard(level,goals,initialIce(repair)),failed:false};}catch{return {board:[],failed:true};}});
+  const [initial] = useState(()=>{try{return {board:makeGoalBoard(level,goals,initialIce(repair),turnRandom.current.next),failed:false};}catch{return {board:[],failed:true};}});
   const [board, setBoard] = useState(initial.board);
   const [fault,setFault]=useState(initial.failed);
   const run=useRef(0);
@@ -89,12 +96,12 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   const attemptId=useRef(crypto.randomUUID());
   const attemptStarted=useRef(Date.now());
   useEffect(()=>{if(!playtest&&admitted&&!fault)(!crazyGames)&&trackCampaignAttempt(attemptId.current,repair.id);},[admitted,repair.id]);
-  function attemptSnapshot(outcome){return {build:BALANCE_RULES_VERSION,attemptId:attemptId.current,level:repair.id,outcome,moves,budget:limit,baseBudget:moveBudget(repair),remaining:Math.max(0,limit-moves),at:Date.now(),durationMs:Date.now()-attemptStarted.current,configuration:{cols:level.cols,rows:level.rows,types:level.types,goals,ice:initialIce(repair),resonators,...(playtest?{playtest:{chargeActivations:assistance.current.chargeActivations??0,chargeSwaps:assistance.current.chargeSwaps??0,chargesCreated:assistance.current.chargesCreated??0,cascadePulses:assistance.current.cascadePulses??0}}:{})},counts,remainingCovers:ice.length,resonance,...assistance.current};}
+  function attemptSnapshot(outcome){return {build:BALANCE_RULES_VERSION,attemptId:attemptId.current,level:repair.id,outcome,moves,budget:limit,baseBudget:moveBudget(repair),remaining:Math.max(0,limit-moves),at:Date.now(),durationMs:Date.now()-attemptStarted.current,configuration:{cols:level.cols,rows:level.rows,types:level.types,goals,ice:initialIce(repair),resonators,assistance:{undoUses:assistance.current.undoUses??0,actions:assistance.current.actions??0},...(playtest?{playtest:{chargeActivations:assistance.current.chargeActivations??0,chargeSwaps:assistance.current.chargeSwaps??0,chargesCreated:assistance.current.chargesCreated??0,cascadePulses:assistance.current.cascadePulses??0}}:{})},counts,remainingCovers:ice.length,resonance,...assistance.current};}
   function recordResult(outcome,terminal=true){
     if(recorded.current)return;if(terminal)recorded.current=true;
     if(playtest){recorded.current=true;playtest.onResult(attemptSnapshot(outcome));return;}
     if(!crazyGames)trackCampaignAttempt(attemptId.current,repair.id,outcome);
-    if(!crazyGames)saveAttempt({build:BALANCE_RULES_VERSION,attemptId:attemptId.current,level:repair.id,outcome,moves,budget:limit,baseBudget:moveBudget(repair),remaining:Math.max(0,limit-moves),at:Date.now(),durationMs:Date.now()-attemptStarted.current,configuration:{cols:level.cols,rows:level.rows,types:level.types,goals,ice:initialIce(repair),resonators},counts,remainingCovers:ice.length,resonance,...assistance.current});
+    if(!crazyGames)saveAttempt({build:BALANCE_RULES_VERSION,attemptId:attemptId.current,level:repair.id,outcome,moves,budget:limit,baseBudget:moveBudget(repair),remaining:Math.max(0,limit-moves),at:Date.now(),durationMs:Date.now()-attemptStarted.current,configuration:{cols:level.cols,rows:level.rows,types:level.types,goals,ice:initialIce(repair),resonators,assistance:{undoUses:assistance.current.undoUses??0,actions:assistance.current.actions??0}},counts,remainingCovers:ice.length,resonance,...assistance.current});
   }
   function requestHelp(kind,index){
     if(playtest)return;
@@ -113,6 +120,23 @@ export default function MiniGame({ onWin, onQuit, repair }) {
       setAdsUsed(previous=>({...previous,[kind]:true}));
       return true;
     },kind);
+  }
+  function requestUndo(){
+    if(playtest||tutorial||confirmQuit||busy||lock.current||won||fault||undoUsed||!undoReady||!turnUndo.current.available||!rewardAvailable('undo'))return;
+    const token=run.current,owner=undoOwner.current;
+    ad(msg('undo.description'),()=>{
+      if(!alive.current||run.current!==token||undoOwner.current!==owner||!turnUndo.current.available)return false;
+      if(spent.current&&!lives.resumeAttempt(attemptId.current))return false;
+      const previous=turnUndo.current.take();
+      if(!previous)return false;
+      spent.current=false;assistance.current.undoUses=1;
+      refillHistory.current=previous.refillHistory;
+      setBoard(previous.board);setIce(previous.ice);setCounts(previous.counts);setResonance(previous.resonance);setMoves(previous.moves);setCascadePulse(previous.cascadePulse);
+      setUndoUsed(true);setUndoReady(false);setSelected(null);setHint(null);setTool(null);setConfirmQuit(false);setResonatorHelp(false);setResonatorFx([]);setBlastFx(null);setMoving(null);setFalling([]);setCleared([]);
+      setMessage(msg('undo.restored'));
+      requestAnimationFrame(()=>dialog.current?.querySelector('.board button:not(:disabled)')?.focus({preventScroll:true}));
+      return true;
+    },'undo');
   }
   const [tool,setTool]=useState(null);
   const helpers=[['⌖','Laser','Select one tile.'],['⤨','Shuffle','Shuffle the board.'],['⇄','Swap','Select two adjacent uncovered tiles.'],['➜','Beam','Select a row to clear.'],['✺','EMP','Select the centre of a 3×3 blast.']];
@@ -152,6 +176,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   }
   function leave(){recordResult("quit");lives.settleAttempt(attemptId.current,won||fault);onQuit();}
   function failSafely(){
+    turnUndo.current.invalidate();setUndoReady(false);
     lives.settleAttempt(attemptId.current,true);
     run.current++;clearInterval(watchdog.current);lock.current=false;
     setCascadePulse(null);setResonatorFx([]);setShuffling(false);setBlastFx(null);setFault(true);setBusy(false);setMoving(null);setFalling([]);setCleared([]);setSelected(null);setHint(null);setConfirmQuit(false);
@@ -159,7 +184,8 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   function retry(){
     if(!fault&&!lives.count)return;
     try{
-      const fresh=makeGoalBoard(level,goals,initialIce(repair));
+      turnUndo.current.reset();setUndoReady(false);setUndoUsed(false);
+      const fresh=makeGoalBoard(level,goals,initialIce(repair),turnRandom.current.next);
       refillHistory.current={};
       recordResult(fault?"fault":"failed");recorded.current=false;attemptId.current=crypto.randomUUID();attemptStarted.current=Date.now();if(!playtest&&!crazyGames)trackCampaignAttempt(attemptId.current,repair.id);assistance.current={helpers:[],extraMoves:false,hints:0};setAdsUsed({moves:false,hint:false,helper:false});
       run.current++;clearInterval(watchdog.current);lock.current=false;spent.current=false;
@@ -190,6 +216,9 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     // Invalid swaps and helpers do not spend a move and need no reservation.
     const swapHit=helper==null&&!activation?swapMatches(board,a,b,level.cols,ice):[];
     if(helper==null&&(activation||swapHit.length)&&!lives.reserveAttempt(attemptId.current)){failSafely();return;}
+    if(helper==null&&(activation||swapHit.length)&&!playtest){
+      turnUndo.current.capture({board,ice,counts,resonance,moves,cascadePulse,refillHistory:refillHistory.current});setUndoReady(false);
+    }
     const token=++run.current;
     const createdBoosts=new Set();let completedAction=false;
     let activeTicks=0;
@@ -205,7 +234,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
       let shuffled=false;
       for(let attempt=0;attempt<128;attempt++){
         const values=indices.map(i=>board[i]);
-        for(let j=values.length-1;j>0;j--){const k=Math.floor(Math.random()*(j+1));[values[j],values[k]]=[values[k],values[j]];}
+        for(let j=values.length-1;j>0;j--){const k=Math.floor(turnRandom.current.next()*(j+1));[values[j],values[k]]=[values[k],values[j]];}
         indices.forEach((i,j)=>next[i]=values[j]);
         if(!iceMatches(next,level.cols,frozen).length&&iceMove(next,level.cols,frozen)){shuffled=true;break;}
       }
@@ -215,7 +244,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
       toolHit=[...new Set([...toolHit,...blast(next,level.cols,toolHit.filter(i=>isBooster(next[i])))])];
     }
     let found=toolHit??(activation?[a]:helper==null?swapHit:iceMatches(next,level.cols,frozen));
-    if(helper!=null){if(!await consumeTool(helper)){setMoving(null);setTool(null);return;}if(!alive.current||token!==run.current)return;assistance.current.helpers.push(helpers[helper][1]);if(helper!==1)sound(["laser","shuffle","tool-swap","beam","emp"][helper]);setTool(null);if(helper===1&&!await animateShuffle(next,token))return;}
+    if(helper!=null){if(!await consumeTool(helper)){setMoving(null);setTool(null);return;}if(!alive.current||token!==run.current)return;turnUndo.current.invalidate();setUndoReady(false);assistance.current.helpers.push(helpers[helper][1]);if(helper!==1)sound(["laser","shuffle","tool-swap","beam","emp"][helper]);setTool(null);if(helper===1&&!await animateShuffle(next,token))return;}
     if (!found.length&&helper==null) { sound('invalid');
       setMoving(null); setMessage('Almost! A swap needs to make a line of 3 matching pieces.');
       await wait(220); if (!alive.current || token!==run.current) return;
@@ -236,7 +265,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
           if(!alive.current||token!==run.current)return;
           setResonatorFx([]);
         }
-        const resolved=wave(next,frozen,level,{enabled:boosts,activate:activation&&cascades===0?a:null,preferred:cascades===0?[b,a]:[],hit:cascades===0?toolHit:null,refillRandom:collected=>goalRefillRandom(level,goals,collectGoals(goals,totals,next,collected),next,frozen,collected,refillHistory.current)});
+        const resolved=wave(next,frozen,level,{enabled:boosts,activate:activation&&cascades===0?a:null,preferred:cascades===0?[b,a]:[],hit:cascades===0?toolHit:null,refillRandom:collected=>goalRefillRandom(level,goals,collectGoals(goals,totals,next,collected),next,frozen,collected,refillHistory.current,turnRandom.current.next)});
         found=resolved.hit;
         resolved.created.forEach(r=>createdBoosts.add(r.type===11?'nova':'pulse'));
         if(playtest)assistance.current.chargesCreated=(assistance.current.chargesCreated??0)+resolved.created.length;
@@ -264,7 +293,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
       }
       if (finished) sound('win');
       if (!goalsComplete(goals, totals) || !resonatorsComplete(resonators,charged) || frozen.length) {
-        const recovery=ensurePlayableBoard(next,level,frozen);
+        const recovery=ensurePlayableBoard(next,level,frozen,turnRandom.current.next);
         if(recovery.reshuffled){
           next=recovery.board;
           if(!await animateShuffle(next,token))return;
@@ -272,9 +301,10 @@ export default function MiniGame({ onWin, onQuit, repair }) {
         }
       }
       completedAction=true;
+      assistance.current.actions=(assistance.current.actions??0)+1;
     }
     }catch{if(alive.current && token===run.current)failSafely();}
-    finally{if(token===run.current){clearInterval(watchdog.current);lock.current=false;if(alive.current){setShuffling(false);setBusy(false);if(completedAction)explainBoosts([...createdBoosts]);}}}
+    finally{if(token===run.current){clearInterval(watchdog.current);lock.current=false;if(alive.current){setShuffling(false);setBusy(false);setUndoReady(turnUndo.current.available);if(completedAction)explainBoosts([...createdBoosts]);}}}
 
   }
   function choose(i) {
@@ -304,13 +334,15 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     const j = moving[0] === i ? moving[1] : moving[0];
     return { transform: `translate(${(j % level.cols - i % level.cols) * 100}%, ${(Math.floor(j / level.cols) - Math.floor(i / level.cols)) * 100}%)`, zIndex: 2 };
   }
+  const undoControl=!playtest&&<button className="undo-control" aria-label={msg(undoUsed?'undo.used':'undo.label')} title={msg(undoUsed?'undo.used':'undo.description')} disabled={tutorial||busy||confirmQuit||won||fault||!admitted||undoUsed||!undoReady||!rewardAvailable('undo')} onClick={requestUndo}><span className="undo-art" aria-hidden="true">↶</span><small>{msg('undo.short')}</small><b className="helper-badge">{undoUsed?'0':crazyGames?'+':'AD'}</b></button>;
   return createPortal(<dialog className={`mini-dialog ${exhausted||won||fault||!admitted?'mini-result':''}`} ref={dialog} aria-labelledby="level-title" onCancel={event => { event.preventDefault(); if(tutorial){dismissTutorial();return;}if (!busy){quitOpener.current=document.activeElement;setConfirmQuit(true);} }}>
+    {undoUsed&&!won&&!fault&&<p className="sr-only" role="status">{msg('undo.restored')}</p>}
     {tutorial&&!fault&&admitted&&<MechanicTutorial topic={tutorial} language={language} remaining={tutorialQueue.length} onNext={dismissTutorial} onClose={()=>{dismissTutorial();setTutorialQueue([]);}} onTopic={id=>setTutorialQueue([id])} topics={[...topics,...helperTutorials]}/>}
     <div className="level-hud"><div className="energy-audio"><LivesBar/><AudioControls/></div><button className="hint-control" aria-description={android&&!hintsLeft?msg("android.hintUsed"):t(hintsLeft?"One free hint per attempt":crazyGames?"Extra hint":"Ad · extra hint")} title={android&&!hintsLeft?msg("android.hintUsed"):t(hintsLeft?"One free hint per attempt":crazyGames?"Extra hint":"Ad · extra hint")} disabled={busy||exhausted||won||fault||!admitted||(playtest&&hintsLeft===0)||(hintsLeft===0&&(adsUsed.hint||!rewardAvailable("hint")))||Boolean(hint)} onClick={()=>hintsLeft?showHint():requestHelp("hint")}><span>{t("Hint")}</span>{" "}<small>{t(hintsLeft?'1/1':playtest?'0':(adsUsed.hint||!rewardAvailable('hint'))?'0':crazyGames?'+':'AD')}</small></button><div className={`moves-counter ${limit-moves<=5?'low-moves':''}`} role="status" aria-label={t(`${Math.max(0,limit-moves)} moves left`)}><span>{t("MOVES")}</span><strong>{t(Math.max(0,limit-moves))}</strong></div></div>
     <div className="mini-header"><button className="mechanics-help" disabled={busy||exhausted||won||fault||!admitted} aria-label={language==='cs'?'Pravidla a pomůcky':'Mechanics help'} onClick={()=>{setResonatorHelp(false);setTutorialQueue(topics);}}>ⓘ</button><span className="eyebrow">{t(repair.room ?? 'COCKPIT')}{t(" / REPAIR LESSON")}</span><button className="close" aria-label={t("Leave level")} disabled={busy} onClick={e => {quitOpener.current=e.currentTarget;setConfirmQuit(true);}}>{t("×")}</button><h2 id="level-title">{t(repair.lesson)}</h2></div>
     <div className="objective-list" style={{"--goal-count":goals.length+(initialIce(repair).length?1:0)+(resonators.length?1:0)}}>{t(goals.map((goal,i)=><div className="charge" key={i}><span>{t(goal.type!=null&&<img className="objective-icon" src={`./tiles/${sprites[goal.type]}.png`} alt={t("")}/>)}</span><strong translate="no" aria-live="polite" aria-atomic="true">{`${counts[i] ?? 0} / ${goal.target}`}</strong><progress aria-label={t(goal.label)} max={goal.target} value={counts[i]}/></div>))}{resonators.length>0&&<div className="charge" title={t('Match beside each ring to charge it. Blasts do not charge rings.')}><button className="resonator-help-button" aria-label={t('Charge the ring')} onClick={()=>setResonatorHelp(v=>!v)}>◎ ?</button><strong>{resonance.reduce((a,b)=>a+b,0)} / {resonators.reduce((a,r)=>a+r.target,0)}</strong><progress aria-label={t('Resonators')} value={resonance.reduce((a,b)=>a+b,0)} max={resonators.reduce((a,r)=>a+r.target,0)}/></div>}{initialIce(repair).length>0&&<div className="charge" title={t('Protective covers')}><span><i className="cover-objective-icon" aria-hidden="true"/></span><strong translate="no">{initialIce(repair).length-ice.length} / {initialIce(repair).length}</strong><progress aria-label={t('Protective covers')} max={initialIce(repair).length} value={initialIce(repair).length-ice.length}/></div>}</div>
 
-    {t(exhausted&&<div className="out-of-moves" ref={resultPanel} tabIndex={-1} role="region" aria-label={t("Out of moves")}><h3>{t("Out of moves")}</h3><p>{t("Your repairs are safe. Try again or continue this attempt.")}</p><button className="primary" disabled={adsUsed.moves} onClick={()=>requestHelp('moves')}>{t(adsUsed.moves?'Extra moves used':crazyGames?'+5 moves · free':'Ad · +5 moves')}</button><button className="keep-playing" disabled={!lives.count} onClick={retry}>{t("Retry level")}</button><button className="keep-playing" onClick={()=>{recordResult(fault?"fault":"failed");onQuit();}}>{t("Back to exploration")}</button>{t(!lives.count&&<NoLives/>)}</div>)}
+    {t(exhausted&&<div className="out-of-moves" ref={resultPanel} tabIndex={-1} role="region" aria-label={t("Out of moves")}><h3>{t("Out of moves")}</h3><p>{t("Your repairs are safe. Try again or continue this attempt.")}</p><button className="primary" disabled={adsUsed.moves} onClick={()=>requestHelp('moves')}>{t(adsUsed.moves?'Extra moves used':crazyGames?'+5 moves · free':'Ad · +5 moves')}</button>{undoControl}<button className="keep-playing" disabled={!lives.count} onClick={retry}>{t("Retry level")}</button><button className="keep-playing" onClick={()=>{recordResult(fault?"fault":"failed");onQuit();}}>{t("Back to exploration")}</button>{t(!lives.count&&<NoLives/>)}</div>)}
     {t(fault ? <div className="out-of-moves" ref={resultPanel} tabIndex={-1} role="alert"><h3>{t("Board recovery needed")}</h3><p>{t("This puzzle could not continue safely. No energy was charged for this interrupted attempt.")}</p><button className="primary" onClick={retry}>{t("Restart level · free")}</button><button className="keep-playing" onClick={()=>{recordResult(fault?"fault":"failed");onQuit();}}>{t("Back to exploration")}</button></div> : !admitted ? <><NoLives/>{t(lives.count>0&&<button className="primary" onClick={()=>setAdmitted(true)}>{t("Start level")}</button>)}</> : !won ? <div className="puzzle-area" hidden={exhausted} style={{"--ratio":level.cols/level.rows,"--rows":level.rows}}>
       <div className={`board ${blastFx?'board-blasting':''} ${shuffling?'board-shuffling':''}`} style={{ '--cols': level.cols }} aria-label={t("Match three board")} aria-busy={busy}>
         {resonatorHelp&&<div className="resonator-guide" role="note"><strong>{t('Charge the ring')}</strong><p>{t("Match at least 3 identical pieces so that one touches the ring above, below, left or right. Each separate match adds +1 per ring, even in the same wave. Blasts do not count.")}</p><button className="primary" onClick={()=>setResonatorHelp(false)}>{t('Got it')}</button></div>}
@@ -334,7 +366,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     </div> : <div className="win-panel" ref={resultPanel} tabIndex={-1}><p className="stars-optional">{language==='cs'?'K postupu stačí výhra. Tři hvězdy jsou dobrovolná výzva.':'Winning is enough to progress. Three stars are an optional challenge.'}</p><p className="replay-tip">{language==='cs'?'Znovu hrát: otevři ☰ Kapitoly, navštiv místnost a klepni na dokončenou opravu ✓.':'To replay: open ☰ Chapters, visit a room and tap a completed repair ✓.'}</p><Stars hero value={earnedStars(moveBudget(repair),moves)}/><p className="rating-note">{language==='cs'?'Nejlepší výsledek':'Best result'}: <Stars value={Math.max(stars[repair.id]??0,earnedStars(moveBudget(repair),moves))}/><br/>{language==='cs'?'Hvězdy závisí na zbývajících tazích z původního limitu; bonusové tahy se nepočítají.':'Stars are based on moves left from the original limit; bonus moves do not count.'}</p><h3>{t("Objective complete.")}</h3><p>{t("You have completed the objective.")}<br/>{t("Continue your journey.")}</p><button className="primary" disabled={busy} onClick={()=>{recordResult("won");award(repair.id,moveBudget(repair),moves);onWin();}}>{t(repair.action)} <span>{t("→")}</span></button></div>)}
     {!fault&&!won&&!exhausted&&admitted&&<div className="helper-panel">
       <div className="helper-prompt" role="status">{tool!=null?<>{t(helpers[tool][2])}<button onClick={()=>{setTool(null);setSelected(null);}}>{t('Cancel')}</button></>:null}</div>
-      <div className="helper-bar">{helpers.map(([icon,name],i)=><button key={name} className={`helper-tile helper-type-${i} ${toolsLeft[i]?"in-stock":"empty-stock"}`} aria-description={t(helpers[i][2])} aria-pressed={tool===i} disabled={busy||confirmQuit||(!toolsLeft[i]&&(adsUsed.helper||!rewardAvailable("helper")))} onClick={()=>{if(!toolsLeft[i]){requestHelp("helper",i);return;}if(!seenTutorials.current.has(helperTutorials[i])){setTool(null);setSelected(null);setTutorialQueue([helperTutorials[i]]);return;}setSelected(null);setHint(null);if(i===1)play(board.findIndex(v=>v!=null),board.findIndex(v=>v!=null),i);else setTool(tool===i?null:i);}}><span className="helper-art"><HelperIcon index={i}/></span><small>{t(name)}</small>{" "}<b className="helper-badge">{toolsLeft[i]||(!adsUsed.helper&&rewardAvailable("helper")?<><svg viewBox="0 0 12 12" aria-hidden="true"><path d="m4 2 6 4-6 4z" fill="currentColor"/></svg>{t(crazyGames?'+':'AD')}</>:"0")}</b></button>)}</div>
+      <div className="helper-bar">{helpers.map(([icon,name],i)=><button key={name} className={`helper-tile helper-type-${i} ${toolsLeft[i]?"in-stock":"empty-stock"}`} aria-description={t(helpers[i][2])} aria-pressed={tool===i} disabled={busy||confirmQuit||(!toolsLeft[i]&&(adsUsed.helper||!rewardAvailable("helper")))} onClick={()=>{if(!toolsLeft[i]){requestHelp("helper",i);return;}if(!seenTutorials.current.has(helperTutorials[i])){setTool(null);setSelected(null);setTutorialQueue([helperTutorials[i]]);return;}setSelected(null);setHint(null);if(i===1)play(board.findIndex(v=>v!=null),board.findIndex(v=>v!=null),i);else setTool(tool===i?null:i);}}><span className="helper-art"><HelperIcon index={i}/></span><small>{t(name)}</small>{" "}<b className="helper-badge">{toolsLeft[i]||(!adsUsed.helper&&rewardAvailable("helper")?<><svg viewBox="0 0 12 12" aria-hidden="true"><path d="m4 2 6 4-6 4z" fill="currentColor"/></svg>{t(crazyGames?'+':'AD')}</>:"0")}</b></button>)}{undoControl}</div>
     </div>}
     {t(import.meta.env.DEV&&!playtest&&!fault&&!won&&!exhausted&&!confirmQuit&&<button className="preview-complete" disabled={busy} onClick={()=>{if(lock.current)return;lock.current=true;lives.settleAttempt(attemptId.current,true);onWin();}}>{t("✓ Complete level ")}<small>{t("Preview · skip match-3")}</small></button>)}
 

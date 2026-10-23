@@ -17,7 +17,7 @@ export function LivesProvider({children,storageKey=KEY,practice=false}){
  function reward(){const interval=ref.current.interval??RECHARGE_MS;const current=recoverLives(ref.current,Date.now(),interval);const count=Math.min(5,current.count+1);update({...current,count,nextAt:count===5?null:current.nextAt,interval});return true;}
  const attempts=useRef(null);
  if(!attempts.current)attempts.current=createAttemptEnergy({spend,reward});
- return <LivesContext.Provider value={{...state,configure,reward,reserveAttempt:attempts.current.reserve,settleAttempt:attempts.current.settle,minutes:(state.interval??RECHARGE_MS)/60000,spend,refill:()=>update({count:5,nextAt:null,interval:ref.current.interval})}}>{t(children)}</LivesContext.Provider>;
+ return <LivesContext.Provider value={{...state,configure,reward,reserveAttempt:attempts.current.reserve,settleAttempt:attempts.current.settle,resumeAttempt:attempts.current.resume,minutes:(state.interval??RECHARGE_MS)/60000,spend,refill:()=>update({count:5,nextAt:null,interval:ref.current.interval})}}>{t(children)}</LivesContext.Provider>;
 }
 export function useLives(){return useContext(LivesContext);}
 export function LivesBar(){
