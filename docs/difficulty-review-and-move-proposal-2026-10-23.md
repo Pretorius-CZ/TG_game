@@ -176,3 +176,20 @@ Nový oddělený průchod:
 https://game.playbeyondthesignal.com/playtest.html?run=moves-v2-20261023
 Starý odkaz a již rozehrané průchody ponechávají své uložené konfigurace.
 Publikace a kontrola skutečně nasazené verze následují.
+
+## Produkční nasazení ověřeno
+
+Webový zdroj `44df8c18f897079ec048e5d2c6c21e0e05dc8608`, Android `e725265`.
+Živé verze: hlavní web `1792773988569-44df8c18f897`, hra
+`1792773988470-44df8c18f897`. Herní workflow39989506323 skončilo success.
+Hlavní39989505713 má publikováno, při poslední kontrole ještě instalovalo
+prohlížeč pro CI; nezávislá místní kontrola živé hlavní domény prošla.
+
+Živý nový slepý průchod: všech200limitů odpovídá novému katalogu a pravidla
+jsou moves-v2. Izolovaný starý uložený průchod zachoval všech200původních
+limitů. V obou vykreslena deska a správný počet tahů,0JS chyb.
+Živé EN/CS Undo nadále po reklamě jen připraví kredit a dalším klepnutím
+vrací tah. Obě domény root/index prošly, žádné chybějící místní zdroje;
+hlavní doména zůstala webem. Tyto kontroly blokovaly analytické zápisy.
+Webový Chromium slepý test5/5, unit262/262. APK49554132B sestaveno
+23.10.2026 18:44; pro telefon je nutná aktualizace přes Android Studio Run.
