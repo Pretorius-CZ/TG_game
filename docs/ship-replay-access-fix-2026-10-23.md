@@ -25,3 +25,15 @@ Test Android sestavení v Chromium nenahrazuje fyzické potvrzení na POCO.
 
 Telefon je nutné aktualizovat přes Android Studio Run nad stejnou aplikací;
 neodinstalovávat ani nemazat data. Webový přenos a publikace následují.
+
+## Vydání a živá kontrola
+
+Android oprava254879d je pushnutá; debug APK49109172B, sestavené
+23.10.2026 18:59. Telefon fyzicky nebyl aktualizován nástroji tohoto úkolu.
+Webová oprava222c4837b495 je zveřejněná: main1792774937354,
+game1792774940445. Vlastní živých9Chromium scénářů výše prošlo9/9 i na
+produkci, s analytikou blokovanou. MainCI39991703730 success;
+gameCI39991703352 při poslední kontrole po publikaci instalovalo browser.
+Webové unit264/264, build a dalších5Chromium regresí ukládání replayhvězd
+(zavření/reload/nižší výsledek, izolace prvního dokončení a slepého testu)
+prošly. Společné opravené soubory jsou v Androidu i webu stejné.
