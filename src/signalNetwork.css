@@ -1,9 +1,17 @@
 .signal-activation{position:absolute;inset:0;pointer-events:none;z-index:1}.signal-activation svg{width:100%;height:100%}
 .signal-route-glow{filter:drop-shadow(0 0 2px #73ffe6);animation:signal-route-breathe 3s ease-in-out infinite}
-.signal-site .hotspot{width:40%;padding:3px;gap:4px;flex-direction:column}.signal-site .hotspot-label{width:100%;max-width:none;font-size:12px;line-height:1.25;padding:5px}.signal-site .target{width:32px;height:32px;font-size:20px;flex-shrink:0}
+.signal-site .hotspot{width:28%;max-width:140px;padding:3px;gap:4px;flex-direction:column}.signal-site .hotspot-label{width:100%;max-width:none;font-size:12px;line-height:1.25;padding:5px}.signal-site .target{width:32px;height:32px;font-size:20px;flex-shrink:0}
 .signal-site .scene-caption{bottom:8px;padding:10px}.signal-site .scene-caption .primary,.signal-site .scene-caption .keep-playing{min-height:44px;white-space:normal}
 .signal-milestone{border-top:1px solid #b7d9c9;padding-top:8px;color:#ddf8eb;font-weight:650}
-.signal-site .scene-top p{display:none}.signal-finished .completed-hotspot{display:none}
-.signal-site .completed-hotspot{width:44px;height:44px;min-height:44px;padding:4px}.signal-site .completed-hotspot .hotspot-label{display:none}
+.signal-site .scene-top p{display:none}
+.signal-site .completed-hotspot{height:auto;min-height:44px}
+.signal-site .completed-hotspot .hotspot-label{display:block;max-width:none;font-size:11px;line-height:1.25}
+/* Keep lower station labels below their markers, away from the upper row. */
+.signal-site .hotspot-label-above{flex-direction:column}
+.signal-site .hotspot[data-repair-id="signal-station-answer"]{margin-top:16px}
+.signal-finished .scene-caption{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.signal-finished .scene-caption>div{display:contents}
+.signal-finished .signal-milestone{grid-column:1/-1;margin:0}
+.signal-finished .scene-caption button{width:100%;font-size:12px;padding:8px;line-height:1.3}
 @keyframes signal-route-breathe{50%{opacity:.4}}
 @media(prefers-reduced-motion:reduce){.signal-route-glow{animation:none}}
