@@ -143,7 +143,7 @@
   "web.saving.privacy.body": "La première visite propose le partage de statistiques de jeu. Vous pouvez modifier ce choix dans Settings ; refuser ne limite ni le jeu ni les sauvegardes cloud. Les choix publicitaires sont séparés. La page de confidentialité explique données, prestataires et suppression.",
   "web.updates.title": "Les nouvelles d’au-delà du signal",
   "web.updates.description": "Chapitres publiés, améliorations et actualités de Beyond the Signal.",
-  "web.updates.intro": "Suivez les changements déjà disponibles : nouveaux lieux à restaurer, commandes plus claires et améliorations issues des avis des joueurs. Cette page recense les mises à jour publiées plutôt que de promettre des dates pour des fonctions inachevées.",
+  "web.updates.intro": "Retrouvez les mises à jour publiées et les nouvelles du développement clairement identifiées : nouveaux lieux à restaurer, commandes plus claires et améliorations issues des avis des joueurs. Les fonctionnalités en préparation sont présentées séparément des mises à jour déjà jouables.",
   "web.homeDescription": "Un mystérieux signal. Un vaisseau endommagé. Découvrez Beyond the Signal, une aventure match-3 gratuite de science-fiction avec 200 niveaux, guides et actualités.",
   "web.site.allUpdates": "Toutes les actualités →",
   "web.site.savedTitle": "Vous jouiez sur l’ancienne adresse ?",
@@ -154,5 +154,11 @@
   "web.consent.opening": "Ouverture des choix publicitaires…",
   "web.consent.unavailable": "Impossible de charger les choix de consentement. Le message peut ne pas être publié ou être bloqué par le navigateur ou la connexion. Cela ne vaut pas consentement. Vous pouvez continuer à jouer.",
   "web.consent.not-required": "Google ne demande pas de message de consentement européen pour cette visite.",
-  "web.consent.received": "Google a reçu vos choix publicitaires. Vous pouvez les modifier à tout moment."
+  "web.consent.received": "Google a reçu vos choix publicitaires. Vous pouvez les modifier à tout moment.",
+  "news.challenge-and-replay.tag": "MISE À JOUR",
+  "news.challenge-and-replay.title": "Plus de défi et de nouvelles tentatives.",
+  "news.challenge-and-replay.body": "Nous avons réduit le nombre de coups dans 33 niveaux sélectionnés à partir du niveau 20, dont plusieurs défis HARD. Les zones du vaisseau terminées peuvent être rejouées avant le départ pour vous entraîner et améliorer vos étoiles. Annuler prépare désormais une utilisation disponible ; un second appui annule le coup. Votre progression et vos étoiles restent conservées.",
+  "news.android-preview.tag": "EN DÉVELOPPEMENT",
+  "news.android-preview.title": "L’application Android est en test.",
+  "news.android-preview.body": "La version Android de Beyond the Signal est en cours de test interne sur un vrai téléphone. Nous vérifions les commandes, la sauvegarde de la progression et les publicités récompensées avant une diffusion plus large. L’application n’est pas encore disponible en téléchargement public ni sur Google Play. Les 200 niveaux restent jouables dans votre navigateur."
 }

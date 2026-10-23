@@ -143,7 +143,7 @@
   "web.saving.privacy.body": "Při první návštěvě si vybereš, zda sdílet herní statistiky. Volbu můžeš později změnit v Nastavení a odmítnutí neomezuje hraní ani cloudové ukládání. Reklamní souhlasy jsou oddělené. Stránka soukromí vysvětluje uložené údaje, poskytovatele a možnosti výmazu.",
   "web.updates.title": "Novinky z cesty za signálem",
   "web.updates.description": "Vydané kapitoly, vylepšení a zprávy z vývoje Beyond the Signal.",
-  "web.updates.intro": "Sleduj změny, které už dorazily do hry: nová místa k obnově, srozumitelnější ovládání a vylepšení podle zpětné vazby hráčů. Stránka zaznamenává vydané aktualizace a neslibuje termíny nedokončených funkcí.",
+  "web.updates.intro": "Sleduj vydané změny i jasně označené zprávy z vývoje: nová místa k obnově, přehlednější ovládání a vylepšení podle hráčské zpětné vazby. Připravované funkce uvádíme odděleně od aktualizací, které už můžeš hrát.",
   "web.homeDescription": "Tajemný signál. Poškozená loď. Objev Beyond the Signal, bezplatné sci-fi dobrodružství se spojováním kamenů s 200 levely, návody a novinkami z vývoje.",
   "web.site.allUpdates": "Všechny novinky →",
   "web.site.savedTitle": "Hrál jsi na původní adrese?",
@@ -154,5 +154,11 @@
   "web.consent.opening": "Otevírám reklamní volby…",
   "web.consent.unavailable": "Volby souhlasu se nepodařilo načíst. Zpráva možná ještě není zveřejněná, nebo ji blokuje prohlížeč či připojení. Nepovažujeme to za souhlas. Ve hře můžeš pokračovat.",
   "web.consent.not-required": "Google pro tuto návštěvu nevyžaduje evropskou zprávu souhlasu.",
-  "web.consent.received": "Tvoje reklamní volby byly přijaty Googlem. Kdykoli je můžeš změnit."
+  "web.consent.received": "Tvoje reklamní volby byly přijaty Googlem. Kdykoli je můžeš změnit.",
+  "news.challenge-and-replay.tag": "AKTUALIZACE HRY",
+  "news.challenge-and-replay.title": "Větší výzva a možnost zkusit to znovu.",
+  "news.challenge-and-replay.body": "Snížili jsme počet tahů ve 33 vybraných úrovních od levelu 20, včetně několika výzev HARD. Dokončené části lodi lze znovu hrát i před odletem a zlepšovat si hvězdy. Krok zpět nyní nejprve připraví dostupné použití; teprve dalším klepnutím vrátí tah. Postup i získané hvězdy zůstávají zachované.",
+  "news.android-preview.tag": "PŘIPRAVUJEME",
+  "news.android-preview.title": "Android aplikaci už testujeme.",
+  "news.android-preview.body": "Android verzi Beyond the Signal už interně testujeme na skutečném telefonu. Před širším vydáním ověřujeme ovládání, ukládání postupu a odměňované reklamy. Aplikace zatím není veřejně ke stažení ani na Google Play. Všech 200 levelů můžeš dál hrát v prohlížeči."
 }

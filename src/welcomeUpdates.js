@@ -1,5 +1,7 @@
 // Published news, newest first. Copy lives in i18n/catalogs/web under news.<id>.<field>.
 export const updates=[
+  {id:'challenge-and-replay',date:'2026-10-23'},
+  {id:'android-preview',date:'2026-10-23'},
   {
     "id": "answer-200",
     "date": "2026-10-18"
