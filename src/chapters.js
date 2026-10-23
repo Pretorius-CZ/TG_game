@@ -1,5 +1,5 @@
 import {destinations} from './destinations.js';
-import {shipStages,chapterEntry} from './chapterFlow.js';
+import {shipStages,chapterEntry,canVisitChapter} from './chapterFlow.js';
 import {canVisitAster} from './aster.js';
 import {canVisitElysium} from './elysium.js';
 import {canVisitRift} from './rift.js';
@@ -28,7 +28,7 @@ export function chaptersFor(p){return groups.map(([id,en,cs,scenes,entry],index)
 
 export function chapterSectionOpen(p,c,scene){
  if(!c.open)return false;
- if(c.id==='ship')return Boolean(p.launchDone)||scene===c.next;
+ if(c.id==='ship')return canVisitChapter(p,scene);
  if(c.id==='kepler')return !['ice','wreck'].includes(scene)||Boolean(p.scannerInstalled);
  if(c.id==='aster')return canVisitAster(p,scene);
  if(c.id==='rift'||c.id==='ring'&&scene==='beyond-rift')return canVisitRift(p,scene);
