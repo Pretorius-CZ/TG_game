@@ -25,7 +25,7 @@ const labels=['Fuel cells','Energy crystals','Blue comets','Asteroids','Stars','
 function tasks(prefix,room,rows){return rows.map((r,i)=>({
  id:`${prefix}-${r.key}`,room,name:r.name,lesson:r.lesson,icon:'✦',x:r.x,y:r.y,
  thought:r.thought,result:r.result,action:'Complete expedition task',
- level:i===5?long:i%2?clipped:grid,moves:[23,24,27,22,28,30][i],
+ level:i===5?long:i%2?clipped:grid,moves:(prefix==='ice'?[18,18,27,22,28,30]:[16,18,27,19,28,30])[i],
  ice:i<2?[]:i===2?[15,19,29,33]:i===5?[9,12,22,26,37,40]:i===4?[8,12,36,40]:[],
  goals:r.goals.map(([type,target])=>({type,target,label:labels[type]})),
  target:r.goals.reduce((n,g)=>n+g[1],0),targetType:null,

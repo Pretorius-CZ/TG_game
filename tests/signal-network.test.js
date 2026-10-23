@@ -14,8 +14,8 @@ import {translate,missingTranslations} from '../src/i18n/translate.js';
 import {journeyStories} from '../src/journeyStories.js';
 export function afterArchive(){const raw=Object.fromEntries(Object.keys(normalizeProgress()).filter(k=>k.endsWith('Completed')||k==='completed').map(k=>[k,6]));return normalizeProgress({...raw,...Object.fromEntries(Object.values(sites).map(s=>[s.key,0])),elysiumRouteCompleted:1,elysiumArrival:1,riftCrossed:1,caretakerMet:1,finaleDone:true,launchDone:true,scannerInstalled:true,jumpDone:true,scene:scenes[0]});}
 test('thirteen consecutive tasks close the signal journey exactly at level 200',()=>{
- // Published baseline: first167 historical hash plus the20 unchanged archive repairs.
- assert.equal(createHash('sha256').update(JSON.stringify(levelCatalog.slice(0,187))).digest('hex'),'cd3c869d8eb22ac0d6e691bdd824a0eda0c9adb38f8487cb9ea613b3e3cfadc3');
+ // Baseline includes approved 2026-10-23 limits and the20 unchanged archive repairs.
+ assert.equal(createHash('sha256').update(JSON.stringify(levelCatalog.slice(0,187))).digest('hex'),'11f7fefa87fb8d51787ed280c11a969611099e61f3cf6375228cf5cb319f2de3');
  let p=afterArchive();const before=structuredClone(p);
  assert.deepEqual(levelCatalog.slice(187).map(r=>r.number),Array.from({length:13},(_,i)=>188+i));
  for(const [i,scene] of scenes.entries()){

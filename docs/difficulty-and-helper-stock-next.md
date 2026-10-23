@@ -60,3 +60,12 @@ obtížnosti podle útraty. Monetizační parametry řešit zvlášť od chyb de
 
 Stav tohoto zápisu: zadání a návrh postupu, kód obtížnosti ani inventáře
 se tímto zápisem ještě nemění. Nákupy nejsou implementované.
+
+## 2026-10-23 — Tabulka a konkrétní kandidáti limitů
+
+Uživatel nyní požádal o rozbor tahů/obtížnosti od20 také podle Google Sheets.
+Porovnání všech200řádků a návrh33cílených snížení jsou v
+[difficulty-review-and-move-proposal-2026-10-23.md](difficulty-review-and-move-proposal-2026-10-23.md).
+Tento rozbor postupuje nezávisle na početním inventáři; první testovací sada
+má měnit jen limity, aby se dal vyhodnotit jejich účinek. Zatím nenastavuje
+nové limity v herním kódu ani nemění zdrojový Sheet.

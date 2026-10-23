@@ -24,7 +24,7 @@ export function resolveIce(board,cleared,ice,level,random=Math.random,pinned=[])
  const next=refill(board,cleared.filter(i=>!frozen.has(i)),level,random,pinned);
  return {collected:cleared.filter(i=>!frozen.has(i)),board:next,ice:ice.filter(i=>!thawed.includes(i)),thawed};
 }
-export const finaleRepair={id:'launch-check',room:'FINAL CHALLENGE',name:'Launch sequence',icon:'✦',lesson:'One last push',thought:'The ship is repaired. Clear the sealed launch relays and bring every system into sync.',objective:'Break all 8 protective covers and match 70 pieces in 30 moves.',target:70,targetType:null,moves:30,ice:[16,18,22,26,29,33,37,39],action:'Complete the launch check',level:{rows:8,cols:7,types:6}};
+export const finaleRepair={id:'launch-check',room:'FINAL CHALLENGE',name:'Launch sequence',icon:'✦',lesson:'One last push',thought:'The ship is repaired. Clear the sealed launch relays and bring every system into sync.',objective:'Break all 8 protective covers and match 70 pieces in 25 moves.',target:70,targetType:null,moves:25,ice:[16,18,22,26,29,33,37,39],action:'Complete the launch check',level:{rows:8,cols:7,types:6}};
 
 export function makeIceBoard(level,ice=[],random=Math.random){
  // One shared bounded budget, not nested thousand-attempt loops.

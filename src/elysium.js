@@ -53,7 +53,7 @@ export const elysiumDestinations={
         "icon": "✦",
         "x": 80,
         "y": 38,
-        "moves": 26,
+        "moves": 22,
         "tileSet": "elysium",
         "ice": [],
         "level": {
@@ -228,7 +228,7 @@ export const elysiumDestinations={
         "icon": "✦",
         "x": 19,
         "y": 65,
-        "moves": 27,
+        "moves": 23,
         "tileSet": "elysium",
         "ice": [],
         "level": {
@@ -263,7 +263,7 @@ export const elysiumDestinations={
         "icon": "✦",
         "x": 85,
         "y": 44,
-        "moves": 28,
+        "moves": 24,
         "tileSet": "elysium",
         "ice": [],
         "level": {
@@ -443,7 +443,7 @@ export const elysiumDestinations={
         "icon": "✦",
         "x": 15,
         "y": 55,
-        "moves": 27,
+        "moves": 24,
         "tileSet": "elysium",
         "ice": [],
         "level": {
@@ -478,7 +478,7 @@ export const elysiumDestinations={
         "icon": "✦",
         "x": 80,
         "y": 50,
-        "moves": 28,
+        "moves": 24,
         "tileSet": "elysium",
         "ice": [],
         "level": {
