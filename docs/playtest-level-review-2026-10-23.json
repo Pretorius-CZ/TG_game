@@ -1,0 +1,5043 @@
+{
+  "date": "2026-10-23",
+  "source": "beyond-signal-blind-playtest.json",
+  "note": "Aggregate attempts, including retries and two human rules versions. BOT classified by note. Bot stars recomputed; subjective human ratings kept. Sessions are not people. See blind-playtest-review-2026-10-23.md for methodology.",
+  "levels": [
+    {
+      "number": 1,
+      "id": "airlock-power",
+      "name": "Service power",
+      "moves": 20,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "3": 14
+        }
+      }
+    },
+    {
+      "number": 2,
+      "id": "airlock-inner-hatch",
+      "name": "Inner hatch",
+      "moves": 9,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 3
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "3": 14
+        }
+      }
+    },
+    {
+      "number": 3,
+      "id": "airlock-seals",
+      "name": "Airlock seals",
+      "moves": 10,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 3
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "3": 15
+        }
+      }
+    },
+    {
+      "number": 4,
+      "id": "lights",
+      "name": "Emergency lights",
+      "moves": 14,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 10,
+          "3": 4
+        }
+      }
+    },
+    {
+      "number": 5,
+      "id": "windows",
+      "name": "Window seals",
+      "moves": 16,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 1,
+          "3": 13
+        }
+      }
+    },
+    {
+      "number": 6,
+      "id": "computer",
+      "name": "Flight computer",
+      "moves": 28,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 16,
+        "won": 16,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 5,
+          "2": 3,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 7,
+      "id": "diagnostics",
+      "name": "Ship diagnostics",
+      "moves": 32,
+      "human": {
+        "attempts": 2,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 1,
+        "ratings": {
+          "fair": 1,
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 16,
+        "won": 16,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 4,
+          "2": 4,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 8,
+      "id": "nav-antenna",
+      "name": "Signal antenna",
+      "moves": 20,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 2,
+          "3": 12
+        }
+      }
+    },
+    {
+      "number": 9,
+      "id": "nav-receiver",
+      "name": "Communications",
+      "moves": 9,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 1,
+          "3": 13
+        }
+      }
+    },
+    {
+      "number": 10,
+      "id": "nav-chart",
+      "name": "Star chart",
+      "moves": 25,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 1,
+          "2": 3,
+          "3": 11
+        }
+      }
+    },
+    {
+      "number": 11,
+      "id": "nav-route",
+      "name": "Flight route",
+      "moves": 10,
+      "human": {
+        "attempts": 8,
+        "won": 7,
+        "exhausted": 1,
+        "quit": 0,
+        "ratings": {
+          "fair": 6,
+          "hard": 2
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 1,
+          "3": 14
+        }
+      }
+    },
+    {
+      "number": 12,
+      "id": "crew-ventilation",
+      "name": "Air circulation",
+      "moves": 10,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 2,
+          "2": 1,
+          "3": 11
+        }
+      }
+    },
+    {
+      "number": 13,
+      "id": "crew-filters",
+      "name": "Air filters",
+      "moves": 14,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 10,
+          "3": 4
+        }
+      }
+    },
+    {
+      "number": 14,
+      "id": "crew-bunk",
+      "name": "Bunk",
+      "moves": 16,
+      "human": {
+        "attempts": 3,
+        "won": 1,
+        "exhausted": 1,
+        "quit": 1,
+        "ratings": {
+          "easy": 2,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 10,
+          "3": 4
+        }
+      }
+    },
+    {
+      "number": 15,
+      "id": "crew-cabin",
+      "name": "Cabin systems",
+      "moves": 18,
+      "human": {
+        "attempts": 3,
+        "won": 1,
+        "exhausted": 2,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "hard": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 1,
+          "2": 11,
+          "3": 2
+        }
+      }
+    },
+    {
+      "number": 16,
+      "id": "galley-water",
+      "name": "Water system",
+      "moves": 12,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 1,
+          "2": 2,
+          "3": 11
+        }
+      }
+    },
+    {
+      "number": 17,
+      "id": "galley-cold",
+      "name": "Cold storage",
+      "moves": 10,
+      "human": {
+        "attempts": 2,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 1,
+        "ratings": {
+          "easy": 1,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "3": 14
+        }
+      }
+    },
+    {
+      "number": 18,
+      "id": "galley-racks",
+      "name": "Supply racks",
+      "moves": 20,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 7,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 19,
+      "id": "galley-food",
+      "name": "Food station",
+      "moves": 13,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 4,
+          "3": 10
+        }
+      }
+    },
+    {
+      "number": 20,
+      "id": "engine-cooling",
+      "name": "Cooling circuit",
+      "moves": 19,
+      "human": {
+        "attempts": 3,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 1,
+        "ratings": {
+          "unrated": 1,
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 16,
+        "won": 16,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 1,
+          "3": 15
+        }
+      }
+    },
+    {
+      "number": 21,
+      "id": "engine-fuel",
+      "name": "Fuel system",
+      "moves": 20,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 4,
+          "3": 10
+        }
+      }
+    },
+    {
+      "number": 22,
+      "id": "engine-power",
+      "name": "Main power",
+      "moves": 22,
+      "human": {
+        "attempts": 5,
+        "won": 4,
+        "exhausted": 1,
+        "quit": 0,
+        "ratings": {
+          "easy": 3,
+          "hard": 1,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 7,
+          "2": 2,
+          "3": 5
+        }
+      }
+    },
+    {
+      "number": 23,
+      "id": "engine-drive",
+      "name": "Engine assembly",
+      "moves": 25,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 1,
+          "2": 3,
+          "3": 10
+        }
+      }
+    },
+    {
+      "number": 24,
+      "id": "engine-test",
+      "name": "Systems test",
+      "moves": 13,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 2,
+          "3": 12
+        }
+      }
+    },
+    {
+      "number": 25,
+      "id": "exterior-hull",
+      "name": "Hull panels",
+      "moves": 25,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 1,
+          "3": 13
+        }
+      }
+    },
+    {
+      "number": 26,
+      "id": "exterior-engines",
+      "name": "Engine nacelles",
+      "moves": 11,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 3
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 8,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 27,
+      "id": "exterior-landing-gear",
+      "name": "Landing gear",
+      "moves": 18,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 3,
+          "3": 12
+        }
+      }
+    },
+    {
+      "number": 28,
+      "id": "exterior-refuel",
+      "name": "Emergency fuel depot",
+      "moves": 26,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 2,
+          "3": 12
+        }
+      }
+    },
+    {
+      "number": 29,
+      "id": "launch-check",
+      "name": "Launch sequence",
+      "moves": 30,
+      "human": {
+        "attempts": 6,
+        "won": 6,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "easy": 5
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 6,
+          "2": 2,
+          "3": 6
+        }
+      }
+    },
+    {
+      "number": 30,
+      "id": "mine-pad",
+      "name": "Landing beacons",
+      "moves": 14,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 4,
+          "3": 10
+        }
+      }
+    },
+    {
+      "number": 31,
+      "id": "mine-hatch",
+      "name": "Station entrance",
+      "moves": 14,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 2,
+          "3": 12
+        }
+      }
+    },
+    {
+      "number": 32,
+      "id": "mine-power",
+      "name": "Power grid",
+      "moves": 17,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 6,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 33,
+      "id": "mine-drill",
+      "name": "Extraction rig",
+      "moves": 16,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 2,
+          "3": 12
+        }
+      }
+    },
+    {
+      "number": 34,
+      "id": "mine-terminal",
+      "name": "Control terminal",
+      "moves": 17,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 1,
+          "2": 8,
+          "3": 5
+        }
+      }
+    },
+    {
+      "number": 35,
+      "id": "mine-lift",
+      "name": "Cargo elevator",
+      "moves": 19,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 3
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 10,
+          "3": 5
+        }
+      }
+    },
+    {
+      "number": 36,
+      "id": "ice-beacons",
+      "name": "Approach beacons",
+      "moves": 23,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 16,
+        "won": 16,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 1,
+          "2": 2,
+          "3": 13
+        }
+      }
+    },
+    {
+      "number": 37,
+      "id": "ice-airlock",
+      "name": "Frozen airlock",
+      "moves": 24,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 1,
+          "3": 14
+        }
+      }
+    },
+    {
+      "number": 38,
+      "id": "ice-heater",
+      "name": "Thermal loop",
+      "moves": 27,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 5,
+          "2": 2,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 39,
+      "id": "ice-lab",
+      "name": "Research laboratory",
+      "moves": 22,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 2,
+          "3": 10
+        }
+      }
+    },
+    {
+      "number": 40,
+      "id": "ice-dish",
+      "name": "Relay dish",
+      "moves": 28,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 5,
+          "3": 9
+        }
+      }
+    },
+    {
+      "number": 41,
+      "id": "ice-cells",
+      "name": "Reserve energy cells",
+      "moves": 30,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 3
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 3,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 42,
+      "id": "wreck-dock",
+      "name": "Docking clamps",
+      "moves": 23,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 3
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "3": 15
+        }
+      }
+    },
+    {
+      "number": 43,
+      "id": "wreck-bulkhead",
+      "name": "Emergency bulkhead",
+      "moves": 24,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 3
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 1,
+          "3": 13
+        }
+      }
+    },
+    {
+      "number": 44,
+      "id": "wreck-reactor",
+      "name": "Auxiliary reactor",
+      "moves": 27,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 16,
+        "won": 16,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 4,
+          "2": 6,
+          "3": 6
+        }
+      }
+    },
+    {
+      "number": 45,
+      "id": "wreck-records",
+      "name": "Navigation archive",
+      "moves": 22,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 2,
+          "2": 1,
+          "3": 11
+        }
+      }
+    },
+    {
+      "number": 46,
+      "id": "wreck-antenna",
+      "name": "Passive antenna",
+      "moves": 28,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 5,
+          "2": 1,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 47,
+      "id": "wreck-cargo",
+      "name": "Recovery cradle",
+      "moves": 30,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 3,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 48,
+      "id": "haven-dock",
+      "name": "Outer dock",
+      "moves": 20,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 3
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 3,
+          "3": 11
+        }
+      }
+    },
+    {
+      "number": 49,
+      "id": "haven-power",
+      "name": "Station power",
+      "moves": 25,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 2,
+          "3": 13
+        }
+      }
+    },
+    {
+      "number": 50,
+      "id": "haven-ring",
+      "name": "Gate alignment",
+      "moves": 28,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 4,
+          "2": 1,
+          "3": 10
+        }
+      }
+    },
+    {
+      "number": 51,
+      "id": "haven-coupler",
+      "name": "Energy coupling",
+      "moves": 28,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 16,
+        "won": 16,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 3,
+          "3": 10
+        }
+      }
+    },
+    {
+      "number": 52,
+      "id": "haven-route-coordinates",
+      "name": "Destination coordinates",
+      "moves": 29,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 6,
+          "2": 1,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 53,
+      "id": "haven-stabilize",
+      "name": "Stabilize the jump gate",
+      "moves": 34,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 4,
+          "2": 3,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 54,
+      "id": "buoy-power",
+      "name": "Buoy power",
+      "moves": 22,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 4,
+          "3": 10
+        }
+      }
+    },
+    {
+      "number": 55,
+      "id": "buoy-antenna",
+      "name": "Survey antenna",
+      "moves": 24,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 1,
+          "2": 1,
+          "3": 12
+        }
+      }
+    },
+    {
+      "number": 56,
+      "id": "buoy-archive",
+      "name": "Buoy flight record",
+      "moves": 26,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 4,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 57,
+      "id": "fracture-bridge",
+      "name": "Survey walkway",
+      "moves": 24,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 1,
+          "3": 13
+        }
+      }
+    },
+    {
+      "number": 58,
+      "id": "fracture-generator",
+      "name": "Excavation generator",
+      "moves": 25,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 4,
+          "2": 3,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 59,
+      "id": "fracture-drill",
+      "name": "Sample drill controls",
+      "moves": 27,
+      "human": {
+        "attempts": 2,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 1,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 2,
+          "3": 9
+        }
+      }
+    },
+    {
+      "number": 60,
+      "id": "fracture-spectrum",
+      "name": "Mineral spectrometer",
+      "moves": 28,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 4,
+          "2": 4,
+          "3": 6
+        }
+      }
+    },
+    {
+      "number": 61,
+      "id": "fracture-sorter",
+      "name": "Protected ore sorter",
+      "moves": 29,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 2
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 8,
+          "2": 3,
+          "3": 4
+        }
+      }
+    },
+    {
+      "number": 62,
+      "id": "fracture-probe",
+      "name": "Archive probe",
+      "moves": 31,
+      "human": {
+        "attempts": 1,
+        "won": 0,
+        "exhausted": 1,
+        "quit": 0,
+        "ratings": {
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 5,
+          "2": 3,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 63,
+      "id": "verdant-pad",
+      "name": "Research landing pad",
+      "moves": 23,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 1,
+          "2": 1,
+          "3": 12
+        }
+      }
+    },
+    {
+      "number": 64,
+      "id": "verdant-water",
+      "name": "Water circulation",
+      "moves": 24,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 1,
+          "2": 5,
+          "3": 9
+        }
+      }
+    },
+    {
+      "number": 65,
+      "id": "verdant-power",
+      "name": "Greenhouse power",
+      "moves": 25,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 16,
+        "won": 15,
+        "exhausted": 1,
+        "recomputedStars": {
+          "1": 7,
+          "2": 5,
+          "3": 3,
+          "loss": 1
+        }
+      }
+    },
+    {
+      "number": 66,
+      "id": "verdant-habitat",
+      "name": "Sealed growing beds",
+      "moves": 26,
+      "human": {
+        "attempts": 3,
+        "won": 2,
+        "exhausted": 1,
+        "quit": 0,
+        "ratings": {
+          "easy": 1,
+          "fair": 1,
+          "hard": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 7,
+          "2": 2,
+          "3": 6
+        }
+      }
+    },
+    {
+      "number": 67,
+      "id": "verdant-scanner",
+      "name": "Biological scanner",
+      "moves": 28,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 3
+        }
+      },
+      "bot": {
+        "attempts": 16,
+        "won": 16,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 5,
+          "2": 3,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 68,
+      "id": "verdant-sample",
+      "name": "Sealed sample capsule",
+      "moves": 30,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1,
+          "fair": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 2,
+          "3": 9
+        }
+      }
+    },
+    {
+      "number": 69,
+      "id": "elysium-route",
+      "name": "Assemble the approach route",
+      "moves": 30,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 4,
+          "2": 2,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 70,
+      "id": "elysium-dock-guidance",
+      "name": "Dock guidance",
+      "moves": 25,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 2,
+          "2": 4,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 71,
+      "id": "elysium-dock-tunnel",
+      "name": "Docking tunnel",
+      "moves": 26,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "3": 15
+        }
+      }
+    },
+    {
+      "number": 72,
+      "id": "elysium-dock-pressure",
+      "name": "Dock pressure",
+      "moves": 28,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 5,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 73,
+      "id": "elysium-dock-cargo",
+      "name": "Supply unloading",
+      "moves": 29,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 2,
+          "2": 6,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 74,
+      "id": "elysium-core-cooling",
+      "name": "Reactor cooling",
+      "moves": 27,
+      "human": {
+        "attempts": 4,
+        "won": 4,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 4
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 3,
+          "3": 11
+        }
+      }
+    },
+    {
+      "number": 75,
+      "id": "elysium-core-grid",
+      "name": "Power distribution",
+      "moves": 28,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 4,
+          "3": 10
+        }
+      }
+    },
+    {
+      "number": 76,
+      "id": "elysium-core-ignition",
+      "name": "Core ignition",
+      "moves": 30,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "easy": 1,
+          "hard": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 6,
+          "2": 4,
+          "3": 5
+        }
+      }
+    },
+    {
+      "number": 77,
+      "id": "elysium-core-safeguards",
+      "name": "Core safety checks",
+      "moves": 33,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 1,
+          "3": 11
+        }
+      }
+    },
+    {
+      "number": 78,
+      "id": "elysium-ring-bulkhead",
+      "name": "Ring bulkhead",
+      "moves": 27,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 3
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 2,
+          "3": 12
+        }
+      }
+    },
+    {
+      "number": 79,
+      "id": "elysium-ring-transit",
+      "name": "Ring transit",
+      "moves": 28,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 1,
+          "3": 14
+        }
+      }
+    },
+    {
+      "number": 80,
+      "id": "elysium-ring-junction",
+      "name": "Sector junction",
+      "moves": 30,
+      "human": {
+        "attempts": 2,
+        "won": 1,
+        "exhausted": 1,
+        "quit": 0,
+        "ratings": {
+          "easy": 1,
+          "hard": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 5,
+          "2": 2,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 81,
+      "id": "elysium-ring-lighting",
+      "name": "Promenade lights",
+      "moves": 32,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 6,
+          "2": 4,
+          "3": 5
+        }
+      }
+    },
+    {
+      "number": 82,
+      "id": "elysium-homes-air",
+      "name": "Habitat atmosphere",
+      "moves": 28,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 2,
+          "3": 12
+        }
+      }
+    },
+    {
+      "number": 83,
+      "id": "elysium-homes-water",
+      "name": "Habitat water loop",
+      "moves": 29,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 1,
+          "3": 10
+        }
+      }
+    },
+    {
+      "number": 84,
+      "id": "elysium-homes-quarters",
+      "name": "Prepare the apartments",
+      "moves": 31,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 2,
+          "3": 9
+        }
+      }
+    },
+    {
+      "number": 85,
+      "id": "elysium-homes-commons",
+      "name": "Community lights",
+      "moves": 32,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 4,
+          "2": 3,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 86,
+      "id": "elysium-garden-irrigation",
+      "name": "Irrigation beds",
+      "moves": 29,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 5,
+          "3": 9
+        }
+      }
+    },
+    {
+      "number": 87,
+      "id": "elysium-garden-climate",
+      "name": "Dome climate",
+      "moves": 30,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 3,
+          "3": 11
+        }
+      }
+    },
+    {
+      "number": 88,
+      "id": "elysium-garden-nursery",
+      "name": "Plant the living sample",
+      "moves": 32,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 8,
+          "3": 4
+        }
+      }
+    },
+    {
+      "number": 89,
+      "id": "elysium-garden-balance",
+      "name": "Living ecosystem",
+      "moves": 34,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 2,
+          "2": 3,
+          "3": 9
+        }
+      }
+    },
+    {
+      "number": 90,
+      "id": "elysium-observatory-optics",
+      "name": "Observatory optics",
+      "moves": 30,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 2,
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 3,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 91,
+      "id": "elysium-observatory-uplink",
+      "name": "Station uplink",
+      "moves": 31,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 3
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 6,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 92,
+      "id": "elysium-observatory-chart",
+      "name": "Return corridor",
+      "moves": 33,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 4,
+          "2": 3,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 93,
+      "id": "elysium-observatory-beacon",
+      "name": "Welcome beacon · HARD",
+      "moves": 35,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 4,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 94,
+      "id": "rift-echo-listen",
+      "name": "Isolate the echo",
+      "moves": 25,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 1,
+          "2": 3,
+          "3": 10
+        }
+      }
+    },
+    {
+      "number": 95,
+      "id": "rift-echo-clock",
+      "name": "Synchronize the clocks",
+      "moves": 27,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 1,
+          "2": 1,
+          "3": 12
+        }
+      }
+    },
+    {
+      "number": 96,
+      "id": "rift-echo-bearing",
+      "name": "Triangulate the source",
+      "moves": 29,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 2,
+          "2": 6,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 97,
+      "id": "rift-echo-route",
+      "name": "Prepare the survey flight",
+      "moves": 31,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 4,
+          "2": 3,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 98,
+      "id": "rift-platform-receiver",
+      "name": "Wake the relay dish",
+      "moves": 27,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 2,
+          "2": 3,
+          "3": 9
+        }
+      }
+    },
+    {
+      "number": 99,
+      "id": "rift-platform-recorder",
+      "name": "Recover the flight recorder",
+      "moves": 29,
+      "human": {
+        "attempts": 4,
+        "won": 2,
+        "exhausted": 2,
+        "quit": 0,
+        "ratings": {
+          "hard": 2,
+          "fair": 1,
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 5,
+          "3": 6
+        }
+      }
+    },
+    {
+      "number": 100,
+      "id": "rift-platform-probe",
+      "name": "Launch the survey probe",
+      "moves": 31,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 6,
+          "3": 5
+        }
+      }
+    },
+    {
+      "number": 101,
+      "id": "rift-platform-shield",
+      "name": "Tune the transit shield",
+      "moves": 33,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 3,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 102,
+      "id": "rift-beacons-anchor",
+      "name": "Restore the near anchor",
+      "moves": 29,
+      "human": {
+        "attempts": 2,
+        "won": 1,
+        "exhausted": 1,
+        "quit": 0,
+        "ratings": {
+          "hard": 1,
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 1,
+          "2": 4,
+          "3": 9
+        }
+      }
+    },
+    {
+      "number": 103,
+      "id": "rift-beacons-phase",
+      "name": "Align the distant beacons",
+      "moves": 31,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 16,
+        "won": 16,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 1,
+          "2": 9,
+          "3": 6
+        }
+      }
+    },
+    {
+      "number": 104,
+      "id": "rift-beacons-return",
+      "name": "Secure the return beacon",
+      "moves": 33,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 6,
+          "2": 3,
+          "3": 6
+        }
+      }
+    },
+    {
+      "number": 105,
+      "id": "rift-beacons-stabilize",
+      "name": "Stabilize the Rift · HARD",
+      "moves": 35,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 4,
+          "2": 6,
+          "3": 4
+        }
+      }
+    },
+    {
+      "number": 106,
+      "id": "garden-terrace",
+      "name": "Secure the landing terrace",
+      "moves": 23,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 8,
+          "3": 4
+        }
+      }
+    },
+    {
+      "number": 107,
+      "id": "garden-beacon",
+      "name": "Anchor the return signal",
+      "moves": 24,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 2,
+          "2": 11,
+          "3": 1
+        }
+      }
+    },
+    {
+      "number": 108,
+      "id": "garden-bridge",
+      "name": "Wake the light bridge",
+      "moves": 27,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 14,
+        "exhausted": 1,
+        "recomputedStars": {
+          "1": 7,
+          "2": 5,
+          "3": 2,
+          "loss": 1
+        }
+      }
+    },
+    {
+      "number": 109,
+      "id": "garden-water",
+      "name": "Restore the water channels",
+      "moves": 28,
+      "human": {
+        "attempts": 3,
+        "won": 2,
+        "exhausted": 1,
+        "quit": 0,
+        "ratings": {
+          "easy": 2,
+          "hard": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 5,
+          "2": 4,
+          "3": 5
+        }
+      }
+    },
+    {
+      "number": 110,
+      "id": "garden-archive",
+      "name": "Read the seed archive",
+      "moves": 29,
+      "human": {
+        "attempts": 1,
+        "won": 0,
+        "exhausted": 1,
+        "quit": 0,
+        "ratings": {
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 14,
+        "exhausted": 1,
+        "recomputedStars": {
+          "1": 12,
+          "3": 2,
+          "loss": 1
+        }
+      }
+    },
+    {
+      "number": 111,
+      "id": "garden-heart",
+      "name": "Awaken the garden heart · HARD",
+      "moves": 32,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 8,
+          "2": 2,
+          "3": 4
+        }
+      }
+    },
+    {
+      "number": 112,
+      "id": "research-unpack",
+      "name": "Connect the seed archive",
+      "moves": 23,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 4,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 113,
+      "id": "research-chamber",
+      "name": "Prepare the specimen chamber",
+      "moves": 24,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 4,
+          "2": 7,
+          "3": 3
+        }
+      }
+    },
+    {
+      "number": 114,
+      "id": "research-decode",
+      "name": "Decode the living map",
+      "moves": 27,
+      "human": {
+        "attempts": 2,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 1,
+        "ratings": {
+          "easy": 1,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 7,
+          "2": 5,
+          "3": 3
+        }
+      }
+    },
+    {
+      "number": 115,
+      "id": "research-compare",
+      "name": "Trace the human signal",
+      "moves": 29,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 2,
+          "2": 4,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 116,
+      "id": "research-route",
+      "name": "Chart the rescue route · HARD",
+      "moves": 32,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 13,
+        "exhausted": 1,
+        "recomputedStars": {
+          "1": 9,
+          "2": 2,
+          "3": 2,
+          "loss": 1
+        }
+      }
+    },
+    {
+      "number": 117,
+      "id": "relay-resonator",
+      "name": "Wake the signal resonator",
+      "moves": 24,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "3": 15
+        }
+      }
+    },
+    {
+      "number": 118,
+      "id": "relay-dish",
+      "name": "Align the relay dish",
+      "moves": 27,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 1,
+          "3": 13
+        }
+      }
+    },
+    {
+      "number": 119,
+      "id": "relay-recording",
+      "name": "Recover the broken message",
+      "moves": 29,
+      "human": {
+        "attempts": 3,
+        "won": 2,
+        "exhausted": 1,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "easy": 1,
+          "hard": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 4,
+          "2": 3,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 120,
+      "id": "relay-descent",
+      "name": "Secure the descent corridor · HARD",
+      "moves": 32,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 3
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 5,
+          "2": 1,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 121,
+      "id": "night-markers",
+      "name": "Light the landing markers",
+      "moves": 24,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 6,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 122,
+      "id": "night-drone",
+      "name": "Restore the survey drone",
+      "moves": 25,
+      "human": {
+        "attempts": 3,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 1,
+        "ratings": {
+          "fair": 1,
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 2,
+          "2": 9,
+          "3": 4
+        }
+      }
+    },
+    {
+      "number": 123,
+      "id": "night-roots",
+      "name": "Trace the root network",
+      "moves": 27,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 7,
+          "2": 4,
+          "3": 3
+        }
+      }
+    },
+    {
+      "number": 124,
+      "id": "night-bridge",
+      "name": "Open the stream crossing",
+      "moves": 29,
+      "human": {
+        "attempts": 6,
+        "won": 5,
+        "exhausted": 0,
+        "quit": 1,
+        "ratings": {
+          "unrated": 1,
+          "fair": 3,
+          "easy": 1,
+          "hard": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 11,
+          "2": 1,
+          "3": 2
+        }
+      }
+    },
+    {
+      "number": 125,
+      "id": "night-glade",
+      "name": "Synchronise the glade · HARD",
+      "moves": 32,
+      "human": {
+        "attempts": 3,
+        "won": 2,
+        "exhausted": 1,
+        "quit": 0,
+        "ratings": {
+          "fair": 2,
+          "hard": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 5,
+          "2": 7,
+          "3": 2
+        }
+      }
+    },
+    {
+      "number": 126,
+      "id": "grove-sampler",
+      "name": "Calibrate the field sampler",
+      "moves": 25,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 1,
+          "2": 5,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 127,
+      "id": "grove-channels",
+      "name": "Refill the grove channels",
+      "moves": 27,
+      "human": {
+        "attempts": 2,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 1,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 2,
+          "2": 5,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 128,
+      "id": "grove-bloom",
+      "name": "Decode the pollen response",
+      "moves": 28,
+      "human": {
+        "attempts": 1,
+        "won": 0,
+        "exhausted": 1,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 6,
+          "2": 3,
+          "3": 6
+        }
+      }
+    },
+    {
+      "number": 129,
+      "id": "grove-resonance",
+      "name": "Link the grove resonator",
+      "moves": 30,
+      "human": {
+        "attempts": 2,
+        "won": 0,
+        "exhausted": 2,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 8,
+          "2": 5,
+          "3": 2
+        }
+      }
+    },
+    {
+      "number": 130,
+      "id": "grove-arch",
+      "name": "Reveal the root passage · HARD",
+      "moves": 33,
+      "human": {
+        "attempts": 3,
+        "won": 2,
+        "exhausted": 1,
+        "quit": 0,
+        "ratings": {
+          "hard": 1,
+          "easy": 1,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 6,
+          "2": 5,
+          "3": 4
+        }
+      }
+    },
+    {
+      "number": 131,
+      "id": "root-air",
+      "name": "Restore the breathing vents",
+      "moves": 25,
+      "human": {
+        "attempts": 4,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 1,
+        "ratings": {
+          "fair": 2,
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 13,
+        "exhausted": 1,
+        "recomputedStars": {
+          "1": 6,
+          "2": 5,
+          "3": 2,
+          "loss": 1
+        }
+      }
+    },
+    {
+      "number": 132,
+      "id": "root-record",
+      "name": "Recover the expedition record",
+      "moves": 27,
+      "human": {
+        "attempts": 4,
+        "won": 2,
+        "exhausted": 2,
+        "quit": 0,
+        "ratings": {
+          "hard": 3,
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 13,
+        "exhausted": 1,
+        "recomputedStars": {
+          "1": 6,
+          "2": 5,
+          "3": 2,
+          "loss": 1
+        }
+      }
+    },
+    {
+      "number": 133,
+      "id": "root-nursery",
+      "name": "Rebalance the seed nursery",
+      "moves": 28,
+      "human": {
+        "attempts": 4,
+        "won": 4,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 3,
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 8,
+          "2": 5,
+          "3": 1
+        }
+      }
+    },
+    {
+      "number": 134,
+      "id": "root-voice",
+      "name": "Tune the caretaker channel",
+      "moves": 30,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 5,
+          "2": 7,
+          "3": 2
+        }
+      }
+    },
+    {
+      "number": 135,
+      "id": "root-door",
+      "name": "Open the sanctuary threshold · HARD",
+      "moves": 33,
+      "human": {
+        "attempts": 3,
+        "won": 1,
+        "exhausted": 2,
+        "quit": 0,
+        "ratings": {
+          "hard": 3
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 7,
+          "2": 5,
+          "3": 2
+        }
+      }
+    },
+    {
+      "number": 136,
+      "id": "sanctuary-beacon",
+      "name": "Keep the return beacon open",
+      "moves": 25,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 7,
+          "3": 4
+        }
+      }
+    },
+    {
+      "number": 137,
+      "id": "sanctuary-shelter",
+      "name": "Restore the visitor shelter",
+      "moves": 27,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 10,
+          "2": 3,
+          "3": 2
+        }
+      }
+    },
+    {
+      "number": 138,
+      "id": "sanctuary-translator",
+      "name": "Align the shared language",
+      "moves": 35,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 2,
+          "2": 5,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 139,
+      "id": "sanctuary-heart",
+      "name": "Wake the caretaker memory",
+      "moves": 30,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 10,
+          "2": 3,
+          "3": 2
+        }
+      }
+    },
+    {
+      "number": 140,
+      "id": "sanctuary-route",
+      "name": "Secure the refuge coordinates · HARD",
+      "moves": 34,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 1,
+          "2": 10,
+          "3": 3
+        }
+      }
+    },
+    {
+      "number": 141,
+      "id": "refuge-dock-beacon",
+      "name": "Reconnect the arrival beacon",
+      "moves": 29,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 6,
+          "2": 4,
+          "3": 4
+        }
+      }
+    },
+    {
+      "number": 142,
+      "id": "refuge-dock-filters",
+      "name": "Replace the intake filters",
+      "moves": 32,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 1,
+          "2": 5,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 143,
+      "id": "refuge-dock-supplies",
+      "name": "Recover the dock supplies",
+      "moves": 34,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "2": 5,
+          "3": 9
+        }
+      }
+    },
+    {
+      "number": 144,
+      "id": "refuge-dock-walkway",
+      "name": "Secure the entrance walkway",
+      "moves": 38,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 2,
+          "2": 1,
+          "3": 12
+        }
+      }
+    },
+    {
+      "number": 145,
+      "id": "refuge-dock-airlock",
+      "name": "Pressurise the refuge entry · HARD",
+      "moves": 40,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 2,
+          "2": 3,
+          "3": 10
+        }
+      }
+    },
+    {
+      "number": 146,
+      "id": "refuge-homes-air",
+      "name": "Restore clean air",
+      "moves": 33,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 1,
+          "2": 4,
+          "3": 9
+        }
+      }
+    },
+    {
+      "number": 147,
+      "id": "refuge-homes-water",
+      "name": "Restart the water recycler",
+      "moves": 31,
+      "human": {
+        "attempts": 4,
+        "won": 2,
+        "exhausted": 2,
+        "quit": 0,
+        "ratings": {
+          "fair": 2,
+          "easy": 1,
+          "hard": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 3,
+          "3": 9
+        }
+      }
+    },
+    {
+      "number": 148,
+      "id": "refuge-homes-warmth",
+      "name": "Balance the heating loop",
+      "moves": 38,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 5,
+          "2": 3,
+          "3": 6
+        }
+      }
+    },
+    {
+      "number": 149,
+      "id": "refuge-homes-bunks",
+      "name": "Prepare the sleeping compartments",
+      "moves": 37,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 6,
+          "2": 2,
+          "3": 6
+        }
+      }
+    },
+    {
+      "number": 150,
+      "id": "refuge-homes-ready",
+      "name": "Secure the living block · HARD",
+      "moves": 40,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 6,
+          "2": 2,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 151,
+      "id": "refuge-medical-sterile",
+      "name": "Restore the sterile circuit",
+      "moves": 31,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 2
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 4,
+          "2": 4,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 152,
+      "id": "refuge-medical-supplies",
+      "name": "Recover the medical supplies",
+      "moves": 34,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 4,
+          "2": 4,
+          "3": 6
+        }
+      }
+    },
+    {
+      "number": 153,
+      "id": "refuge-medical-diagnostics",
+      "name": "Calibrate the diagnostic station",
+      "moves": 39,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 7,
+          "2": 3,
+          "3": 5
+        }
+      }
+    },
+    {
+      "number": 154,
+      "id": "refuge-medical-culture",
+      "name": "Restart the recovery culture",
+      "moves": 36,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 7,
+          "2": 3,
+          "3": 4
+        }
+      }
+    },
+    {
+      "number": 155,
+      "id": "refuge-medical-ready",
+      "name": "Prepare the refuge for return · HARD",
+      "moves": 41,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 7,
+          "2": 3,
+          "3": 5
+        }
+      }
+    },
+    {
+      "number": 156,
+      "id": "return-corridor-track",
+      "name": "Recover the debris tracks",
+      "moves": 24,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 5,
+          "2": 5,
+          "3": 4
+        }
+      }
+    },
+    {
+      "number": 157,
+      "id": "return-corridor-power",
+      "name": "Isolate the damaged power bus",
+      "moves": 33,
+      "human": {
+        "attempts": 3,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 1,
+        "ratings": {
+          "easy": 3
+        }
+      },
+      "bot": {
+        "attempts": 16,
+        "won": 16,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 2,
+          "2": 3,
+          "3": 11
+        }
+      }
+    },
+    {
+      "number": 158,
+      "id": "return-corridor-barrier",
+      "name": "Retract the service barrier",
+      "moves": 38,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 5,
+          "2": 3,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 159,
+      "id": "return-corridor-beacons",
+      "name": "Align the approach beacons",
+      "moves": 27,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 7,
+          "3": 4
+        }
+      }
+    },
+    {
+      "number": 160,
+      "id": "return-corridor-cooling",
+      "name": "Stabilise the guidance cooling",
+      "moves": 37,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 6,
+          "2": 4,
+          "3": 5
+        }
+      }
+    },
+    {
+      "number": 161,
+      "id": "return-corridor-clearance",
+      "name": "Confirm the return window · HARD",
+      "moves": 30,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 11,
+          "2": 1,
+          "3": 2
+        }
+      }
+    },
+    {
+      "number": 162,
+      "id": "refuge-arrival-approach",
+      "name": "Receive the rescue craft",
+      "moves": 25,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 4,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 163,
+      "id": "refuge-arrival-clamps",
+      "name": "Secure both docking clamps",
+      "moves": 29,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 3
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 1,
+          "2": 7,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 164,
+      "id": "refuge-arrival-power",
+      "name": "Connect the bridge power",
+      "moves": 28,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 7,
+          "2": 6,
+          "3": 1
+        }
+      }
+    },
+    {
+      "number": 165,
+      "id": "refuge-arrival-pressure",
+      "name": "Balance the boarding pressure",
+      "moves": 32,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "hard": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 9,
+          "2": 5
+        }
+      }
+    },
+    {
+      "number": 166,
+      "id": "refuge-arrival-air",
+      "name": "Restore the bridge air filters",
+      "moves": 30,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 4,
+          "2": 4,
+          "3": 6
+        }
+      }
+    },
+    {
+      "number": 167,
+      "id": "refuge-arrival-welcome",
+      "name": "Open the boarding hatch · HARD",
+      "moves": 27,
+      "human": {
+        "attempts": 3,
+        "won": 1,
+        "exhausted": 2,
+        "quit": 0,
+        "ratings": {
+          "hard": 1,
+          "fair": 1,
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 14,
+        "exhausted": 1,
+        "recomputedStars": {
+          "1": 12,
+          "2": 2,
+          "loss": 1
+        }
+      }
+    },
+    {
+      "number": 168,
+      "id": "archive-entry-approach",
+      "name": "Trace the archive approach",
+      "moves": 25,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 2,
+          "2": 4,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 169,
+      "id": "archive-entry-power",
+      "name": "Isolate the archive power",
+      "moves": 28,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 13,
+        "exhausted": 1,
+        "recomputedStars": {
+          "1": 6,
+          "2": 3,
+          "3": 4,
+          "loss": 1
+        }
+      }
+    },
+    {
+      "number": 170,
+      "id": "archive-entry-dock",
+      "name": "Steady the archive service dock",
+      "moves": 30,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 1,
+          "2": 6,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 171,
+      "id": "archive-entry-air",
+      "name": "Restore the archive air loop",
+      "moves": 29,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 2
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 5,
+          "2": 3,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 172,
+      "id": "archive-entry-lock",
+      "name": "Open the archive entry lock · HARD",
+      "moves": 29,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 10,
+          "2": 2,
+          "3": 2
+        }
+      }
+    },
+    {
+      "number": 173,
+      "id": "archive-data-backup",
+      "name": "Copy the untouched records",
+      "moves": 25,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 3,
+          "2": 1,
+          "3": 10
+        }
+      }
+    },
+    {
+      "number": 174,
+      "id": "archive-data-index",
+      "name": "Rebuild the route index",
+      "moves": 28,
+      "human": {
+        "attempts": 3,
+        "won": 2,
+        "exhausted": 1,
+        "quit": 0,
+        "ratings": {
+          "easy": 1,
+          "fair": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 11,
+          "2": 2,
+          "3": 1
+        }
+      }
+    },
+    {
+      "number": 175,
+      "id": "archive-data-checksum",
+      "name": "Repair the packet checksums",
+      "moves": 30,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 2,
+          "2": 5,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 176,
+      "id": "archive-data-privacy",
+      "name": "Decode the identity warning",
+      "moves": 29,
+      "human": {
+        "attempts": 2,
+        "won": 1,
+        "exhausted": 1,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "hard": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 2,
+          "2": 10,
+          "3": 2
+        }
+      }
+    },
+    {
+      "number": 177,
+      "id": "archive-data-message",
+      "name": "Recover the expedition handover · HARD",
+      "moves": 29,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 13,
+        "exhausted": 1,
+        "recomputedStars": {
+          "1": 6,
+          "2": 2,
+          "3": 5,
+          "loss": 1
+        }
+      }
+    },
+    {
+      "number": 178,
+      "id": "archive-simulation-clocks",
+      "name": "Synchronise the recording clocks",
+      "moves": 25,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 2,
+          "2": 2,
+          "3": 10
+        }
+      }
+    },
+    {
+      "number": 179,
+      "id": "archive-simulation-probe",
+      "name": "Restore the recorded probe track",
+      "moves": 28,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 6,
+          "2": 5,
+          "3": 3
+        }
+      }
+    },
+    {
+      "number": 180,
+      "id": "archive-simulation-sequence",
+      "name": "Reconstruct the crew’s route",
+      "moves": 30,
+      "human": {
+        "attempts": 3,
+        "won": 2,
+        "exhausted": 1,
+        "quit": 0,
+        "ratings": {
+          "fair": 2,
+          "hard": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 1,
+          "2": 5,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 181,
+      "id": "archive-simulation-routes",
+      "name": "Compare the safe and obsolete routes",
+      "moves": 29,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 13,
+        "exhausted": 1,
+        "recomputedStars": {
+          "1": 6,
+          "2": 4,
+          "3": 3,
+          "loss": 1
+        }
+      }
+    },
+    {
+      "number": 182,
+      "id": "archive-simulation-replay",
+      "name": "Verify the reconstructed journey · HARD",
+      "moves": 31,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 9,
+          "2": 4,
+          "3": 2
+        }
+      }
+    },
+    {
+      "number": 183,
+      "id": "archive-core-reader",
+      "name": "Isolate the central memory reader",
+      "moves": 25,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 1,
+          "2": 6,
+          "3": 7
+        }
+      }
+    },
+    {
+      "number": 184,
+      "id": "archive-core-authority",
+      "name": "Recover the routing authority",
+      "moves": 28,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 5,
+          "2": 5,
+          "3": 4
+        }
+      }
+    },
+    {
+      "number": 185,
+      "id": "archive-core-return",
+      "name": "Record the crew’s confirmed return",
+      "moves": 30,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 4,
+          "2": 3,
+          "3": 8
+        }
+      }
+    },
+    {
+      "number": 186,
+      "id": "archive-core-coordinates",
+      "name": "Recover the missing beacon links",
+      "moves": 29,
+      "human": {
+        "attempts": 4,
+        "won": 2,
+        "exhausted": 2,
+        "quit": 0,
+        "ratings": {
+          "hard": 2,
+          "fair": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 4,
+          "2": 5,
+          "3": 5
+        }
+      }
+    },
+    {
+      "number": 187,
+      "id": "archive-core-answer",
+      "name": "Save the answer for the network · HARD",
+      "moves": 29,
+      "human": {
+        "attempts": 3,
+        "won": 1,
+        "exhausted": 2,
+        "quit": 0,
+        "ratings": {
+          "fair": 1,
+          "hard": 2
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 5,
+          "2": 7,
+          "3": 3
+        }
+      }
+    },
+    {
+      "number": 188,
+      "id": "signal-solar-cooling",
+      "name": "Cool the beacon shelter",
+      "moves": 24,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 8,
+          "2": 4,
+          "3": 2
+        }
+      }
+    },
+    {
+      "number": 189,
+      "id": "signal-solar-power",
+      "name": "Separate the beacon circuits",
+      "moves": 22,
+      "human": {
+        "attempts": 1,
+        "won": 0,
+        "exhausted": 1,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 7,
+          "2": 4,
+          "3": 4
+        }
+      }
+    },
+    {
+      "number": 190,
+      "id": "signal-solar-bearing",
+      "name": "Confirm the first safe link",
+      "moves": 25,
+      "human": {
+        "attempts": 3,
+        "won": 3,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 5,
+          "2": 6,
+          "3": 4
+        }
+      }
+    },
+    {
+      "number": 191,
+      "id": "signal-orbit-alignment",
+      "name": "Track the drifting antenna",
+      "moves": 25,
+      "human": {
+        "attempts": 1,
+        "won": 0,
+        "exhausted": 1,
+        "quit": 0,
+        "ratings": {
+          "hard": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 7,
+          "2": 5,
+          "3": 2
+        }
+      }
+    },
+    {
+      "number": 192,
+      "id": "signal-orbit-buffer",
+      "name": "Preserve the original distress call",
+      "moves": 25,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 5,
+          "2": 6,
+          "3": 3
+        }
+      }
+    },
+    {
+      "number": 193,
+      "id": "signal-orbit-clock",
+      "name": "Stop the stale message loop",
+      "moves": 29,
+      "human": {
+        "attempts": 3,
+        "won": 2,
+        "exhausted": 1,
+        "quit": 0,
+        "ratings": {
+          "fair": 2,
+          "hard": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 7,
+          "2": 3,
+          "3": 4
+        }
+      }
+    },
+    {
+      "number": 194,
+      "id": "signal-garden-receiver",
+      "name": "Reconnect the garden receiver",
+      "moves": 25,
+      "human": {
+        "attempts": 3,
+        "won": 2,
+        "exhausted": 1,
+        "quit": 0,
+        "ratings": {
+          "easy": 1,
+          "hard": 1,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 6,
+          "2": 6,
+          "3": 2
+        }
+      }
+    },
+    {
+      "number": 195,
+      "id": "signal-garden-prism",
+      "name": "Align the return channel",
+      "moves": 25,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 6,
+          "2": 2,
+          "3": 6
+        }
+      }
+    },
+    {
+      "number": 196,
+      "id": "signal-garden-handover",
+      "name": "Hand over the verified route",
+      "moves": 29,
+      "human": {
+        "attempts": 2,
+        "won": 1,
+        "exhausted": 1,
+        "quit": 0,
+        "ratings": {
+          "easy": 2
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 11,
+          "2": 2,
+          "3": 1
+        }
+      }
+    },
+    {
+      "number": 197,
+      "id": "signal-station-arrival",
+      "name": "Open the receiving hall",
+      "moves": 23,
+      "human": {
+        "attempts": 1,
+        "won": 1,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 13,
+        "exhausted": 1,
+        "recomputedStars": {
+          "2": 6,
+          "3": 7,
+          "loss": 1
+        }
+      }
+    },
+    {
+      "number": 198,
+      "id": "signal-station-receiver",
+      "name": "Restore the station receiver",
+      "moves": 28,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1,
+          "fair": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 14,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 9,
+          "2": 1,
+          "3": 4
+        }
+      }
+    },
+    {
+      "number": 199,
+      "id": "signal-station-verification",
+      "name": "Verify the crew’s return report",
+      "moves": 30,
+      "human": {
+        "attempts": 2,
+        "won": 2,
+        "exhausted": 0,
+        "quit": 0,
+        "ratings": {
+          "easy": 1,
+          "hard": 1
+        }
+      },
+      "bot": {
+        "attempts": 15,
+        "won": 15,
+        "exhausted": 0,
+        "recomputedStars": {
+          "1": 10,
+          "2": 3,
+          "3": 2
+        }
+      }
+    },
+    {
+      "number": 200,
+      "id": "signal-station-answer",
+      "name": "Deliver the answer · 200",
+      "moves": 26,
+      "human": {
+        "attempts": 1,
+        "won": 0,
+        "exhausted": 1,
+        "quit": 0,
+        "ratings": {
+          "hard": 1
+        }
+      },
+      "bot": {
+        "attempts": 14,
+        "won": 13,
+        "exhausted": 1,
+        "recomputedStars": {
+          "1": 5,
+          "2": 2,
+          "3": 6,
+          "loss": 1
+        }
+      }
+    }
+  ]
+}

@@ -106,3 +106,12 @@ aktualizaci spustit přes Run na telefonu. Aplikace se v této opravě sama
 neodinstalovávala a její data se nemazala. Sestavovací pomocník už také
 nepřepisuje existující IDE Gradle nastavení při každé kompilaci; počáteční
 mapování modulů používá skutečné cesty do node_modules.
+
+## Možnost předběžného přístupu na Google Play — 2026-10-22
+
+Uživatel upozornil na možnost přidat hru na Google Play rovnou do
+předběžného přístupu (Early Access), podle jeho informace jde o novinku.
+Zahrnout tuto variantu do plánování vydání Android hry. Před volbou
+publikačního postupu ověřit aktuální dostupnost a podmínky pro náš účet
+v Play Console, včetně vztahu k otevřenému/uzavřenému testování.
+Jde o zaznamenaný podnět uživatele, zatím bez ověření a bez publikace.
