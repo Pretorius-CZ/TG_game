@@ -82,3 +82,12 @@ Podklady ověřené při implementaci:
 - https://capacitorjs.com/docs/apis/browser
 - https://supabase.com/docs/guides/auth/native-mobile-deep-linking
 - https://supabase.com/docs/reference/javascript/auth-exchangecodeforsession
+
+## Potvrzení uživatele — 23. 10. 2026
+
+Po aktualizaci a návodu k přihlášení uživatel potvrdil „funguje“.
+Google přihlášení v Android aplikaci je tedy fyzicky potvrzené uživatelem.
+Toto potvrzení aktualizuje výše uvedený stav čekajícího Google průchodu.
+Samostatný obousměrný přenos nově dokončeného levelu, hvězd a deníku
+telefon ↔ web nebyl v této zprávě výslovně popsán; nezaměňovat jej za
+samostatně ověřený synchronizační test.
