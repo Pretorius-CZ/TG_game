@@ -52,3 +52,14 @@ Regrese3/3: průchod všemi13úkoly, příběhy a konec200 vEN/CS, reload a
 legální tah na všech13deskách.275unit pass. APK49587796B sestaveno20:02.
 Webový přenos a živá kontrola následují. Fyzický vzhled nové verze APK
 musí uživatel ověřit po aktualizaci Run; původní Google přihlášení je potvrzené.
+
+## Produkční vydání ověřeno
+
+Webový zdroj d455d9f5b779, živé verze main1792778860956/game1792778865806.
+OběCI nasazení40000704449/40000704734 skončila success. Také přímo na
+produkční hře prošel celý audit36oblastí/170názvů vCS430×932 včetně13
+replay tlačítek posledníkapitoly, bezpřekryvů nebo zakrytých názvů.
+Web264unit/build pass. Společné opravené soubory jsou shodné s Android
+zdrojem9851e86; nativníGoogleimplementace se do webu nepřenášela.
+Telefon aktualizovat přesAndroidStudioRun nad stejnou instalací, bez
+odinstalování. FinálníAPK49587796B20:02 zůstává připravené v build/outputs.
