@@ -10,4 +10,10 @@ export const shipStages=[
 ];
 export function currentShipStage(p){return shipStages.find(s=>(p[s.key]??0)<s.total)??{scene:'exterior',name:p.finaleDone?'Departure':'Launch check',key:null,total:0};}
 export function chapterEntry(p){const s=currentShipStage(p).scene;return ['crew','galley','engine'].includes(s)?'corridor':s==='navigation'?'cockpit':s;}
-export function canVisitChapter(p,scene){if(p.launchDone)return true;return scene==='exterior'||scene===currentShipStage(p).scene||scene===chapterEntry(p);}
+export function canVisitChapter(p,scene){
+ if(p.launchDone)return true;
+ if(scene==='exterior'||scene===currentShipStage(p).scene||scene===chapterEntry(p))return true;
+ if(scene==='corridor')return shipStages.some(s=>['crew','galley','engine'].includes(s.scene)&&(p[s.key]??0)>0);
+ const stage=shipStages.find(s=>s.scene===scene);
+ return Boolean(stage&&(p[stage.key]??0)>0);
+}

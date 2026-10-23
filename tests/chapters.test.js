@@ -9,3 +9,10 @@ test('chapter sections preserve scanner and ship progression gates',()=>{
  const p={launchDone:true,scannerInstalled:false};const c=chaptersFor(p)[1];assert.equal(chapterSectionOpen(p,c,'mine'),true);assert.equal(chapterSectionOpen(p,c,'ice'),false);assert.equal(chapterSectionOpen({...p,scannerInstalled:true},c,'ice'),true);
  const fresh=normalizeProgress();const ship=chaptersFor(fresh)[0];assert.equal(chapterSectionOpen(fresh,ship,'cockpit'),false);assert.equal(chapterSectionOpen(fresh,ship,'airlock'),true);
 });
+
+test('chapter buttons reopen completed ship segments while navigation remains the next task',()=>{
+ const p=normalizeProgress({airlockCompleted:3,completed:4}),ship=chaptersFor(p)[0];
+ for(const scene of ['airlock','cockpit','navigation'])assert.equal(chapterSectionOpen(p,ship,scene),true);
+ for(const scene of ['crew','galley','engine'])assert.equal(chapterSectionOpen(p,ship,scene),false);
+ assert.equal(p.launchDone,false);
+});

@@ -6,11 +6,22 @@ test('first chapter has exactly one repair stage in a fixed order',()=>{
  let p=normalizeProgress();
  for(const stage of shipStages){
   assert.equal(currentShipStage(p).scene,stage.scene);
-  for(const other of shipStages)if(other.scene!==stage.scene&&other.scene!==chapterEntry(p)&&other.scene!=='exterior')assert.equal(canVisitChapter(p,other.scene),false);
+  for(const other of shipStages)if(other.scene!==stage.scene&&other.scene!==chapterEntry(p)&&other.scene!=='exterior')assert.equal(canVisitChapter(p,other.scene),(p[other.key]??0)>0);
   for(let n=1;n<=stage.total;n++)p=normalizeProgress({...p,[stage.key]:n});
  }
  assert.equal(currentShipStage(p).name,'Launch check');assert.equal(chapterEntry(p),'exterior');
  assert.equal(currentShipStage({...p,finaleDone:true}).name,'Departure');
+});
+
+test('completed ship segments remain visitable before departure without unlocking future stages',()=>{
+ let p=normalizeProgress();
+ for(const stage of shipStages){
+  p=normalizeProgress({...p,[stage.key]:stage.total});
+  assert.equal(p.launchDone,false);
+  for(const previous of shipStages.filter(s=>(p[s.key]??0)>0))assert.equal(canVisitChapter(p,previous.scene),true);
+  for(const future of shipStages.filter(s=>!(p[s.key]??0)&&s.scene!==currentShipStage(p).scene&&s.scene!=='exterior'))assert.equal(canVisitChapter(p,future.scene),false);
+ }
+ assert.equal(canVisitChapter({...p,engineCompleted:1},'corridor'),true);
 });
 test('airlock completion persists before cockpit, including a stale device merge',()=>{
  const p=normalizeProgress({airlockCompleted:3,scene:'airlock',readIds:['airlock-pressure-safe']});
