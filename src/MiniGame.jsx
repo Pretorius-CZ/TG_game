@@ -48,8 +48,11 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   const turnRandom=useRef(null),turnUndo=useRef(null);
   if(!turnRandom.current){turnRandom.current=createTurnRandom();turnUndo.current=createTurnUndo(turnRandom.current);}
   const [undoReady,setUndoReady]=useState(false),[undoUsed,setUndoUsed]=useState(false);
+  const [undoCredit,setUndoCredit]=useState(false),[undoNotice,setUndoNotice]=useState('');
+  const undoCreditRef=useRef(false);
   const undoOwner=useRef(null);undoOwner.current=`${repair.id}:${user?.id??'guest'}`;
-  useEffect(()=>{turnUndo.current.invalidate();setUndoReady(false);},[repair.id,user?.id]);
+  useEffect(()=>{turnUndo.current.invalidate();setUndoReady(false);undoCreditRef.current=false;setUndoCredit(false);setUndoNotice('');},[repair.id,user?.id]);
+  useEffect(()=>{if(undoNotice!=='restored')return;const timer=setTimeout(()=>setUndoNotice(''),5000);return()=>clearTimeout(timer);},[undoNotice]);
   const boosts = boostersEnabled(repair);
   const topics=relevantTutorials({boosts,covers:initialIce(repair).length>0,resonators:resonators.length>0});
   const seenTutorials=useRef(new Set((()=>{try{return readTutorials(localStorage,tutorialKey);}catch{return [];}})()));
@@ -122,21 +125,29 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     },kind);
   }
   function requestUndo(){
-    if(playtest||tutorial||confirmQuit||busy||lock.current||won||fault||undoUsed||!undoReady||!turnUndo.current.available||!rewardAvailable('undo'))return;
+    if(playtest||tutorial||confirmQuit||busy||lock.current||won||fault||undoUsed||!undoReady||!turnUndo.current.available)return;
+    if(undoCreditRef.current){applyUndo();return;}
+    if(!rewardAvailable('undo'))return;
     const token=run.current,owner=undoOwner.current;
     ad(msg('undo.description'),()=>{
       if(!alive.current||run.current!==token||undoOwner.current!==owner||!turnUndo.current.available)return false;
-      if(spent.current&&!lives.resumeAttempt(attemptId.current))return false;
-      const previous=turnUndo.current.take();
-      if(!previous)return false;
-      spent.current=false;assistance.current.undoUses=1;
-      refillHistory.current=previous.refillHistory;
-      setBoard(previous.board);setIce(previous.ice);setCounts(previous.counts);setResonance(previous.resonance);setMoves(previous.moves);setCascadePulse(previous.cascadePulse);
-      setUndoUsed(true);setUndoReady(false);setSelected(null);setHint(null);setTool(null);setConfirmQuit(false);setResonatorHelp(false);setResonatorFx([]);setBlastFx(null);setMoving(null);setFalling([]);setCleared([]);
-      setMessage(msg('undo.restored'));
-      requestAnimationFrame(()=>dialog.current?.querySelector('.board button:not(:disabled)')?.focus({preventScroll:true}));
+      // Watching earns a credit; only the next explicit tap consumes the turn.
+      undoCreditRef.current=true;setUndoCredit(true);setUndoNotice('prepared');
       return true;
     },'undo');
+  }
+  function applyUndo(){
+    if(!undoCreditRef.current||!turnUndo.current.available)return;
+    if(spent.current&&!lives.resumeAttempt(attemptId.current))return;
+    const previous=turnUndo.current.take();
+    if(!previous)return;
+    undoCreditRef.current=false;setUndoCredit(false);
+    spent.current=false;assistance.current.undoUses=1;
+    refillHistory.current=previous.refillHistory;
+    setBoard(previous.board);setIce(previous.ice);setCounts(previous.counts);setResonance(previous.resonance);setMoves(previous.moves);setCascadePulse(previous.cascadePulse);
+    setUndoUsed(true);setUndoReady(false);setSelected(null);setHint(null);setTool(null);setConfirmQuit(false);setResonatorHelp(false);setResonatorFx([]);setBlastFx(null);setMoving(null);setFalling([]);setCleared([]);
+    setMessage(msg('undo.restored'));setUndoNotice('restored');
+    requestAnimationFrame(()=>dialog.current?.querySelector('.board button:not(:disabled)')?.focus({preventScroll:true}));
   }
   const [tool,setTool]=useState(null);
   const helpers=[['⌖','Laser','Select one tile.'],['⤨','Shuffle','Shuffle the board.'],['⇄','Swap','Select two adjacent uncovered tiles.'],['➜','Beam','Select a row to clear.'],['✺','EMP','Select the centre of a 3×3 blast.']];
@@ -176,7 +187,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   }
   function leave(){recordResult("quit");lives.settleAttempt(attemptId.current,won||fault);onQuit();}
   function failSafely(){
-    turnUndo.current.invalidate();setUndoReady(false);
+    turnUndo.current.invalidate();setUndoReady(false);setUndoNotice('');
     lives.settleAttempt(attemptId.current,true);
     run.current++;clearInterval(watchdog.current);lock.current=false;
     setCascadePulse(null);setResonatorFx([]);setShuffling(false);setBlastFx(null);setFault(true);setBusy(false);setMoving(null);setFalling([]);setCleared([]);setSelected(null);setHint(null);setConfirmQuit(false);
@@ -184,7 +195,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
   function retry(){
     if(!fault&&!lives.count)return;
     try{
-      turnUndo.current.reset();setUndoReady(false);setUndoUsed(false);
+      turnUndo.current.reset();setUndoReady(false);setUndoUsed(false);undoCreditRef.current=false;setUndoCredit(false);setUndoNotice('');
       const fresh=makeGoalBoard(level,goals,initialIce(repair),turnRandom.current.next);
       refillHistory.current={};
       recordResult(fault?"fault":"failed");recorded.current=false;attemptId.current=crypto.randomUUID();attemptStarted.current=Date.now();if(!playtest&&!crazyGames)trackCampaignAttempt(attemptId.current,repair.id);assistance.current={helpers:[],extraMoves:false,hints:0};setAdsUsed({moves:false,hint:false,helper:false});
@@ -244,7 +255,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
       toolHit=[...new Set([...toolHit,...blast(next,level.cols,toolHit.filter(i=>isBooster(next[i])))])];
     }
     let found=toolHit??(activation?[a]:helper==null?swapHit:iceMatches(next,level.cols,frozen));
-    if(helper!=null){if(!await consumeTool(helper)){setMoving(null);setTool(null);return;}if(!alive.current||token!==run.current)return;turnUndo.current.invalidate();setUndoReady(false);assistance.current.helpers.push(helpers[helper][1]);if(helper!==1)sound(["laser","shuffle","tool-swap","beam","emp"][helper]);setTool(null);if(helper===1&&!await animateShuffle(next,token))return;}
+    if(helper!=null){if(!await consumeTool(helper)){setMoving(null);setTool(null);return;}if(!alive.current||token!==run.current)return;turnUndo.current.invalidate();setUndoReady(false);if(undoCreditRef.current)setUndoNotice('waiting');assistance.current.helpers.push(helpers[helper][1]);if(helper!==1)sound(["laser","shuffle","tool-swap","beam","emp"][helper]);setTool(null);if(helper===1&&!await animateShuffle(next,token))return;}
     if (!found.length&&helper==null) { sound('invalid');
       setMoving(null); setMessage('Almost! A swap needs to make a line of 3 matching pieces.');
       await wait(220); if (!alive.current || token!==run.current) return;
@@ -304,7 +315,7 @@ export default function MiniGame({ onWin, onQuit, repair }) {
       assistance.current.actions=(assistance.current.actions??0)+1;
     }
     }catch{if(alive.current && token===run.current)failSafely();}
-    finally{if(token===run.current){clearInterval(watchdog.current);lock.current=false;if(alive.current){setShuffling(false);setBusy(false);setUndoReady(turnUndo.current.available);if(completedAction)explainBoosts([...createdBoosts]);}}}
+    finally{if(token===run.current){clearInterval(watchdog.current);lock.current=false;if(alive.current){setShuffling(false);setBusy(false);setUndoReady(turnUndo.current.available);if(undoCreditRef.current&&turnUndo.current.available)setUndoNotice('prepared');if(completedAction)explainBoosts([...createdBoosts]);}}}
 
   }
   function choose(i) {
@@ -334,9 +345,9 @@ export default function MiniGame({ onWin, onQuit, repair }) {
     const j = moving[0] === i ? moving[1] : moving[0];
     return { transform: `translate(${(j % level.cols - i % level.cols) * 100}%, ${(Math.floor(j / level.cols) - Math.floor(i / level.cols)) * 100}%)`, zIndex: 2 };
   }
-  const undoControl=!playtest&&<button className="undo-control" aria-label={msg(undoUsed?'undo.used':'undo.label')} title={msg(undoUsed?'undo.used':'undo.description')} disabled={tutorial||busy||confirmQuit||won||fault||!admitted||undoUsed||!undoReady||!rewardAvailable('undo')} onClick={requestUndo}><span className="undo-art" aria-hidden="true">↶</span><small>{msg('undo.short')}</small><b className="helper-badge">{undoUsed?'0':crazyGames?'+':'AD'}</b></button>;
+  const undoControl=!playtest&&<button className={`undo-control${undoCredit?' undo-prepared':''}`} data-undo-state={undoUsed?'used':undoCredit?'ready':'ad'} aria-label={msg(undoUsed?'undo.used':undoCredit?'undo.apply':'undo.label')} title={msg(undoUsed?'undo.used':undoCredit?'undo.applyDescription':'undo.description')} disabled={tutorial||busy||confirmQuit||won||fault||!admitted||undoUsed||!undoReady||(!undoCredit&&!rewardAvailable('undo'))} onClick={requestUndo}><span className="undo-art" aria-hidden="true">↶</span><small>{msg('undo.short')}</small><b className="helper-badge">{undoUsed?'0':undoCredit?'1':crazyGames?'+':'AD'}</b></button>;
   return createPortal(<dialog className={`mini-dialog ${exhausted||won||fault||!admitted?'mini-result':''}`} ref={dialog} aria-labelledby="level-title" onCancel={event => { event.preventDefault(); if(tutorial){dismissTutorial();return;}if (!busy){quitOpener.current=document.activeElement;setConfirmQuit(true);} }}>
-    {undoUsed&&!won&&!fault&&<p className="sr-only" role="status">{msg('undo.restored')}</p>}
+    {undoNotice&&!won&&!fault&&<p className="undo-notice" role="status">{msg(`undo.${undoNotice}`)}</p>}
     {tutorial&&!fault&&admitted&&<MechanicTutorial topic={tutorial} language={language} remaining={tutorialQueue.length} onNext={dismissTutorial} onClose={()=>{dismissTutorial();setTutorialQueue([]);}} onTopic={id=>setTutorialQueue([id])} topics={[...topics,...helperTutorials]}/>}
     <div className="level-hud"><div className="energy-audio"><LivesBar/><AudioControls/></div><button className="hint-control" aria-description={android&&!hintsLeft?msg("android.hintUsed"):t(hintsLeft?"One free hint per attempt":crazyGames?"Extra hint":"Ad · extra hint")} title={android&&!hintsLeft?msg("android.hintUsed"):t(hintsLeft?"One free hint per attempt":crazyGames?"Extra hint":"Ad · extra hint")} disabled={busy||exhausted||won||fault||!admitted||(playtest&&hintsLeft===0)||(hintsLeft===0&&(adsUsed.hint||!rewardAvailable("hint")))||Boolean(hint)} onClick={()=>hintsLeft?showHint():requestHelp("hint")}><span>{t("Hint")}</span>{" "}<small>{t(hintsLeft?'1/1':playtest?'0':(adsUsed.hint||!rewardAvailable('hint'))?'0':crazyGames?'+':'AD')}</small></button><div className={`moves-counter ${limit-moves<=5?'low-moves':''}`} role="status" aria-label={t(`${Math.max(0,limit-moves)} moves left`)}><span>{t("MOVES")}</span><strong>{t(Math.max(0,limit-moves))}</strong></div></div>
     <div className="mini-header"><button className="mechanics-help" disabled={busy||exhausted||won||fault||!admitted} aria-label={language==='cs'?'Pravidla a pomůcky':'Mechanics help'} onClick={()=>{setResonatorHelp(false);setTutorialQueue(topics);}}>ⓘ</button><span className="eyebrow">{t(repair.room ?? 'COCKPIT')}{t(" / REPAIR LESSON")}</span><button className="close" aria-label={t("Leave level")} disabled={busy} onClick={e => {quitOpener.current=e.currentTarget;setConfirmQuit(true);}}>{t("×")}</button><h2 id="level-title">{t(repair.lesson)}</h2></div>
