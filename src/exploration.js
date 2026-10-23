@@ -5,7 +5,7 @@ const content=[
   'No landing clearance. Just an automated beacon repeating into the dark. I can bring the pad lights back from here.',
   'The approach lights trace a safe path to the outpost.',
   'No one at the gate','The beacon called us in, but nobody answered. The dust on this pad is undisturbed. Whoever changed the signal did it from somewhere else.'],
- ['mine-hatch','Station entrance','A door into silence',21,40,18,2,14,[],
+ ['mine-hatch','Station entrance','A door into silence',21,40,18,2,12,[],
   'The emergency hatch is sealed. Its local circuit should still respond to a clean power pulse.',
   'The hatch is open. Emergency lights reveal a path into the station.',
   'An orderly departure','No damage inside. Tools put away, lockers closed. This was not a panicked evacuation. They left knowing where they were going.'],

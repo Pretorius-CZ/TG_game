@@ -14,7 +14,7 @@ export const asterDestinations={
         "icon": "✦",
         "x": 50,
         "y": 70,
-        "moves": 22,
+        "moves": 19,
         "ice": [],
         "tileSet": "aster",
         "level": {
@@ -49,7 +49,7 @@ export const asterDestinations={
         "icon": "✦",
         "x": 65,
         "y": 30,
-        "moves": 24,
+        "moves": 20,
         "ice": [],
         "tileSet": "aster",
         "level": {
@@ -163,7 +163,7 @@ export const asterDestinations={
         "icon": "✦",
         "x": 25,
         "y": 76,
-        "moves": 23,
+        "moves": 18,
         "ice": [],
         "tileSet": "aster",
         "level": {
@@ -463,7 +463,7 @@ export const asterDestinations={
         "icon": "✦",
         "x": 25,
         "y": 77,
-        "moves": 24,
+        "moves": 20,
         "ice": [],
         "tileSet": "aster",
         "level": {

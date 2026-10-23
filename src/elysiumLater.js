@@ -15,7 +15,7 @@ export const elysiumLaterDestinations={
         "icon": "✦",
         "x": 20,
         "y": 52,
-        "moves": 28,
+        "moves": 25,
         "tileSet": "elysium",
         "ice": [],
         "level": {
@@ -707,7 +707,7 @@ export const elysiumLaterDestinations={
         "icon": "✦",
         "x": 76,
         "y": 72,
-        "moves": 35,
+        "moves": 31,
         "tileSet": "elysium",
         "ice": [
           9,

@@ -1,6 +1,6 @@
 const board={rows:7,cols:7,types:6};
 const rows=[
- ['dock','Outer dock','A place to return to',25,72,[[3,18],[0,12]],20,[],
+ ['dock','Outer dock','A place to return to',25,72,[[3,18],[0,12]],17,[],
   'The outer berth needs the structural panels we recovered. Secure the dock and we will finally have a safe place to return to.',
   'Dock restored. One material shipment has been installed in the berth.',
   'The rest of the warning','The cached greeting finishes as we connect: "Do not power the main ring before aligning it." The voice belongs to Haven’s caretaker system. It has been keeping a small habitat alive while the expedition searches farther out.'],
@@ -20,7 +20,7 @@ const rows=[
   'The two recovered archives contain matching transit signatures. Load both and let the observatory reconstruct the destination.',
   'Two research archives installed. A route to the Aster Veil system is verified.',
   'Aster Veil','The next system appears as a blue star behind a veil of dust. A survey buoy, a shattered moon, and a garden-world candidate. This is where the expedition was heading when its messages stopped.'],
- ['stabilize','Stabilize the jump gate','One last alignment · HARD',62,79,[[1,24],[2,24],[4,18]],34,[9,12,22,26,37,40,44,47],
+ ['stabilize','Stabilize the jump gate','One last alignment · HARD',62,79,[[1,24],[2,24],[4,18]],30,[9,12,22,26,37,40,44,47],
   'Every segment is ready. Stabilize the covered control relays and open the route. We can always turn back once it is registered.',
   'Jump gate stabilized. Aster Veil is within reach. The route will remain open after your first crossing.',
   'An open door','The ring fills with light. The caretaker will remain at Haven and keep the refuge running. I have a ship, a safe dock behind me, and a road into the unknown.'],

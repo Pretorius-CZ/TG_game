@@ -36,7 +36,8 @@ test('chapter regrouping preserves catalog order and gates within the living map
  const living=rows.find(c=>c.id==='ring');assert.equal(chapterSectionOpen({...p,riftCrossed:0},living,'elysium-research'),false);
  // Catalog after the approved 2026-10-17 refuge rebalance: IDs, order,
  // names and sizes preserved; nineteen move budgets intentionally changed.
- assert.equal(createHash('sha256').update(JSON.stringify(levelCatalog.slice(0,167))).digest('hex'),'460d9e6cf487ad534eaa8b94cafc452a29585c93d6f39a37a076b4d060a3d2f1');
+ // Includes the approved 2026-10-23 move limits; order, IDs and gates stay fixed.
+ assert.equal(createHash('sha256').update(JSON.stringify(levelCatalog.slice(0,167))).digest('hex'),'932cb77bba59b5b9900e63fc03f298bd70cb62ed062df77fb894e63d40f394e8');
 });
 test('archive boards, bilingual content, images and migration cover all twenty tasks',()=>{
  missingTranslations.clear();let seed=2701;const random=()=>((seed=(seed*1664525+1013904223)>>>0)/4294967296);
