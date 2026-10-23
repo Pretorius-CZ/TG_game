@@ -2077,9 +2077,13 @@
   "undo.label": "Undo last move · ad",
   "undo.short": "Undo",
   "undo.used": "Undo used · once per attempt",
-  "undo.adTitle": "Watch an ad to undo",
-  "undo.description": "Undo the last move and all its cascades. Once per attempt. Used tools are not refunded.",
-  "undo.restored": "Move undone. Repeating the same move produces the same pieces.",
+  "undo.adTitle": "Watch an ad to prepare Undo",
+  "undo.description": "The ad prepares one Undo for this attempt. Then tap the highlighted Undo button to use it. Your move stays unchanged until you tap.",
+  "undo.apply": "Undo the last move",
+  "undo.applyDescription": "Undo is ready. Tap to restore the last move and all its cascades. Used tools are not refunded.",
+  "undo.prepared": "Undo is ready. Tap the highlighted Undo button to use it.",
+  "undo.waiting": "Undo is still prepared. You can use it after the next ordinary move.",
+  "undo.restored": "Move undone.",
   "android.hintUsed": "Hint used",
   "android.toolsHelp": "Select a tool below the board, then its target. Shuffle acts immediately. Each use spends one tool, not a move. Stock is shared across levels. Refilling tools is not available in this Android preview. Choose a tool in Help topics to learn its effect."
 }

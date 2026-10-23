@@ -1,8 +1,32 @@
 # Krok zpět — implementace 2026-10-23
 
 Uživatel zadal implementaci pro Android i web. Pravidlo první verze:
-jedna dokončená dobrovolná reklama umožní vrátit jeden poslední běžný tah
-za pokus. Žádná nová cena, nákup, zásoba pomůcek ani změna limitů levelů.
+jedna dokončená dobrovolná reklama připraví jeden Krok zpět pro daný pokus.
+Tah vrátí až další výslovné klepnutí na zvýrazněné tlačítko. Žádná nová
+cena, nákup, zásoba pomůcek ani změna limitů levelů.
+
+## Upřesnění ovládání po zpětné vazbě
+
+Původní vydání cfa4092 vracelo tah ihned po reklamě. Uživatel to zaměnil
+za špatně dostupnou pomůcku, protože tlačítko rovnou zešedlo. Na jeho
+pokyn bylo ovládání rozděleno: reklama jen připraví, druhé klepnutí použije.
+Deska, cíle, tahy a energie po pouhém převzetí reklamní odměny zůstávají
+stejné. Tlačítko dostane zelené zvýraznění, odznak1 a viditelnou zprávu
+Krok zpět připraven. Po skutečném použití je5sekund vidět Tah vrácen.
+
+Připravený kredit zůstává i při dalším běžném tahu; potom vrátí právě
+poslední tah. Pomůcka zruší snímek, ale nezruší kredit: ten lze použít
+po následujícím běžném tahu bez další reklamy. Retry, odchod/reload,
+změna účtu nebo úrovně kredit nepřenášejí do nového pokusu. Metrika
+undoUses vzroste až při skutečném použití, nikoli při zhlédnutí reklamy.
+
+Ověřeno265unit testy,15Chromium undo scénáři (včetně původních kaskád,
+last-life, Google viewed/dismissed/blocked i nového potvrzení, odložení,
+pomůcky, zahození nepoužitého kreditu při retry a českých hlášek), dalších
+13regresí energie/hvězd a6Android UI mock kontrol EN/CS. Připravený stav
+vizuálně zkontrolován na393×780, testy měří i minimálně24px polí na320×568.
+Níže uvedené starší release SHA a ověření popisují první vydání, nikoli
+novější potvrzovací ovládání; nové zveřejnění zaznamenat po dokončení.
 
 ## Chování
 

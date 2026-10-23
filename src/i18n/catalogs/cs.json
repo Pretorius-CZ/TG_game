@@ -2079,9 +2079,13 @@
   "undo.label": "Krok zpět · reklama",
   "undo.short": "Zpět",
   "undo.used": "Krok zpět využit · jednou za pokus",
-  "undo.adTitle": "Reklama za krok zpět",
-  "undo.description": "Vrátí poslední tah i všechny jeho kaskády. Jednou za pokus. Použité pomůcky se nevracejí.",
-  "undo.restored": "Tah vrácen. Stejný tah znovu doplní stejné kameny.",
+  "undo.adTitle": "Reklama připraví krok zpět",
+  "undo.description": "Reklama připraví jeden Krok zpět pro tento pokus. Potom jej použij klepnutím na zvýrazněné tlačítko Zpět. Do té doby se tah nemění.",
+  "undo.apply": "Vrátit poslední tah",
+  "undo.applyDescription": "Krok zpět je připraven. Klepnutím vrátíš poslední tah i všechny jeho kaskády. Použité pomůcky se nevracejí.",
+  "undo.prepared": "Krok zpět připraven. Použij jej klepnutím na zvýrazněné tlačítko Zpět.",
+  "undo.waiting": "Krok zpět zůstává připraven. Můžeš jej použít po dalším běžném tahu.",
+  "undo.restored": "Tah vrácen.",
   "android.hintUsed": "Nápověda vyčerpána",
   "android.toolsHelp": "Vyber pomůcku pod deskou, potom cíl. Míchání se provede hned. Použití stojí jednu pomůcku, nikoli tah. Zásoby sdílíš mezi levely. Doplnění pomůcek v tomto Android náhledu zatím není dostupné. Účinek každé pomůcky najdeš v přehledu nápovědy."
 }

@@ -5,6 +5,8 @@
 .mini-dialog .undo-control small{font:600 9px/12px system-ui;color:#eef2e9;white-space:nowrap}
 .mini-dialog .undo-control:disabled{cursor:default;opacity:.38;filter:saturate(.3)}
 .mini-dialog .undo-control:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.mini-dialog .undo-control.undo-prepared{border:2px solid #9ff4cd;background:linear-gradient(155deg,#315747,#173b36);color:#c2ffe5;box-shadow:0 0 0 2px #9ff4cd33}
+.mini-dialog .undo-notice{flex-shrink:0;margin:0;padding:5px 8px;border:1px solid #6dba9c;border-radius:8px;background:#16382f;color:#c2ffe5;font:12px/1.35 system-ui}
 .mini-dialog .out-of-moves .undo-control{display:flex;align-items:center;justify-content:center;gap:10px;padding:6px 12px}
 .mini-dialog .out-of-moves .undo-control small{font-size:14px}
 .mini-dialog .out-of-moves .undo-control .helper-badge{font:700 10px system-ui}
