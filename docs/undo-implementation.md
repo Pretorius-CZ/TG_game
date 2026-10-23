@@ -83,3 +83,22 @@ AndroidRewardAd se do webové větve nepřevzaly.
 Samostatně na webové větvi: 262 unit testů, build/site/i18n check a
 43 Chromium scénářů (undo, Google reklamy, mobilní layout, replay hvězdy)
 pass. Živé nasazení bude ověřené samostatně po pushi.
+
+## Živé ověření a Android APK
+
+Webový commit cfa40923e3a7ebced12b52cc4c00c6f83eb88148 byl pushnutý a
+nasazený na obě domény. Hlavní doména zůstala informačním webem.
+Veřejné version.json: main1792771179135-cfa40923e3a7,
+game1792771184264-cfa40923e3a7. Na živém game. EN i CS ověřeno otevření
+levelu, dokončená simulovaná reklama, obnova přesné desky i tahů, zákaz
+druhého použití a žádné JS chyby. Test měl izolovaný hostovský save,
+zamítnuté statistiky a blokované analytické endpointy, žádný účet ani
+skutečná reklama nebyly použity.
+
+Finální Android APK je sestavené ze zdroje 2d7b22e a synchronizované
+v android/app/src/main/assets/public; výstup
+android/app/build/outputs/apk/debug/app-debug.apk. Uživatel jej dostane
+do telefonu novým Run v Android Studiu, bez odinstalace a mazání dat.
+Pracovní složka je opět ve větvi codex/android-current. Fyzické potvrzení
+undo a nativní reklamy na POCO ještě zbývá; šest mock kontrol není jeho
+náhrada. Obtížnost, zásoby a placení zůstaly beze změny.
