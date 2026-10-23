@@ -41,3 +41,12 @@ Pokračování herní lokalizace: sdílené UI a parametrické cíle, potom př�
 deník a všechny úrovně; následně jazyková a mobilní kontrola před zveřejněním
 dalšího jazyka. Konkrétní práce v `localization-rollout.md` a aktuální audit
 `npm run i18n:report`. Pouhé odkrytí rozpracovaného jazyka není dokončený překlad.
+
+## Ověření publikace
+
+Zdroj98d237ed5812, živá verze hlavní domény1792775432089-98d237ed5812.
+Na všech12adresách (úvod a Novinky ×6jazyků) ověřeno HTTP200, správný
+jazyk, úplné překlady obou nových zpráv a7článků i ve statickém HTML.
+13Chromium scénářů320/1440+bezJS a build/site/i18n prošly. MainCI39992851913
+publikovalo; při poslední kontrole ještě instalovalo prohlížeč pro svůj smoke.
+Herní subdoména se kvůli této obsahové změně znovu nenasazovala.
