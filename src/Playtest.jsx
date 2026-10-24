@@ -82,7 +82,7 @@ function Playtest(){
  </section>:done?<section><h2>Všech 200 levelů vyhodnoceno.</h2><p>Díky! Výsledky můžeš exportovat a společně je projdeme.</p></section>:<section>
  <h2>{session.cursor?'Pokračovat v testu':'200 levelů, náhodné pořadí'}</h2>
  <p>Pořadí i současná pravidla se uloží při zahájení. Původní čísla, názvy, kapitoly a označení HARD zůstanou skryté. Po každém pokusu vyber hodnocení; můžeš pokračovat i po prohře.</p>
- <p>Běžný postup, účet, energie ani zásoby se nepoužijí. V každém pokusu máš jednu od každé pomůcky a jednu nápovědu; bez reklam, bonusových tahů a čekání na energii.</p>
+ <p>Běžný postup, účet, energie ani zásoby se nepoužijí. V každém pokusu máš jednu od každé pomůcky, jednu nápovědu a jeden krok zpět zdarma; bez reklam, bonusových tahů a čekání na energii. Použití kroku zpět se zapíše k výsledku.</p>
  <p>Zahájením povolíš sběr výsledku, tahů, času od otevření pokusu, použitých pomůcek a náloží, hodnocení a poznámky. Výsledky se ukládají zde a odesílají pod náhodným ID do samostatného playtestu v /balance. Bez Googlu, jména a e-mailu. Server má 90denní retenci. Rozhraní testu je česky, jazyk samotné desky přepneš nahoře.</p>
  <p>Vracej se přes stejný odkaz ve stejném prohlížeči a zařízení. Rozehraná deska se neukládá; po obnovení vyhodnotíš přerušený pokus. Běžné statistiky tím nezapínáš. <a href="./privacy.html" target="_blank" rel="noreferrer">Ochrana soukromí</a></p>
  <button className="primary" disabled={!ready||Boolean(error)} onClick={resume}>{session.consent?'Pokračovat v testu':'Povolit sběr a zahájit test'}</button>

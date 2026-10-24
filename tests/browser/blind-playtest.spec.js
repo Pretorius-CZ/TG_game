@@ -34,15 +34,49 @@ test('offline quit is retained, rating can retry the same position and another t
  expect(await page.evaluate(key=>JSON.parse(localStorage.getItem(key)).pending.length,key)).toBe(1);
  await page.reload();await expect(page.locator('#rating-heading')).toContainText('Test 1');
 });
-test('exhaustion opens rating exactly once and retains remaining objectives',async({page})=>{
+test('exhaustion offers unused Undo before rating exactly once and retains remaining objectives',async({page})=>{
  const {sent,errors}=await setup(page,{moves:1});await page.getByRole('button',{name:'Povolit sběr a zahájit test'}).click();
- await page.locator('[data-cell="16"]').click();await page.locator('[data-cell="17"]').click();await expect(page.locator('#rating-heading')).toBeVisible();
+ await page.locator('[data-cell="16"]').click();await page.locator('[data-cell="17"]').click();
+ await expect(page.locator('.out-of-moves .undo-control')).toBeEnabled();
+ await expect(page.locator('#rating-heading')).toHaveCount(0);
+ await page.locator('.out-of-moves .primary').click();await expect(page.locator('#rating-heading')).toBeVisible();
  await expect(page.locator('.playtest-rating')).toContainText('Došly tahy');
  const s=await page.evaluate(key=>JSON.parse(localStorage.getItem(key)),key);expect(s.attempts).toHaveLength(1);expect(s.attempts[0].moves).toBe(1);expect(s.attempts[0].configuration.goals[0].target).toBe(9999);expect(errors).toEqual([]);
  await expect.poll(()=>sent.length).toBeGreaterThan(0);
  await page.getByRole('button',{name:'Akorát',exact:true}).click();await page.getByRole('button',{name:'Uložit a pokračovat později'}).click();
  await expect(page.locator('.playtest-progress')).toContainText('1 / 200');await expect(page.locator('.mini-dialog')).toHaveCount(0);
  await page.reload();await page.getByRole('button',{name:'Pokračovat v testu',exact:true}).click();await expect(page.locator('#level-title')).toHaveText('Test 2 / 200');
+});
+
+test('blind Undo is free once, restores the last turn and is recorded in the server payload',async({page})=>{
+ const {s,sent,errors}=await setup(page,{moves:1});
+ await page.getByRole('button',{name:'Povolit sběr a zahájit test'}).click();
+ const undo=page.locator('.helper-bar .undo-control');
+ await expect(undo).toBeDisabled();await expect(undo.locator('.helper-badge')).toHaveText('1');
+ const state=()=>page.evaluate(()=>({board:[...document.querySelectorAll('[data-cell]')].map(c=>c.dataset.type),moves:document.querySelector('.moves-counter strong').textContent,counts:[...document.querySelectorAll('.objective-list progress')].map(p=>p.value)}));
+ const before=await state();
+ await page.locator('[data-cell="16"]').click();await page.locator('[data-cell="17"]').click();
+ await expect(page.locator('.out-of-moves .undo-control')).toBeEnabled();
+ const after=await state();
+ await page.locator('.out-of-moves .undo-control').click();
+ await expect(page.locator('.out-of-moves')).toHaveCount(0);expect(await state()).toEqual(before);
+ await expect(undo).toBeDisabled();await expect(undo.locator('.helper-badge')).toHaveText('0');
+ await expect(page.locator('.undo-notice')).toHaveText('Tah vrácen.');
+ await expect(page.locator('.reward-ad')).toHaveCount(0);
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+ await page.locator('[data-cell="16"]').click();await page.locator('[data-cell="17"]').click();
+ await expect(page.locator('#rating-heading')).toBeVisible();
+ const session=await page.evaluate(key=>JSON.parse(localStorage.getItem(key)),key);
+ expect(session.attempts).toHaveLength(1);expect(session.attempts[0].counts).toEqual(after.counts);
+ expect(session.attempts[0].configuration.assistance.undoUses).toBe(1);
+ expect(session.attempts[0].build).toBe('2026-10-24-blind-undo-v1');expect(session.rules).toBe('qa');
+ await expect.poll(()=>sent.some(r=>r.incoming.configuration.assistance.undoUses===1)).toBe(true);
+ await page.getByRole('button',{name:'Akorát',exact:true}).click();await page.getByRole('button',{name:'Uložit a zkusit stejný test znovu'}).click();
+ await expect(page.locator('#level-title')).toHaveText('Test 1 / 200');
+ await expect(undo.locator('.helper-badge')).toHaveText('1');await expect(undo).toBeDisabled();
+ expect(await page.evaluate(key=>JSON.parse(localStorage.getItem(key)).order,key)).toEqual(s.order);
+ for(const k of ['to-the-stars-progress-v1','to-the-stars-lives-v1','to-the-stars-helpers-v1:guest:0','beyond-signal-analytics-choice-v1'])expect(await page.evaluate(k=>localStorage.getItem(k),k)).toBe('normal-save-sentinel');
+ expect(errors).toEqual([]);
 });
 test('the last rating completes the full set without starting a 201st test',async({page})=>{
  await setup(page,{cursor:199});await page.getByRole('button',{name:'Povolit sběr a zahájit test'}).click();
