@@ -48,7 +48,7 @@ export function makeBoard(level = tutorial, random = Math.random, maxAttempts = 
   }
   throw new Error('Level mask cannot produce a playable board.');
 }
-export function refill(board, cleared, level = tutorial, random = Math.random, pinned = []) {
+export function refill(board, cleared, level = tutorial, random = Math.random, pinned = [], covers = []) {
   const next = [...board]; const removed = new Set(cleared);
   for (let col = 0; col < level.cols; col++) {
     let segment = [];
@@ -56,6 +56,20 @@ export function refill(board, cleared, level = tutorial, random = Math.random, p
       const remaining = segment.filter(i => !removed.has(i)).map(i => board[i]);
       const missing = segment.length - remaining.length;
       const values = Array.from({ length: missing }, () => Math.floor(random() * level.types)).concat(remaining);
+      // Charges settle above covers, while colored pieces still flow through them.
+      // Preserve charge order, color order, and the exact number of refill draws.
+      if(segment.some((i,n)=>covers.includes(i)&&values[n]>=10)){
+        const charges=values.map((value,n)=>({value,n})).filter(item=>item.value>=10);
+        const placed=new Map();let ceiling=values.length;
+        for(let n=charges.length-1;n>=0;n--){
+          const charge=charges[n];let at=Math.min(charge.n,ceiling-1);
+          while(at>=0&&covers.includes(segment[at]))at--;
+          if(at<0)throw new Error('No uncovered gravity slot for charge.');
+          placed.set(at,charge.value);ceiling=at;
+        }
+        const colors=values.filter(value=>value<10);let color=0;
+        for(let n=0;n<values.length;n++)values[n]=placed.has(n)?placed.get(n):colors[color++];
+      }
       segment.forEach((i, n) => { next[i] = values[n]; }); segment = [];
     }
     for (let row = 0; row < level.rows; row++) {

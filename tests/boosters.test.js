@@ -63,6 +63,47 @@ test('created reward counts its original color and is retained without firing',(
   assert.equal(legacy.collected.length,4);assert.deepEqual(legacy.created,[]);
 });
 
+test('Pulse and Nova settle above intact covers without removing charges or covers',()=>{
+ for(const charge of [PULSE,NOVA]){
+  const board=[charge,1,2,3,4],level={rows:5,cols:1,types:5};
+  const result=wave(board,[3],level,{hit:[2],random:()=>.9});
+  assert.deepEqual(result.board,[4,charge,1,3,4]);
+  // A cover at the natural landing row stops the charge above it.
+  const stopped=wave(board,[1],level,{hit:[4],random:()=>.9});
+  assert.deepEqual(stopped.board,[charge,4,1,2,3]);
+  assert.deepEqual(stopped.ice,[1]);assert.deepEqual(stopped.collected,[4]);
+  assert.equal(stopped.board.filter(v=>v===charge).length,1);
+  assert.deepEqual(board,[charge,1,2,3,4]);
+ }
+});
+
+test('stacked charges avoid covers, keep their order and respect holes and newly created anchors',()=>{
+ const board=[PULSE,NOVA,1,2,3,null,0,1,2];
+ let draws=0;const next=refill(board,[4,8],{rows:9,cols:1,types:4},()=>{draws++;return .9;},[],[2,3]);
+ assert.deepEqual(next,[PULSE,NOVA,3,1,2,null,3,0,1]);
+ assert.equal(draws,2);assert.equal(next[5],null);
+ const pinned=refill([PULSE,1,NOVA,2,3],[4],{rows:5,cols:1,types:4},()=>.9,[2],[3]);
+ assert.deepEqual(pinned,[PULSE,1,NOVA,3,2]);
+});
+
+test('charge-safe gravity preserves every survivor and never leaves a charge under a cover across 1000 boards',()=>{
+ let seed=73;const random=()=>((seed=(Math.imul(seed,1664525)+1013904223)>>>0)/4294967296);
+ for(let trial=0;trial<1000;trial++){
+  const level={rows:8,cols:7,types:6};
+  const board=Array.from({length:56},()=>random()<.08?null:random()<.25?(random()<.5?PULSE:NOVA):Math.floor(random()*6));
+  const covers=board.flatMap((v,i)=>v!=null&&v<10&&random()<.4?[i]:[]);
+  const cleared=board.flatMap((v,i)=>v!=null&&!covers.includes(i)&&random()<.35?[i]:[]);
+  const pinned=board.flatMap((v,i)=>v>=10&&random()<.1?[i]:[]);
+  const removed=cleared.filter(i=>!pinned.includes(i));
+  const result=refill(board,removed,level,()=>0,pinned,covers);
+  assert.ok(covers.every(i=>result[i]<10));
+  assert.deepEqual(result.map(v=>v===null),board.map(v=>v===null));
+  for(const charge of [PULSE,NOVA])assert.equal(result.filter(v=>v===charge).length,board.filter((v,i)=>v===charge&&!removed.includes(i)).length);
+  for(let color=1;color<6;color++)assert.equal(result.filter(v=>v===color).length,board.filter((v,i)=>v===color&&!removed.includes(i)).length);
+  pinned.forEach(i=>assert.equal(result[i],board[i]));
+ }
+});
+
 test('helper hits strip covers without collecting protected tiles or creating match rewards',()=>{
  const board=[0,1,2,1,2,0,2,0,1];
  const level={rows:3,cols:3,types:3};

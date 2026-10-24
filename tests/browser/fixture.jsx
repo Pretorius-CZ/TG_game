@@ -18,6 +18,7 @@ const all=[...repairs,...Object.values(archiveDestinations).flatMap(d=>d.repairs
 const source=all.find(r=>r.id===params.get('id'))??repairs[3];
 let repair=params.has('stress')?{...source,lesson:'Verify the reconstructed journey',level:{rows:8,cols:8,types:6,mask:Array.from({length:64},(_,i)=>i!==27)},ice:[9,12,33,36],goals:[0,1,2].map(type=>({type,target:100,label:'Test objective'})),resonators:[{at:27,target:3}]}:source;
 if(params.has('result'))repair={...repairs[0],moves:params.get('result')==='performance'?80:1,target:params.get('result')==='won'?1:9999,targetType:null,goals:undefined};
+if(params.has('charge-cover'))repair={...repairs[0],moves:80,target:9999,targetType:null,goals:undefined,ice:[3],level:{rows:5,cols:3,types:5}};
 localStorage.setItem('beyond-signal-tutorials-v1:guest',JSON.stringify(Object.keys(tutorialTopics)));
 function Fixture(){
  const [open,setOpen]=useState(true);
