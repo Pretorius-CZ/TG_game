@@ -159,5 +159,22 @@
   "log.duringLanding": "During landing",
   "log.departure": "Departure",
   "log.recovered": "recovered",
-  "log.signalAcquired": "signal acquired"
+  "log.signalAcquired": "signal acquired",
+  "exploration.viewRepair": "View repair →",
+  "exploration.nextRepair": "Next repair →",
+  "exploration.closeResult": "Close repair result",
+  "exploration.continueStory": "Continue the story →",
+  "exploration.archivePassages": "Archive passages",
+  "exploration.answerDelivered": "200 · Answer delivered. The crew is safe.",
+  "exploration.replayEnding": "Replay the story ending",
+  "exploration.revisitAster": "Revisit Aster Veil →",
+  "exploration.previousArea": "Visit the previous area →",
+  "story.keplerPurpose": "Recover both bearings to locate Haven.",
+  "story.asterPurpose": "Compare both expedition records to find Elysium.",
+  "log.survey": "Survey",
+  "log.restoration": "Restoration",
+  "log.arrival": "Arrival",
+  "ui.tasksOutpost": "{count}/{total} tasks · Follow the signal into the outpost.",
+  "place.haven": "Haven",
+  "place.jumpGate": "Jump gate"
 }

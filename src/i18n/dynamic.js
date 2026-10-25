@@ -32,9 +32,11 @@ export function dynamicTranslation(source,language){
  if((m=source.match(/^Requires (.+)$/)))return msg('ui.requires',{place:tr(m[1])});
  if((m=source.match(/^First restore (.+)\.$/)))return msg('ui.firstRestore',{place:tr(m[1])});
  if((m=source.match(/^(\d+)\/4 systems online · Tap the highlighted device\.$/)))return msg('ui.systemsOnline',{count:m[1]});
+ if((m=source.match(/^(\d+)\/(\d+) tasks · Follow the signal into the outpost\.$/)))return msg('ui.tasksOutpost',{count:m[1],total:m[2]});
  if((m=source.match(/^Inspect (.+)$/)))return msg('ui.inspect',{place:tr(m[1])});
  if((m=source.match(/^Explore · (.+)$/)))return msg('ui.explore',{place:tr(m[1])});
  if((m=source.match(/^CHAPTER (\d+)(.*)$/)))return msg('ui.chapter',{number:m[1]})+m[2].split(' / ').map(tr).join(' / ');
+ if((m=source.match(/^(.+) (\d+)$/))){const label=tr(m[1]);if(label!==m[1])return `${label} ${m[2]}`;}
  if((m=source.match(/^(✓ |↻ )(.+)$/)))return m[1]+tr(m[2]);
  if((m=source.match(/^(.+?)( ↻| →| ↗|\.)$/))){const text=tr(m[1]);if(text!==m[1])return text+m[2];}
  if(source.includes(' / '))return source.split(' / ').map(tr).join(' / ');

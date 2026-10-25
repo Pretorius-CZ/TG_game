@@ -145,3 +145,24 @@ otevírá anglickou hru; CS vede do české. Herní lokalizace zůstává EN/CS,
 čtyři nové herní katalogy nadále draft. Podrobnosti a další údržba:
 `docs/website-localization.md`. Výše uvedený seznam zbývající práce teď
 platí zejména pro hru a přenos, nikoli pro již přeložený informační web.
+
+## 2026-10-25 — Německá druhá kapitola
+
+Doplněno 24 oprav levelů 30–53: důl, ledová retranslace, archiv a Haven,
+jejich deníky, mapa/skener, průlet a tři příletové panely Aster Veil.
+Exploration používá parametrické zprávy i pro dřívější pevné EN/CS větve.
+Audit Android: DE 1045/2430 zpráv (včetně webu), 1385 chybí;
+19 bilingvních větví zbývá. Nejde o dokončenou německou hru.
+
+Přímý vývojový náhled:
+`http://127.0.0.1:5187/tests/browser/chapter-two-preview.html?previewLanguage=de`.
+Umožňuje volit oblast a počet oprav, prohlížet skutečné bubliny a deník.
+Postup pouze v paměti, vlastní practice klíče, bez cloudových zápisů a výsledků.
+Běžná jazyková preference se nemění. V produkci zůstává DE nedostupná.
+
+Ověření: 282 Android unit testů; 12 německých přehledů/replay na
+320/430/1024 px, průlet včetně zrušení a příběhu, skener a izolace náhledu.
+CS320 a EN1024 kontrola všech 36 hotových expedičních oblastí prošla.
+Průlet/skener/izolace prošly také v Android režimu Chromium;
+nejde o fyzický telefon ani Safari. Herní ID, limity a uložený postup beze změny.
+Další etapa: německá kapitola 3 a následně zbývající kapitoly před zveřejněním.

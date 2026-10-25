@@ -3,44 +3,44 @@
     {
       "code": "en",
       "status": "released",
-      "total": 2413,
-      "translated": 2413,
+      "total": 2430,
+      "translated": 2430,
       "problems": 0
     },
     {
       "code": "cs",
       "status": "released",
-      "total": 2413,
-      "translated": 2413,
+      "total": 2430,
+      "translated": 2430,
       "problems": 0
     },
     {
       "code": "de",
       "status": "draft",
-      "total": 2413,
-      "translated": 794,
-      "problems": 1619
+      "total": 2430,
+      "translated": 1045,
+      "problems": 1385
     },
     {
       "code": "fr",
       "status": "draft",
-      "total": 2413,
+      "total": 2430,
       "translated": 172,
-      "problems": 2241
+      "problems": 2258
     },
     {
       "code": "es",
       "status": "draft",
-      "total": 2413,
+      "total": 2430,
       "translated": 172,
-      "problems": 2241
+      "problems": 2258
     },
     {
       "code": "pt-BR",
       "status": "draft",
-      "total": 2413,
+      "total": 2430,
       "translated": 172,
-      "problems": 2241
+      "problems": 2258
     }
   ],
   "legacySites": [
@@ -72,61 +72,6 @@
     {
       "path": "src/Elysium.jsx",
       "line": 20,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Exploration.jsx",
-      "line": 58,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Exploration.jsx",
-      "line": 60,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Exploration.jsx",
-      "line": 60,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Exploration.jsx",
-      "line": 60,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Exploration.jsx",
-      "line": 60,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Exploration.jsx",
-      "line": 60,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Exploration.jsx",
-      "line": 60,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Exploration.jsx",
-      "line": 60,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Exploration.jsx",
-      "line": 60,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Exploration.jsx",
-      "line": 60,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Exploration.jsx",
-      "line": 60,
       "kind": "bilingual branch"
     },
     {
