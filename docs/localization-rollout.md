@@ -4,6 +4,66 @@ Schválený první rozsah: EN, CS, DE, FR, ES a brazilská portugalština PT-BR
 pro hru i informační web. Další výhled: PL, IT, JA, KO; později ZH-Hans,
 TR, ID, RU, UK a AR podle publika. Jde o pořadí práce, nikoli o již vydané jazyky.
 
+## 2026-10-25 — Německá první kapitola a společné ovládání
+
+Uživatel určil pořadí dokončování hry **DE → FR → ES → PT-BR**.
+Německý pracovní katalog teď obsahuje texty oprav první kapitoly1–29,
+její deník a odlet, úvod, hlavní ovládání, nastavení/statistiky, nápovědy
+a Undo. Parametrické cíle byly ověřené na všech200úrovních včetně změny
+čísel; to neznamená překlad příběhu všech200úrovní. Celá německá hra ještě
+není vydaná. Francouzština/španělština/portugalština zůstávají herní drafty.
+
+Společná migrace:
+
+- `catalogs/runtime/en.json`, `cs.json`, `de.json`: sémantická ID pro
+  nápovědy, souhlasy, parametry a dříve pevně větvené UI. Registry a kontrola
+  katalogů započítávají i tento namespace; nové texty se nemusejí přidávat
+  do historického `legacy` seznamu.
+- `sourceMessage` vyhledává překlad přes všechna existující ID stejného
+  anglického textu; nepřečísluje původní zprávy. Slovník cílových počtů
+  je oddělený od názvů kamenů v HUD, aby se české „Hvězdy“ nezměnilo
+  na genitiv „hvězd“.
+- `dynamic.js`: vícejazyčné skládání cílů, souřadnic, energie, navigace
+  a parametrů z katalogů. Dosavadní česká gramatika zůstává zachovaná.
+- `dataText`: adaptér starších příběhových dvojic/polí en/cs. Použitý pro
+  průvodce, rekapitulaci, názvy kapitol a footer; původní česká redakce
+  se nepřepisuje. Data obtížnosti ani ID se nemění.
+- Odstraněna většina přímých větvení EN/CS v ovládání (aktuální audit30,
+  před prací116). Zbývají zejména příběhové komponenty pozdějších kapitol,
+  přenos uložené hry a samostatný česky orientovaný testovací nástroj.
+- Načítání návrhů používá dynamické JS adaptéry se statickým JSON exportem:
+  Vite dev vrací transformované JSON jako JS a nešlo je načítat s původním
+  dynamickým JSON import atributem v Chromium. Sestavení i Node kontroly
+  používají stejné katalogy.
+- Pracovní náhled: pouze lokální `npm run dev` a `?previewLanguage=de`.
+  Nezapisuje draft do veřejné jazykové preference, při přepnutí nepřemontuje
+  hru. Produkční build parametr ignoruje a dál nabízí pouze EN/CS.
+- Opravena zastaralá krátká nápověda „nálož nelze přesouvat“ v EN/CS;
+  nová DE nápověda říká stejné platné pravidlo. Android toolsHelp již
+  odpovídá možnosti doplnění pomůcky reklamou. Na320px se zmenšují
+  pouze ilustrační mřížky, nikoli text a ovládací plochy.
+
+Audit v Android větvi:794/2413registrovaných zpráv pro DE,1619chybějících
+ID. Číslo zahrnuje samostatný web a historické statické cíle; není to
+procento hotového příběhu. Veřejný release má nadále pojistku proti
+pouhému přepnutí příznaku draft→released.
+
+Nejbližší obsah: německá kapitola2 (důl, ledová retranslace, archiv,
+Haven a průlet), pak další kapitoly až200; dokončit zbývající příběhové
+větve a jazykovou kontrolu celého průchodu. Teprve po dokončení a UI
+kontrole všech kapitol DE povolit veřejně a přesměrovat německý PLAY
+z webu na německou hru. Poté stejný postup FR→ES→PT-BR.
+
+Ověření této etapy:281unit testů;16Chromium scénářů (DE320/430/1024,
+změna jazyka při rozehraném pokusu, EN/CS nápovědy a první souhlas),
+14Android-mode scénářů (včetně GooglePKCE a odměn), produkční pojistka
+EN/CS a sestavení debugAPK. Android-mode je Chromium s mockovaným
+nativním adaptérem, nikoli fyzický test nové lokalizace na telefonu.
+Přenos do webové větve ověřen270unit testy,10dalšími Chromium scénáři
+(DE a slepý test s Undo), webovým buildem a samostatnou produkční pojistkou.
+Webové přihlášení zůstává vlastní implementací;6nativních katalogových
+klíčů se do webu nepřenáší (webový audit788/2407zpráv pro DE).
+
 ## Hotová technická první etapa
 
 - Společný registr `src/i18n/locales.js`, veřejný stav `released` versus

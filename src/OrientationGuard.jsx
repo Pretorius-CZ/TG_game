@@ -4,7 +4,7 @@ import {useLanguage} from './i18n/Language.jsx';
 import './orientation.css';
 
 export default function OrientationGuard(){
- const dialog=useRef(null),{language}=useLanguage(),cs=language==='cs';
+ const dialog=useRef(null),{msg}=useLanguage();
  useEffect(()=>{
   const media=matchMedia('(orientation: landscape) and (pointer: coarse) and (max-height: 600px) and (max-width: 1100px)');
   let focus=null;
@@ -24,6 +24,6 @@ export default function OrientationGuard(){
   return()=>{observer.disconnect();media.removeEventListener('change',sync);dialog.current?.close();};
  },[]);
  return createPortal(<dialog ref={dialog} className="orientation-guard" aria-labelledby="orientation-title" onCancel={e=>e.preventDefault()}>
-  <div><span aria-hidden="true">↻</span><h2 id="orientation-title">{cs?'Otoč telefon na výšku':'Turn your phone upright'}</h2><p>{cs?'Hra je připravená na výšku. Rozehraný level zůstává zachovaný.':'Play in portrait orientation. Your current level is kept in place.'}</p></div>
+  <div><span aria-hidden="true">↻</span><h2 id="orientation-title">{msg("ui.OrientationGuard.turn-your-phone-upright")}</h2><p>{msg("ui.OrientationGuard.play-in-portrait-orientation-your-current-level-is-kept")}</p></div>
  </dialog>,document.body);
 }

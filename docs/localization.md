@@ -13,6 +13,10 @@ se nemění. Vlastní názvy soustav a stanice zůstávají zachované.
 minihru. Deska, tahy, použitá nápověda i opravy zůstávají zachované.
 `src/i18n/catalogs/en.json` a `cs.json` obsahují zprávy se stálými ID.
 Webové texty jsou zvlášť v `src/i18n/catalogs/web/`.
+Nově migrované ovládání a parametrické zprávy patří do
+`src/i18n/catalogs/runtime/`. Německá první kapitola má pracovní překlad;
+vývojový náhled se otevře přes `?previewLanguage=de` pouze v lokálním dev
+serveru. Tento parametr se v produkčním webu ani APK neuplatní.
 `src/i18n/translate.js` překládá také proměnné počty a souřadnice, takže
 změna limitu tahů nevyžaduje přepis překladu. Anglická data zůstávají
 zdrojem pravdy pro konfiguraci hry; identifikátory úkolů se nepřekládají.

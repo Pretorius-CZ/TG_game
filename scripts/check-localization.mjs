@@ -26,7 +26,8 @@ for(const update of updates)for(const field of ['tag','title','body'])if(!englis
 const coverage=[];
 for(const locale of locales){
  const webPath=new URL(`../src/i18n/catalogs/web/${locale.code}.json`,import.meta.url);
- const catalog={...JSON.parse(readFileSync(new URL(`../src/i18n/catalogs/${locale.code}.json`,import.meta.url),'utf8')),...(existsSync(webPath)?JSON.parse(readFileSync(webPath,'utf8')):{})};
+ const runtimePath=new URL(`../src/i18n/catalogs/runtime/${locale.code}.json`,import.meta.url);
+ const catalog={...JSON.parse(readFileSync(new URL(`../src/i18n/catalogs/${locale.code}.json`,import.meta.url),'utf8')),...(existsSync(webPath)?JSON.parse(readFileSync(webPath,'utf8')):{}),...(existsSync(runtimePath)?JSON.parse(readFileSync(runtimePath,'utf8')):{})};
  const problems=catalogProblems(locale.code,catalog);
  const missing=problems.filter(problem=>problem.endsWith(': missing translation'));
  coverage.push({code:locale.code,status:locale.status,total:Object.keys(englishMessages).length,translated:Object.keys(englishMessages).length-missing.length,problems:problems.length});

@@ -2087,5 +2087,5 @@
   "undo.waiting": "Krok zpět zůstává připraven. Můžeš jej použít po dalším běžném tahu.",
   "undo.restored": "Tah vrácen.",
   "android.hintUsed": "Nápověda vyčerpána",
-  "android.toolsHelp": "Vyber pomůcku pod deskou, potom cíl. Míchání se provede hned. Použití stojí jednu pomůcku, nikoli tah. Zásoby sdílíš mezi levely. Doplnění pomůcek v tomto Android náhledu zatím není dostupné. Účinek každé pomůcky najdeš v přehledu nápovědy."
+  "android.toolsHelp": "Vyber pomůcku pod deskou, potom cíl. Míchání se provede hned. Použití stojí jednu pomůcku, nikoli tah. Zásoby sdílíš mezi levely. Prázdnou pomůcku lze jednou za pokus doplnit reklamou. Účinek každé pomůcky najdeš v přehledu nápovědy."
 }

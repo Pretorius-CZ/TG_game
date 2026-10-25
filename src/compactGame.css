@@ -132,6 +132,11 @@
 .tutorial-pages{display:flex;gap:8px}
 .tutorial-pages button{flex:1;min-height:44px;padding:6px;border:1px solid #79aeb8;border-radius:6px;background:#102938;color:#d7f0f0;font-size:13px}
 .tutorial-pages button[aria-pressed=true]{background:#286c78;border-color:#8fdadf;color:#fff}
+@media(max-height:640px){
+ .tutorial-grid{max-width:74px}
+ .tutorial-grid>span{line-height:1}
+ .mechanic-tutorial .tutorial-tap{padding:6px}
+}
 @media(max-height:620px){
  .mechanic-tutorial{padding:8px}
  .mechanic-tutorial section{padding:12px}
