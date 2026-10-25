@@ -221,5 +221,8 @@
   "story.archivePurpose": "Find out how the rescue network carried the expedition’s call.",
   "story.signalPurpose": "Restore the beacon links and deliver the crew’s answer.",
   "story.endPurpose": "200 levels completed. The crew is home and the rescue network has acknowledged their return. You can revisit repairs and replay the story.",
-  "ui.updating": "Updating game…"
+  "ui.updating": "Updating game…",
+  "ship.nextRepair": "Next repair: {name}",
+  "ship.interiorReady": "Interior repairs complete",
+  "ship.revisitInterior": "Revisit the interior"
 }

@@ -221,5 +221,8 @@
   "story.archivePurpose": "Zjisti, jak záchranná síť přenášela volání výpravy.",
   "story.signalPurpose": "Obnov spojení majáků a doruč odpověď posádky.",
   "story.endPurpose": "Dokončil jsi 200 levelů. Posádka je doma a záchranná síť potvrdila její návrat. Můžeš opakovat opravy a přehrát příběh.",
-  "ui.updating": "Aktualizace hry…"
+  "ui.updating": "Aktualizace hry…",
+  "ship.nextRepair": "Další oprava: {name}",
+  "ship.interiorReady": "Interiér lodi opraven",
+  "ship.revisitInterior": "Prohlédnout interiér"
 }
