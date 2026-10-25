@@ -24,10 +24,16 @@ for(const [language,width,height]of [['cs',320,568],['cs',430,932],['en',320,568
   await page.goto('/?qa-scene='+scene+(language==='de'?'&previewLanguage=de':''));
   await page.locator('button.welcome-secondary').click();await page.locator('.chapters-dialog>.close').click();
   await expect(page.locator('.expedition .completed-hotspot')).toHaveCount(site.repairs.length);
+  await expect(page.locator('.completed-repairs-grid')).toHaveCount(0);
   const boxes=[];
   for(const repair of site.repairs){
    const point=page.locator('.expedition .completed-hotspot').filter({has:page.locator('.hotspot-label',{hasText:translate(repair.name,language)})});
-   await expect(point).toBeVisible();const label=point.locator('.hotspot-label');
+   await expect(point).toBeVisible();
+   expect(await point.evaluate(el=>el.style.left)).toBe(repair.x+'%');
+   const anchor=await point.evaluate(el=>{const style=getComputedStyle(el),map=el.closest('.scene-repairs');return{x:parseFloat(style.left),y:parseFloat(style.top),width:map.clientWidth,height:map.clientHeight};});
+   expect(Math.abs(anchor.x-anchor.width*repair.x/100)).toBeLessThan(1);
+   expect(Math.abs(anchor.y-((site.hotspotOffset??110)+(anchor.height-(site.hotspotOffset??110))*repair.y/100))).toBeLessThan(1);
+   const label=point.locator('.hotspot-label');
    await label.scrollIntoViewIfNeeded();await expect(label).toBeVisible();await expect(point.locator('.rating-stars')).toBeVisible();
    const box=await label.boundingBox();expect(box.width).toBeGreaterThan(20);expect(box.height).toBeGreaterThan(10);
    expect(box.x).toBeGreaterThanOrEqual(0);expect(box.x+box.width).toBeLessThanOrEqual(width+1);
@@ -35,7 +41,7 @@ for(const [language,width,height]of [['cs',320,568],['cs',430,932],['en',320,568
     const r=label.getBoundingClientRect(),button=label.closest('button');
     return document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)?.closest('button')===button;
    });if(!unobscured)covered.push({scene,id:repair.id});
-   const scroll=await label.evaluate(label=>{const grid=label.closest('.completed-repairs-grid'),scene=label.closest('.game');return grid.scrollTop*scene.getBoundingClientRect().width/scene.offsetWidth;});
+   const scroll=0;
    boxes.push({id:repair.id,...box,y:box.y+scroll});
   }
   for(let i=0;i<boxes.length;i++)for(let j=i+1;j<boxes.length;j++){
@@ -44,7 +50,7 @@ for(const [language,width,height]of [['cs',320,568],['cs',430,932],['en',320,568
   }
   if(['signal-garden','signal-station'].includes(scene))await page.screenshot({path:testInfo.outputPath(scene+'.png'),fullPage:true});
   if(scene.startsWith('signal-'))for(const repair of site.repairs){
-   await page.locator(`[data-repair-id="${repair.id}"]`).click();
+   await page.locator(`[data-repair-id="${repair.id}"] .target`).click();
    await expect(page.locator('#bubble-title')).toHaveText(translate(repair.name,language));
    await expect(page.locator('.repair-bubble-dialog .primary')).toContainText(translate('Replay lesson',language));
    await page.locator('.repair-bubble-dialog .close').click();
