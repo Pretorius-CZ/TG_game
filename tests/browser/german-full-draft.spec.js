@@ -39,6 +39,7 @@ test('German blocked ad explains the cause and preserves the running game',async
  await page.addInitScript(()=>localStorage.setItem('to-the-stars-helpers-v1:guest:0','[0,0,0,0,0]'));
  await page.route('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?*',r=>r.abort());
  await page.goto('/tests/browser/fixture.html?result=performance&ads_test=google&previewLanguage=de');await expect(page.locator('.board')).toBeVisible();
+ await expect(page.locator('.moves-counter span')).toHaveText('ZÜGE');
  const board=await page.locator('.board').innerHTML();await page.locator('.helper-tile').first().click();
  const ad=page.locator('.reward-ad');await expect(ad).toContainText('Der Werbedienst konnte nicht geladen werden.');await expect(ad).toContainText('Brave Shields');
  await expect(ad).toContainText('Es wurde keine Belohnung vergeben');await ad.getByRole('button',{name:'Zurück zum Spiel'}).click();
