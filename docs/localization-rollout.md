@@ -166,3 +166,47 @@ CS320 a EN1024 kontrola všech 36 hotových expedičních oblastí prošla.
 Průlet/skener/izolace prošly také v Android režimu Chromium;
 nejde o fyzický telefon ani Safari. Herní ID, limity a uložený postup beze změny.
 Další etapa: německá kapitola 3 a následně zbývající kapitoly před zveřejněním.
+
+## 2026-10-25 — Kompletní německý pracovní katalog
+
+Doplněny kapitoly 3–10: Aster Veil, Elysium, Trhlina, Živá mapa,
+Noční zahrada, Útočiště, Archiv ozvěn a Odpověď. Všech 200 oprav,
+jejich deníky, průlety, příběhové mezníky a závěr mají pracovní DE text.
+Doplněny i starší scénové popisky první kapitoly a map. Číselné cíle
+v dosud nevyplněných ID jsou odvozené ze společných parametrických
+německých zpráv; každá změna čísel se ověřuje na všech 200 levelech.
+
+Katalogová kontrola: Android DE **2475/2475**, včetně již přeloženého
+webu; webová větev má o šest Android autentizačních zpráv méně.
+Nula chybějících zpráv, nula chyb parametrů. Stav zůstává `draft`.
+Není to tvrzení o rodilé redakční kontrole nebo fyzickém testu telefonu.
+Produkční jazyková nabídka stále EN/CS; webové DE PLAY stále míří na EN.
+
+Zobecněn Elysium pokračovací popisek, reklamní dialog Googlu, čekání
+na souhlasy a hlášení aktualizace. EN/CS texty zachované. Zbývají tři
+bilingvní místa: izolovaný slepý test EN/CS, migrační stránka a záměrná
+kompatibilita původních českých příběhových dvojic v translate.js.
+Přenos na původní doméně a kontrolu dalších distribučních režimů zahrnout
+před veřejným německým vydáním; stav katalogu je jen jedna podmínka.
+
+Nový vývojový náhled:
+`http://127.0.0.1:5187/tests/browser/localization-preview.html?previewLanguage=de`.
+Pro kapitoly 2–10 lze volit oblast, hotové opravy, deník a příběhovou scénu.
+Používá skutečné herní komponenty, průběh pouze v paměti, vlastní practice
+klíče a vlastní profil pro příznaky zhlédnutého příběhu. Nemění běžné
+uložení, jazyk, energii ani pomůcky; výsledky neodesílá. První kapitolu
+lze procházet v běžném dev vstupu `/?previewLanguage=de`.
+
+Ověřeno: 283 Android unit testů; audit oprav, deníků a příběhu 1–200,
+kontrola všech dynamických cílů i po změně čísel. Německé přehledy
+všech 36 expedičních oblastí na 320 a 430 px: názvy, hvězdy, překryvy,
+přístupnost značek a replay poslední kapitoly. Samostatný náhled ověřuje
+závěrečné příběhy i izolaci úložiště. Test blokované reklamy, pět výsledků
+Google testové reklamy, tři herní CMP průchody a přechod EN→CS soukromí
+prošly. Starý test přepínače soukromí opraven na nynější menu a čekání
+na skutečné načtení nové stránky. Osm Android-mode scénářů prošlo
+(náhled, skener, brána, čtyři přehledy 320 a změna jazyka s nápovědou).
+APK sestavené, produkční Android pojistka proti zapnutí draftu prošla.
+
+Herní pravidla, limity, ID, verze balancu a uložený postup se nemění.
+Další práce: redakční průchod němčiny a příprava vydání, potom FR → ES → PT-BR.

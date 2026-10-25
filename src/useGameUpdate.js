@@ -1,6 +1,7 @@
 import {crazyGames} from './platform.js';
 import {useEffect,useRef} from 'react';
 import {canUpdate,newVersion} from './updatePolicy.js';
+import {message} from './i18n/messages.js';
 export default function useGameUpdate(save,blocked){
  const latest=useRef({save,blocked});latest.current={save,blocked};
  useEffect(()=>{
@@ -27,7 +28,7 @@ export default function useGameUpdate(save,blocked){
     sessionStorage.setItem('beyond-signal-update-target',pending);
    }catch{return;}
    overlay=document.createElement('div');overlay.className='game-update-overlay';overlay.setAttribute('role','status');
-   overlay.textContent=document.documentElement.lang==='cs'?'Aktualizace hry…':'Updating game…';document.body.append(overlay);
+   overlay.textContent=message('ui.updating',{},document.documentElement.lang);document.body.append(overlay);
    const url=new URL(location.href);url.searchParams.set('gameVersion',pending);location.replace(url.href);
   }
   check();const checks=setInterval(check,120000),applies=setInterval(apply,500);

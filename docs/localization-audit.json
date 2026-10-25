@@ -3,122 +3,47 @@
     {
       "code": "en",
       "status": "released",
-      "total": 2424,
-      "translated": 2424,
+      "total": 2469,
+      "translated": 2469,
       "problems": 0
     },
     {
       "code": "cs",
       "status": "released",
-      "total": 2424,
-      "translated": 2424,
+      "total": 2469,
+      "translated": 2469,
       "problems": 0
     },
     {
       "code": "de",
       "status": "draft",
-      "total": 2424,
-      "translated": 1039,
-      "problems": 1385
+      "total": 2469,
+      "translated": 2469,
+      "problems": 0
     },
     {
       "code": "fr",
       "status": "draft",
-      "total": 2424,
+      "total": 2469,
       "translated": 172,
-      "problems": 2252
+      "problems": 2297
     },
     {
       "code": "es",
       "status": "draft",
-      "total": 2424,
+      "total": 2469,
       "translated": 172,
-      "problems": 2252
+      "problems": 2297
     },
     {
       "code": "pt-BR",
       "status": "draft",
-      "total": 2424,
+      "total": 2469,
       "translated": 172,
-      "problems": 2252
+      "problems": 2297
     }
   ],
   "legacySites": [
-    {
-      "path": "src/consentUI.js",
-      "line": 10,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/consentUI.js",
-      "line": 20,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/consentUI.js",
-      "line": 21,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/consentUI.js",
-      "line": 22,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/consentUI.js",
-      "line": 27,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Elysium.jsx",
-      "line": 20,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/GoogleRewardAd.jsx",
-      "line": 40,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/GoogleRewardAd.jsx",
-      "line": 47,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/GoogleRewardAd.jsx",
-      "line": 66,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/GoogleRewardAd.jsx",
-      "line": 68,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/GoogleRewardAd.jsx",
-      "line": 69,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/GoogleRewardAd.jsx",
-      "line": 71,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/GoogleRewardAd.jsx",
-      "line": 72,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/GoogleRewardAd.jsx",
-      "line": 73,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/GoogleRewardAd.jsx",
-      "line": 74,
-      "kind": "bilingual branch"
-    },
     {
       "path": "src/Playtest.jsx",
       "line": 73,
@@ -127,11 +52,6 @@
     {
       "path": "src/saveTransferPage.js",
       "line": 15,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/useGameUpdate.js",
-      "line": 30,
       "kind": "bilingual branch"
     },
     {
