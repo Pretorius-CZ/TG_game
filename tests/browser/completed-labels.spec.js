@@ -5,9 +5,11 @@ import {normalizeProgress} from '../../src/progressStorage.js';
 import {levelCatalog} from '../../src/levelCatalog.js';
 import {journeyStories} from '../../src/journeyStories.js';
 import {translate} from '../../src/i18n/translate.js';
+import {loadLocaleCatalog} from '../../src/i18n/messages.js';
+test.beforeAll(async()=>{await loadLocaleCatalog('de');});
 const counts=Object.fromEntries(Object.keys(normalizeProgress()).filter(k=>k==='completed'||k.endsWith('Completed')).map(k=>[k,99]));
 const progress=normalizeProgress({...counts,finaleDone:true,launchDone:true,scannerInstalled:true,jumpDone:true,elysiumRouteCompleted:1,elysiumArrival:1,riftCrossed:1,caretakerMet:1,stars:Object.fromEntries(levelCatalog.map((r,i)=>[r.id,1+i%3]))});
-for(const [language,width,height]of [['cs',320,568],['cs',430,932],['en',320,568],['en',1024,900]])test(`all completed expedition labels and stars remain visible ${language} ${width}`,async({page},testInfo)=>{
+for(const [language,width,height]of [['cs',320,568],['cs',430,932],['en',320,568],['en',1024,900],['de',320,568],['de',430,932]])test(`all completed expedition labels and stars remain visible ${language} ${width}`,async({page},testInfo)=>{
  test.setTimeout(120000);await page.setViewportSize({width,height});
  const errors=[],overlaps=[],covered=[];page.on('pageerror',e=>errors.push(e.message));
  await page.route(/supabase\.co|api\.country\.is/,r=>r.fulfill({status:204,body:''}));
@@ -19,7 +21,7 @@ for(const [language,width,height]of [['cs',320,568],['cs',430,932],['en',320,568
   for(const id of stories)localStorage.setItem('beyond-the-signal-story:guest:0:'+id,'seen');
  },{progress,language,stories:journeyStories.map(s=>s.id)});
  for(const [scene,site]of Object.entries(destinations)){
-  await page.goto('/?qa-scene='+scene);
+  await page.goto('/?qa-scene='+scene+(language==='de'?'&previewLanguage=de':''));
   await page.locator('button.welcome-secondary').click();await page.locator('.chapters-dialog>.close').click();
   await expect(page.locator('.expedition .completed-hotspot')).toHaveCount(site.repairs.length);
   const boxes=[];

@@ -45,8 +45,9 @@ test('a footer choice loads CMP only after a click and can be changed again',asy
  await page.goto('/privacy.html');expect(loads).toBe(0);
  await page.locator('.privacy-choices').click();await page.getByRole('button',{name:'Reject CMP'}).click();
  await expect(page.locator('.privacy-choice-status')).toContainText('Google received');
- await page.locator('[data-language=cs]').click();await expect(page.locator('.privacy-choices')).toHaveText('Reklamní souhlasy');
+ expect(loads).toBe(1);
+ await page.locator('[data-website-language]').selectOption('cs');await expect(page).toHaveURL(/\/cs\/privacy\.html/);await page.waitForLoadState('load');await expect(page.locator('.privacy-choices')).toHaveText('Reklamní souhlasy');
  await page.locator('.privacy-choices').click();await page.getByRole('button',{name:'Accept CMP'}).click();
- await expect(page.locator('.privacy-choice-status')).toContainText('přijaty Googlem');expect(loads).toBe(1);
+ await expect(page.locator('.privacy-choice-status')).toContainText('přijaty Googlem');expect(loads).toBe(2);
  expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)).toBe(false);
 });
