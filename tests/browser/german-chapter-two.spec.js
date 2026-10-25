@@ -35,13 +35,13 @@ for(const width of [320,430,1024])for(const scene of ['mine','ice','wreck','have
   await page.setViewportSize({width,height:width===320?568:900});const errors=await prepare(page);
   await enter(page,scene);const site=destinations[scene];
   await expect(page.locator('.scene-top h1')).toHaveText(translate(site.title,'de'));
-  await expect(page.locator('.completed-repairs-grid .replay-level')).toHaveCount(6);
+  await expect(page.locator('.scene-repairs .replay-level')).toHaveCount(6);
   for(const repair of site.repairs){
    const point=page.locator(`[data-repair-id="${repair.id}"]`);
    await point.scrollIntoViewIfNeeded();await expect(point.locator('.hotspot-label')).toContainText(translate(repair.name,'de'));
    await expect(point.locator('.rating-stars')).toHaveAttribute('aria-label','3 von 3 Sternen');
-   expect(await point.evaluate(button=>{const r=button.getBoundingClientRect();return document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)?.closest('button')===button;})).toBe(true);
-   await point.click();await expect(page.locator('#bubble-title')).toHaveText(translate(repair.name,'de'));
+   expect(await point.evaluate(button=>{const r=button.querySelector('.target').getBoundingClientRect();return document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)?.closest('button')===button;})).toBe(true);
+   await point.locator('.target').click();await expect(page.locator('#bubble-title')).toHaveText(translate(repair.name,'de'));
    await expect(page.locator('.repair-bubble .primary')).toContainText('Reparatur erneut spielen');
    await page.locator('.repair-bubble .close').click();
   }

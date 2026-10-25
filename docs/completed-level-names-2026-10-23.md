@@ -63,3 +63,11 @@ Web264unit/build pass. Společné opravené soubory jsou shodné s Android
 zdrojem9851e86; nativníGoogleimplementace se do webu nepřenášela.
 Telefon aktualizovat přesAndroidStudioRun nad stejnou instalací, bez
 odinstalování. FinálníAPK49587796B20:02 zůstává připravené v build/outputs.
+
+## 2026-10-25 — Nahrazeno původními značkami na pozadí
+
+Na výslovný pokyn uživatele je dvousloupcový přehled odstraněn. Hotové
+úkoly se opět zobrazují u zařízení na původních souřadnicích, stejně jako
+v rozehrané oblasti. Čitelnost se řeší posunutím samotných popisků a
+spodními akcemi pod obrazem. Aktuální stav a ověření:
+`docs/completed-hotspots-2026-10-25.md`. Výše uvedená mřížka je historie.
