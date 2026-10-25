@@ -221,5 +221,8 @@
   "story.archivePurpose": "Finde heraus, wie das Rettungsnetz den Ruf der Expedition übertrug.",
   "story.signalPurpose": "Repariere die Bojenverbindungen und überbringe die Antwort der Besatzung.",
   "story.endPurpose": "200 Level abgeschlossen. Die Besatzung ist zu Hause und das Rettungsnetz hat ihre Rückkehr bestätigt. Du kannst Reparaturen wiederholen und die Geschichte erneut ansehen.",
-  "ui.updating": "Spiel wird aktualisiert …"
+  "ui.updating": "Spiel wird aktualisiert …",
+  "ship.nextRepair": "Nächste Reparatur: {name}",
+  "ship.interiorReady": "Innenräume repariert",
+  "ship.revisitInterior": "Innenräume ansehen"
 }

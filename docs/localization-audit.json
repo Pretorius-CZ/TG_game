@@ -3,44 +3,44 @@
     {
       "code": "en",
       "status": "released",
-      "total": 2475,
-      "translated": 2475,
+      "total": 2478,
+      "translated": 2478,
       "problems": 0
     },
     {
       "code": "cs",
       "status": "released",
-      "total": 2475,
-      "translated": 2475,
+      "total": 2478,
+      "translated": 2478,
       "problems": 0
     },
     {
       "code": "de",
       "status": "draft",
-      "total": 2475,
-      "translated": 2475,
+      "total": 2478,
+      "translated": 2478,
       "problems": 0
     },
     {
       "code": "fr",
       "status": "draft",
-      "total": 2475,
+      "total": 2478,
       "translated": 172,
-      "problems": 2303
+      "problems": 2306
     },
     {
       "code": "es",
       "status": "draft",
-      "total": 2475,
+      "total": 2478,
       "translated": 172,
-      "problems": 2303
+      "problems": 2306
     },
     {
       "code": "pt-BR",
       "status": "draft",
-      "total": 2475,
+      "total": 2478,
       "translated": 172,
-      "problems": 2303
+      "problems": 2306
     }
   ],
   "legacySites": [
