@@ -1,0 +1,13 @@
+import {test,expect} from '@playwright/test';
+test.skip(process.env.PRODUCTION_LOCALE_TEST!=='1','Requires a production preview, not the Vite development server');
+test('a draft preview URL cannot enable an incomplete language in a production build',async({page})=>{
+ await page.route(/supabase\.co|api\.country\.is/,r=>r.fulfill({status:204,body:''}));
+ await page.addInitScript(()=>{
+  localStorage.setItem('to-the-stars-language','cs');
+  localStorage.setItem('beyond-signal-analytics-choice-v1',JSON.stringify({version:1,state:'denied',at:Date.now()}));
+ });
+ await page.goto('/?previewLanguage=de&lang=de');
+ await expect(page.locator('html')).toHaveAttribute('lang','cs');
+ expect(await page.locator('.welcome-settings select option').evaluateAll(options=>options.map(o=>o.value))).toEqual(['en','cs']);
+ await expect(page.locator('.welcome-play')).toHaveText('HRÁT');
+});

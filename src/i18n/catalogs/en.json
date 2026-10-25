@@ -2087,7 +2087,7 @@
   "undo.waiting": "Undo is still prepared. You can use it after the next ordinary move.",
   "undo.restored": "Move undone.",
   "android.hintUsed": "Hint used",
-  "android.toolsHelp": "Select a tool below the board, then its target. Shuffle acts immediately. Each use spends one tool, not a move. Stock is shared across levels. Refilling tools is not available in this Android preview. Choose a tool in Help topics to learn its effect.",
+  "android.toolsHelp": "Select a tool below the board, then its target. Shuffle acts immediately. Each use spends one tool, not a move. Stock is shared across levels. An empty tool can be refilled through an ad once per attempt. Choose a tool in Help topics to learn its effect.",
   "android.localEnergy": "Energy and helpers stay on this device. Unfinished puzzles are not saved.",
   "android.signInWaiting": "Complete Google sign-in in the browser, then return to the game.",
   "android.signInCancelled": "Sign-in was closed. You can try again; your guest progress is safe.",

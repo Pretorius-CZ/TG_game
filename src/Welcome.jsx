@@ -34,10 +34,10 @@ export default function Welcome({hasProgress,seen,onFinish,settings,onChapters,r
    <h1 className="welcome-title">BEYOND<span>THE SIGNAL</span></h1>
    <div className="welcome-menu">{recap&&<p className="journey-recap">{recap}</p>}
     <button className="welcome-play" onClick={()=>hasProgress||seen?onFinish():setStep(0)}>{msg(hasProgress||seen?'common.continue':'common.play')}</button>
-    {location.hostname==='game.playbeyondthesignal.com'&&<p className="welcome-migration-note">{language==='cs'?'Přecházíš z původní adresy? Nejdřív použij „Přenést původní postup“ pro energii a pomůcky. Pak se v Nastavení znovu přihlas stejným Google účtem pro cloudový postup.':'Moving from the original address? First use “Recover original saved game” for energy and tools. Then sign in again with the same Google account in Settings to load your cloud progress.'}</p>}
+    {location.hostname==='game.playbeyondthesignal.com'&&<p className="welcome-migration-note">{msg("ui.Welcome.moving-from-the-original-address-first-use-recover-original")}</p>}
     {hasProgress&&<button className="welcome-secondary" onClick={onChapters}>{t('Chapters')}</button>}
-    {location.hostname==='game.playbeyondthesignal.com'&&<a className="welcome-secondary" href={gameAddress(location.href,{transfer:true})}>{language==='cs'?'Přenést původní postup':'Recover original saved game'}</a>}
-    {location.origin===ORIGINAL_ORIGIN&&<a className="welcome-secondary" href={gameAddress(location.href,{transfer:true})}>{language==='cs'?'Přenést hru na novou adresu':'Move your saved game to the new address'}</a>}
+    {location.hostname==='game.playbeyondthesignal.com'&&<a className="welcome-secondary" href={gameAddress(location.href,{transfer:true})}>{msg("ui.Welcome.recover-original-saved-game")}</a>}
+    {location.origin===ORIGINAL_ORIGIN&&<a className="welcome-secondary" href={gameAddress(location.href,{transfer:true})}>{msg("ui.Welcome.move-your-saved-game-to-the-new-address")}</a>}
     <button className="welcome-replay" onClick={()=>setStep(0)}>{t('Watch intro')}</button>
     <div className="welcome-settings">{settings}<label><span aria-hidden="true">◎ </span><LanguageSelect compact/></label><AudioControls/></div>
    </div>

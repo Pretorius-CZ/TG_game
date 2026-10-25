@@ -3,222 +3,47 @@
     {
       "code": "en",
       "status": "released",
-      "total": 2215,
-      "translated": 2215,
+      "total": 2413,
+      "translated": 2413,
       "problems": 0
     },
     {
       "code": "cs",
       "status": "released",
-      "total": 2215,
-      "translated": 2215,
+      "total": 2413,
+      "translated": 2413,
       "problems": 0
     },
     {
       "code": "de",
       "status": "draft",
-      "total": 2215,
-      "translated": 166,
-      "problems": 2049
+      "total": 2413,
+      "translated": 794,
+      "problems": 1619
     },
     {
       "code": "fr",
       "status": "draft",
-      "total": 2215,
-      "translated": 166,
-      "problems": 2049
+      "total": 2413,
+      "translated": 172,
+      "problems": 2241
     },
     {
       "code": "es",
       "status": "draft",
-      "total": 2215,
-      "translated": 166,
-      "problems": 2049
+      "total": 2413,
+      "translated": 172,
+      "problems": 2241
     },
     {
       "code": "pt-BR",
       "status": "draft",
-      "total": 2215,
-      "translated": 166,
-      "problems": 2049
+      "total": 2413,
+      "translated": 172,
+      "problems": 2241
     }
   ],
   "legacySites": [
-    {
-      "path": "src/Account.jsx",
-      "line": 37,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Account.jsx",
-      "line": 38,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Account.jsx",
-      "line": 41,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Account.jsx",
-      "line": 57,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Account.jsx",
-      "line": 59,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Account.jsx",
-      "line": 59,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Account.jsx",
-      "line": 62,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Account.jsx",
-      "line": 67,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Account.jsx",
-      "line": 67,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/AdChoicesButton.jsx",
-      "line": 10,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/AdChoicesButton.jsx",
-      "line": 11,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/AnalyticsChoices.jsx",
-      "line": 9,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/AnalyticsChoices.jsx",
-      "line": 10,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/AnalyticsChoices.jsx",
-      "line": 10,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/AnalyticsChoices.jsx",
-      "line": 11,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/AnalyticsChoices.jsx",
-      "line": 11,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/AnalyticsChoices.jsx",
-      "line": 12,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/AnalyticsChoices.jsx",
-      "line": 13,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/AnalyticsChoices.jsx",
-      "line": 14,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/AnalyticsChoices.jsx",
-      "line": 15,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/AnalyticsChoices.jsx",
-      "line": 16,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/AnalyticsChoices.jsx",
-      "line": 16,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/AnalyticsChoices.jsx",
-      "line": 16,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/AnalyticsChoices.jsx",
-      "line": 16,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/AnalyticsChoices.jsx",
-      "line": 17,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/AnalyticsChoices.jsx",
-      "line": 17,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/AnalyticsChoices.jsx",
-      "line": 18,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/AnalyticsChoices.jsx",
-      "line": 19,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Chapters.jsx",
-      "line": 13,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Chapters.jsx",
-      "line": 13,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Chapters.jsx",
-      "line": 13,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Chapters.jsx",
-      "line": 13,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Chapters.jsx",
-      "line": 13,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Chapters.jsx",
-      "line": 13,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Chapters.jsx",
-      "line": 13,
-      "kind": "bilingual branch"
-    },
     {
       "path": "src/consentUI.js",
       "line": 10,
@@ -251,97 +76,57 @@
     },
     {
       "path": "src/Exploration.jsx",
-      "line": 57,
+      "line": 58,
       "kind": "bilingual branch"
     },
     {
       "path": "src/Exploration.jsx",
-      "line": 59,
+      "line": 60,
       "kind": "bilingual branch"
     },
     {
       "path": "src/Exploration.jsx",
-      "line": 59,
+      "line": 60,
       "kind": "bilingual branch"
     },
     {
       "path": "src/Exploration.jsx",
-      "line": 59,
+      "line": 60,
       "kind": "bilingual branch"
     },
     {
       "path": "src/Exploration.jsx",
-      "line": 59,
+      "line": 60,
       "kind": "bilingual branch"
     },
     {
       "path": "src/Exploration.jsx",
-      "line": 59,
+      "line": 60,
       "kind": "bilingual branch"
     },
     {
       "path": "src/Exploration.jsx",
-      "line": 59,
+      "line": 60,
       "kind": "bilingual branch"
     },
     {
       "path": "src/Exploration.jsx",
-      "line": 59,
+      "line": 60,
       "kind": "bilingual branch"
     },
     {
       "path": "src/Exploration.jsx",
-      "line": 59,
+      "line": 60,
       "kind": "bilingual branch"
     },
     {
       "path": "src/Exploration.jsx",
-      "line": 59,
+      "line": 60,
       "kind": "bilingual branch"
     },
     {
       "path": "src/Exploration.jsx",
-      "line": 59,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/FirstRunAnalytics.jsx",
-      "line": 23,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/FirstRunAnalytics.jsx",
-      "line": 24,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/FirstRunAnalytics.jsx",
-      "line": 25,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/FirstRunAnalytics.jsx",
-      "line": 26,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/FirstRunAnalytics.jsx",
-      "line": 27,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/FirstRunAnalytics.jsx",
-      "line": 27,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/FirstRunAnalytics.jsx",
-      "line": 28,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/FirstRunAnalytics.jsx",
-      "line": 28,
+      "line": 60,
       "kind": "bilingual branch"
     },
     {
@@ -390,201 +175,6 @@
       "kind": "bilingual branch"
     },
     {
-      "path": "src/JourneyGuide.jsx",
-      "line": 6,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/JourneyGuide.jsx",
-      "line": 7,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/JourneyGuide.jsx",
-      "line": 12,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/JourneyGuide.jsx",
-      "line": 12,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/JourneyGuide.jsx",
-      "line": 12,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/JourneyGuide.jsx",
-      "line": 14,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/JourneyGuide.jsx",
-      "line": 14,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/JourneyGuide.jsx",
-      "line": 14,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Lives.jsx",
-      "line": 29,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/main.jsx",
-      "line": 283,
-      "kind": "bilingual data lookup"
-    },
-    {
-      "path": "src/main.jsx",
-      "line": 283,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/main.jsx",
-      "line": 318,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MechanicTutorial.jsx",
-      "line": 8,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MechanicTutorial.jsx",
-      "line": 8,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MechanicTutorial.jsx",
-      "line": 8,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MechanicTutorial.jsx",
-      "line": 8,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MechanicTutorial.jsx",
-      "line": 15,
-      "kind": "bilingual data lookup"
-    },
-    {
-      "path": "src/MechanicTutorial.jsx",
-      "line": 15,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MechanicTutorial.jsx",
-      "line": 25,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MechanicTutorial.jsx",
-      "line": 26,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MechanicTutorial.jsx",
-      "line": 26,
-      "kind": "bilingual data lookup"
-    },
-    {
-      "path": "src/MechanicTutorial.jsx",
-      "line": 26,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MechanicTutorial.jsx",
-      "line": 28,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MechanicTutorial.jsx",
-      "line": 28,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MechanicTutorial.jsx",
-      "line": 28,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MechanicTutorial.jsx",
-      "line": 29,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MechanicTutorial.jsx",
-      "line": 30,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MechanicTutorial.jsx",
-      "line": 30,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MechanicTutorial.jsx",
-      "line": 30,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MechanicTutorial.jsx",
-      "line": 30,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MiniGame.jsx",
-      "line": 303,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MiniGame.jsx",
-      "line": 311,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MiniGame.jsx",
-      "line": 312,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MiniGame.jsx",
-      "line": 327,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MiniGame.jsx",
-      "line": 327,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MiniGame.jsx",
-      "line": 327,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/MiniGame.jsx",
-      "line": 327,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/OrientationGuard.jsx",
-      "line": 27,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/OrientationGuard.jsx",
-      "line": 27,
-      "kind": "bilingual branch"
-    },
-    {
       "path": "src/Playtest.jsx",
       "line": 73,
       "kind": "bilingual branch"
@@ -595,28 +185,13 @@
       "kind": "bilingual branch"
     },
     {
-      "path": "src/Stars.jsx",
-      "line": 13,
-      "kind": "bilingual branch"
-    },
-    {
       "path": "src/useGameUpdate.js",
       "line": 30,
       "kind": "bilingual branch"
     },
     {
-      "path": "src/Welcome.jsx",
-      "line": 37,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Welcome.jsx",
-      "line": 39,
-      "kind": "bilingual branch"
-    },
-    {
-      "path": "src/Welcome.jsx",
-      "line": 40,
+      "path": "src/i18n/translate.js",
+      "line": 16,
       "kind": "bilingual branch"
     }
   ],

@@ -1,4 +1,5 @@
-import {sourceCatalog} from './messages.js';
+import {sourceCatalog,sourceMessage} from './messages.js';
+import {dynamicTranslation} from './dynamic.js';
 export {validLanguage,LANGUAGE_KEY} from './locales.js';
 const catalog={...sourceCatalog};
 catalog['CHAPTER 07 / THE NIGHT GARDEN']='KAPITOLA 07 / NOČNÍ ZAHRADA';
@@ -8,7 +9,18 @@ const quantityPattern=new RegExp('(\\d+) (?:any )?('+Object.keys(tokens).join('|
 const objectiveList=new Intl.ListFormat('cs',{style:'long',type:'conjunction'});
 const sourceNames={'After landing':'Po přistání','Before landing':'Před přistáním','During landing':'Během přistání',recovered:'obnoveno','signal acquired':'signál zachycen',Survey:'Průzkum',Restoration:'Obnova',Arrival:'Přílet','Two bearings':'Dva směry','One destination':'Jeden cíl'};
 export const missingTranslations=new Set();
+// Keep existing Czech editorial copy while other editions use the English source ID.
+export function dataText(value,language='en'){
+ if(!value||typeof value!=='object')return translate(value,language);
+ const english=Array.isArray(value)?value[0]:value.en,czech=Array.isArray(value)?value[1]:value.cs;
+ return language==='cs'&&typeof czech==='string'?czech:translate(english,language);
+}
 export function translate(value,language='en'){
+ if(language!=='en'&&language!=='cs'&&typeof value==='string'&&value.trim()){
+  const key=value.trim(),translated=sourceMessage(key,language)??dynamicTranslation(key,language);
+  if(translated!==undefined)return value.slice(0,value.indexOf(key))+translated+value.slice(value.indexOf(key)+key.length);
+  missingTranslations.add(`${language}:${key}`);return value;
+ }
  if(language!=='cs'||typeof value!=='string'||!value.trim())return value;
  const key=value.trim();
  let result=catalog[key];
