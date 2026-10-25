@@ -159,5 +159,22 @@
   "log.duringLanding": "Během přistání",
   "log.departure": "Odlet",
   "log.recovered": "obnoveno",
-  "log.signalAcquired": "signál zachycen"
+  "log.signalAcquired": "signál zachycen",
+  "exploration.viewRepair": "Prohlédnout opravu →",
+  "exploration.nextRepair": "Další oprava →",
+  "exploration.closeResult": "Zavřít výsledek opravy",
+  "exploration.continueStory": "Pokračovat v příběhu →",
+  "exploration.archivePassages": "Průchody archivem",
+  "exploration.answerDelivered": "200 · Odpověď doručena. Posádka je v bezpečí.",
+  "exploration.replayEnding": "Přehrát závěr příběhu",
+  "exploration.revisitAster": "Znovu navštívit Aster Veil →",
+  "exploration.previousArea": "Prohlédnout předchozí oblast →",
+  "story.keplerPurpose": "Získej oba směry a najdi Haven.",
+  "story.asterPurpose": "Porovnej oba záznamy výpravy a najdi Elysium.",
+  "log.survey": "Průzkum",
+  "log.restoration": "Obnova",
+  "log.arrival": "Přílet",
+  "ui.tasksOutpost": "{count}/{total} úkolů · Sleduj signál do stanice.",
+  "place.haven": "Haven",
+  "place.jumpGate": "Skoková brána"
 }

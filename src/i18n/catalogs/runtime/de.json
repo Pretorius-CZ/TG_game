@@ -159,5 +159,22 @@
   "log.duringLanding": "Während der Landung",
   "log.departure": "Abflug",
   "log.recovered": "wiederhergestellt",
-  "log.signalAcquired": "Signal erfasst"
+  "log.signalAcquired": "Signal erfasst",
+  "exploration.viewRepair": "Reparatur ansehen →",
+  "exploration.nextRepair": "Nächste Reparatur →",
+  "exploration.closeResult": "Reparaturergebnis schließen",
+  "exploration.continueStory": "Geschichte fortsetzen →",
+  "exploration.archivePassages": "Archivpassagen",
+  "exploration.answerDelivered": "200 · Antwort zugestellt. Die Besatzung ist in Sicherheit.",
+  "exploration.replayEnding": "Ende der Geschichte erneut ansehen",
+  "exploration.revisitAster": "Aster Veil erneut besuchen →",
+  "exploration.previousArea": "Vorherigen Bereich besuchen →",
+  "story.keplerPurpose": "Ermittle beide Peilungen, um Haven zu finden.",
+  "story.asterPurpose": "Vergleiche beide Expeditionsaufzeichnungen, um Elysium zu finden.",
+  "log.survey": "Erkundung",
+  "log.restoration": "Wiederherstellung",
+  "log.arrival": "Ankunft",
+  "ui.tasksOutpost": "{count}/{total} Aufgaben · Folge dem Signal in den Außenposten.",
+  "place.haven": "Haven",
+  "place.jumpGate": "Sprungtor"
 }

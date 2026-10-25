@@ -5,6 +5,9 @@ import {levelGroups} from '../src/levelCatalog.js';
 import {loadLocaleCatalog,message,catalogProblems} from '../src/i18n/messages.js';
 import {translate,dataText,missingTranslations} from '../src/i18n/translate.js';
 import {releasedLocales} from '../src/i18n/locales.js';
+import {destinations} from '../src/destinations.js';
+import {asterJumpPanels} from '../src/asterJumpStory.js';
+import {jumpLog} from '../src/haven.js';
 
 test('German draft covers first chapter repair and journal content without enabling a public release',async()=>{
  await loadLocaleCatalog('de');missingTranslations.clear();
@@ -25,6 +28,29 @@ test('German draft covers first chapter repair and journal content without enabl
  assert.equal(translate('Course verified','de'),'Kurs bestätigt');
  assert.equal(translate('An unfamiliar sky','de'),'Ein fremder Himmel');
  assert.deepEqual(releasedLocales.map(l=>l.code),['en','cs']);
+});
+
+test('German second chapter covers all 24 repairs, journals, map destinations and the gate arrival',async()=>{
+ await loadLocaleCatalog('de');missingTranslations.clear();
+ const fields=new Set(['name','room','thought','lesson','objective','result','action','title','text','source','time','caption','complete']);
+ const unchanged=new Set(['Haven','Aster Veil','Kepler Reach','Elysium']);
+ function audit(value){
+  if(!value||typeof value!=='object')return;
+  for(const [key,item]of Object.entries(value)){
+   if(fields.has(key)&&typeof item==='string'){
+    const translated=translate(item,'de');
+    assert.deepEqual(translated.match(/\d+/g),item.match(/\d+/g),item);
+    if(/[a-z]{3}/i.test(item)&&!unchanged.has(item))assert.notEqual(translated,item,item);
+   }else if(item&&typeof item==='object')audit(item);
+  }
+ }
+ for(const scene of ['mine','ice','wreck','haven']){assert.equal(destinations[scene].repairs.length,6);audit(destinations[scene]);}
+ audit(asterJumpPanels);audit(jumpLog);
+ assert.deepEqual([...missingTranslations],[]);
+ assert.equal(translate('Silent Mine / Survey 3','de'),'Stille Mine / Erkundung 3');
+ assert.equal(translate('Haven / Restoration 6','de'),'Haven / Wiederherstellung 6');
+ assert.equal(translate('0/6 tasks · Follow the signal into the outpost.','de'),'0/6 Aufgaben · Folge dem Signal in den Außenposten.');
+ assert.equal(translate('HAVEN / JUMP GATE','de'),'HAVEN / SPRUNGTOR');
 });
 
 test('German dynamic objectives preserve every count in all 200 levels after balance changes',async()=>{
