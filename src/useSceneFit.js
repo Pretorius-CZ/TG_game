@@ -15,6 +15,12 @@ export default function useSceneFit(key){
     const available=Math.max(200,viewport-header-footer-20);
     const write=(el,key,value)=>{if(el.style[key]!==value)el.style[key]=value;};
     write(game,'width',width+'px');write(game,'maxWidth','none');
+    // Exterior labels and the departure button need readable touch targets.
+    // Let a short display scroll instead of shrinking this scene below them.
+    if(game.classList.contains('exterior-room')){
+     write(area,'zoom','1');write(area,'width',width+'px');write(area,'paddingTop','0px');
+     write(game,'zoom','1');write(game,'marginInline','auto');return;
+    }
     // offsetHeight is in unscaled CSS pixels. Resetting zoom before each
     // measurement forced two layouts, even when the scene had not changed.
     const naturalHeight=game.offsetHeight;
