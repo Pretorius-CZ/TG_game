@@ -1,5 +1,8 @@
 # Francouzština — etapa 1, 26. 10. 2026
 
+Pozdější stav: dokončen pracovní překlad až do kapitoly 8. Aktuální
+navázání a zbývající práce jsou v `french-localization-stage-2.md`.
+
 Uživatel zadal postupovat po částech, nejprve tři kapitoly. Veřejně zůstává
 EN/CS/DE; FR má stav draft a je dostupná pouze ve vývojovém náhledu.
 

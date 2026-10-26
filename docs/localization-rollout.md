@@ -3,9 +3,10 @@
 Aktuálně 26. 10. 2026: němčina dokončena a zpřístupněna ve hře pro web
 i Android. Veřejné jazyky EN/CS/DE; FR/ES/PT-BR zůstávají draft.
 Rozsah a ověření: `docs/german-release-2026-10-26.md`.
-Francouzština: první pracovní etapa kapitol 1–3 (69 úrovní), společné
-ovládání a runtime přeloženy. Stále draft, pouze lokální náhled;
-další etapa jsou kapitoly 4–6. Viz `docs/french-localization-stage-1.md`.
+Francouzština: pracovní překlad kapitol 1–8 (167 úrovní), společné
+ovládání a runtime. Stále draft, pouze lokální náhled; zbývají kapitoly
+9–10, přenos postupu a úplný release audit.
+Viz `docs/french-localization-stage-1.md` a `docs/french-localization-stage-2.md`.
 Níže uvedené pracovní stavy z 25. října jsou historické.
 
 Schválený první rozsah: EN, CS, DE, FR, ES a brazilská portugalština PT-BR
