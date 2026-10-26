@@ -35,6 +35,13 @@ for(const [language,width]of[['en',430],['cs',320],['de',320]]){
    const a=boxes[i],b=boxes[j];expect(Math.min(a.right,b.right)-Math.max(a.x,b.x)>0&&Math.min(a.bottom,b.bottom)-Math.max(a.y,b.y)>0,`controls ${i}/${j} overlap`).toBe(false);
   }
   await page.screenshot({path:info.outputPath('exterior-departure.png'),fullPage:true});
+  const replay=page.locator('.launch-replay');await expect(replay).toHaveCount(finaleDone?1:0);
+  if(finaleDone){
+   await expect(launch.locator('.rating-stars')).toHaveCount(0);await expect(replay.locator('.rating-stars')).toHaveCount(1);
+   await replay.click();await expect(page.locator('.board')).toHaveAttribute('aria-busy','false');
+   await page.locator('.mini-header .close').click();await page.locator('.quit-panel .primary').click();
+   expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('to-the-stars-progress-v1')).finaleDone)).toBe(true);
+  }
   await launch.click();await expect(page.locator(finaleDone?'.departure-dialog':'.mini-dialog')).toBeVisible();
  });
  test(`last interior repair leads to a clear hull task and allows returning from inside ${language}`,async({page},info)=>{
