@@ -43,6 +43,17 @@ test('replay access leaves future ship segments locked',async({page})=>{
  for(const name of ['Crew quarters','Galley','Engine room'])await expect(buttons.filter({hasText:new RegExp('^'+name)})).toBeDisabled();
 });
 
+test('chapter one lists repairs, HARD preparation and departure story in journey order',async({page})=>{
+ const progress={...Object.fromEntries(shipStages.map(s=>[s.key,s.total])),finaleDone:true,launchDone:true};
+ const buttons=await setup(page,progress);
+ const labels=await buttons.allTextContents();
+ expect(labels.slice(1,8).map(text=>text.split(' · ')[0])).toEqual(shipStages.map(s=>s.name));
+ expect(labels[8]).toContain('Launch check');
+ expect(labels[9]).toContain('Replay the departure story');
+ await buttons.nth(8).click();await expect(page.locator('.board')).toHaveAttribute('aria-busy','false');
+ expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('to-the-stars-progress-v1')).launchDone)).toBe(true);
+});
+
 test('legacy partial room exposes completed repairs without exposing the next locked repair',async({page})=>{
  const buttons=await setup(page,{airlockCompleted:3,completed:4,crewCompleted:2});
  await buttons.filter({hasText:/^Crew quarters/}).click();

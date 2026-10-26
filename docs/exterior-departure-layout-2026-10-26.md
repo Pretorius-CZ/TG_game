@@ -34,3 +34,8 @@ které se objeví po HARD přípravě. Nahrazuje mezikrok s replay pod scénou.
 Exteriér s touto značkou má min. 780px, aby se úkol nepřekrýval
 s nadpisem ani s opravami. Šest webových a šest Android-mode stavů
 ověřuje rozestupy, pozici nad opravami, spuštění, replay a odlet.
+
+Přehled kapitol: zvláštní závěrečné minihry jsou před nabídkou příběhových
+replay. Loď tedy ukazuje Exteriér → Předletová kontrola → příběh odletu;
+Aster Veil přibližovací trasu před příběhem příletu. Pořadí oprav a data
+postupu se nemění. UI test ověřuje pořadí i spuštění HARD z přehledu.
