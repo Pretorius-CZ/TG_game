@@ -3,43 +3,43 @@
     {
       "code": "en",
       "status": "released",
-      "total": 2478,
-      "translated": 2478,
+      "total": 2481,
+      "translated": 2481,
       "problems": 0
     },
     {
       "code": "cs",
       "status": "released",
-      "total": 2478,
-      "translated": 2478,
+      "total": 2481,
+      "translated": 2481,
       "problems": 0
     },
     {
       "code": "de",
       "status": "released",
-      "total": 2478,
-      "translated": 2478,
+      "total": 2481,
+      "translated": 2481,
       "problems": 0
     },
     {
       "code": "fr",
       "status": "draft",
-      "total": 2478,
-      "translated": 172,
-      "problems": 2306
+      "total": 2481,
+      "translated": 1364,
+      "problems": 1117
     },
     {
       "code": "es",
       "status": "draft",
-      "total": 2478,
-      "translated": 172,
+      "total": 2481,
+      "translated": 175,
       "problems": 2306
     },
     {
       "code": "pt-BR",
       "status": "draft",
-      "total": 2478,
-      "translated": 172,
+      "total": 2481,
+      "translated": 175,
       "problems": 2306
     }
   ],
