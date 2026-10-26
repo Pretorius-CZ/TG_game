@@ -50,5 +50,5 @@ test('German preview translates the welcome, settings and first repair with the 
  await expect(page.locator('.journey-panel')).toContainText('Repariere dein Schiff');
  await page.goto('/');
  const codes=await page.locator('.welcome-settings select option').evaluateAll(options=>options.map(o=>o.value));
- expect(codes).toEqual(['en','cs','de']);
+ expect(codes).toEqual(['en','cs','de','fr']);
 });

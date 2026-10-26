@@ -45,7 +45,7 @@ test('German chapters 3–10 cover all remaining repairs, journals and story pan
  assert.equal(translate('Aster Veil / Shattered moon 6','de'),'Aster Veil / Zerbrochener Mond 6');
  assert.equal(translate('Elysium / Restoration 24','de'),'Elysium / Wiederherstellung 24');
  assert.equal(translate('The night garden','de'),'Der Nachtgarten');
- assert.deepEqual(releasedLocales.map(l=>l.code),['en','cs','de']);
+ assert.deepEqual(releasedLocales.map(l=>l.code),['en','cs','de','fr']);
 });
 
 test('German release covers first chapter repair and journal content',async()=>{
@@ -66,7 +66,7 @@ test('German release covers first chapter repair and journal content',async()=>{
  assert.equal(translate('Service power','de'),'Hilfsstromversorgung');
  assert.equal(translate('Course verified','de'),'Kurs bestätigt');
  assert.equal(translate('An unfamiliar sky','de'),'Ein fremder Himmel');
- assert.deepEqual(releasedLocales.map(l=>l.code),['en','cs','de']);
+ assert.deepEqual(releasedLocales.map(l=>l.code),['en','cs','de','fr']);
 });
 
 test('German second chapter covers all 24 repairs, journals, map destinations and the gate arrival',async()=>{

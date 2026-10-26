@@ -14,7 +14,13 @@ test('German preference transfers with unchanged saves and incomplete languages 
  importBackup(target,backup);
  assert.equal(target.getItem('to-the-stars-language'),'de');assert.equal(target.getItem(SAVE_KEY),save(2));
  assert.equal(source.getItem(SAVE_KEY),save(2));
- for(const code of ['fr','es','pt-BR','de-DE','invalid'])assert.throws(()=>exportBackup(memory({'to-the-stars-language':code}),{id}));
+ for(const code of ['es','pt-BR','de-DE','fr-FR','invalid'])assert.throws(()=>exportBackup(memory({'to-the-stars-language':code}),{id}));
+});
+
+test('released French preference transfers without changing guest progress',()=>{
+ const source=memory({[SAVE_KEY]:save(2),'to-the-stars-language':'fr'}),target=memory();
+ importBackup(target,exportBackup(source,{id}));
+ assert.equal(target.getItem('to-the-stars-language'),'fr');assert.equal(target.getItem(SAVE_KEY),save(2));
 });
 test('backup preserves guest and account saves, energy deadlines, stock and preferences without auth tokens',()=>{
  const values={[SAVE_KEY]:save(2),[`${SAVE_KEY}:user:${id}`]:save(3),'to-the-stars-lives-v1':JSON.stringify({count:0,nextAt:1792253000000,interval:600000}),[`to-the-stars-helpers-v1:guest:0`]:'[0,1,0,1,0]','to-the-stars-language':'cs','ship-audio':'{"music":false,"effects":true}',[`beyond-signal-tutorials-v1:${id}`]:'["pulse"]','beyond-the-signal-story:guest:0:research-return':'seen','sb-project-auth-token':'secret','unrelated':'private'};

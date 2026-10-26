@@ -36,15 +36,19 @@ test('French draft covers chapters 1–3 repairs, journals and transition panels
  assert.deepEqual([...missingTranslations],[]);
 });
 
-test('French shared runtime is complete and draft remains unavailable to public players',async()=>{
+test('French shared runtime is complete and French is available to public players',async()=>{
  const catalog=await loadLocaleCatalog('fr');
  const runtime=JSON.parse(readFileSync(new URL('../src/i18n/catalogs/runtime/en.json',import.meta.url)));
  for(const id of Object.keys(runtime))assert.equal(typeof catalog[id],typeof runtime[id],id);
  assert.deepEqual(catalogProblems('fr',catalog).filter(p=>!p.endsWith(': missing translation')),[]);
- assert.deepEqual(releasedLocales.map(l=>l.code),['en','cs','de']);
+ assert.deepEqual(releasedLocales.map(l=>l.code),['en','cs','de','fr']);
  assert.equal(message('common.movesLeft',{count:1},'fr'),'1 coup restant');
  assert.equal(message('common.movesLeft',{count:8},'fr'),'8 coups restants');
  assert.equal(translate('Covered Blue comet, row 3, column 7','fr'),'Sous capot : Comète bleue, ligne 3, colonne 7');
+ assert.equal(translate('Continue to the data halls →','fr'),'Continuer vers les salles de données →');
+ assert.equal(translate('Continue to the simulation chamber →','fr'),'Continuer vers la chambre de simulation →');
+ assert.equal(translate('Continue to the central memory →','fr'),'Continuer vers la mémoire centrale →');
+ assert.equal(translate('Continue to the solar beacon →','fr'),'Continuer vers la balise solaire →');
 });
 
 test('French objectives retain live counts throughout all 69 puzzles in chapters 1–3',async()=>{

@@ -1,5 +1,9 @@
 # Francouzština — úplný pracovní překlad, 26. 10. 2026
 
+Následná aktualizace: uživatel požádal o online test. FR je nyní
+zpřístupněna v menu; další stav viz `french-release-2026-10-26.md`.
+Popis draftu níže zachycuje stav před tímto zpřístupněním.
+
 Dokončení etap 1–3 a 4–8: zbývající Archiv ozvěn (20 úrovní),
 Odpověď (13 úrovní), deníky, závěrečné příběhy a ostatní chybějící
 hlášení. Celkem 200/200 úrovní a 2481/2481 zpráv v Android větvi,
