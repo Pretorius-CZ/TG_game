@@ -160,5 +160,8 @@
   "news.challenge-and-replay.body": "Hemos reducido el límite de movimientos en 33 niveles seleccionados a partir del nivel 20, incluidos varios desafíos HARD. Las zonas completadas de la nave se pueden volver a jugar antes del despegue para practicar y mejorar tus estrellas. Deshacer prepara primero un uso disponible; un segundo toque revierte el movimiento. Tu progreso y tus estrellas se conservan.",
   "news.android-preview.tag": "EN DESARROLLO",
   "news.android-preview.title": "La aplicación Android está en pruebas.",
-  "news.android-preview.body": "La versión Android de Beyond the Signal ya se está probando internamente en un teléfono real. Estamos comprobando los controles, el progreso guardado y los anuncios con recompensa antes de un lanzamiento más amplio. La aplicación aún no está disponible para descarga pública ni en Google Play. Puedes seguir jugando los 200 niveles en tu navegador."
+  "news.android-preview.body": "La versión Android de Beyond the Signal ya se está probando internamente en un teléfono real. Estamos comprobando los controles, el progreso guardado y los anuncios con recompensa antes de un lanzamiento más amplio. La aplicación aún no está disponible para descarga pública ni en Google Play. Puedes seguir jugando los 200 niveles en tu navegador.",
+  "news.german-release.tag": "NUEVO IDIOMA",
+  "news.german-release.title": "Los 200 niveles ya están disponibles en alemán.",
+  "news.german-release.body": "El alemán se suma al inglés y al checo: los 200 niveles, los objetivos, los controles, la historia y el diario de a bordo están traducidos. Elige Deutsch en los ajustes del juego; tu progreso guardado y tus estrellas se conservan. Una prueba en ordenador ha completado los 200 niveles y las pruebas en móviles continúan. ¿Juegas en alemán? Avísanos si alguna frase no está clara o un texto largo no cabe."
 }

@@ -14,7 +14,7 @@ test('first visit detects Czech, website selection persists independently of gam
  await page.goto('http://127.0.0.1:5181/welcome.html');
  await expect(page.locator('html')).toHaveAttribute('lang','cs');
  await expect(page.locator('[data-text="contentNote"]')).toContainText('200 levelů');
- await expect(page.locator('#update-list article')).toHaveCount(7);
+ await expect(page.locator('#update-list article')).toHaveCount(8);
  await page.locator('[data-website-language]').selectOption('en');
  await expect(page.locator('[data-text="play"]').first()).toHaveText('Play free');
  await page.goto('http://127.0.0.1:5181/privacy.html');

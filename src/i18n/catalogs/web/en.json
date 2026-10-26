@@ -160,5 +160,8 @@
   "news.challenge-and-replay.body": "We have reduced move limits in 33 selected levels from level 20 onwards, including several HARD challenges. Completed ship sections can be replayed before departure, so you can practise and improve your stars. Undo now prepares your available use first; a second tap returns the move. Your progress and earned stars are preserved.",
   "news.android-preview.tag": "IN DEVELOPMENT",
   "news.android-preview.title": "The Android app is being tested.",
-  "news.android-preview.body": "An Android version of Beyond the Signal is now in internal testing on a real phone. We are checking controls, saved progress and rewarded ads before a wider release. The app is not yet publicly available to download or on Google Play. You can keep playing all 200 levels in your browser."
+  "news.android-preview.body": "An Android version of Beyond the Signal is now in internal testing on a real phone. We are checking controls, saved progress and rewarded ads before a wider release. The app is not yet publicly available to download or on Google Play. You can keep playing all 200 levels in your browser.",
+  "news.german-release.tag": "NEW LANGUAGE",
+  "news.german-release.title": "Play all 200 levels in German.",
+  "news.german-release.body": "German is now available alongside English and Czech, covering all 200 levels, objectives, controls, story and ship log. Choose Deutsch in the game settings; your saved progress and stars stay with you. A desktop test has completed all 200 levels, and mobile testing is continuing. Already playing in German? Tell us if a phrase feels unclear or a longer label does not fit."
 }
