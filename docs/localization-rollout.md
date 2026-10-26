@@ -1,5 +1,10 @@
 # Rozšíření jazyků — stav a postup 2026-10-22
 
+Aktuálně 26. 10. 2026: němčina dokončena a zpřístupněna ve hře pro web
+i Android. Veřejné jazyky EN/CS/DE; FR/ES/PT-BR zůstávají draft.
+Rozsah a ověření: `docs/german-release-2026-10-26.md`.
+Níže uvedené pracovní stavy z 25. října jsou historické.
+
 Schválený první rozsah: EN, CS, DE, FR, ES a brazilská portugalština PT-BR
 pro hru i informační web. Další výhled: PL, IT, JA, KO; později ZH-Hans,
 TR, ID, RU, UK a AR podle publika. Jde o pořadí práce, nikoli o již vydané jazyky.

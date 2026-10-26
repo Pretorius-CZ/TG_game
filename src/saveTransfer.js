@@ -1,3 +1,4 @@
+import {matchLocale} from './i18n/locales.js';
 import {normalizeProgress,mergeProgress} from './progressStorage.js';
 import {recoverLives,RECHARGE_MS} from './livesRules.js';
 import {stockKey,freshStock} from './helperStock.js';
@@ -20,7 +21,7 @@ function fail(){throw new Error('Invalid or unsupported save backup.');}
 export function isTransferKey(key){return progressKey.test(key)||helpersKey.test(key)||tutorialsKey.test(key)||seenKey.test(key)||analyticsKeys.has(key)||preferences.has(key)||key===energyKey||key===trafficKey;}
 function validateValue(key,value){
  if(typeof value!=='string'||value.length>maxBytes)fail();
- if(key==='to-the-stars-language'){if(!['en','cs'].includes(value))fail();return value;}
+ if(key==='to-the-stars-language'){if(matchLocale(value)!==value)fail();return value;}
  if(seenKey.test(key)){if(value!=='seen')fail();return value;}
  if(key==='beyond-signal-balance-cloud-migrated-v1'){if(value!=='1')fail();return value;}
  let data;try{data=JSON.parse(value);}catch{fail();}

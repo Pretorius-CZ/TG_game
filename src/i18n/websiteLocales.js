@@ -4,7 +4,7 @@ export const WEBSITE_LANGUAGE_KEY='beyond-signal-website-language-v1';
 export const websiteLocales=Object.freeze(locales.filter(locale=>['en','cs','de','fr','es','pt-BR'].includes(locale.code)));
 export function matchWebsiteLocale(value){const code=matchLocale(value,{includeDrafts:true});return websiteLocales.some(locale=>locale.code===code)?code:null;}
 export const websiteLanguage=value=>matchWebsiteLocale(value)??'en';
-export const gameLanguageForWebsite=value=>websiteLanguage(value)==='cs'?'cs':'en';
+export const gameLanguageForWebsite=value=>matchLocale(websiteLanguage(value))??'en';
 export function initialWebsiteLanguage({storage,languages=[],requested}={}){
  const explicit=matchWebsiteLocale(requested);if(explicit)return explicit;
  try{for(const key of [WEBSITE_LANGUAGE_KEY,LANGUAGE_KEY]){const saved=matchWebsiteLocale(storage?.getItem(key));if(saved)return saved;}}catch{}

@@ -34,7 +34,7 @@ async function setup(page,language='en'){
   localStorage.setItem('to-the-stars-progress-v1',JSON.stringify({version:1,airlockCompleted:3,completed:4,navigationCompleted:2,engineCompleted:1,stars:{lights:2},scene:'cockpit'}));
   localStorage.setItem('to-the-stars-helpers-v1:guest:0','[0,1,0,0,0]');
  },language);
- await page.goto('/');await page.getByRole('button',{name:language==='cs'?/Nastavení/:/Settings/}).click();
+ await page.goto('/');await page.getByRole('button',{name:language==='de'?/Einstellungen/:language==='cs'?/Nastavení/:/Settings/}).click();
  await expect(page.locator('.account-panel .primary')).toBeEnabled();
  return{errors,exchanges,saved};
 }
@@ -71,4 +71,14 @@ test('Czech Android settings explain the same-account cloud flow and cancellatio
  await page.locator('.account-panel .primary').click();await expect(page.locator('.account-panel')).toContainText('Dokonči Google přihlášení');
  await page.evaluate(()=>window.nativeAuthEvents.browserFinished());await expect(page.locator('.account-panel')).toContainText('Přihlášení bylo zavřeno');
  await expect(page.locator('.account-panel .primary')).toBeEnabled();expect(t.errors).toEqual([]);
+});
+
+test('German Android sign-in instructions and cancellation preserve the guest save',async({page})=>{
+ const t=await setup(page,'de'),before=await page.evaluate(key=>localStorage.getItem(key),SAVE_KEY);
+ await expect(page.locator('.account-panel')).toContainText('Google');
+ await page.locator('.account-panel .primary').click();
+ await expect(page.locator('.account-panel')).toContainText('Schließe die Google-Anmeldung im Browser ab');
+ await page.evaluate(()=>window.nativeAuthEvents.browserFinished());
+ await expect(page.locator('.account-panel')).toContainText('Die Anmeldung wurde geschlossen.');
+ expect(await page.evaluate(key=>localStorage.getItem(key),SAVE_KEY)).toBe(before);expect(t.errors).toEqual([]);
 });

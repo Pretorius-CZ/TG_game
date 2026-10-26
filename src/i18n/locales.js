@@ -3,7 +3,7 @@ export const LANGUAGE_KEY='to-the-stars-language';
 export const locales=Object.freeze([
  {code:'en',name:'English',short:'EN',direction:'ltr',status:'released'},
  {code:'cs',name:'Čeština',short:'CZ',direction:'ltr',status:'released'},
- {code:'de',name:'Deutsch',short:'DE',direction:'ltr',status:'draft'},
+ {code:'de',name:'Deutsch',short:'DE',direction:'ltr',status:'released'},
  {code:'fr',name:'Français',short:'FR',direction:'ltr',status:'draft'},
  {code:'es',name:'Español',short:'ES',direction:'ltr',status:'draft'},
  {code:'pt-BR',name:'Português (Brasil)',short:'PT-BR',direction:'ltr',status:'draft'},

@@ -45,10 +45,10 @@ test('German chapters 3–10 cover all remaining repairs, journals and story pan
  assert.equal(translate('Aster Veil / Shattered moon 6','de'),'Aster Veil / Zerbrochener Mond 6');
  assert.equal(translate('Elysium / Restoration 24','de'),'Elysium / Wiederherstellung 24');
  assert.equal(translate('The night garden','de'),'Der Nachtgarten');
- assert.deepEqual(releasedLocales.map(l=>l.code),['en','cs']);
+ assert.deepEqual(releasedLocales.map(l=>l.code),['en','cs','de']);
 });
 
-test('German draft covers first chapter repair and journal content without enabling a public release',async()=>{
+test('German release covers first chapter repair and journal content',async()=>{
  await loadLocaleCatalog('de');missingTranslations.clear();
  const fields=new Set(['name','room','thought','lesson','objective','result','action','title','text','source','time']);
  function audit(value){
@@ -66,7 +66,7 @@ test('German draft covers first chapter repair and journal content without enabl
  assert.equal(translate('Service power','de'),'Hilfsstromversorgung');
  assert.equal(translate('Course verified','de'),'Kurs bestätigt');
  assert.equal(translate('An unfamiliar sky','de'),'Ein fremder Himmel');
- assert.deepEqual(releasedLocales.map(l=>l.code),['en','cs']);
+ assert.deepEqual(releasedLocales.map(l=>l.code),['en','cs','de']);
 });
 
 test('German second chapter covers all 24 repairs, journals, map destinations and the gate arrival',async()=>{
@@ -110,7 +110,7 @@ test('German dynamic objectives preserve every count in all 200 levels after bal
 
 test('German UI and help catalogs retain parameters and all topics; Czech copy stays unchanged',async()=>{
  const catalog=await loadLocaleCatalog('de');
- assert.deepEqual(catalogProblems('de',{...JSON.parse(readFileSync(new URL('../src/i18n/catalogs/web/de.json',import.meta.url))),...catalog}),[]);
+ assert.deepEqual(catalogProblems('de',catalog),[]);
  const en=JSON.parse(readFileSync(new URL('../src/i18n/catalogs/runtime/en.json',import.meta.url)));
  for(const id of Object.keys(en))assert.equal(typeof catalog[id],typeof en[id],id);
  assert.match(message('help.chargeUse',{},'de'),/andere Stein eine Kombination bildet/);

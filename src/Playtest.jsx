@@ -70,9 +70,9 @@ function Playtest(){
  const row=session.attempts?.find(r=>r.attemptId===session.rating),done=session.cursor>=session.order?.length;
  const repair=session.repairs?.find(r=>r.id===session.order[session.cursor]);
  const context={stockKey:key+':stock',tutorialKey:key+':tutorials',onResult:finish,onSnapshot:snapshot=>{if(!ref.current.rating)commit({...ref.current,active:snapshot});}};
- const neutral=repair?{...repair,name:`Test ${session.cursor+1}`,room:'SLEPÝ PLAYTEST',lesson:`Test ${session.cursor+1} / ${session.order.length}`,action:language==='cs'?'Ohodnotit pokus':'Rate attempt'}:null;
+ const neutral=repair?{...repair,name:`Test ${session.cursor+1}`,room:'SLEPÝ PLAYTEST',lesson:`Test ${session.cursor+1} / ${session.order.length}`,action:language==='de'?'Versuch bewerten':language==='cs'?'Ohodnotit pokus':'Rate attempt'}:null;
  return <main className="blind-playtest"><h1>Slepý playtest</h1><p className="playtest-progress">{session.invalid?'Test nelze načíst':`${session.cursor} / ${session.order.length} úrovní vyhodnoceno`}</p>
- <div className="test-language"><button aria-pressed={language==='cs'} onClick={()=>setLanguage('cs')}>CZ</button><button aria-pressed={language==='en'} onClick={()=>setLanguage('en')}>EN</button></div>
+ <div className="test-language"><button aria-pressed={language==='cs'} onClick={()=>setLanguage('cs')}>CZ</button><button aria-pressed={language==='en'} onClick={()=>setLanguage('en')}>EN</button><button aria-pressed={language==='de'} onClick={()=>setLanguage('de')}>DE</button></div>
  {(error||session.invalid)&&<p role="alert">{error||session.invalid}</p>}
  {!session.invalid&&!playing&&<>
  {row?<section className="playtest-rating" ref={finishRef} tabIndex={-1} aria-labelledby="rating-heading"><h2 id="rating-heading">Jaký byl Test {session.cursor+1}?</h2><p>{{won:'Výhra',exhausted:'Došly tahy',quit:'Pokus přerušen',fault:'Technická chyba',failed:'Prohra'}[row.outcome]} · {row.moves} / {row.budget} tahů{row.configuration?.playtest?.interrupted?' · obnovení stránky':''}</p>

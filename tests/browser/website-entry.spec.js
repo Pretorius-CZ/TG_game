@@ -1,5 +1,5 @@
 import {test,expect} from '@playwright/test';
-import {websiteLocales} from '../../src/i18n/websiteLocales.js';
+import {websiteLocales,websiteAddress} from '../../src/i18n/websiteLocales.js';
 
 for(const width of [320,1440])test(`localized home and legal entry pages fit ${width}`,async({page},info)=>{
  await page.setViewportSize({width,height:width===320?568:900});
@@ -12,11 +12,11 @@ for(const width of [320,1440])test(`localized home and legal entry pages fit ${w
   await expect(page.locator('h1')).toBeVisible();
   await expect(page.locator('[data-website-language]')).toHaveValue(code);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
-  for(const link of await page.locator('.game-link').all())expect(new URL(await link.getAttribute('href')).searchParams.get('lang')).toBe(code==='cs'?'cs':'en');
+  for(const link of await page.locator('.game-link').all())expect(new URL(await link.getAttribute('href')).searchParams.get('lang')).toBe(['cs','de'].includes(code)?code:'en');
   if(file==='index.html'){
    await expect(page.locator('[data-text="contentNote"]')).toContainText('200');
    await expect(page.locator('.game-language-note').first()).toBeVisible();
-   await expect(page.locator('.update')).toHaveCount(5);
+   await expect(page.locator('.update')).toHaveCount(7);
    await page.screenshot({path:info.outputPath(`${code}-home.png`),fullPage:true});
   }
   if(file==='privacy.html'){
