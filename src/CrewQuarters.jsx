@@ -14,7 +14,7 @@ import RepairBubble from './RepairBubble.jsx';
 import MiniGame from './MiniGame.jsx';
 import {duckMusic,sound} from './audio.js';
 
-export default function CrewQuarters({completed,onCompleted,onBack,onLog,room='crew',exteriorView=null,repairsUnlocked=true,engineCompleted=0,onNavigate,guided=false,nextScene,continueLabel,onContinue,canEnterCockpit=true,canEnterCorridor=true,canEnterShip=true,firstBoarding=false,interiorComplete=false,launchControl=null,launchReplay=null}) {
+export default function CrewQuarters({completed,onCompleted,onBack,onLog,room='crew',exteriorView=null,repairsUnlocked=true,engineCompleted=0,onNavigate,guided=false,nextScene,continueLabel,onContinue,canEnterCockpit=true,canEnterCorridor=true,canEnterShip=true,firstBoarding=false,interiorComplete=false,launchControl=null,launchPreparation=null}) {
  const {t,msg}=useLanguage();
   const exterior=room==='exterior',navigation=room==='navigation',airlock=room==='airlock',engine=room==='engine',galley=room==='galley', tasks=exterior?exteriorRepairs:navigation?navigationRepairs:airlock?airlockRepairs:engine?engineRepairs:galley?galleyRepairs:crewRepairs, logs=exterior?exteriorLogs:navigation?navigationLogs:airlock?airlockLogs:engine?engineLogs:galley?galleyLogs:crewLogs;
   const label=exterior?'Exterior':navigation?'Communications & navigation':airlock?'Airlock':engine?'Engine room':galley?'Galley & supplies':'Crew quarters';
@@ -46,11 +46,11 @@ export default function CrewQuarters({completed,onCompleted,onBack,onLog,room='c
         {t(canEnterCorridor&&<button className="hotspot airlock-corridor-door" style={{left:'83%',top:'58%'}} aria-label={t("Enter corridor")} onClick={()=>onNavigate('corridor')}><span className="target" aria-hidden="true">{t("↗")}</span><span className="hotspot-label">{t("Corridor")}</span></button>)}
       </>)}
       {t(!reveal&&!outside&&launchControl)}
+      {!reveal&&!outside&&launchPreparation}
       {t(guided&&!reveal&&!outside&&!repairsUnlocked&&nextScene!==room&&!(exterior&&canEnterShip)&&!(airlock&&(canEnterCockpit||canEnterCorridor))&&<button className="hotspot chapter-next" style={{left:'50%',top:'62%'}} onClick={onContinue}><span className="target" aria-hidden="true">{t("→")}</span><span className="hotspot-label">{t(continueLabel)}</span></button>)}
       {t(reveal&&<div className="repair-reveal" role="region" aria-label={t("Repair completed")}><span className="eyebrow">{t(outside?'EXTERIOR / REPAIR COMPLETE':'REPAIR COMPLETE')}</span><h2>{t("✓ ")}{t(reveal.name)}</h2><p>{t(reveal.result)}</p>{t(reveal.id==='nav-receiver'&&<Transmission/>)}<button className="new-log" onClick={()=>onLog(logs.find(e=>e.repair===reveal.id).id)}>{t("New log entry ")}<span>{t("→")}</span></button><button className="primary" onClick={()=>{if(!guided&&reveal.exterior&&!outside){setOutside(true);return;}setOutside(false);setReveal(null);if(canContinueRepair){setBubble(completed);return;}if(finished&&guided){onContinue();return;}if(finished&&!airlock&&!exterior)onBack();}}>{canContinueRepair&&!(reveal.exterior&&!guided&&!outside)?msg('ship.nextRepair',{name:t(current.name)}):t(guided?(finished?continueLabel:'Continue repairs'):reveal.exterior&&!outside?'See your ship':finished&&!airlock&&!exterior?(navigation?'Return to cockpit':'Return to corridor'):'Continue repairs')} <span>{t("→")}</span></button></div>)}
       {t(!loaded&&<div className="loading" role="status">{t(failed?<><p>{t("The room could not be loaded.")}</p><button className="primary" onClick={retryScene}>{t("Try again")}</button></>:'Preparing the room…')}</div>)}
     </section>
-    {!reveal&&!outside&&launchReplay}
     {t(bubble!==null&&<RepairBubble repair={tasks[bubble]} replay={bubble<completed} sceneRef={scene} onClose={closeBubble} onComplete={()=>{const repair=tasks[bubble];setBubble(null);win(repair);}} onPlay={()=>{setPlaying(tasks[bubble]);setBubble(null);}}/>)}
     {t(playing&&<MiniGame repair={playing} onWin={()=>win()} onQuit={()=>{setPlaying(null);requestAnimationFrame(()=>action.current?.focus());}}/>)}
   </>;

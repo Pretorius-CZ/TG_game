@@ -26,3 +26,11 @@ Dodatek: po splnění HARD přípravy zůstává pod scénou samostatné tlačí
 pro její opakování s hvězdami. Odlet je samostatný a hvězdy přípravy se
 už nezobrazují jako hodnocení odletu. Ověřeno otevření a opuštění HARD
 replay, zachované splnění a následné otevření odletu v EN/CS/DE.
+
+Finální umístění podle následného upřesnění uživatele: HARD příprava
+je standardní úkol přímo NAD lodí (před i po splnění), s fajfkou,
+hvězdami a replay po splnění. Dole je pouze velké tlačítko Odletět,
+které se objeví po HARD přípravě. Nahrazuje mezikrok s replay pod scénou.
+Exteriér s touto značkou má min. 780px, aby se úkol nepřekrýval
+s nadpisem ani s opravami. Šest webových a šest Android-mode stavů
+ověřuje rozestupy, pozici nad opravami, spuštění, replay a odlet.

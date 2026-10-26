@@ -25,8 +25,8 @@ async function enter(page,progress,language,width){
 for(const [language,width]of[['en',430],['cs',320],['de',320]]){
  for(const finaleDone of [false,true])test(`exterior controls never overlap before departure ${language} finale=${finaleDone}`,async({page},info)=>{
   await enter(page,{...interior,exteriorCompleted:4,finaleDone,scene:'exterior'},language,width);
-  await expect(page.locator('.exterior-room .repair-hotspot')).toHaveCount(4);
-  const launch=page.locator('.launch-control');await expect(launch).toBeVisible();
+  await expect(page.locator('.exterior-room .repair-hotspot')).toHaveCount(5);
+  const launch=page.locator('.launch-control'),preparation=page.locator('.launch-preparation');await expect(preparation).toBeVisible();await expect(launch).toHaveCount(finaleDone?1:0);
   const controls=page.locator('.exterior-room .repair-hotspot,.exterior-room .ship-entry,.launch-control');
   const targets=await page.locator('.exterior-room .repair-hotspot .target,.exterior-room .ship-entry .target').evaluateAll(nodes=>nodes.map(n=>{const r=n.getBoundingClientRect();return {width:r.width,height:r.height,clickable:document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)?.closest('button')===n.closest('button')};}));
   for(const target of targets){expect(target.width).toBeGreaterThanOrEqual(44);expect(target.height).toBeGreaterThanOrEqual(44);}
@@ -35,14 +35,15 @@ for(const [language,width]of[['en',430],['cs',320],['de',320]]){
    const a=boxes[i],b=boxes[j];expect(Math.min(a.right,b.right)-Math.max(a.x,b.x)>0&&Math.min(a.bottom,b.bottom)-Math.max(a.y,b.y)>0,`controls ${i}/${j} overlap`).toBe(false);
   }
   await page.screenshot({path:info.outputPath('exterior-departure.png'),fullPage:true});
-  const replay=page.locator('.launch-replay');await expect(replay).toHaveCount(finaleDone?1:0);
+  await expect(preparation.locator('.rating-stars')).toHaveCount(finaleDone?1:0);
+  const preparationBox=await preparation.boundingBox(),hullBox=await page.locator('.exterior-room .repair-hotspot').first().boundingBox();
+  expect(preparationBox.y+preparationBox.height).toBeLessThan(hullBox.y);
+  await preparation.click();await expect(page.locator('.board')).toHaveAttribute('aria-busy','false');
   if(finaleDone){
-   await expect(launch.locator('.rating-stars')).toHaveCount(0);await expect(replay.locator('.rating-stars')).toHaveCount(1);
-   await replay.click();await expect(page.locator('.board')).toHaveAttribute('aria-busy','false');
    await page.locator('.mini-header .close').click();await page.locator('.quit-panel .primary').click();
    expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('to-the-stars-progress-v1')).finaleDone)).toBe(true);
+   await launch.click();await expect(page.locator('.departure-dialog')).toBeVisible();
   }
-  await launch.click();await expect(page.locator(finaleDone?'.departure-dialog':'.mini-dialog')).toBeVisible();
  });
  test(`last interior repair leads to a clear hull task and allows returning from inside ${language}`,async({page},info)=>{
   await enter(page,{...interior,engineCompleted:4,exteriorCompleted:0,scene:'engine'},language,width);
