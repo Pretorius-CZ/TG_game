@@ -7,7 +7,7 @@ import {message,englishMessages,formatMessage,catalogProblems,loadLocaleCatalog}
 test('language preferences respect saved choice, browser order and unsupported languages',()=>{
  assert.equal(preferredLanguage({saved:'en',languages:['cs-CZ']}),'en');
  assert.equal(preferredLanguage({saved:'cs',languages:['en-US']}),'cs');
- assert.equal(preferredLanguage({saved:'bad',languages:['de-DE','cs-CZ','en-US']}),'cs');
+ assert.equal(preferredLanguage({saved:'bad',languages:['de-DE','cs-CZ','en-US']}),'de');
  assert.equal(preferredLanguage({languages:['en-US','cs-CZ']}),'en');
  assert.equal(preferredLanguage({languages:['ar-EG']}),'en');
  assert.equal(initialLanguage({storage:{getItem(){throw Error('blocked');}},languages:['cs-CZ']}),'cs');
@@ -18,19 +18,20 @@ test('explicit language survives the cross-origin PLAY link without forwarding a
  const address=gameAddress('https://playbeyondthesignal.com/?code=private&utm_campaign=test',{language:'cs'});
  assert.equal(address,'https://game.playbeyondthesignal.com/?utm_campaign=test&lang=cs');
  assert.equal(addressLanguage(address),'cs');assert.equal(addressLanguage('broken'),null);
- assert.equal(addressLanguage('https://game.playbeyondthesignal.com/?lang=de'),null);
- assert.ok(!gameAddress('https://playbeyondthesignal.com/',{language:'de'}).includes('lang='));
+ assert.equal(addressLanguage('https://game.playbeyondthesignal.com/?lang=de'),'de');
+ assert.equal(new URL(gameAddress('https://playbeyondthesignal.com/',{language:'de'})).searchParams.get('lang'),'de');
  let replaced;syncAddressLanguage('en',{href:address},{state:{keep:1},replaceState:(state,unused,url)=>{replaced={state,url};}});
  assert.deepEqual(replaced,{state:{keep:1},url:'https://game.playbeyondthesignal.com/?utm_campaign=test&lang=en'});
 });
-test('draft editions have explicit regional identities and cannot enter public selection',()=>{
- assert.deepEqual(releasedLocales.map(locale=>locale.code),['en','cs']);
+test('German is released and incomplete editions remain unavailable',async()=>{
+ await loadLocaleCatalog('de');
+ assert.deepEqual(releasedLocales.map(locale=>locale.code),['en','cs','de']);
  assert.equal(matchLocale('pt_BR',{includeDrafts:true}),'pt-BR');
  assert.equal(matchLocale('pt',{includeDrafts:true}),'pt-BR');
  assert.equal(matchLocale('pt-PT',{includeDrafts:true}),null);
  assert.equal(matchLocale('fr-CA',{includeDrafts:true}),'fr');
- assert.equal(matchLocale('de'),null);
- assert.equal(message('common.play',{},'de'),'PLAY');
+ assert.equal(matchLocale('de-DE'),'de');assert.equal(matchLocale('fr'),null);
+ assert.equal(message('common.play',{},'de'),'Spielen');
  const document={documentElement:{}};applyDocumentLanguage('cs',document);
  assert.deepEqual(document.documentElement,{lang:'cs',dir:'ltr'});
 });
@@ -52,7 +53,7 @@ test('catalog validation catches missing translations, empty text and lost param
  assert.ok(problems.some(problem=>problem.includes('missing plural form few')));
  assert.ok(problems.some(problem=>problem.includes('empty or invalid translation')));
  assert.ok(problems.includes('web.pageTitle: missing translation'));
- for(const code of ['de','fr','es','pt-BR']){
+ for(const code of ['fr','es','pt-BR']){
   const draft=await loadLocaleCatalog(code),errors=catalogProblems(code,draft);
   assert.ok(errors.some(problem=>problem.endsWith(': missing translation')));
   assert.deepEqual(errors.filter(problem=>!problem.endsWith(': missing translation')),[]);

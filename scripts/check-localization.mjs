@@ -34,9 +34,9 @@ for(const locale of locales){
  if(locale.status==='released')failures.push(...problems.map(problem=>`${locale.code}: ${problem}`));
  else failures.push(...problems.filter(problem=>!problem.endsWith(': missing translation')).map(problem=>`${locale.code}: ${problem}`));
 }
-// Existing EN/CZ paths still contain dynamic grammar and bilingual story arrays.
-// Do not enable another language just by changing its registry status.
-if(releasedLocales.some(locale=>!['en','cs'].includes(locale.code)))failures.push('Additional language release requires migration of dynamic objectives, bilingual story data, consent/transfer/legal copy and the remaining branches. See docs/localization-rollout.md.');
+// DE has content, objective, transfer and layout regression coverage.
+// Future editions still require their own release audit.
+if(releasedLocales.some(locale=>!['en','cs','de'].includes(locale.code)))failures.push('Additional language release requires migration of dynamic objectives, bilingual story data, consent/transfer/legal copy and the remaining branches. See docs/localization-rollout.md.');
 // Website translations release independently. A missing key is an error here,
 // even while that language remains an unfinished in-game catalog.
 for(const namespace of ['web','legal']){

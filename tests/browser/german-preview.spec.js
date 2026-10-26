@@ -35,9 +35,9 @@ for(const width of [320,430,1024])test(`German draft help and language switches 
  await page.screenshot({path:info.outputPath('german-game.png')});
 });
 
-test('German preview translates the welcome, settings and first repair without releasing the draft',async({page})=>{
+test('German preview translates the welcome, settings and first repair with the released language selector',async({page})=>{
  await page.goto('/?previewLanguage=de');
- await expect(page.locator('.welcome-play')).toHaveText('SPIELEN');
+ await expect(page.locator('.welcome-play')).toHaveText('Spielen');
  await page.getByRole('button',{name:'⚙ Einstellungen'}).click();
  await expect(page.locator('.account-panel h2')).toHaveText('Spieleinstellungen');
  await expect(page.locator('.account-panel')).toContainText('Mit Google fortfahren');
@@ -50,5 +50,5 @@ test('German preview translates the welcome, settings and first repair without r
  await expect(page.locator('.journey-panel')).toContainText('Repariere dein Schiff');
  await page.goto('/');
  const codes=await page.locator('.welcome-settings select option').evaluateAll(options=>options.map(o=>o.value));
- expect(codes).toEqual(['en','cs']);
+ expect(codes).toEqual(['en','cs','de']);
 });

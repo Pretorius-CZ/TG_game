@@ -1,5 +1,5 @@
 import {test,expect} from '@playwright/test';
-import {websiteLocales} from '../../src/i18n/websiteLocales.js';
+import {websiteLocales,websiteAddress} from '../../src/i18n/websiteLocales.js';
 
 test.beforeEach(async({page})=>{
  await page.setViewportSize({width:320,height:568});
@@ -14,7 +14,7 @@ test('first visit detects Czech, website selection persists independently of gam
  await page.goto('http://127.0.0.1:5181/welcome.html');
  await expect(page.locator('html')).toHaveAttribute('lang','cs');
  await expect(page.locator('[data-text="contentNote"]')).toContainText('200 levelů');
- await expect(page.locator('#update-list article')).toHaveCount(5);
+ await expect(page.locator('#update-list article')).toHaveCount(7);
  await page.locator('[data-website-language]').selectOption('en');
  await expect(page.locator('[data-text="play"]').first()).toHaveText('Play free');
  await page.goto('http://127.0.0.1:5181/privacy.html');
@@ -52,9 +52,9 @@ test('all website choices map PLAY correctly and game still exposes only complet
  await page.goto('/welcome.html');
  expect(await page.locator('[data-website-language] option').evaluateAll(options=>options.map(option=>option.value))).toEqual(websiteLocales.map(locale=>locale.code));
  for(const {code} of websiteLocales){
-  await page.locator('[data-website-language]').selectOption(code);
+  const nextAddress=websiteAddress(page.url(),code);await Promise.all([page.waitForURL(nextAddress),page.locator('[data-website-language]').selectOption(code)]);await page.waitForLoadState('load');
   await expect(page.locator('html')).toHaveAttribute('lang',code);
-  expect(new URL(await page.locator('.game-link').first().getAttribute('href')).searchParams.get('lang')).toBe(code==='cs'?'cs':'en');
+  expect(new URL(await page.locator('.game-link').first().getAttribute('href')).searchParams.get('lang')).toBe(['cs','de'].includes(code)?code:'en');
   const copy=await page.locator('[data-text],[data-alt],[data-label]').evaluateAll(nodes=>nodes.map(node=>node.textContent+' '+node.getAttribute('alt')+' '+node.getAttribute('aria-label')).join('\n'));
   expect(copy).not.toMatch(/\b(?:web|news)\.[a-zA-Z]/);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
@@ -62,5 +62,5 @@ test('all website choices map PLAY correctly and game still exposes only complet
   expect(new URL(await page.locator('[data-text="site.about"]').evaluate(link=>link.href)).pathname).toBe((code==='en'?'/':`/${code}/`)+'about.html');
  }
  await page.screenshot({path:testInfo.outputPath('website-pt-BR.png')});expect(errors).toEqual([]);
- await page.goto('/');await expect(page.locator('.welcome-settings select option')).toHaveCount(2);
+ await page.goto('/');await expect(page.locator('.welcome-settings select option')).toHaveCount(3);
 });

@@ -8,6 +8,14 @@ import {stockKey} from '../src/helperStock.js';
 const id='12345678-1234-4234-9234-123456789abc';
 function memory(initial={}){const data=new Map(Object.entries(initial));return {get length(){return data.size;},key:i=>[...data.keys()][i]??null,getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v),removeItem:k=>data.delete(k)};}
 const save=n=>JSON.stringify(normalizeProgress({airlockCompleted:n}));
+
+test('German preference transfers with unchanged saves and incomplete languages are rejected',()=>{
+ const source=memory({[SAVE_KEY]:save(2),'to-the-stars-language':'de'}),backup=exportBackup(source,{id}),target=memory();
+ importBackup(target,backup);
+ assert.equal(target.getItem('to-the-stars-language'),'de');assert.equal(target.getItem(SAVE_KEY),save(2));
+ assert.equal(source.getItem(SAVE_KEY),save(2));
+ for(const code of ['fr','es','pt-BR','de-DE','invalid'])assert.throws(()=>exportBackup(memory({'to-the-stars-language':code}),{id}));
+});
 test('backup preserves guest and account saves, energy deadlines, stock and preferences without auth tokens',()=>{
  const values={[SAVE_KEY]:save(2),[`${SAVE_KEY}:user:${id}`]:save(3),'to-the-stars-lives-v1':JSON.stringify({count:0,nextAt:1792253000000,interval:600000}),[`to-the-stars-helpers-v1:guest:0`]:'[0,1,0,1,0]','to-the-stars-language':'cs','ship-audio':'{"music":false,"effects":true}',[`beyond-signal-tutorials-v1:${id}`]:'["pulse"]','beyond-the-signal-story:guest:0:research-return':'seen','sb-project-auth-token':'secret','unrelated':'private'};
  const source=memory(values),backup=exportBackup(source,{id}),target=memory();

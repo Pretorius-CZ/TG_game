@@ -21,7 +21,7 @@ for(const [language,width,height]of [['cs',320,568],['cs',430,932],['en',320,568
   for(const id of stories)localStorage.setItem('beyond-the-signal-story:guest:0:'+id,'seen');
  },{progress,language,stories:journeyStories.map(s=>s.id)});
  for(const [scene,site]of Object.entries(destinations)){
-  await page.goto('/?qa-scene='+scene+(language==='de'?'&previewLanguage=de':''));
+  await page.goto('/?qa-scene='+scene+(language==='de'?'&lang=de':''));
   await page.locator('button.welcome-secondary').click();await page.locator('.chapters-dialog>.close').click();
   await expect(page.locator('.expedition .completed-hotspot')).toHaveCount(site.repairs.length);
   await expect(page.locator('.completed-repairs-grid')).toHaveCount(0);
