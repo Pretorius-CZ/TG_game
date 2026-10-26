@@ -10,7 +10,7 @@ import {relayStoryPanels} from '../../src/relayStory.js';
 import {caretakerPanels} from '../../src/caretakerStory.js';
 import {destinations} from '../../src/destinations.js';
 test.beforeAll(async()=>{await loadLocaleCatalog('fr');});
-test('all chapter preview keeps ordinary saves isolated and renders French stories through chapter 8',async({page},info)=>{
+test('all chapter preview keeps ordinary saves isolated and renders French stories through chapter 10',async({page},info)=>{
  test.setTimeout(90000);await page.setViewportSize({width:320,height:568});const errors=[],requests=[];
  page.on('pageerror',e=>errors.push(e.message));await page.route(/supabase\.co|api\.country\.is/,r=>{requests.push(r.request().url());return r.fulfill({status:204,body:''});});
  const keys=['to-the-stars-progress-v1','to-the-stars-lives-v1','to-the-stars-helpers-v1:guest:0','beyond-signal-analytics-choice-v1','beyond-signal-tutorials-v1:guest'];
@@ -23,7 +23,7 @@ test('all chapter preview keeps ordinary saves isolated and renders French stori
  }
  await page.getByLabel('Dokončené opravy náhledu').selectOption('0');const repair=destinations['refuge-arrival'].repairs[0];
  await page.locator(`[data-repair-id="${repair.id}"]`).click();await expect(page.locator('#bubble-story')).toHaveText(translate(repair.thought,'fr'));await page.locator('.repair-bubble .close').click();
- for(const story of [{id:'arrival',panels:elysiumArrivalPanels},{id:'rift',panels:riftStoryPanels},{id:'caretaker',panels:caretakerPanels},{id:'echo',panels:echoDeparturePanels},{id:'research',panels:researchStoryPanels},{id:'relay',panels:relayStoryPanels},...journeyStories.filter(s=>s.chapter==='refuge')]){
+ for(const story of [{id:'arrival',panels:elysiumArrivalPanels},{id:'rift',panels:riftStoryPanels},{id:'caretaker',panels:caretakerPanels},{id:'echo',panels:echoDeparturePanels},{id:'research',panels:researchStoryPanels},{id:'relay',panels:relayStoryPanels},...journeyStories]){
   await page.getByLabel('Příběh náhledu').selectOption(story.id);
   for(const panel of story.panels){
    const comic=page.locator('.caretaker-comic');await expect(comic.locator('h2')).toHaveText(translate(panel.title,'fr'));await expect(comic.locator('p[aria-live]')).toHaveText(translate(panel.caption,'fr'));

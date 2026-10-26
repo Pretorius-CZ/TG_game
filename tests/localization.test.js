@@ -53,7 +53,8 @@ test('catalog validation catches missing translations, empty text and lost param
  assert.ok(problems.some(problem=>problem.includes('missing plural form few')));
  assert.ok(problems.some(problem=>problem.includes('empty or invalid translation')));
  assert.ok(problems.includes('web.pageTitle: missing translation'));
- for(const code of ['fr','es','pt-BR']){
+ assert.deepEqual(catalogProblems('fr',await loadLocaleCatalog('fr')),[]);
+ for(const code of ['es','pt-BR']){
   const draft=await loadLocaleCatalog(code),errors=catalogProblems(code,draft);
   assert.ok(errors.some(problem=>problem.endsWith(': missing translation')));
   assert.deepEqual(errors.filter(problem=>!problem.endsWith(': missing translation')),[]);

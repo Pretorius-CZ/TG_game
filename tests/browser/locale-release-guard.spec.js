@@ -10,4 +10,7 @@ test('a draft preview URL cannot enable an incomplete language in a production b
  await expect(page.locator('html')).toHaveAttribute('lang','cs');
  expect(await page.locator('.welcome-settings select option').evaluateAll(options=>options.map(o=>o.value))).toEqual(['en','cs','de']);
  await expect(page.locator('.welcome-play')).toHaveText('HRÁT');
+ await page.goto('/transfer.html?previewLanguage=fr&lang=fr');
+ await expect(page.locator('html')).toHaveAttribute('lang','cs');
+ await expect(page.locator('h1')).toHaveText('Zachovat uloženou hru');
 });

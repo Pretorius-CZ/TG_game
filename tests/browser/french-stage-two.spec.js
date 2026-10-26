@@ -10,7 +10,7 @@ import {loadLocaleCatalog} from '../../src/i18n/messages.js';
 test.beforeAll(async()=>{await loadLocaleCatalog('fr');});
 const counts=Object.fromEntries(Object.keys(normalizeProgress()).filter(k=>k==='completed'||k.endsWith('Completed')).map(k=>[k,99]));
 const progress=normalizeProgress({...counts,finaleDone:true,launchDone:true,scannerInstalled:true,jumpDone:true,elysiumRouteCompleted:1,elysiumArrival:1,riftCrossed:1,caretakerMet:1,stars:Object.fromEntries(levelCatalog.map((r,i)=>[r.id,1+i%3]))});
-for(const [language,width,height]of [['fr',320,568],['fr',430,932]])test(`French chapters 4–8 preserve all task anchors, names and stars ${language} ${width}`,async({page},testInfo)=>{
+for(const [language,width,height]of [['fr',320,568],['fr',430,932]])test(`French chapters 2–10 preserve all task anchors, names and stars ${language} ${width}`,async({page},testInfo)=>{
  test.setTimeout(120000);await page.setViewportSize({width,height});
  const errors=[],overlaps=[],covered=[];page.on('pageerror',e=>errors.push(e.message));
  await page.route(/supabase\.co|api\.country\.is/,r=>r.fulfill({status:204,body:''}));
@@ -21,7 +21,7 @@ for(const [language,width,height]of [['fr',320,568],['fr',430,932]])test(`French
   localStorage.setItem('beyond-signal-analytics-choice-v1',JSON.stringify({version:1,state:'denied',at:Date.now()}));
   for(const id of stories)localStorage.setItem('beyond-the-signal-story:guest:0:'+id,'seen');
  },{progress,language,stories:journeyStories.map(s=>s.id)});
- const scenes=new Set(chaptersFor({}).slice(3,8).flatMap(c=>c.sections.map(s=>s.scene)));
+ const scenes=new Set(chaptersFor({}).slice(1).flatMap(c=>c.sections.map(s=>s.scene)));
  for(const [scene,site]of Object.entries(destinations).filter(([scene])=>scenes.has(scene))){
   await page.goto('/?qa-scene='+scene+'&previewLanguage=fr');
   await page.locator('button.welcome-secondary').click();await page.locator('.chapters-dialog>.close').click();
@@ -50,7 +50,7 @@ for(const [language,width,height]of [['fr',320,568],['fr',430,932]])test(`French
    const a=boxes[i],b=boxes[j],x=Math.min(a.x+a.width,b.x+b.width)-Math.max(a.x,b.x),y=Math.min(a.y+a.height,b.y+b.height)-Math.max(a.y,b.y);
    if(x>2&&y>2)overlaps.push({scene,a:a.id,b:b.id,x:Math.round(x),y:Math.round(y)});
   }
-  if(['elysium-homes','night-sanctuary','refuge-homes','refuge-arrival'].includes(scene))await page.screenshot({path:testInfo.outputPath(scene+'.png'),fullPage:true});
+  if(['elysium-homes','night-sanctuary','refuge-homes','refuge-arrival','archive-core','signal-garden'].includes(scene))await page.screenshot({path:testInfo.outputPath(scene+'.png'),fullPage:true});
   if(scene.startsWith('signal-'))for(const repair of site.repairs){
    await page.locator(`[data-repair-id="${repair.id}"] .target`).click();
    await expect(page.locator('#bubble-title')).toHaveText(translate(repair.name,language));

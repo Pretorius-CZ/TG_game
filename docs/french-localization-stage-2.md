@@ -1,5 +1,8 @@
 # Francouzština — kapitoly 4–8, 26. 10. 2026
 
+Historický checkpoint. Zbytek je již dokončený; aktuální úplný stav
+popisuje `french-localization-complete-2026-10-26.md`.
+
 Navazuje na `french-localization-stage-1.md`. Uživatel rozšířil zadání
 z prvních tří kapitol až do kapitoly 8. FR zůstává draft; veřejné menu,
 automatická volba jazyka i odkazy webu se nemění.
