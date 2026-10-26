@@ -21,3 +21,8 @@ APK sestavené; fyzická instalace přes Run v Android Studiu.
 Změněné jsou souřadnice venkovních značek, jejich lokální styly,
 prezentace tlačítka odletu a výjimka pro přizpůsobení exteriéru.
 ID, cíle, tahy, match-3 pravidla, odměny a ukládání se nemění.
+
+Dodatek: po splnění HARD přípravy zůstává pod scénou samostatné tlačítko
+pro její opakování s hvězdami. Odlet je samostatný a hvězdy přípravy se
+už nezobrazují jako hodnocení odletu. Ověřeno otevření a opuštění HARD
+replay, zachované splnění a následné otevření odletu v EN/CS/DE.
