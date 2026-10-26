@@ -74,6 +74,18 @@ test('first boarding keeps future exterior repairs locked but has a usable retur
  await enter(page,{scene:'exterior'},'en',320);await expect(page.locator('.exterior-room')).toHaveClass(/first-boarding/);await expect(page.locator('.repair-hotspot')).toHaveCount(0);
  await page.locator('.ship-entry .target').click();await expect(page.locator('.airlock-room')).toBeVisible();await page.getByRole('button',{name:'Go back',exact:true}).click();await expect(page.locator('.exterior-room')).toBeVisible();await expect(page.locator('.repair-hotspot')).toHaveCount(0);
 });
+
+test('German journey continues after level 29 through departure to the first mine puzzle',async({page})=>{
+ await enter(page,{...interior,exteriorCompleted:4,finaleDone:true,scene:'exterior'},'de',430);
+ await page.locator('.launch-control').click();await page.locator('.departure-controls .primary').click();
+ await expect(page.locator('.caretaker-comic')).toBeVisible();await page.locator('.comic-skip').click();
+ await page.locator('[data-node="mine"]').click();
+ await page.locator('.mine-site [data-repair-id] .target').first().click();
+ await expect(page.locator('#bubble-title')).toBeVisible();await page.locator('.repair-bubble .primary').click();
+ await expect(page.locator('html')).toHaveAttribute('lang','de');await expect(page.locator('.board')).toHaveAttribute('aria-busy','false');
+ const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('to-the-stars-progress-v1')));
+ expect(saved.launchDone).toBe(true);expect(saved.mineCompleted).toBe(0);
+});
 for(const completed of [0,3])test(`cockpit continuation opens the next briefing before starting the next puzzle from ${completed}`,async({page})=>{
  const next=completed===0?repairs[1]:navigationRepairs[0];
  await enter(page,{airlockCompleted:3,completed,scene:'cockpit'},'en',430);await page.locator('.repair-hotspot:not(.completed-hotspot) .target').click();await page.locator('.repair-bubble .preview-complete').click();await page.locator('.repair-reveal .primary').click();await expect(page.locator('#bubble-title')).toHaveText(next.name);await expect(page.locator('#bubble-story')).toHaveText(next.thought);await expect(page.locator('.mini-dialog')).toHaveCount(0);
