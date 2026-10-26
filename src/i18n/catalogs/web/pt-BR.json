@@ -160,5 +160,8 @@
   "news.challenge-and-replay.body": "Reduzimos o limite de jogadas em 33 fases selecionadas a partir da fase 20, incluindo vários desafios HARD. As áreas concluídas da nave podem ser jogadas novamente antes da decolagem para praticar e melhorar suas estrelas. Desfazer agora prepara primeiro um uso disponível; um segundo toque desfaz a jogada. Seu progresso e suas estrelas são preservados.",
   "news.android-preview.tag": "EM DESENVOLVIMENTO",
   "news.android-preview.title": "O aplicativo Android está em testes.",
-  "news.android-preview.body": "A versão Android de Beyond the Signal já está em testes internos em um celular real. Estamos verificando os controles, o progresso salvo e os anúncios com recompensa antes de um lançamento mais amplo. O aplicativo ainda não está disponível para download público nem no Google Play. Você pode continuar jogando todas as 200 fases no navegador."
+  "news.android-preview.body": "A versão Android de Beyond the Signal já está em testes internos em um celular real. Estamos verificando os controles, o progresso salvo e os anúncios com recompensa antes de um lançamento mais amplo. O aplicativo ainda não está disponível para download público nem no Google Play. Você pode continuar jogando todas as 200 fases no navegador.",
+  "news.german-release.tag": "NOVO IDIOMA",
+  "news.german-release.title": "Os 200 níveis agora também estão em alemão.",
+  "news.german-release.body": "O alemão se junta ao inglês e ao tcheco: os 200 níveis, objetivos, controles, história e diário de bordo estão traduzidos. Escolha Deutsch nas configurações do jogo; seu progresso salvo e suas estrelas são mantidos. Um teste no computador concluiu os 200 níveis, e os testes em celulares continuam. Está jogando em alemão? Conte para nós se alguma frase não estiver clara ou se um texto longo não couber na tela."
 }

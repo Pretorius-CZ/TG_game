@@ -35,8 +35,9 @@ v Novinkách ve všech šesti jazycích; negenerovat zvláštní ručně udržov
 
 ## Návaznost na jazyky
 
-Web je vydaný v EN/CS/DE/FR/ES/PT-BR. Hra v EN/CS; ostatní webové edice
-zatím odkazují do anglické hry. Toto rozlišení zachovat i v novinkách.
+Web je vydaný v EN/CS/DE/FR/ES/PT-BR. Hra od 26. 10. v EN/CS/DE;
+webové edice FR/ES/PT-BR zatím odkazují do anglické hry.
+Toto rozlišení zachovat i v novinkách.
 Pokračování herní lokalizace: sdílené UI a parametrické cíle, potom příběh,
 deník a všechny úrovně; následně jazyková a mobilní kontrola před zveřejněním
 dalšího jazyka. Konkrétní práce v `localization-rollout.md` a aktuální audit
@@ -50,3 +51,13 @@ jazyk, úplné překlady obou nových zpráv a7článků i ve statickém HTML.
 13Chromium scénářů320/1440+bezJS a build/site/i18n prošly. MainCI39992851913
 publikovalo; při poslední kontrole ještě instalovalo prohlížeč pro svůj smoke.
 Herní subdoména se kvůli této obsahové změně znovu nenasazovala.
+
+## Vydání 26. 10. 2026 — němčina
+
+Novinka `german-release`: DE pro všech 200 levelů, ovládání, cíle,
+příběh a deník. Volba Deutsch v nastavení zachovává postup a hvězdy.
+Text rozlišuje úspěšný desktopový průchod 200 levely a pokračující mobilní
+testování. Přidán současně ve všech šesti webových jazycích, na úvodu
+i v Novinkách. Bez změn herního jádra nebo rozložení hry.
+Kontrola 320/1440px a statických článků bez JavaScriptu; site/i18n audit.
+Samotná webová novinka nevyžaduje sestavení ani instalaci nového APK.

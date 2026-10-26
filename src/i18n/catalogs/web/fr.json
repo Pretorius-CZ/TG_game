@@ -160,5 +160,8 @@
   "news.challenge-and-replay.body": "Nous avons réduit le nombre de coups dans 33 niveaux sélectionnés à partir du niveau 20, dont plusieurs défis HARD. Les zones du vaisseau terminées peuvent être rejouées avant le départ pour vous entraîner et améliorer vos étoiles. Annuler prépare désormais une utilisation disponible ; un second appui annule le coup. Votre progression et vos étoiles restent conservées.",
   "news.android-preview.tag": "EN DÉVELOPPEMENT",
   "news.android-preview.title": "L’application Android est en test.",
-  "news.android-preview.body": "La version Android de Beyond the Signal est en cours de test interne sur un vrai téléphone. Nous vérifions les commandes, la sauvegarde de la progression et les publicités récompensées avant une diffusion plus large. L’application n’est pas encore disponible en téléchargement public ni sur Google Play. Les 200 niveaux restent jouables dans votre navigateur."
+  "news.android-preview.body": "La version Android de Beyond the Signal est en cours de test interne sur un vrai téléphone. Nous vérifions les commandes, la sauvegarde de la progression et les publicités récompensées avant une diffusion plus large. L’application n’est pas encore disponible en téléchargement public ni sur Google Play. Les 200 niveaux restent jouables dans votre navigateur.",
+  "news.german-release.tag": "NOUVELLE LANGUE",
+  "news.german-release.title": "Les 200 niveaux sont disponibles en allemand.",
+  "news.german-release.body": "L’allemand rejoint l’anglais et le tchèque : les 200 niveaux, les objectifs, les commandes, l’histoire et le journal de bord sont traduits. Choisissez Deutsch dans les paramètres du jeu ; votre progression sauvegardée et vos étoiles sont conservées. Un test sur ordinateur a terminé les 200 niveaux et les tests sur mobile se poursuivent. Vous jouez en allemand ? Signalez-nous toute formulation peu claire ou tout texte trop long."
 }

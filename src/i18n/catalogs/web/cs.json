@@ -160,5 +160,8 @@
   "news.challenge-and-replay.body": "Snížili jsme počet tahů ve 33 vybraných úrovních od levelu 20, včetně několika výzev HARD. Dokončené části lodi lze znovu hrát i před odletem a zlepšovat si hvězdy. Krok zpět nyní nejprve připraví dostupné použití; teprve dalším klepnutím vrátí tah. Postup i získané hvězdy zůstávají zachované.",
   "news.android-preview.tag": "PŘIPRAVUJEME",
   "news.android-preview.title": "Android aplikaci už testujeme.",
-  "news.android-preview.body": "Android verzi Beyond the Signal už interně testujeme na skutečném telefonu. Před širším vydáním ověřujeme ovládání, ukládání postupu a odměňované reklamy. Aplikace zatím není veřejně ke stažení ani na Google Play. Všech 200 levelů můžeš dál hrát v prohlížeči."
+  "news.android-preview.body": "Android verzi Beyond the Signal už interně testujeme na skutečném telefonu. Před širším vydáním ověřujeme ovládání, ukládání postupu a odměňované reklamy. Aplikace zatím není veřejně ke stažení ani na Google Play. Všech 200 levelů můžeš dál hrát v prohlížeči.",
+  "news.german-release.tag": "NOVÝ JAZYK",
+  "news.german-release.title": "Všech 200 levelů si zahraješ i německy.",
+  "news.german-release.body": "K angličtině a češtině přibyla němčina: všech 200 levelů, cíle, ovládání, příběh i lodní deník. V nastavení hry vyber Deutsch; uložený postup i získané hvězdy zůstávají zachované. Desktopový test prošel všech 200 levelů, mobilní testování pokračuje. Hraješ německy? Dej nám vědět, pokud je některá formulace nejasná nebo se delší text nevejde."
 }
