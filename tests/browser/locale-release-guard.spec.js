@@ -6,8 +6,11 @@ test('a draft preview URL cannot enable an incomplete language in a production b
   localStorage.setItem('to-the-stars-language','cs');
   localStorage.setItem('beyond-signal-analytics-choice-v1',JSON.stringify({version:1,state:'denied',at:Date.now()}));
  });
- await page.goto('/?previewLanguage=fr&lang=fr');
+ await page.goto('/?previewLanguage=es&lang=es');
  await expect(page.locator('html')).toHaveAttribute('lang','cs');
- expect(await page.locator('.welcome-settings select option').evaluateAll(options=>options.map(o=>o.value))).toEqual(['en','cs','de']);
+ expect(await page.locator('.welcome-settings select option').evaluateAll(options=>options.map(o=>o.value))).toEqual(['en','cs','de','fr']);
  await expect(page.locator('.welcome-play')).toHaveText('HRÁT');
+ await page.goto('/transfer.html?previewLanguage=es&lang=es');
+ await expect(page.locator('html')).toHaveAttribute('lang','cs');
+ await expect(page.locator('h1')).toHaveText('Zachovat uloženou hru');
 });

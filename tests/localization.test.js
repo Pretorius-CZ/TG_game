@@ -23,14 +23,14 @@ test('explicit language survives the cross-origin PLAY link without forwarding a
  let replaced;syncAddressLanguage('en',{href:address},{state:{keep:1},replaceState:(state,unused,url)=>{replaced={state,url};}});
  assert.deepEqual(replaced,{state:{keep:1},url:'https://game.playbeyondthesignal.com/?utm_campaign=test&lang=en'});
 });
-test('German is released and incomplete editions remain unavailable',async()=>{
+test('German and French are released and incomplete editions remain unavailable',async()=>{
  await loadLocaleCatalog('de');
- assert.deepEqual(releasedLocales.map(locale=>locale.code),['en','cs','de']);
+ assert.deepEqual(releasedLocales.map(locale=>locale.code),['en','cs','de','fr']);
  assert.equal(matchLocale('pt_BR',{includeDrafts:true}),'pt-BR');
  assert.equal(matchLocale('pt',{includeDrafts:true}),'pt-BR');
  assert.equal(matchLocale('pt-PT',{includeDrafts:true}),null);
  assert.equal(matchLocale('fr-CA',{includeDrafts:true}),'fr');
- assert.equal(matchLocale('de-DE'),'de');assert.equal(matchLocale('fr'),null);
+ assert.equal(matchLocale('de-DE'),'de');assert.equal(matchLocale('fr'),'fr');
  assert.equal(message('common.play',{},'de'),'Spielen');
  const document={documentElement:{}};applyDocumentLanguage('cs',document);
  assert.deepEqual(document.documentElement,{lang:'cs',dir:'ltr'});
@@ -53,7 +53,8 @@ test('catalog validation catches missing translations, empty text and lost param
  assert.ok(problems.some(problem=>problem.includes('missing plural form few')));
  assert.ok(problems.some(problem=>problem.includes('empty or invalid translation')));
  assert.ok(problems.includes('web.pageTitle: missing translation'));
- for(const code of ['fr','es','pt-BR']){
+ assert.deepEqual(catalogProblems('fr',await loadLocaleCatalog('fr')),[]);
+ for(const code of ['es','pt-BR']){
   const draft=await loadLocaleCatalog(code),errors=catalogProblems(code,draft);
   assert.ok(errors.some(problem=>problem.endsWith(': missing translation')));
   assert.deepEqual(errors.filter(problem=>!problem.endsWith(': missing translation')),[]);

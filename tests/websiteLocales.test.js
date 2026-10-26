@@ -5,9 +5,9 @@ import {WEBSITE_LANGUAGE_KEY,websiteLocales,initialWebsiteLanguage,websiteRoute,
 import {LANGUAGE_KEY,releasedLocales} from '../src/i18n/locales.js';
 import {websiteFiles,publicSitePaths} from '../src/sitePages.js';
 
-test('website preferences support six languages independently of the three game releases',()=>{
+test('website preferences support six languages independently of the four game releases',()=>{
  assert.deepEqual(websiteLocales.map(locale=>locale.code),['en','cs','de','fr','es','pt-BR']);
- assert.deepEqual(releasedLocales.map(locale=>locale.code),['en','cs','de']);
+ assert.deepEqual(releasedLocales.map(locale=>locale.code),['en','cs','de','fr']);
  const saved={[WEBSITE_LANGUAGE_KEY]:'de',[LANGUAGE_KEY]:'cs'},storage={getItem:key=>saved[key]};
  assert.equal(initialWebsiteLanguage({storage,languages:['fr-FR']}),'de');
  assert.equal(initialWebsiteLanguage({storage,requested:'es-MX'}),'es');
@@ -23,7 +23,7 @@ test('language switches preserve article, hash and campaigns; released website l
  assert.equal(websiteAddress(original,'fr'),'https://playbeyondthesignal.com/fr/tools-and-obstacles.html?utm_source=automated_test#covers');
  assert.deepEqual(websiteRoute('https://playbeyondthesignal.com/pt-BR/'),{language:'pt-BR',file:'index.html'});
  assert.equal(websiteAddress('https://playbeyondthesignal.com/de/','en'),'https://playbeyondthesignal.com/welcome.html?lang=en');
- for(const locale of websiteLocales)assert.equal(gameLanguageForWebsite(locale.code),['cs','de'].includes(locale.code)?locale.code:'en');
+ for(const locale of websiteLocales)assert.equal(gameLanguageForWebsite(locale.code),['cs','de','fr'].includes(locale.code)?locale.code:'en');
 });
 
 test('all 48 public pages contain translated HTML, metadata, language alternatives and safe game links',()=>{

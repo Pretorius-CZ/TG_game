@@ -3,43 +3,43 @@
     {
       "code": "en",
       "status": "released",
-      "total": 2472,
-      "translated": 2472,
+      "total": 2475,
+      "translated": 2475,
       "problems": 0
     },
     {
       "code": "cs",
       "status": "released",
-      "total": 2472,
-      "translated": 2472,
+      "total": 2475,
+      "translated": 2475,
       "problems": 0
     },
     {
       "code": "de",
       "status": "released",
-      "total": 2472,
-      "translated": 2472,
+      "total": 2475,
+      "translated": 2475,
       "problems": 0
     },
     {
       "code": "fr",
-      "status": "draft",
-      "total": 2472,
-      "translated": 172,
-      "problems": 2300
+      "status": "released",
+      "total": 2475,
+      "translated": 2475,
+      "problems": 0
     },
     {
       "code": "es",
       "status": "draft",
-      "total": 2472,
-      "translated": 172,
+      "total": 2475,
+      "translated": 175,
       "problems": 2300
     },
     {
       "code": "pt-BR",
       "status": "draft",
-      "total": 2472,
-      "translated": 172,
+      "total": 2475,
+      "translated": 175,
       "problems": 2300
     }
   ],
@@ -51,7 +51,7 @@
     },
     {
       "path": "src/saveTransferPage.js",
-      "line": 15,
+      "line": 16,
       "kind": "bilingual branch"
     },
     {

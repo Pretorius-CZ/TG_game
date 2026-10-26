@@ -54,7 +54,7 @@ test('all website choices map PLAY correctly and game still exposes only complet
  for(const {code} of websiteLocales){
   const nextAddress=websiteAddress(page.url(),code);await Promise.all([page.waitForURL(nextAddress),page.locator('[data-website-language]').selectOption(code)]);await page.waitForLoadState('load');
   await expect(page.locator('html')).toHaveAttribute('lang',code);
-  expect(new URL(await page.locator('.game-link').first().getAttribute('href')).searchParams.get('lang')).toBe(['cs','de'].includes(code)?code:'en');
+  expect(new URL(await page.locator('.game-link').first().getAttribute('href')).searchParams.get('lang')).toBe(['cs','de','fr'].includes(code)?code:'en');
   const copy=await page.locator('[data-text],[data-alt],[data-label]').evaluateAll(nodes=>nodes.map(node=>node.textContent+' '+node.getAttribute('alt')+' '+node.getAttribute('aria-label')).join('\n'));
   expect(copy).not.toMatch(/\b(?:web|news)\.[a-zA-Z]/);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);

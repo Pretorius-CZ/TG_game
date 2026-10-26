@@ -42,7 +42,7 @@ function Preview(){
  const entries=sites.flatMap(s=>s.logs.map((entry,i)=>({...entry,available:i<(progress[s.key]??0)})));
  const props={progress,onProgress:setProgress,onNavigate:navigate,onLog:setLog,onContinueStory:()=>navigate(goal.scene),storyGoal:goal,onReplayStory:showStory,onJumpStory:()=>showStory('jump'),onEncounter:()=>showStory('caretaker')};
  return <main className="app">
-  <header className="chapter-preview-toolbar"><strong>Německý náhled · kapitoly 2–10</strong><p>Postup je pouze v paměti. Výsledky se neodesílají. Běžná hra se nemění.</p>
+  <header className="chapter-preview-toolbar"><strong>Lokalizační náhled · kapitoly 2–10</strong><p>Postup je pouze v paměti. Výsledky se neodesílají. Běžná hra se nemění.</p>
    <label>Oblast <select aria-label="Oblast náhledu" value={progress.scene} onChange={e=>navigate(e.target.value)}>{scenes.map(scene=><option key={scene} value={scene}>{t(destinations[scene]?.title??({system:'System chart',system2:'Aster Veil system',elysium:'Elysium station',rift:'The Rift'}[scene]))}</option>)}</select></label>
    {site&&<label>Dokončené opravy <select aria-label="Dokončené opravy náhledu" value={progress[site.key]??0} onChange={e=>{setProgress(p=>({...p,[site.key]:Number(e.target.value)}));setRevision(n=>n+1);}}>{Array.from({length:site.repairs.length+1},(_,i)=><option key={i} value={i}>{i}/{site.repairs.length}</option>)}</select></label>}
    <label>Příběh <select aria-label="Příběh náhledu" value="" onChange={e=>showStory(e.target.value)}><option value="">Vyber scénu</option>{stories.map(s=><option key={s.id} value={s.id}>{t(s.title)}</option>)}</select></label>
