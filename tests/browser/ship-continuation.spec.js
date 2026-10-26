@@ -86,6 +86,22 @@ test('German journey continues after level 29 through departure to the first min
  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('to-the-stars-progress-v1')));
  expect(saved.launchDone).toBe(true);expect(saved.mineCompleted).toBe(0);
 });
+
+test('German iPhone SE layout continues from hull repair 25 to engine repair 26',async({page})=>{
+ await enter(page,{...interior,exteriorCompleted:0,scene:'exterior'},'de',320);
+ await page.getByTitle(translate(exteriorRepairs[0].name,'de'),{exact:true}).locator('.target').click();
+ await page.locator('.repair-bubble .preview-complete').click();
+ await expect(page.locator('.repair-reveal')).toBeVisible();
+ const next=page.locator('.repair-reveal .primary');
+ await expect(next).toHaveText(message('ship.nextRepair',{name:translate(exteriorRepairs[1].name,'de')},'de')+' →');
+ await next.click();
+ await expect(page.locator('#bubble-title')).toHaveText(translate(exteriorRepairs[1].name,'de'));
+ await page.locator('.repair-bubble .primary').click();
+ await expect(page.locator('.board')).toHaveAttribute('aria-busy','false');
+ const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('to-the-stars-progress-v1')));
+ expect(saved.exteriorCompleted).toBe(1);
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+});
 for(const completed of [0,3])test(`cockpit continuation opens the next briefing before starting the next puzzle from ${completed}`,async({page})=>{
  const next=completed===0?repairs[1]:navigationRepairs[0];
  await enter(page,{airlockCompleted:3,completed,scene:'cockpit'},'en',430);await page.locator('.repair-hotspot:not(.completed-hotspot) .target').click();await page.locator('.repair-bubble .preview-complete').click();await page.locator('.repair-reveal .primary').click();await expect(page.locator('#bubble-title')).toHaveText(next.name);await expect(page.locator('#bubble-story')).toHaveText(next.thought);await expect(page.locator('.mini-dialog')).toHaveCount(0);
