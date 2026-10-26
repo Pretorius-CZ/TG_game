@@ -1004,3 +1004,5 @@ website, Android preview běží na 5185. Produkční web/game neaktualizovány.
 2026-10-26 — Exteriér před odletem: rozestoupené opravy, oddělený modrý vstup; HARD kontrola a Odlet jako velké spodní tlačítko. Min. 660px, krátké displeje posouvají exteriér místo zmenšení pod 44px. Ostatní scény beze změny. 285 unit, 15 navigačních UI a 6 Android-mode stavů. docs/exterior-departure-layout-2026-10-26.md.
 
 2026-10-26 — HARD předletová příprava má po splnění vlastní replay tlačítko s hvězdami pod exteriérem; Odlet samostatně. EN/CS/DE web i Android-mode: opakování, opuštění a následný odlet ověřeny. APK sestaveno.
+
+2026-10-26 — Finální zadání exteriéru: HARD předletová kontrola je běžný úkol NAD lodí s hvězdami/replay, nikoli pod scénou. Dole výhradně velký Odlet po splnění HARD. Web/Android EN/CS/DE ověřeny, APK sestaveno. docs/exterior-departure-layout-2026-10-26.md.
