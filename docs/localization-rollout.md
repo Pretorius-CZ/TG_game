@@ -227,3 +227,7 @@ APK sestavené, produkční Android pojistka proti zapnutí draftu prošla.
 
 Herní pravidla, limity, ID, verze balancu a uložený postup se nemění.
 Další práce: redakční průchod němčiny a příprava vydání, potom FR → ES → PT-BR.
+
+## 2026-10-27 — všech šest plánovaných jazyků
+
+Dokončena brazilská portugalština v celé hře (200 úrovní, příběh, deník, UI a přenos), veřejná volba PT-BR pro online test. Předchozí poznámky o draftu FR/ES/PT-BR již neplatí. Web i hra mají EN/CS/DE/FR/ES/PT-BR. Podrobnosti: docs/portuguese-localization-2026-10-27.md. Externí PT-BR test teprve následuje; pravidla, CSS a pozice úkolů beze změny.

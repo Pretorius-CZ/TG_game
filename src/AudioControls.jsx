@@ -8,6 +8,7 @@ export default function AudioControls(){
   return <div className="audio-controls audio-icons" aria-label={t("Sound settings")}>{['music','effects'].map(key=>{
     const state=language==='es'
       ? (key==='music'?(settings[key]?'activada':'desactivada'):(settings[key]?'activados':'desactivados'))
+      : language==='pt-BR' ? (key==='music'?(settings[key]?'ligada':'desligada'):(settings[key]?'ligados':'desligados'))
       : t(settings[key]?'On':'Off');
     const label=`${t(key==='music'?'Music':'Sounds')}: ${state}`;
     return <button key={key} type="button" title={label} aria-label={label} aria-pressed={settings[key]} onClick={()=>{const value=!settings[key];setAudio(key,value);update(old=>({...old,[key]:value}));}}>

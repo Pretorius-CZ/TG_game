@@ -25,7 +25,7 @@ test('explicit language survives the cross-origin PLAY link without forwarding a
 });
 test('German and French are released and incomplete editions remain unavailable',async()=>{
  await loadLocaleCatalog('de');
- assert.deepEqual(releasedLocales.map(locale=>locale.code),['en','cs','de','fr','es']);
+ assert.deepEqual(releasedLocales.map(locale=>locale.code),['en','cs','de','fr','es','pt-BR']);
  assert.equal(matchLocale('pt_BR',{includeDrafts:true}),'pt-BR');
  assert.equal(matchLocale('pt',{includeDrafts:true}),'pt-BR');
  assert.equal(matchLocale('pt-PT',{includeDrafts:true}),null);
@@ -57,7 +57,7 @@ test('catalog validation catches missing translations, empty text and lost param
  assert.deepEqual(catalogProblems('es',await loadLocaleCatalog('es')),[]);
  for(const code of ['pt-BR']){
   const draft=await loadLocaleCatalog(code),errors=catalogProblems(code,draft);
-  assert.ok(errors.some(problem=>problem.endsWith(': missing translation')));
+  assert.deepEqual(errors,[]);
   assert.deepEqual(errors.filter(problem=>!problem.endsWith(': missing translation')),[]);
   assert.equal(typeof draft['common.play'],'string');
  }

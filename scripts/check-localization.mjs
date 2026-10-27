@@ -34,9 +34,9 @@ for(const locale of locales){
  if(locale.status==='released')failures.push(...problems.map(problem=>`${locale.code}: ${problem}`));
  else failures.push(...problems.filter(problem=>!problem.endsWith(': missing translation')).map(problem=>`${locale.code}: ${problem}`));
 }
-// DE, FR and ES have content, objective, transfer and layout regression coverage.
+// DE, FR, ES and PT-BR have content, objective, transfer and layout regression coverage.
 // Future editions still require their own release audit.
-if(releasedLocales.some(locale=>!['en','cs','de','fr','es'].includes(locale.code)))failures.push('Additional language release requires migration of dynamic objectives, bilingual story data, consent/transfer/legal copy and the remaining branches. See docs/localization-rollout.md.');
+if(releasedLocales.some(locale=>!['en','cs','de','fr','es','pt-BR'].includes(locale.code)))failures.push('Additional language release requires migration of dynamic objectives, bilingual story data, consent/transfer/legal copy and the remaining branches. See docs/localization-rollout.md.');
 // Website translations release independently. A missing key is an error here,
 // even while that language remains an unfinished in-game catalog.
 for(const namespace of ['web','legal']){

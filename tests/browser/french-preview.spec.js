@@ -50,5 +50,5 @@ test('French preview translates the welcome, settings and first repair with the 
  await expect(page.locator('.journey-panel')).toContainText('Répare le vaisseau');
  await page.goto('/');
  const codes=await page.locator('.welcome-settings select option').evaluateAll(options=>options.map(o=>o.value));
- expect(codes).toEqual(['en','cs','de','fr','es']);
+ expect(codes).toEqual(['en','cs','de','fr','es','pt-BR']);
 });
