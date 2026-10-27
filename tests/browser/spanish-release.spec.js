@@ -25,6 +25,11 @@ test('blind test offers Spanish without changing ordinary saves or language',asy
  await page.getByRole('button',{name:'ES',exact:true}).click();await expect(page.locator('html')).toHaveAttribute('lang','es');
  await page.getByRole('button',{name:'Povolit sběr a zahájit test',exact:true}).click();
  await expect(page.locator('.moves-counter span')).toHaveText('MOVIMIENTOS');
+ const music=page.getByRole('button',{name:'Música: activada',exact:true});
+ await expect(music).toHaveAttribute('title','Música: activada');
+ await music.click();await expect(page.getByRole('button',{name:'Música: desactivada',exact:true})).toBeVisible();
+ const sounds=page.getByRole('button',{name:'Sonidos: activados',exact:true});
+ await sounds.click();await expect(page.getByRole('button',{name:'Sonidos: desactivados',exact:true})).toBeVisible();
  expect(await page.evaluate(()=>localStorage.getItem('to-the-stars-progress-v1'))).toBeNull();
  expect(await page.evaluate(()=>localStorage.getItem('to-the-stars-language'))).toBeNull();
 });

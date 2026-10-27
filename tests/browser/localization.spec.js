@@ -14,7 +14,7 @@ test('first visit detects Czech, website selection persists independently of gam
  await page.goto('http://127.0.0.1:5181/welcome.html');
  await expect(page.locator('html')).toHaveAttribute('lang','cs');
  await expect(page.locator('[data-text="contentNote"]')).toContainText('200 levelů');
- await expect(page.locator('#update-list article')).toHaveCount(8);
+ await expect(page.locator('#update-list article')).toHaveCount(9);
  await page.locator('[data-website-language]').selectOption('en');
  await expect(page.locator('[data-text="play"]').first()).toHaveText('Play free');
  await page.goto('http://127.0.0.1:5181/privacy.html');
@@ -62,5 +62,5 @@ test('all website choices map PLAY correctly and game still exposes only complet
   expect(new URL(await page.locator('[data-text="site.about"]').evaluate(link=>link.href)).pathname).toBe((code==='en'?'/':`/${code}/`)+'about.html');
  }
  await page.screenshot({path:testInfo.outputPath('website-pt-BR.png')});expect(errors).toEqual([]);
- await page.goto('/');await expect(page.locator('.welcome-settings select option')).toHaveCount(3);
+ await page.goto('/');await expect(page.locator('.welcome-settings select option')).toHaveCount(5);
 });
