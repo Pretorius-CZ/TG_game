@@ -7,6 +7,8 @@ import{echoDeparturePanels}from'../../src/echoDepartureStory.js';
 import{riftStoryPanels}from'../../src/riftStory.js';
 import{researchStoryPanels}from'../../src/researchStory.js';
 import{relayStoryPanels}from'../../src/relayStory.js';
+import{caretakerPanels}from'../../src/caretakerStory.js';
+import{journeyStories}from'../../src/journeyStories.js';
 import{normalizeProgress}from'../../src/progressStorage.js';
 import{levelCatalog}from'../../src/levelCatalog.js';
 import{loadLocaleCatalog}from'../../src/i18n/messages.js';
@@ -14,13 +16,13 @@ import{translate}from'../../src/i18n/translate.js';
 test.beforeAll(async()=>{await loadLocaleCatalog('es');});
 test.beforeEach(async({page})=>{await page.route(/supabase\.co|api\.country\.is/,r=>r.fulfill({status:204,body:''}));});
 
-test('Spanish transition panels through chapter 6 stay isolated from ordinary progress',async({page},info)=>{
+test('Spanish transition panels through chapter 10 stay isolated from ordinary progress',async({page},info)=>{
  await page.setViewportSize({width:320,height:568});
  const keys=['to-the-stars-progress-v1','to-the-stars-lives-v1','to-the-stars-helpers-v1:guest:0','beyond-signal-analytics-choice-v1','beyond-signal-tutorials-v1:guest'];
  await page.addInitScript(keys=>{for(const k of keys)localStorage.setItem(k,'ordinary-save-sentinel');localStorage.setItem('to-the-stars-language','cs');},keys);
  await page.goto('/tests/browser/localization-preview.html?previewLanguage=es');
  await expect(page.locator('.scene-top h1')).toHaveText('Boya de exploración');
- for(const[id,panels]of[['jump',asterJumpPanels],['arrival',elysiumArrivalPanels],['echo',echoDeparturePanels],['rift',riftStoryPanels],['research',researchStoryPanels],['relay',relayStoryPanels]]){
+ for(const[id,panels]of[['jump',asterJumpPanels],['arrival',elysiumArrivalPanels],['echo',echoDeparturePanels],['rift',riftStoryPanels],['research',researchStoryPanels],['relay',relayStoryPanels],['caretaker',caretakerPanels],...journeyStories.map(s=>[s.id,s.panels])]){
   await page.getByLabel('Příběh náhledu').selectOption(id);
   for(const panel of panels){
    const comic=page.locator('.caretaker-comic');await expect(comic.locator('h2')).toHaveText(translate(panel.title,'es'));

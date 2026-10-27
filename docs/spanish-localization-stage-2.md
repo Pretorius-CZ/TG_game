@@ -1,5 +1,8 @@
 # Španělština — kapitoly 4–6, 27. 10. 2026
 
+Historický checkpoint. Překlad je nyní úplný; aktuální stav viz
+`spanish-localization-complete-2026-10-27.md`.
+
 Pokračování první etapy podle dalšího zadání uživatele. ES zůstává
 draft; veřejné EN/CS/DE/FR menu ani webové odkazy se nemění.
 

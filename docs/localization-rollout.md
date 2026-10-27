@@ -10,9 +10,11 @@ Externí desktopový test 27. 10. dokončil 200/200 bez nálezů; Pixel 7
 právě běží. Rozsah:
 `docs/french-release-2026-10-26.md` a
 `docs/french-localization-complete-2026-10-26.md`.
-Španělština, 27. 10.: pracovní překlad kapitol 1–6 (120 úrovní)
-a společného ovládání/runtime; 1749/2481 zpráv. ES zůstává draft,
-lokální `previewLanguage=es`. Viz `docs/spanish-localization-stage-2.md`.
+Španělština, 27. 10.: úplný překlad 200 úrovní, deníků, příběhu,
+ovládání a přenosu postupu; 2481/2481 zpráv bez chyb auditu.
+ES zůstává draft v lokálním `previewLanguage=es`; před online testem
+zbývá zpřístupnění a nasazení. Viz
+`docs/spanish-localization-complete-2026-10-27.md`.
 Níže uvedené pracovní stavy z 25. října jsou historické.
 
 Schválený první rozsah: EN, CS, DE, FR, ES a brazilská portugalština PT-BR
