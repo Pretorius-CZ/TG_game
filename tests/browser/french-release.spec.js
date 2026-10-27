@@ -11,7 +11,7 @@ test('released French opens from a public URL, persists and preserves existing p
  await page.goto('/?lang=fr');await expect(page.locator('html')).toHaveAttribute('lang','fr');
  await expect(page.locator('.welcome-play')).toHaveText('CONTINUER');
  await expect(page.locator('.welcome-settings select')).toHaveValue('fr');
- await expect(page.locator('.welcome-settings select option')).toHaveCount(4);
+ await expect(page.locator('.welcome-settings select option')).toHaveCount(5);
  const before=await page.evaluate(()=>localStorage.getItem('to-the-stars-progress-v1'));
  await page.goto('/');await expect(page.locator('.welcome-play')).toHaveText('CONTINUER');
  expect(await page.evaluate(()=>localStorage.getItem('to-the-stars-progress-v1'))).toBe(before);

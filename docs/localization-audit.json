@@ -30,10 +30,10 @@
     },
     {
       "code": "es",
-      "status": "draft",
+      "status": "released",
       "total": 2475,
-      "translated": 175,
-      "problems": 2300
+      "translated": 2475,
+      "problems": 0
     },
     {
       "code": "pt-BR",

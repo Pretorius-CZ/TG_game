@@ -17,7 +17,7 @@ for(const {code:language} of websiteLocales)for(const width of [320,1440])test(`
   expect(await page.locator('.article-copy').innerText()).not.toMatch(/\bweb\.[a-zA-Z]/);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   for(const image of await page.locator('img').all()){await image.scrollIntoViewIfNeeded();await expect.poll(()=>image.evaluate(node=>node.complete&&node.naturalWidth>0)).toBe(true);}
-  const href=await page.locator('.game-link').first().getAttribute('href');expect(new URL(href).searchParams.get('lang')).toBe(['cs','de','fr'].includes(language)?language:'en');
+  const href=await page.locator('.game-link').first().getAttribute('href');expect(new URL(href).searchParams.get('lang')).toBe(['cs','de','fr','es'].includes(language)?language:'en');
   await page.addScriptTag({path:axePath});
   const violations=await page.evaluate(async()=>{const result=await axe.run('body',{runOnly:{type:'rule',values:['color-contrast','link-name','button-name','image-alt','page-has-heading-one']}});return result.violations.map(item=>({id:item.id,nodes:item.nodes.map(node=>node.target)}));});
   expect(violations).toEqual([]);

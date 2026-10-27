@@ -12,7 +12,7 @@ for(const width of [320,1440])test(`localized home and legal entry pages fit ${w
   await expect(page.locator('h1')).toBeVisible();
   await expect(page.locator('[data-website-language]')).toHaveValue(code);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
-  for(const link of await page.locator('.game-link').all())expect(new URL(await link.getAttribute('href')).searchParams.get('lang')).toBe(['cs','de','fr'].includes(code)?code:'en');
+  for(const link of await page.locator('.game-link').all())expect(new URL(await link.getAttribute('href')).searchParams.get('lang')).toBe(['cs','de','fr','es'].includes(code)?code:'en');
   if(file==='index.html'){
    await expect(page.locator('[data-text="contentNote"]')).toContainText('200');
    await expect(page.locator('.game-language-note').first()).toBeVisible();
