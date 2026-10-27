@@ -35,8 +35,8 @@ v Novinkách ve všech šesti jazycích; negenerovat zvláštní ručně udržov
 
 ## Návaznost na jazyky
 
-Web je vydaný v EN/CS/DE/FR/ES/PT-BR. Hra od 26. 10. v EN/CS/DE;
-webové edice FR/ES/PT-BR zatím odkazují do anglické hry.
+Web je vydaný v EN/CS/DE/FR/ES/PT-BR. Hra od 27. 10. v EN/CS/DE/FR/ES;
+webová edice PT-BR zatím odkazuje do anglické hry.
 Toto rozlišení zachovat i v novinkách.
 Pokračování herní lokalizace: sdílené UI a parametrické cíle, potom příběh,
 deník a všechny úrovně; následně jazyková a mobilní kontrola před zveřejněním
@@ -61,3 +61,8 @@ testování. Přidán současně ve všech šesti webových jazycích, na úvodu
 i v Novinkách. Bez změn herního jádra nebo rozložení hry.
 Kontrola 320/1440px a statických článků bez JavaScriptu; site/i18n audit.
 Samotná webová novinka nevyžaduje sestavení ani instalaci nového APK.
+
+
+## Vydání 27. 10. 2026 — španělština
+
+Novinka `spanish-release` na úvodu a v Novinkách ve všech šesti jazycích: všech 200 levelů, ovládání, příběh, deník a přenos postupu v ES. Externí automat dokončil 200/200 na desktopu i Pixelu 7 bez angličtiny a ořezů; shoda Exterior je správná španělština. Stejný úplný průchod již prošla FR. Opraveny španělské zvukové popisky Música: activada/desactivada a Sonidos: activados/desactivados pro title i přístupné názvy. Bez změn pravidel, pozic nebo CSS. Zdroj Android větve aktualizován; již nainstalované APK vyžaduje nové sestavení.

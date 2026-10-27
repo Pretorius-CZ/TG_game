@@ -16,9 +16,9 @@ for(const width of [320,1440])test(`localized home and legal entry pages fit ${w
   if(file==='index.html'){
    await expect(page.locator('[data-text="contentNote"]')).toContainText('200');
    await expect(page.locator('.game-language-note').first()).toBeVisible();
-   await expect(page.locator('.update')).toHaveCount(8);
-   await expect(page.locator('.update').first().locator('time')).toHaveAttribute('datetime','2026-10-26');
-   await expect(page.locator('.update').first()).toContainText('Deutsch');
+   await expect(page.locator('.update')).toHaveCount(9);
+   await expect(page.locator('.update').first().locator('time')).toHaveAttribute('datetime','2026-10-27');
+   await expect(page.locator('.update').first()).toContainText('Español');
    await page.screenshot({path:info.outputPath(`${code}-home.png`),fullPage:true});
   }
   if(file==='privacy.html'){
