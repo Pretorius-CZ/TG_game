@@ -1,5 +1,8 @@
 # Španělština — první tři kapitoly, 27. 10. 2026
 
+Historický checkpoint: překlad už pokračuje až do kapitoly 6.
+Aktuální stav popisuje `spanish-localization-stage-2.md`.
+
 Na schválené pokračování FR → ES → PT-BR navazuje první etapa ES.
 Rozsah je společné ovládání a první tři kapitoly, nikoli celá hra.
 ES zůstává draft; veřejné menu má EN/CS/DE/FR. Žádné nasazení.

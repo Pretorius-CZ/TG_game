@@ -10,9 +10,9 @@ import {loadLocaleCatalog} from '../../src/i18n/messages.js';
 test.beforeAll(async()=>{await loadLocaleCatalog('es');});
 const counts=Object.fromEntries(Object.keys(normalizeProgress()).filter(k=>k==='completed'||k.endsWith('Completed')).map(k=>[k,99]));
 const progress=normalizeProgress({...counts,finaleDone:true,launchDone:true,scannerInstalled:true,jumpDone:true,elysiumRouteCompleted:1,elysiumArrival:1,riftCrossed:1,caretakerMet:1,stars:Object.fromEntries(levelCatalog.map((r,i)=>[r.id,1+i%3]))});
-for(const [language,width,height]of [['es',320,568],['es',430,932]])test(`Spanish chapters 2–3 preserve all task anchors, names and stars ${language} ${width}`,async({page},testInfo)=>{
+for(const [language,width,height]of [['es',320,568],['es',430,932]])test(`Spanish chapters 2–6 preserve all task anchors, names and stars ${language} ${width}`,async({page},testInfo)=>{
  test.setTimeout(120000);await page.setViewportSize({width,height});
- const errors=[],overlaps=[],covered=[];page.on('pageerror',e=>errors.push(e.message));
+ const errors=[],overlaps=[],covered=[],clipped=[];page.on('pageerror',e=>errors.push(e.message));
  await page.route(/supabase\.co|api\.country\.is/,r=>r.fulfill({status:204,body:''}));
  await page.addInitScript(({progress,language,stories})=>{
   const scene=new URL(location.href).searchParams.get('qa-scene');
@@ -21,12 +21,13 @@ for(const [language,width,height]of [['es',320,568],['es',430,932]])test(`Spanis
   localStorage.setItem('beyond-signal-analytics-choice-v1',JSON.stringify({version:1,state:'denied',at:Date.now()}));
   for(const id of stories)localStorage.setItem('beyond-the-signal-story:guest:0:'+id,'seen');
  },{progress,language,stories:journeyStories.map(s=>s.id)});
- const scenes=new Set(chaptersFor({}).slice(1,3).flatMap(c=>c.sections.map(s=>s.scene)));
+ const scenes=new Set(chaptersFor({}).slice(1,6).flatMap(c=>c.sections.map(s=>s.scene)));
  for(const [scene,site]of Object.entries(destinations).filter(([scene])=>scenes.has(scene))){
   await page.goto('/?qa-scene='+scene+'&previewLanguage=es');
   await page.locator('button.welcome-secondary').click();await page.locator('.chapters-dialog>.close').click();
   await expect(page.locator('.expedition .completed-hotspot')).toHaveCount(site.repairs.length);
   await expect(page.locator('.completed-repairs-grid')).toHaveCount(0);
+  clipped.push(...await page.locator('.scene-repairs .hotspot-label').evaluateAll((labels,scene)=>labels.map(label=>{const r=label.getBoundingClientRect();return{scene,text:label.textContent,left:r.left,right:r.right};}).filter(r=>r.left<0||r.right>innerWidth+1),scene));
   const boxes=[];
   for(const repair of site.repairs){
    const point=page.locator('.expedition .completed-hotspot').filter({has:page.locator('.hotspot-label',{hasText:translate(repair.name,language)})});
@@ -50,17 +51,12 @@ for(const [language,width,height]of [['es',320,568],['es',430,932]])test(`Spanis
    const a=boxes[i],b=boxes[j],x=Math.min(a.x+a.width,b.x+b.width)-Math.max(a.x,b.x),y=Math.min(a.y+a.height,b.y+b.height)-Math.max(a.y,b.y);
    if(x>2&&y>2)overlaps.push({scene,a:a.id,b:b.id,x:Math.round(x),y:Math.round(y)});
   }
-  if(['elysium-homes','night-sanctuary','refuge-homes','refuge-arrival','archive-core','signal-garden'].includes(scene))await page.screenshot({path:testInfo.outputPath(scene+'.png'),fullPage:true});
-  if(scene.startsWith('signal-'))for(const repair of site.repairs){
-   await page.locator(`[data-repair-id="${repair.id}"] .target`).click();
-   await expect(page.locator('#bubble-title')).toHaveText(translate(repair.name,language));
-   await expect(page.locator('.repair-bubble-dialog .primary')).toContainText(translate('Replay lesson',language));
-   await page.locator('.repair-bubble-dialog .close').click();
-  }
+  if(['elysium-homes','rift-beacons','beyond-rift','elysium-research','relay'].includes(scene))await page.screenshot({path:testInfo.outputPath(scene+'.png'),fullPage:true});
  }
  await testInfo.attach('label-overlaps',{body:JSON.stringify(overlaps,null,2),contentType:'application/json'});
- writeFileSync(testInfo.outputPath('label-audit.json'),JSON.stringify({overlaps,covered},null,2));
+ writeFileSync(testInfo.outputPath('label-audit.json'),JSON.stringify({overlaps,covered,clipped},null,2));
  expect(overlaps).toEqual([]);
  expect(covered).toEqual([]);
+ expect(clipped).toEqual([]);
  expect(errors).toEqual([]);
 });

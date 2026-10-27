@@ -8,7 +8,7 @@ import{departurePanels}from'../src/departureStory.js';
 import{asterJumpPanels}from'../src/asterJumpStory.js';
 import{elysiumArrivalPanels}from'../src/elysiumArrivalStory.js';
 import{jumpLog}from'../src/haven.js';
-import{translate,missingTranslations}from'../src/i18n/translate.js';
+import{translate,dataText,missingTranslations}from'../src/i18n/translate.js';
 import{loadLocaleCatalog,catalogProblems,message}from'../src/i18n/messages.js';
 import{releasedLocales,matchLocale}from'../src/i18n/locales.js';
 
@@ -47,4 +47,24 @@ test('Spanish objectives preserve changing counts throughout all 69 puzzles in c
   const translated=translate(source,'es');assert.deepEqual(counts(translated),counts(source),repair.id);
   assert.doesNotMatch(translated,/\b(?:Collect|Match|Break|protective covers)\b/,repair.id);
  }
+});
+
+test('Spanish chapters 4–6 cover repairs, journals, transitions and all 51 changing objectives',async()=>{
+ await loadLocaleCatalog('es');missingTranslations.clear();
+ const fields=new Set(['name','room','thought','lesson','objective','result','action','title','text','source','time','caption','complete','chapter','finishLabel']);
+ const counts=s=>(s.match(/\d+/g)??[]).map(Number).sort((a,b)=>a-b);
+ function audit(value){if(!value||typeof value!=='object')return;for(const[k,v]of Object.entries(value)){
+  if(fields.has(k)&&typeof v==='string'){
+   if(k==='chapter'&&/^[a-z-]+$/.test(v))continue;
+   assert.deepEqual(counts(translate(v,'es')),counts(v),v);
+  }else if(v&&typeof v==='object')audit(v);
+ }}
+ const chapters=chaptersFor({}).slice(3,6);assert.equal(chapters.reduce((n,c)=>n+c.total,0),51);
+ for(const chapter of chapters){dataText(chapter,'es');audit(chapter.sections);}
+ for(const file of['elysium','echoDepartureStory','rift','riftStory','garden','research','relay','researchStory','relayStory'])for(const[k,v]of Object.entries(await import(`../src/${file}.js`)))if(/Logs$|Log$|Panels$/.test(k))audit(v);
+ for(const repair of chapters.flatMap(c=>c.sections.flatMap(s=>s.repairs))){
+  const source=repair.objective.replace(/\d+/g,n=>String(+n+7)),translated=translate(source,'es');
+  assert.deepEqual(counts(translated),counts(source),repair.id);assert.doesNotMatch(translated,/\b(?:Collect|Match|Break|protective covers)\b/,repair.id);
+ }
+ assert.deepEqual([...missingTranslations],[]);
 });
