@@ -1,9 +1,10 @@
 import {Capacitor} from '@capacitor/core';
 import {AdMob,AdmobConsentStatus,RewardAdPluginEvents} from '@capacitor-community/admob';
 import {showRewarded} from './androidRewardFlow.js';
+import adUnits from './androidAdUnits.json' with {type:'json'};
 
 // This initial Android build is deliberately test-only. Production IDs require a separate release review.
-const testRewardId='ca-app-pub-3940256099942544/5224354917';
+const testRewardId=adUnits.test.rewardedId;
 let initialized=false;
 export async function androidMovesAd(){
  if(Capacitor.getPlatform()!=='android')throw new Error('Native Android required');

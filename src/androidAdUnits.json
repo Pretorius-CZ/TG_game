@@ -1,0 +1,10 @@
+{
+  "test": {
+    "applicationId": "ca-app-pub-3940256099942544~3347511713",
+    "rewardedId": "ca-app-pub-3940256099942544/5224354917"
+  },
+  "production": {
+    "applicationId": "ca-app-pub-4627613906098117~2888641260",
+    "rewardedId": "ca-app-pub-4627613906098117/5323232914"
+  }
+}
