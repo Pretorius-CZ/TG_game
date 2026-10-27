@@ -22,6 +22,8 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix ".preview"
+            // Load this app's published UMP message while retaining the demo rewarded unit.
+            manifestPlaceholders = [admobApplicationId: admobUnits.production.applicationId]
         }
         release {
             manifestPlaceholders = [admobApplicationId: admobUnits.production.applicationId]

@@ -12,7 +12,8 @@ Signal jako dosud nezveřejněnou v obchodě a vytvořil rewarded jednotku.
 
 Tyto identifikátory jsou veřejná konfigurace, nikoli přihlašovací údaje.
 Společný zdroj: `src/androidAdUnits.json`. Gradle čte App ID ze stejného
-souboru jako herní adaptér. Debug používá demo App ID a demo rewarded ID.
+souboru jako herní adaptér. Debug nyní používá vlastní App ID pro načtení
+zveřejněné UMP zprávy, ale stále jen demo rewarded ID.
 Release manifest má vlastní App ID; release sestavení je nadále blokované
 stávající pojistkou. Adaptér zatím vybírá pouze testovací rewarded ID.
 Samotné uložení produkčních ID nespouští ostré reklamy ani neuvolňuje release.
@@ -39,3 +40,10 @@ Zdroje:
 - https://support.google.com/admob/answer/14538460
 
 Ověření přípravy: čtyři Android reward testy prošly. npm run android:apk dokončilo Gradle assembleDebug (BUILD SUCCESSFUL, 185 úloh); APK 49 689 612 B. Sloučený debug manifest potvrzuje oficiální demo App ID. Nový APK nebyl instalován na telefon. Release guard zachovaný.
+
+
+## Zveřejněná evropská zpráva a testovací APK
+
+Uživatel doložil stav Zveřejněno u zprávy Beyond the Signal – Android EU consent, přiřazené ke hře, angličtina + 5 dalších jazyků. Cílení EHP, UK, Švýcarsko; souhlas, odmítnutí i správa možností.
+
+Nové debug APK používá vlastní App ID, takže žádá o tuto zprávu; rewarded jednotka zůstává výhradně demo. Nastavení Soukromí reklam nyní při první návštěvě otevře úvodní formulář, při existující volbě znovu otevře privacy options. Selhání se propaguje bez předstírání souhlasu. Šest cílených testů a Gradle assembleDebug prošly; vlastní App ID ověřeno v merged manifestu. Fyzické zobrazení nové zprávy dosud neověřeno, APK se na telefonu samo neaktualizovalo. Release guard zachovaný.

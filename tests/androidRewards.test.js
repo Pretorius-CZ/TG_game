@@ -2,7 +2,18 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {showRewarded} from '../src/androidRewardFlow.js';
 import {rewardAllowed} from '../src/rewardPolicy.js';
+import {requestAndroidConsent,openAndroidPrivacy} from '../src/androidConsentFlow.js';
 const events={Rewarded:'reward',Dismissed:'dismiss',FailedToShow:'fail'};
+test('Android privacy settings open the initial form before any consent has been collected',async()=>{
+ const calls=[],plugin={async requestConsentInfo(){calls.push('info');return {isConsentFormAvailable:true,status:'required'};},async showConsentForm(){calls.push('initial');return {canRequestAds:false};},async showPrivacyOptionsForm(){calls.push('options');}};
+ await openAndroidPrivacy(plugin,'required');assert.deepEqual(calls,['info','initial']);
+ calls.length=0;const result=await requestAndroidConsent(plugin,'required');assert.equal(result.canRequestAds,false);assert.deepEqual(calls,['info','initial']);
+});
+test('Android privacy settings reopen existing choices and propagate unavailable forms',async()=>{
+ const calls=[],plugin={async requestConsentInfo(){return {isConsentFormAvailable:true,status:'obtained',canRequestAds:true};},async showConsentForm(){throw Error('unexpected initial form');},async showPrivacyOptionsForm(){calls.push('options');}};
+ await openAndroidPrivacy(plugin,'required');assert.deepEqual(calls,['options']);
+ plugin.showPrivacyOptionsForm=async()=>{throw Error('unavailable');};await assert.rejects(openAndroidPrivacy(plugin,'required'),/unavailable/);
+});
 function fake(sequence,{prepareError=false,showError=false}={}){
  const listeners=new Map();let removals=0;
  return {get removals(){return removals;},
