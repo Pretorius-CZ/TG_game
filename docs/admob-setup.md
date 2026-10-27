@@ -47,3 +47,11 @@ Ověření přípravy: čtyři Android reward testy prošly. npm run android:apk
 Uživatel doložil stav Zveřejněno u zprávy Beyond the Signal – Android EU consent, přiřazené ke hře, angličtina + 5 dalších jazyků. Cílení EHP, UK, Švýcarsko; souhlas, odmítnutí i správa možností.
 
 Nové debug APK používá vlastní App ID, takže žádá o tuto zprávu; rewarded jednotka zůstává výhradně demo. Nastavení Soukromí reklam nyní při první návštěvě otevře úvodní formulář, při existující volbě znovu otevře privacy options. Selhání se propaguje bez předstírání souhlasu. Šest cílených testů a Gradle assembleDebug prošly; vlastní App ID ověřeno v merged manifestu. Fyzické zobrazení nové zprávy dosud neověřeno, APK se na telefonu samo neaktualizovalo. Release guard zachovaný.
+
+## Fyzické ověření uživatelem
+
+Uživatel potvrdil, že se nový formulář na telefonu zobrazil a odsouhlasil jej. Testovací reklamu spustil před touto volbou i po ní. To potvrzuje zobrazení vlastního formuláře a funkčnost demo reklamy po souhlasu; samo to nepotvrzuje stav UMP před prvním spuštěním reklamy. Předchozí uložený stav ani časování nebyly zaznamenány. Čistý test prvního souhlasu, odmítnutí a znovuotevření voleb ještě samostatně ověřit. Nemazat postup ani neodinstalovávat aplikaci kvůli resetu souhlasů.
+
+Uživatel následně zvolil Nesouhlasím: běžná hra zůstala dostupná a demo reklama se opět spustila. Tím je potvrzeno i znovuotevření voleb a dostupnost hry po odmítnutí. Spuštění demo reklamy samo neurčuje typ zpracování skutečné reklamní poptávky; před ostrým nasazením ověřit TCF/serving restriction testovacím zařízením a diagnostikou SDK. Google podporuje limited ads za příslušných podmínek i při odmítnutí personalizace: https://support.google.com/admob/answer/10105530 .
+
+app-ads.txt je nyní zveřejněný a ověřený HTTP200 text/plain na hlavní doméně. Detaily docs/app-ads-setup.md; propojení na obchod a stav ověření v AdMob zatím nepotvrzené, čeká na vyřešení Play registrace.

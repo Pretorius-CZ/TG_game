@@ -1,6 +1,10 @@
 apply plugin: 'com.android.application'
 
 def admobUnits = new groovy.json.JsonSlurper().parse(rootProject.file('../src/androidAdUnits.json'))
+def internalTestRelease = providers.gradleProperty('internalTestRelease').orNull == 'true'
+def uploadProperties = new Properties()
+def uploadPropertiesFile = rootProject.file('key.properties')
+if (uploadPropertiesFile.exists()) uploadPropertiesFile.withInputStream { uploadProperties.load(it) }
 
 android {
     namespace = "com.playbeyondthesignal.game"
@@ -10,13 +14,23 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "0.1.0-preview"
+        versionName "0.1.0-internal.1"
         manifestPlaceholders = [admobApplicationId: admobUnits.test.applicationId]
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
              // Default: https://android.googlesource.com/platform/frameworks/base/+/282e181b58cf72b6ca770dc7ca5f91f135444502/tools/aapt/AaptAssets.cpp#61
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
+        }
+    }
+    signingConfigs {
+        upload {
+            if (uploadPropertiesFile.exists()) {
+                storeFile rootProject.file(uploadProperties.getProperty('storeFile'))
+                storePassword uploadProperties.getProperty('storePassword')
+                keyAlias uploadProperties.getProperty('keyAlias')
+                keyPassword uploadProperties.getProperty('keyPassword')
+            }
         }
     }
     buildTypes {
@@ -26,6 +40,7 @@ android {
             manifestPlaceholders = [admobApplicationId: admobUnits.production.applicationId]
         }
         release {
+            signingConfig signingConfigs.upload
             manifestPlaceholders = [admobApplicationId: admobUnits.production.applicationId]
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -62,9 +77,10 @@ try {
     logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
 }
 
-// Prevent accidental publication of the initial test-only integration.
+// Explicit opt-in permits signed internal testing, never a production ad switch.
 gradle.taskGraph.whenReady { graph ->
     if (graph.allTasks.any { it.name.toLowerCase().contains('release') }) {
-        throw new GradleException('Android preview only: production ads, consent, signing and device QA must be completed before enabling release builds.')
+        if (!internalTestRelease) throw new GradleException('Release blocked. Use npm run android:aab for the signed INTERNAL TEST bundle with demo ads. Public release still needs Families, privacy and device QA review.')
+        if (!uploadPropertiesFile.exists()) throw new GradleException('Missing local android/key.properties. See docs/google-play/internal-testing.md.')
     }
 }

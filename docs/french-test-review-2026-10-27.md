@@ -58,3 +58,22 @@ zadání motorů (26), a pak `.repair-bubble .primary`.
 Selektory jsou jazykově nezávislé. Při nové kontrole zachytit stav
 na konci každého kroku a případné chyby, ne pouze finální seznam
 viditelných tlačítek. Běh 53/200 neoznačovat jako celé otestování.
+
+## Opravený test — francouzstina-4.zip, 17:24
+
+Nový desktopový běh dokončil všech 200 úrovní (200 výher), poslední
+„Transmettre la réponse · 200“. Snímek 410-kapitoly.png potvrzuje
+všech deset kapitol: 29/29, 24/24, 16/16, 24/24, 12/12, 15/15,
+20/20, 27/27, 20/20 a 13/13. Zastavení po 200 je konec aktuálního
+obsahu, nikoli pokračující blokace po 25 nebo 53.
+
+Katalog 2475/2475 bez problémů, zdrojová kontrola 1116 textů bez
+chybějícího překladu, jazyková kontrola 2477 textů bez označených
+cizojazyčných textů. Osm francouzských webových stránek prošlo.
+Ve hře na Desktop 1920×1080: 0 zbylé angličtiny, 0 useknutí či
+přetečení a 0 JS chyb.
+
+Z reportu neplyne další oprava hry. Výsledek podporuje předchozí
+zjištění, že zastavení bylo v postupu automatu. Tento běh nepotvrzuje
+celý průchod na mobilu/Safari, nativní Android integrace, stylistickou
+redakci rodilým mluvčím ani vhodnou obtížnost pro lidské hráče.

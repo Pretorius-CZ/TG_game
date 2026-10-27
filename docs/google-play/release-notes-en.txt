@@ -1,0 +1,6 @@
+First Android internal test.
+200 match-3 levels across 10 story chapters.
+English, Czech, German, French, Spanish and Brazilian Portuguese.
+Optional Google sign-in for cloud progress.
+Rewarded ads use Google demo units only.
+Please report your device, Android version, level and steps to reproduce any issue.

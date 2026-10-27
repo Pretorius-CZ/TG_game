@@ -383,3 +383,30 @@ K dopracování:
 Uživatel schválil mezník200. Kapitola Odpověď188–200 je místně implementovaná: tři spojení majáků3+3+3 a hlavní stanice4, potvrzený návrat a uzavření nouzového volání. Nové scény, deník, příběhové předěly a ukládání. Před nasazením uživatel spustí SQL034; produkce zatím zůstává187. Podrobnosti signal-answer-200.md.
 
 2026-10-18 — Uživatel potvrdil nasazení SQL034 a výslovně zadal push. Předchozí poznámky o čekání na SQL již neplatí. Připravuje se zveřejnění levelů188–200 na obou doménách; živý přenos nového postupu mezi účty/zařízeními zatím nebyl samostatně ověřen.
+
+## 2026-10-26 — Nápady na později: živější scény a animace
+
+Priorita podle uživatele: nejprve dokončit stabilní, funkční verzi hry;
+vizuální vylepšení přidávat postupně až potom. Nejde o zadání implementace.
+Současná webová technologie zůstává, přechod na Unity se neplánuje.
+
+Odložené náměty: světla a kontrolky, pára/jiskry a proudění energie,
+plynulejší odhalení oprav, pohyb kamery a paralaxa, výraznější efekty
+kaskád a náloží. Pro pohyblivé části připravovat samostatné grafické vrstvy
+(například motor, dveře či podvozek). Případný první malý prototyp:
+oživení jedné opravy motoru, s kontrolou výkonu na telefonu a omezených
+animací. Konkrétní rozsah i termín zůstávají k pozdějšímu rozhodnutí.
+
+## Předání na příště — 27. 10. 2026 večer
+
+Dnešní práce končí na podepsaném AAB pro interní Google Play test. Sestavení,
+podpis, bundletool a 299 unit testů prošly. AAB a store kit jsou v
+releases/google-play/; instrukce, šest jazyků popisků a návrhy prohlášení
+v docs/google-play/. Do Play nic nenahráno, ostré reklamy nezapnuté.
+
+Příště: vyřešit registraci Play účtu podle odpovědi podpory, potom interní
+nahrání a instalace přes Play. Před veřejnou distribucí dokončit Families
+pro záměr všech věků včetně dětí, práci s účty a statistikami dětí,
+Android privacy/Data safety a odstranění účtu. Bez změn designu scén,
+pozic úkolů, herních pravidel či obtížnosti. Soukromý upload klíč a hesla
+nesmí do Gitu ani do veřejného ZIPu. Šifrovanou zálohu přenést také mimo PC.

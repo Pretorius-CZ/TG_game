@@ -1006,3 +1006,50 @@ website, Android preview běží na 5185. Produkční web/game neaktualizovány.
 2026-10-26 — HARD předletová příprava má po splnění vlastní replay tlačítko s hvězdami pod exteriérem; Odlet samostatně. EN/CS/DE web i Android-mode: opakování, opuštění a následný odlet ověřeny. APK sestaveno.
 
 2026-10-26 — Finální zadání exteriéru: HARD předletová kontrola je běžný úkol NAD lodí s hvězdami/replay, nikoli pod scénou. Dole výhradně velký Odlet po splnění HARD. Web/Android EN/CS/DE ověřeny, APK sestaveno. docs/exterior-departure-layout-2026-10-26.md.
+
+2026-10-26 — Preference propagace: na obrázcích a veřejných marketingových materiálech uvádět playbeyondthesignal.com BEZ game. subdomény. Technická adresa hry se tím nemění.
+
+2026-10-26 — Francouzština etapa1: kapitoly1–3 (69levelů) opravy/deník/přechody + společné UI/226runtime, 1364/2481ID. FR stále draft, jen previewLanguage=fr lokálně; veřejné EN/CS/DE beze změny. 288unit,18webUI+4Android-mode, build prošly. Herní data/CSS/pozice nezměněny. Příště kapitoly4–6. docs/french-localization-stage-1.md.
+
+2026-10-26 — FR etapa2: pracovní překlad rozšířen do kapitoly8 včetně (167úrovní), Elysium/Trhlina/Živá mapa/Noční zahrada/Útočiště, deníky a přechody.2065/2481ID,416zbývá; FR stále draft, veřejné EN/CS/DE.289unit/build,21oblastí×320/430bez kolizí popisků a s původními kotvami;9příběhů, Android-mode320. Příště9–10,přenos a finální audit. JenFRkatalog+testy/dokumentace, žádné CSS/data/pravidla. docs/french-localization-stage-2.md.
+
+2026-10-26 — FR dokončeno jako pracovní překlad: 200/200 úrovní, deníky, závěr, UI a přenos postupu; 2481/2481 zpráv bez chyb auditu. 290 unit testů, build, 36 expedičních oblastí na 320/430 px, 13 příběhových sekvencí a přenos zachovávající postup/energii/pomůcky. Android-mode 320 ověřen, skutečný telefon zatím ne. FR stále draft v lokálním previewLanguage=fr; před vydáním úplný robotický a mobilní průchod. Žádné CSS, souřadnice ani pravidla změněny; krátký popisek Circuit d’eau odstranil těsný překryv. docs/french-localization-complete-2026-10-26.md.
+
+2026-10-26 — Na žádost uživatele FR veřejně zpřístupněna a pushnuta k online testu: Android větev 11f4d22, web f9cdafb. Obě Pages nasazení úspěšná; živý vstup https://game.playbeyondthesignal.com/?lang=fr ověřen (FR menu, nastavení, první oprava), verze 1793041116312-f9cdafbadb33. /fr/ PLAY směřuje do FR, slepý test nabízí FR desku. 291 native / 280 web unit testů a produkční FR testy prošly. 2475/2475 web ID, 2481/2481 native ID. Pravidla, pozice a CSS beze změn; externí úplný robotický/mobilní FR průchod teprve následuje. Předchozí poznámky o FR draftu již neplatí. Místní rozepsané poznámky obnoveny, jejich záložní stash c6d4413 ponechán.
+
+2026-10-27 — ES etapa 1: první tři kapitoly (69 úrovní), deníky/přechody a společné UI, nápovědy, Undo/Deshacer, reklamy, účet a všech 226 runtime zpráv. 1428/2481 ID, ES stále draft v lokálním previewLanguage=es. Veřejné EN/CS/DE/FR beze změny. 294 unit, 23 Chromium UI/příběh/pozice, 7 Android-mode a produkční pojistka prošly; webový i Android build také. Pouze ES katalogy/adaptér, testy a dokumentace; žádné CSS, souřadnice, data ani pravidla. Zkrácené Cambiar/Riego/Luz del vivero zabraňují ořezu. Další práce ES kapitoly 4–6. docs/spanish-localization-stage-1.md. FR externí desktopový test mezitím dokončil 200/200 bez nálezů; Pixel 7 běží.
+
+2026-10-27 — ES etapa 2: doplněny Elysium/Trhlina/Živá mapa, kapitoly 4–6, dalších 51 úrovní včetně deníků a přechodů. Celkem 120/200 a 1749/2481 ID, ES stále draft. 295 unit, 19 oblastí × 320/430 s původními kotvami, 6 příběhových sekvencí a skutečný průlet Trhlinou v testu prošly; Android-mode 320 i oba buildy také. Pouze rozšíření ES katalogu/testy/docs; žádné CSS, pozice, pravidla, limity nebo save změny. Příště kapitoly 7–8. docs/spanish-localization-stage-2.md.
+
+2026-10-27 — ES dokončena jako úplný pracovní překlad: všech 200 úrovní/10 kapitol, deníky, závěr, společné UI a přenos postupu; 2481/2481 bez chyb. 296 unit, 36 oblastí × 320/430, 14 příběhových sekvencí, ES/FR/DE přenos a Android-mode 320 prošly; webový/Android build i produkční ochrana draftu také. ES stále draft a místní bez nasazení; před online testem povolit ES/menu/slepý test, sladit webové/právní názvy ovládání, přenést na webovou větev a push/deploy z webového commitu. Žádné CSS, pozice, pravidla, limity nebo save změny. docs/spanish-localization-complete-2026-10-27.md.
+
+2026-10-27 — ES zveřejněna na žádost uživatele: native f2959c8, web 8aeb9df; obě větve pushnuté a obě Pages nasazení úspěšná. Živý vstup https://game.playbeyondthesignal.com/?lang=es ověřen (ES menu, nastavení, první oprava), manifest 1793122080920-8aeb9df20ffb; /es/ odpovídá 200 a PLAY vede do ES. Veřejné jazyky EN/CS/DE/FR/ES, PT-BR draft. 296 native / 285 web unit testů, produkční ES/save/transfer a Android build prošly. Žádné změny CSS, pozic ani herních pravidel. Externí kompletní ES průchod nyní může začít. FR externí Pixel 7 mezitím dokončil 200/200 bez zbylé angličtiny či ořezů dle reportu uživatele. Místní poznámky obnoveny, záložní stash d817b67 ponechán. Předchozí poznámky o ES draftu již neplatí.
+
+2026-10-27 — Po externím ES testu 200/200 desktop + Pixel 7 bez ořezů/angličtiny opraven pouze rod a číslo zvukových popisků: Música activada/desactivada, Sonidos activados/desactivados. Novinka spanish-release na úvodu i v Novinkách všech 6 webových jazyků, zahrnuje ES i ověřené FR průchody. Native f082a93 a web 991370f pushnuté. 296 unit, 6 cílených Chromium kontrol (320/1440, bez JS, ES audio), oba buildy prošly. Živá hra manifest 1793126375947-991370f69bad a 6 aktualizací ověřeno HTTP200; žádná změna CSS, pozic nebo pravidel. Android zdroj aktualizovaný, instalované APK se samo nemění. Poznámky obnovené a jejich záložní stash ponechaný.
+
+2026-10-27 — Dokončena a zveřejněna brazilská portugalština pro všech 200 úrovní a celý příběh/deník/UI/přenos. Native 9b2f0f7 (obsah 8bc5519), web a5e8be5 (obsah 743fe97), obě větve pushnuté. 2484/2484 native a 2478/2478 web ID bez problémů; 297 native / 286 web unit testů, produkční veřejný vstup, přenos, všechny 36 oblasti 320/430, 14 příběhových sekvencí, pomoc/přepnutí 320/430/1024 a Android-mode prošly. Webový i Android build také. Živě ověřeno https://game.playbeyondthesignal.com/?lang=pt-BR, masthead Beyond the Signal, první oprava, zvuk, transfer a 8 PT-BR stránek; manifest 1793134893628-a5e8be561942. Veřejné jazyky nyní EN/CS/DE/FR/ES/PT-BR. Žádné CSS, pozice, pravidla, tahy ani verze postupu neměněny. Exterior/Material/Laser/EMP mohou být správně stejné jako EN. Externí robotický PT-BR průchod teprve následuje. Původní poznámky obnovené a záložní stashe ponechané. Detaily docs/portuguese-localization-2026-10-27.md.
+
+2026-10-27 — Uživatel doložil schválený AdMob účet a vytvořil Android aplikaci + rewarded jednotku. IDs zaznamenána v src/androidAdUnits.json a docs/admob-setup.md. Gradle používá konfiguraci pro demo debug / vlastní release App ID; adaptér dál vybírá pouze demo rewarded ID, release guard zůstává. Testovací APK sestavené (49 689 612 B), 4 reward testy a kontrola sloučeného manifestu prošly. Na telefonu neinstalováno, ostré reklamy nezapnuty. Další krok AdMob evropská zpráva přiřazená k aplikaci; potom vlastní App ID na testovacím zařízení, app-ads.txt, podpis/AAB a propojení obchodu. Play registrace čeká na podporu kvůli odmítání adresy platebního profilu.
+
+2026-10-27 — AdMob Android EU consent uživatel doložil Zveřejněno, Beyond the Signal, EN+5 jazyků. Debug nyní vlastní App ID pro skutečný UMP formulář, stále demo rewarded ID a zachovaný release guard. Soukromí reklam otevírá úvodní formulář při první volbě, následně privacy options. Šest reward/consent testů, Gradle debug APK a vlastní ID v merged manifestu ověřeny. Na telefonu zatím nezobrazeno ani neinstalováno. Další krok uživatel aktualizuje APK a otevře Nastavení → Soukromí reklam.
+
+2026-10-27 — Uživatel na telefonu potvrdil zobrazení AdMob formuláře a udělení souhlasu; demo reklama šla před i po této volbě. Vlastní UMP formulář je fyzicky potvrzen, předsouhlasový stav není z tohoto hlášení diagnostikovaný. Další QA: odmítnutí a opětovné otevření, případně čistý reset pouze UMP (nikoli herních dat). Ostrá jednotka zůstává vypnutá.
+
+2026-10-27 — Fyzické QA CMP: uživatel po souhlasu znovu otevřel volby, odmítl a potvrdil normální hraní i spuštění demo reklamy. To není samo důkaz ignorování odmítnutí ani ověření ostré reklamní poptávky. Limited ads a skutečné TCF/serving restriction ověřit před release; testovací rewarded ID zůstává.
+
+2026-10-27 — app-ads.txt připraven a nasazen na https://playbeyondthesignal.com/app-ads.txt, web commit 8fe2fdb / native fc3aea3, hlavní Pages40591150874 success. Živě ověřeno HTTP200 text/plain, publisher pub-4627613906098117, DIRECT, f08c47fec0942fa0; původní ads.txt beze změny a rovněž200. Soubor samo nezapne reklamy ani neověří nezveřejněnou aplikaci. Google vyhledá doménu z vývojářského webu ve veřejném obchodním záznamu. Play registrace stále čeká na podporu. Další postup docs/app-ads-setup.md. Android větev a původní poznámky obnoveny; záložní stash ponechán.
+
+## 2026-10-27 — Google Play interní balíček
+
+Připraven podepsaný ne-debug AAB com.playbeyondthesignal.game, versionCode1,
+0.1.0-internal.1. npm run android:aab vyžaduje lokální upload key a explicitní
+interní release režim; běžné release sestavení zůstává blokované. Reklamy
+zůstávají demo, vlastní App ID načítá publikovanou UMP zprávu. Výchozí
+Capacitor ikony nahrazeny motivem značky. Veškeré podepisovací údaje jsou
+ignorované; nutná soukromá šifrovaná záloha mimo PC. 299 testů, podpis,
+bundletool validate a manifest ověřeny. Store kit: 6 jazyků, ikona, feature
+graphic a 4 skutečné snímky Android webového sestavení v izolovaném prohlížeči.
+Viz docs/google-play/. Nenahráno do Play, registrace účtu čeká na podporu.
+Uživatel chce všechny věky včetně dětí: Families, dětské údaje/reklamy,
+odstranění účtu a Android privacy/Data safety zůstávají podmínkou před
+veřejným vydáním a zapojením dětských testerů. Nepřepínat potichu na 13+.

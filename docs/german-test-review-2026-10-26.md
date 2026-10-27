@@ -31,3 +31,23 @@ Robot potřebuje zvládnout tyto přechody, aby mohl ověřit zbývající obsah
 
 Ověření oprav: lokalizační audit, generátor webu a německý přechod mezi
 kapitolami. Při dalším běhu ověřit také mobil a zbývajících 171 levelů.
+
+## Následný report nemcina-5.zip — 18:04
+
+Předchozí omezení na 29 levelů překonáno. Robot hlásí 200 odehraných
+a 200 vyhraných levelů, poslední „Die Antwort überbringen · 200“.
+Snímek `407-kapitoly.png` potvrzuje dokončení všech deseti kapitol
+(29/29, 24/24, 16/16, 24/24, 12/12, 15/15, 20/20, 27/27, 20/20, 13/13).
+
+- Katalog 2472/2472, bez chybějících položek a katalogových problémů.
+- Kontrola 2473 německých textů: 0 označených jako cizojazyčné;
+  všech sedm dřívějších nálezů odstraněno.
+- Osm německých webových stránek prošlo.
+- Průchod Desktop 1920×1080: 0 zbylé angličtiny, 0 přetékání,
+  0 zaznamenaných JS chyb.
+
+Z tohoto reportu neplyne další oprava. „Bot nenašel další level“ po
+levelu 200 samo neznamená závadu; současný katalog má právě 200 levelů.
+Test nepotvrzuje přirozenost všech formulací rodilému mluvčímu, mobilní
+rozložení, nativní Android integrace ani vhodnou obtížnost pro člověka.
+Zbývající cílená kontrola: DE na telefonu a případná jazyková redakce.

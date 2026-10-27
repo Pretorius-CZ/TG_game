@@ -133,3 +133,9 @@ odpovědi neznámá; nyní je dostupná diagnostika a ověřený retry.
 Čtečka obrazovky a fyzické Safari nejsou tímto automatickým auditem
 prohlášeny za kompletně ověřené. Neupravujeme obtížnost kvůli chybě
 testovacího runneru ani neoznačujeme zbylé simulované prohry za softlock.
+
+Nasazení: uživatel následně zadal push. Commit9c75024f46d6 publikovaný,
+Pages39047111015 success, živá verze1792252501390-9c75024f46d6 ověřená.
+Nové Browser layout checks39047110990 při předání ještě běží; nejde
+zatím o potvrzení nového Firefox CI. Tento odstavec nahrazuje stav
+pouze místních oprav z úvodu dokumentu.

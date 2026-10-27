@@ -23,7 +23,9 @@
     "android:doctor": "node scripts/android-preflight.mjs",
     "android:sync": "npm run build:android && cap sync android",
     "android:open": "cap open android",
-    "android:apk": "npm run android:doctor && npm run android:sync && node scripts/android-build.mjs"
+    "android:apk": "npm run android:doctor && npm run android:sync && node scripts/android-build.mjs",
+    "android:upload-key": "node scripts/android-upload-key.mjs",
+    "android:aab": "npm run android:doctor && npm run android:sync && node scripts/android-bundle.mjs"
   },
   "dependencies": {
     "@capacitor-community/admob": "8.2.1",
