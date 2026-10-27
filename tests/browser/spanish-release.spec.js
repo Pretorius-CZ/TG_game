@@ -11,7 +11,7 @@ test('released Spanish opens from a public URL, persists and preserves existing 
  await page.goto('/?lang=es');await expect(page.locator('html')).toHaveAttribute('lang','es');
  await expect(page.locator('.welcome-play')).toHaveText('Continuar');
  await expect(page.locator('.welcome-settings select')).toHaveValue('es');
- await expect(page.locator('.welcome-settings select option')).toHaveCount(5);
+ await expect(page.locator('.welcome-settings select option')).toHaveCount(6);
  const before=await page.evaluate(()=>localStorage.getItem('to-the-stars-progress-v1'));
  await page.goto('/');await expect(page.locator('.welcome-play')).toHaveText('Continuar');
  expect(await page.evaluate(()=>localStorage.getItem('to-the-stars-progress-v1'))).toBe(before);
@@ -25,6 +25,9 @@ test('blind test offers Spanish without changing ordinary saves or language',asy
  await page.getByRole('button',{name:'ES',exact:true}).click();await expect(page.locator('html')).toHaveAttribute('lang','es');
  await page.getByRole('button',{name:'Povolit sběr a zahájit test',exact:true}).click();
  await expect(page.locator('.moves-counter span')).toHaveText('MOVIMIENTOS');
+ await expect(page.locator('.board')).toHaveAttribute('aria-busy','false');
+ const tutorial=page.locator('.mechanic-tutorial');
+ if(await tutorial.isVisible())await tutorial.locator('.tutorial-close').click();
  const music=page.getByRole('button',{name:'Música: activada',exact:true});
  await expect(music).toHaveAttribute('title','Música: activada');
  await music.click();await expect(page.getByRole('button',{name:'Música: desactivada',exact:true})).toBeVisible();

@@ -6,7 +6,7 @@ export const locales=Object.freeze([
  {code:'de',name:'Deutsch',short:'DE',direction:'ltr',status:'released'},
  {code:'fr',name:'Français',short:'FR',direction:'ltr',status:'released'},
  {code:'es',name:'Español',short:'ES',direction:'ltr',status:'released'},
- {code:'pt-BR',name:'Português (Brasil)',short:'PT-BR',direction:'ltr',status:'draft'},
+ {code:'pt-BR',name:'Português (Brasil)',short:'PT-BR',direction:'ltr',status:'released'},
 ].map(Object.freeze));
 export const releasedLocales=Object.freeze(locales.filter(locale=>locale.status==='released'));
 export function matchLocale(value,{includeDrafts=false}={}){

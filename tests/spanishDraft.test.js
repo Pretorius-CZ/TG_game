@@ -33,7 +33,7 @@ test('Spanish runtime preserves parameters and plural forms and the edition is p
  const catalog=await loadLocaleCatalog('es'),runtime=JSON.parse(readFileSync(new URL('../src/i18n/catalogs/runtime/en.json',import.meta.url)));
  for(const id of Object.keys(runtime))assert.equal(typeof catalog[id],typeof runtime[id],id);
  assert.deepEqual(catalogProblems('es',catalog).filter(p=>!p.endsWith(': missing translation')),[]);
- assert.deepEqual(releasedLocales.map(l=>l.code),['en','cs','de','fr','es']);assert.equal(matchLocale('es'),'es');
+ assert.deepEqual(releasedLocales.map(l=>l.code),['en','cs','de','fr','es','pt-BR']);assert.equal(matchLocale('es'),'es');
  assert.equal(message('common.movesLeft',{count:1},'es'),'Queda 1 movimiento');
  assert.equal(message('common.movesLeft',{count:8},'es'),'Quedan 8 movimientos');
  assert.equal(translate('Covered Blue comet, row 3, column 7','es'),'Con cubierta: Cometa azul, fila 3, columna 7');
