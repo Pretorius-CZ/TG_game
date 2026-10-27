@@ -7,6 +7,7 @@ import {loadLocaleCatalog,catalogProblems,message} from '../src/i18n/messages.js
 
 test('Brazilian Portuguese covers all 200 levels, journals and transitions with valid parameters',async()=>{
  const catalog=await loadLocaleCatalog('pt-BR');assert.deepEqual(catalogProblems('pt-BR',catalog),[]);missingTranslations.clear();
+ assert.equal(translate('BEYOND THE SIGNAL','pt-BR'),'BEYOND THE SIGNAL');
  const fields=new Set(['name','room','thought','lesson','objective','result','action','title','text','source','time','caption','complete','finishLabel']);
  const counts=s=>(s.match(/\d+/g)??[]).map(Number).sort((a,b)=>a-b);
  function audit(value){if(!value||typeof value!=='object')return;for(const[k,v]of Object.entries(value)){
