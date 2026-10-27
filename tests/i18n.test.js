@@ -31,7 +31,7 @@ test('dynamic objectives preserve changed balance numbers and accessibility coor
 test('language fallback and non-text values do not alter game data',()=>{
   const board=[0,1,3];assert.equal(translate(board,'cs'),board);
   assert.equal(translate(null,'cs'),null);
-  assert.equal(validLanguage('cs'),'cs');assert.equal(validLanguage('de'),'de');assert.equal(validLanguage('fr'),'fr');assert.equal(validLanguage('es'),'en');
+  assert.equal(validLanguage('cs'),'cs');assert.equal(validLanguage('de'),'de');assert.equal(validLanguage('fr'),'fr');assert.equal(validLanguage('es'),'es');assert.equal(validLanguage('pt-BR'),'en');
   assert.equal(translate('Aster Veil','cs'),'Aster Veil');
 });
 

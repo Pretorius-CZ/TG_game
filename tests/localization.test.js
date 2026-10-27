@@ -25,7 +25,7 @@ test('explicit language survives the cross-origin PLAY link without forwarding a
 });
 test('German and French are released and incomplete editions remain unavailable',async()=>{
  await loadLocaleCatalog('de');
- assert.deepEqual(releasedLocales.map(locale=>locale.code),['en','cs','de','fr']);
+ assert.deepEqual(releasedLocales.map(locale=>locale.code),['en','cs','de','fr','es']);
  assert.equal(matchLocale('pt_BR',{includeDrafts:true}),'pt-BR');
  assert.equal(matchLocale('pt',{includeDrafts:true}),'pt-BR');
  assert.equal(matchLocale('pt-PT',{includeDrafts:true}),null);

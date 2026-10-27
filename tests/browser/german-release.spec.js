@@ -11,7 +11,7 @@ test('released German opens directly, survives reload and keeps existing progres
  await page.goto('/?lang=de');await expect(page.locator('html')).toHaveAttribute('lang','de');
  await expect(page.locator('.welcome-play')).toHaveText('Weiter');
  await expect(page.locator('.welcome-settings select')).toHaveValue('de');
- await expect(page.locator('.welcome-settings select option')).toHaveCount(4);
+ await expect(page.locator('.welcome-settings select option')).toHaveCount(5);
  const before=await page.evaluate(()=>localStorage.getItem('to-the-stars-progress-v1'));
  await page.reload();await expect(page.locator('.welcome-play')).toHaveText('Weiter');
  expect(await page.evaluate(()=>localStorage.getItem('to-the-stars-progress-v1'))).toBe(before);

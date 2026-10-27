@@ -41,7 +41,7 @@ test('French shared runtime is complete and French is available to public player
  const runtime=JSON.parse(readFileSync(new URL('../src/i18n/catalogs/runtime/en.json',import.meta.url)));
  for(const id of Object.keys(runtime))assert.equal(typeof catalog[id],typeof runtime[id],id);
  assert.deepEqual(catalogProblems('fr',catalog).filter(p=>!p.endsWith(': missing translation')),[]);
- assert.deepEqual(releasedLocales.map(l=>l.code),['en','cs','de','fr']);
+ assert.deepEqual(releasedLocales.map(l=>l.code),['en','cs','de','fr','es']);
  assert.equal(message('common.movesLeft',{count:1},'fr'),'1 coup restant');
  assert.equal(message('common.movesLeft',{count:8},'fr'),'8 coups restants');
  assert.equal(translate('Covered Blue comet, row 3, column 7','fr'),'Sous capot : Comète bleue, ligne 3, colonne 7');

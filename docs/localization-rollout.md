@@ -1,7 +1,7 @@
 # Rozšíření jazyků — stav a postup 2026-10-22
 
 Aktuálně 26. 10. 2026: němčina dokončena a zpřístupněna ve hře pro web
-i Android. Veřejné jazyky EN/CS/DE/FR; ES/PT-BR zůstávají draft.
+i Android. Veřejné jazyky EN/CS/DE/FR/ES; PT-BR zůstává draft.
 Rozsah a ověření: `docs/german-release-2026-10-26.md`.
 Francouzština: úplný pracovní překlad 200 úrovní, deníků, závěru,
 ovládání, runtime a přenosu postupu; 2481/2481 zpráv bez chyb auditu.
@@ -12,8 +12,8 @@ právě běží. Rozsah:
 `docs/french-localization-complete-2026-10-26.md`.
 Španělština, 27. 10.: úplný překlad 200 úrovní, deníků, příběhu,
 ovládání a přenosu postupu; 2481/2481 zpráv bez chyb auditu.
-ES zůstává draft v lokálním `previewLanguage=es`; před online testem
-zbývá zpřístupnění a nasazení. Viz
+Na žádost uživatele zpřístupněna k online testu přes `?lang=es`. Viz
+`docs/spanish-release-2026-10-27.md` a
 `docs/spanish-localization-complete-2026-10-27.md`.
 Níže uvedené pracovní stavy z 25. října jsou historické.
 

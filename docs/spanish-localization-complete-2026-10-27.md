@@ -1,5 +1,9 @@
 # Španělština — úplný překlad, 27. 10. 2026
 
+Následná aktualizace: uživatel požádal o push k online testu. ES je
+nyní zpřístupněna v menu, viz `spanish-release-2026-10-27.md`.
+Popis draftu níže zachycuje stav před tímto zpřístupněním.
+
 Dokončení po etapách kapitol 1–3 a 4–6. Doplněny kapitoly 7–10:
 Noční zahrada (20 úrovní), Útočiště a návrat (27), Archiv ozvěn (20)
 a Odpověď (13), včetně deníků, příběhových panelů a závěru úrovně 200.

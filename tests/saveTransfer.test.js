@@ -14,7 +14,7 @@ test('German preference transfers with unchanged saves and incomplete languages 
  importBackup(target,backup);
  assert.equal(target.getItem('to-the-stars-language'),'de');assert.equal(target.getItem(SAVE_KEY),save(2));
  assert.equal(source.getItem(SAVE_KEY),save(2));
- for(const code of ['es','pt-BR','de-DE','fr-FR','invalid'])assert.throws(()=>exportBackup(memory({'to-the-stars-language':code}),{id}));
+ for(const code of ['pt-BR','de-DE','fr-FR','es-ES','invalid'])assert.throws(()=>exportBackup(memory({'to-the-stars-language':code}),{id}));
 });
 
 test('released French preference transfers without changing guest progress',()=>{
