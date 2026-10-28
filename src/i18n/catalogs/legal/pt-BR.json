@@ -49,5 +49,14 @@
   "web.legal.contact.08": "Solicitações sobre conta e dados",
   "web.legal.contact.09": "Fale conosco para acessar, corrigir ou excluir dados pessoais ou a conta. Use, se possível, o e-mail vinculado ao login Google. Podemos precisar verificar a titularidade. Reiniciar o jogo redefine o progresso; não exclui a conta de login nem todas as estatísticas.",
   "web.legal.contact.10": "Leia nossas informações de privacidade",
-  "web.legal.contact.11": "JOGAR ↗"
+  "web.legal.contact.11": "JOGAR ↗",
+  "web.legal.deletion.1": "Solicitar a exclusão da sua conta do Beyond the Signal",
+  "web.legal.deletion.2": "Solicitar a exclusão da conta",
+  "web.legal.deletion.3": "Se possível, escreva pelo e-mail usado para entrar com o Google. Peça a exclusão da sua conta do Beyond the Signal e do seu progresso na nuvem. Verificaremos se a conta é sua antes de excluir os dados e confirmaremos a conclusão.",
+  "web.legal.deletion.4": "A exclusão remove sua conta do jogo, seu progresso na nuvem, suas estrelas e os registros já lidos do diário. Sua conta Google não será excluída. Reiniciar o jogo ou sair da conta não exclui a conta.",
+  "web.legal.deletion.5": "As partidas locais, a energia e as ferramentas permanecem nos dispositivos em que estão salvas. Apague esses dados em cada dispositivo se quiser remover também as cópias locais.",
+  "web.legal.deletion.6": "As estatísticas opcionais usam identificadores aleatórios separados do navegador. Nas configurações de cada dispositivo, use a opção para desativar e excluir suas estatísticas, ou mencione o pedido no e-mail para que possamos localizar os registros. Nunca envie senhas, links de acesso ou tokens de sessão.",
+  "web.legal.deletion.7": "Um rascunho de e-mail será aberto. Ao enviá-lo, você solicita a exclusão; a conta não é excluída imediatamente. Você também pode escrever diretamente para flambiz.cz@gmail.com.",
+  "web.legal.android.1": "Aplicativo Android e configurações de idade",
+  "web.legal.android.2": "O aplicativo de teste para Android pergunta a faixa etária antes de ativar os recursos on-line. Somente o grupo escolhido é salvo no dispositivo, não a data de nascimento. Menores de 18 anos e pessoas que preferem não informar a idade jogam localmente, sem login com o Google, solicitações de anúncios ou envio de estatísticas do jogo. O progresso permanece no dispositivo. Adultos podem escolher separadamente as partidas na nuvem do Google e as estatísticas opcionais. Os anúncios com recompensa para adultos usam atualmente unidades de demonstração do Google; Google Mobile Ads e UMP processam as solicitações e as escolhas de consentimento quando esses recursos são usados. A escolha de idade não substitui o consentimento para publicidade."
 }

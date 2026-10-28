@@ -49,5 +49,14 @@
   "web.legal.contact.08": "Account and data requests",
   "web.legal.contact.09": "Contact us to request access, correction or deletion of your personal data or account. For an account request, use the email linked to your Google sign-in where possible. We may need to verify ownership. Restarting the game resets progress; it does not delete your sign-in account or all statistics.",
   "web.legal.contact.10": "Read our privacy information",
-  "web.legal.contact.11": "PLAY ↗"
+  "web.legal.contact.11": "PLAY ↗",
+  "web.legal.deletion.1": "Request deletion of your Beyond the Signal account",
+  "web.legal.deletion.2": "Send an account deletion request",
+  "web.legal.deletion.3": "Email us from the address used for Google sign-in where possible. Say that you want to delete your Beyond the Signal account and cloud progress. We verify ownership before deleting anything and confirm when the request is completed.",
+  "web.legal.deletion.4": "Deletion removes your game sign-in account and its cloud progress, stars and read log entries. It does not delete your Google account. Restarting the game or signing out is not account deletion.",
+  "web.legal.deletion.5": "Device-only saves, energy and tools remain on devices where they were stored. Clear them on each device if you also want those local copies removed.",
+  "web.legal.deletion.6": "Optional statistics use separate random browser identifiers. To delete them, use “Turn off and delete my statistics” in Settings on each device, or mention the request in your email so we can help identify the records. Never send passwords, sign-in links or session tokens.",
+  "web.legal.deletion.7": "This opens an email draft. Sending it requests deletion; it does not immediately delete your account. You can also write directly to flambiz.cz@gmail.com.",
+  "web.legal.android.1": "Android app and age settings",
+  "web.legal.android.2": "The Android test app asks for an age group before enabling online features. It stores only the selected group on the device, not a date of birth. Players under 18 and those who prefer not to state an age play locally without Google sign-in, ad requests or outgoing gameplay statistics. Local progress remains on that device. Adults can choose optional Google cloud saves and statistics separately. Adult rewarded ads currently use Google demo units; Google Mobile Ads and UMP process ad requests and consent choices when those features are used. Age settings do not replace advertising consent."
 }
