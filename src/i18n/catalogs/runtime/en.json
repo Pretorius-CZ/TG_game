@@ -224,5 +224,6 @@
   "ui.updating": "Updating game…",
   "ship.nextRepair": "Next repair: {name}",
   "ship.interiorReady": "Interior repairs complete",
-  "ship.revisitInterior": "Revisit the interior"
+  "ship.revisitInterior": "Revisit the interior",
+  "account.requestDeletion": "Delete your game account"
 }

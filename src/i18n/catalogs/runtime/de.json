@@ -224,5 +224,6 @@
   "ui.updating": "Spiel wird aktualisiert …",
   "ship.nextRepair": "Nächste Reparatur: {name}",
   "ship.interiorReady": "Innenräume repariert",
-  "ship.revisitInterior": "Innenräume ansehen"
+  "ship.revisitInterior": "Innenräume ansehen",
+  "account.requestDeletion": "Spielkonto löschen"
 }

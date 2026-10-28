@@ -224,5 +224,6 @@
   "ship.revisitInterior": "Revisitar o interior",
   "help.pulse.body": "Combine 4 em linha ou 5 em T/L para criar Pulse (explosão 3×3, quebra coberturas). Toque para disparar: 1 jogada. Arraste para trocar só se a outra peça formar uma combinação: 1 jogada, sem explosão. Explosões em cadeia são grátis.",
   "help.nova.body": "Combine 5 ou mais em linha para criar Nova (linha + coluna, quebra coberturas). Toque para disparar: 1 jogada. Arraste para trocar só se a outra peça formar uma combinação: 1 jogada, sem explosão. Explosões em cadeia são grátis.",
-  "help.resonators.body": "Combine 3 de modo que uma peça da combinação toque o anel por cima, por baixo, à esquerda ou à direita. Cada combinação separada soma +1 por anel, mesmo na mesma onda. Diagonais e explosões diretas não carregam. Carregue cada anel até sua meta."
+  "help.resonators.body": "Combine 3 de modo que uma peça da combinação toque o anel por cima, por baixo, à esquerda ou à direita. Cada combinação separada soma +1 por anel, mesmo na mesma onda. Diagonais e explosões diretas não carregam. Carregue cada anel até sua meta.",
+  "account.requestDeletion": "Excluir sua conta do jogo"
 }

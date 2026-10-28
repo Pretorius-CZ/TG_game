@@ -6,6 +6,7 @@ import {gameAddress} from './gameAddress.js';
 import AdChoicesButton from './AdChoicesButton.jsx';
 import AnalyticsChoices from './AnalyticsChoices.jsx';
 import LanguageSelect from './i18n/LanguageSelect.jsx';
+import {accountDeletionAddress} from './accountDeletion.js';
 const itch=import.meta.env.MODE==='itch';
 const guestOnly=itch||crazyGames;
 export const AccountContext = createContext(null);
@@ -60,6 +61,7 @@ export function AccountButton({onImport,onRestart}){
  {location.hostname==='game.playbeyondthesignal.com'&&<p><a href={gameAddress(location.href,{transfer:true})}>{msg("ui.Account.recover-original-progress-energy-and-helpers")}</a></p>}
  {importMessage&&<p className="import-feedback" role="status" aria-live="polite">{importMessage}</p>}
  <button className="primary" disabled={busy} onClick={user?logout:login}>{t(user?'Sign out':'Continue with Google')}</button>
+ {user&&<p><a href={accountDeletionAddress(language)} target="_blank" rel="noopener">{msg('account.requestDeletion')}</a></p>}
  {t(error&&<p role="alert">{t(error)}</p>)}</>}
 
  {!guestOnly&&import.meta.env.MODE!=='telegram'&&<><p><a href="./privacy.html" target="_blank" rel="noopener">{msg("ui.Account.privacy")}</a>{' · '}<a href="./contact.html" target="_blank" rel="noopener">{msg("ui.Account.contact")}</a></p><AdChoicesButton/></>}

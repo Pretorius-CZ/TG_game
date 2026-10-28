@@ -224,5 +224,6 @@
   "ui.updating": "Mise à jour du jeu…",
   "ship.nextRepair": "Réparation suivante : {name}",
   "ship.interiorReady": "Intérieur du vaisseau réparé",
-  "ship.revisitInterior": "Revisiter l’intérieur"
+  "ship.revisitInterior": "Revisiter l’intérieur",
+  "account.requestDeletion": "Supprimer ton compte de jeu"
 }
