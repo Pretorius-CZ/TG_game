@@ -1097,3 +1097,14 @@ reklamní provoz ani veřejné herní chování.
 2026-10-28 — Uživatel výslovně schválil cílení Google Play od9 let: skupiny9–12,13–15,16–17,18+. Není to PEGI/IARC rating ani nová blokace hraní mladších. Pod18 a neuvedený věk stále používá schválený místní režim; podklady aktualizované, do Console nic neodesláno.
 
 2026-10-28 — Uživatel na odděleném Google testovacím účtu v APK uložil minihru do cloudu, ověřil jeden řádek game_progress a po odstranění Auth uživatele potvrdil no rows pro game_progress i auth.users. Ruční odstranění Auth + navázaného cloudového postupu ověřeno; není to automatické smazání v aplikaci ani ověření všech statistik/logů/záloh. Testovací UID neukládat zbytečně do veřejných podkladů.
+
+2026-10-28 — Dva požadavky uživatele dokončeny: Android launcher používá
+Images/logo_game.jpg (legacy/round/adaptive exporty, nový512px store icon),
+export generuje scripts/create-android-icons.py a starší create-play-art.py
+jej znovu nepřekreslí. APK/AAB internal3, versionCode3. V zabaleném APK
+ověřená shoda launcher PNG pixel po pixelu, podpis/bundletool/manifest prošly.
+Slepé testy v /balance mají jednu posouvací tabulku, hlavičku sticky a15
+viditelných řádků. Zachovaný filtr průchodů i celý export. Místní browser
+kontrola na1440/390px:15 řádků, posun, hlavička, filtr10 řádků a export40/40.
+Web build, webové stránky a6 jazykových katalogů prošly. Žádná změna pravidel,
+postupu nebo analytických dat. APK v releases/google-play/internal-3/.
