@@ -419,3 +419,9 @@ Dospělí nadále samostatně volí přihlášení, statistiky a reklamní souhl
 Detaily a zbývající fyzické kontroly: google-play/android-audience-2026-10-28.md.
 Žádost o odstranění účtu: kontaktní stránka#delete-account a odkaz v Nastavení;
 ručně vyřizuje správce po ověření. Google Play registrace dál čeká na podporu.
+
+28.10.2026 — Dokončeno uživatelské PCAPdroid porovnání na APK: dítě bez
+záznamů hry → dospělý s reklamou se záznamy → dítě po vynuceném ukončení
+znovu bez záznamů. Podklady věkových skupin a Data safety připravené v
+ google-play/data-safety-2026-10-28.md. Jsou to návrhy před vyplněním Console,
+nikoli potvrzení všech právních/SDK položek. Kód a produkční reklamy neměněné.

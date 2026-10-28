@@ -21,3 +21,18 @@ To je kontrola aplikace v prohlížeči s Android build mode a nativním buildem
 Dále: posouzení cílových věkových skupin a regionů, IARC, Data safety včetně SDK disclosure, odkaz na živou žádost o smazání a ověření ručního smazání na zvlášť založeném testovacím účtu. Play registrace stále čeká na podporu (uživatel potvrdil28.10.). Placené reklamy nejsou zapnuté. Žádné herní účty ani data hráčů se při této práci nesmazaly.
 
 Oficiální pravidla: https://support.google.com/googleplay/android-developer/answer/9893335?hl=en a https://support.google.com/googleplay/android-developer/answer/9867159?hl=en .
+
+## Fyzický telefon — uživatelské měření 28. 10. 2026
+
+Uživatel testuje APK nainstalované z Android Studia (nikoli web v prohlížeči).
+Potvrdil funkční věkovou volbu i přepnutí dospělý → dítě. V dětském režimu
+hrál při spuštěném PCAPdroidu; hra se v seznamu spojení neobjevila. Následná
+pozitivní kontrola otevřením webu zobrazila Brave, takže zachytávání provozu
+je funkční. Výsledek: při tomto průchodu nebylo zaznamenáno spojení přiřazené
+hře. Není to úplný audit nativních SDK ani důkaz nulového provozu ve všech
+situacích; provoz může být připsán systémovým službám. Následné porovnání s dospělým režimem je dokončené níže; kontrola systémových služeb zůstává mimo rozsah dodaného pozorování. PCAP ani screenshot záznamu zatím nebyl dodán.
+
+
+### Dokončené porovnání na telefonu
+
+Uživatel následně potvrdil mnoho záznamů Beyond the Signal při dospělém režimu a spuštění demo reklamy. Jednotlivé cíle ani účel těchto spojení nebyly rozebrané; nelze je bez záznamu automaticky přiřadit cloudu nebo reklamě. Poté se přepnul zpět do skupiny pod18, aplikaci úplně ukončil a při novém záznamu znovu hrál. Hra se znovu v seznamu spojení neobjevila. Kontrola zachytávání i přiřazení provozu aplikaci tedy má pozitivní protějšek a návrat do místního režimu po předchozí reklamě při tomto průchodu prošel. Nejde o kompletní nativní audit, analýzu všech systémových služeb ani certifikaci. Raw PCAP/screenshot dosud nemáme; výsledek evidován jako uživatelem potvrzené pozorování.

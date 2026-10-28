@@ -1079,3 +1079,17 @@ reklamy nezapnuté. Místní ověřená záloha artifactů .local/backups/2026-1
 Při aktualizaci preview APK neodinstalovávat. Pro nezletilý/neuvedený věk
 se otevře místní host, nikoli Google účet; dřívější účet se nemaže a jeho
 cloudový postup zůstává oddělený. Fyzické zařízení/SDK síťová kontrola zbývá.
+
+## 2026-10-28 — Telefonní síťová kontrola a podklady Play
+
+Uživatel na APK z Android Studia dokončil PCAPdroid porovnání: dítě bez
+záznamu hry, Brave pozitivní kontrola, dospělý s testovací reklamou mnoho
+záznamů hry, potom dítě po úplném ukončení aplikace opět bez záznamu hry.
+Evidováno jako uživatelské pozorování, ne kompletní audit nebo certifikace.
+Data safety připraveno podle zdrojů a oficiálních pravidel v
+ docs/google-play/data-safety-2026-10-28.md. Gradle ověřil MobileAds25.4.0
++UMP4.0.0; aktuální Google disclosure popisuje25.5.0, neslučovat bez kontroly.
+Návrh cílení9–12/13–15/16–17/18+ není rating ani blokace mladších a do Console
+nebyl odeslán. Zbývá konečné cílení, testovací Auth metadata/smazání účtu,
+verzově přesné SDK disclosure a sporné Shared/Ephemeral položky. Neměněn kód,
+reklamní provoz ani veřejné herní chování.
