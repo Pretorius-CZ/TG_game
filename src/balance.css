@@ -13,3 +13,11 @@
 .controls label{max-width:100%;flex-wrap:wrap}.controls select{max-width:100%}
 
 .controls button[aria-pressed="true"]{background:#286755;border-color:#a7ebda;color:#fff;box-shadow:0 0 0 2px #a7ebda}
+
+/* Keep all blind attempts in one scrollable table: header + fifteen rows. */
+.blind-test-wrap{max-height:calc(32px + 15 * 46px);overflow:auto;isolation:isolate}
+.blind-test-wrap table{border-collapse:separate;border-spacing:0}
+.blind-test-wrap thead tr{height:32px}
+.blind-test-wrap tbody tr{height:46px}
+.blind-test-wrap thead th{position:sticky;top:0;z-index:2;background:#193441;box-shadow:0 1px 0 #6c919d}
+.blind-test-wrap:focus-visible{outline:2px solid #a7ebda;outline-offset:3px}
