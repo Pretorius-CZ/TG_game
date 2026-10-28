@@ -1108,3 +1108,12 @@ viditelných řádků. Zachovaný filtr průchodů i celý export. Místní brow
 kontrola na1440/390px:15 řádků, posun, hlavička, filtr10 řádků a export40/40.
 Web build, webové stránky a6 jazykových katalogů prošly. Žádná změna pravidel,
 postupu nebo analytických dat. APK v releases/google-play/internal-3/.
+
+Nasazení úpravy slepých testů dokončeno28.10.: web ef56ab6, hlavní
+Pages40736028481 success, game hosting40736029282 success. Na obou živých
+balance.html ověřen nový stylesheet. Produkční izolovaný import40 QA
+výsledků na1440/390px ověřil15 řádků, sticky hlavičku, filtr10 řádků a
+export40/40; na server nebyla zapisována testovací data. APK preview3
+releases/google-play/internal-3/beyond-the-signal-preview-3.apk. Android
+větev obnovena; místní záloha ikon/instalátorů v
+.local/backups/2026-10-28-icon-and-balance, ZIP CRC ověřené.
