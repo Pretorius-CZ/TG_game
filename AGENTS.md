@@ -1117,3 +1117,22 @@ export40/40; na server nebyla zapisována testovací data. APK preview3
 releases/google-play/internal-3/beyond-the-signal-preview-3.apk. Android
 větev obnovena; místní záloha ikon/instalátorů v
 .local/backups/2026-10-28-icon-and-balance, ZIP CRC ověřené.
+
+## 2026-10-28 — Příprava Play bez změn hry
+
+Připraven aktuální balíček store-kit-2026-10-28: schválená ikona,
+feature graphic, pět snímků skutečného Android-mode UI v izolovaném Edge,
+popisky pro šest jazyků, anglické zadání testerům, koordinace uzavřeného
+testu a pracovní podklady IARC/Data safety. Rozměry, délky popisků,
+SHA256 a ZIP CRC ověřené; screenshoty vizuálně zkontrolované. Nejde o
+publikaci do Console ani test přes Play. Podrobnosti:
+docs/google-play/release-readiness-2026-10-28.md.
+
+Mobile Ads 25.4.0 a UMP 4.0.0 nyní přesně připnuté v variables.gradle,
+stejné verze jako dříve ověřené internal.3; dependencyInsight potvrzen.
+Žádná změna obtížnosti, scén ani pravidel. Android doctor a šest
+jazykových katalogů prošly. Zbývá Play registrace, skutečné formuláře,
+SDK disclosure/role dodavatelů a ověření názvů Auth metadata přes
+read-only docs/google-play/auth-metadata-audit.sql (zatím nespouštěno).
+Soukromé hodnoty, UID a tokeny dotaz nevrací. Testery nikdo nekontaktoval,
+placený běh ani 14denní období nejsou zahájené.

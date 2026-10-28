@@ -427,3 +427,13 @@ znovu bez záznamů. Podklady věkových skupin a Data safety připravené v
 nikoli potvrzení všech právních/SDK položek. Kód a produkční reklamy neměněné.
 
 28.10.2026 — Cílení Play9–12/13–15/16–17/18+ uživatelem schválené. Znovu nevyžadovat schválení stejné volby; zbývá finální posouzení Families/IARC a otevřené položky Data safety.
+
+## 2026-10-28 — Podklady obchodu a testerům připravené
+
+Aktuální přehled: google-play/release-readiness-2026-10-28.md.
+Balíček releases/google-play/beyond-the-signal-play-kit-2026-10-28.zip:
+7 grafických souborů, šest jazyků popisků, EN zadání testerům, CZ koordinace,
+IARC a aktualizovaný Data safety. Snímky z izolovaného Android-mode UI,
+nikoli fyzického telefonu. Podklady neznamenají odeslaný formulář nebo
+zahájený test. SDK připnutá na již otestované 25.4.0/4.0.0. Zbývající
+kroky jsou v přehledu; bez změn herních pravidel a produkčních reklam.

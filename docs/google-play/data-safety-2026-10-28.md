@@ -1,6 +1,6 @@
 # Google Play — věkové skupiny a Data safety
 
-Podklad z 28. 10. 2026 pro Android `0.1.0-internal.2`, versionCode2.
+Podklad z 28. 10. 2026 pro Android `0.1.0-internal.3`, versionCode 3.
 **Pracovní návrh pro ruční vyplnění, nikoli odeslaný formulář.** Play účet zatím čeká na podporu. Nezapíná se produkční reklama ani se nemění hra.
 
 ## 1. Cílové publikum — schváleno uživatelem 28. 10. 2026
@@ -60,10 +60,12 @@ Místní věková skupina, energie, zásoby a místní save se samy neodesílaj�
 
 ## 4. SDK a doklady
 
-- `@capacitor-community/admob`8.2.1; Gradle releaseRuntimeClasspath ověřeno28.10.: **Google Mobile Ads25.4.0**, **UMP4.0.0**. Zdrojový plugin používá dynamický požadavek25.4.+; další sestavení může být jiné. Před finálním vydáním zachytit a případně připnout ověřenou verzi. Tímto podkladem se žádná závislost nemění.
+- `@capacitor-community/admob`8.2.1; Gradle releaseRuntimeClasspath ověřeno28.10.: **Google Mobile Ads25.4.0**, **UMP4.0.0**. Plugin má výchozí dynamický požadavek 25.4.+; projekt jej nyní přepisuje v android/variables.gradle na přesné verze 25.4.0 a 4.0.0. DependencyInsight po připnutí potvrdil stejné verze jako v otestovaném internal.3; nejde o upgrade SDK.
 - [Google Mobile Ads disclosure](https://developers.google.com/admob/android/privacy/play-data-disclosure) nyní výslovně popisuje nejnovější Legacy SDK25.5.0. Uvádí přenos IP, interakcí, diagnostiky a identifikátorů pro reklamní, analytické a bezpečnostní účely a šifrování TLS. **Není to nezávislé ověření verze25.4.0 v našem AAB.** Tabulka je pracovní konzervativní podklad, rozdíl verze je otevřený bod před odesláním.
 - UMP není souhlas s naší analytikou a věková volba není UMP souhlas. [Google UMP](https://developers.google.com/admob/android/privacy/gdpr).
 - Naše zdroje: `src/Account.jsx`, `src/supabase.js`, `src/useProgressSave.js`, `src/analyticsPrivacy.js`, `src/campaignTracking.js`, `src/countryTracking.js`, `src/androidAudience.js`, `src/androidAds.js`, `src/analyticsDeletion.js`; retence a cascade viz SQL001/033 a již nasazené veřejné soukromí.
+
+Google OAuth podle [Supabase dokumentace](https://supabase.com/docs/guides/auth/social-login/auth-google) standardně používá openid, email a profile. To potvrzuje potřebu zahrnout profilová metadata do inventáře, ale ne jejich konkrétní klíče v naší databázi. K ověření slouží přiložený read-only SQL; skutečné hodnoty ani osobní údaje není potřeba posílat.
 
 ## 5. Retence a smazání — údaje pro kontrolora
 
@@ -72,7 +74,7 @@ Cloudový postup a Auth účet odstraní správce na ověřenou žádost; reset 
 ## 6. Co zbývá před odesláním formuláře
 
 1. Cílové skupiny jsou uživatelem potvrzené (9–12,13–15,16–17,18+); dokončit Families/regionální posouzení a přesný IARC dotazník. Žádná konkrétní PEGI/ESRB známka se nyní neurčuje.
-2. Ověřit přesná Auth metadata na odděleném testovacím účtu. Ruční odstranění Auth a cloudového save už je ověřené; celá e-mailová cesta žádosti není tímto databázovým testem samostatně ověřena. Není potřeba posílat hesla ani tokeny.
+2. Ověřit přesné názvy Auth metadata polí read-only dotazem auth-metadata-audit.sql v této složce. Vrací pouze názvy polí a počty Google účtů, ne jejich hodnoty, e-maily, UID ani tokeny; nic nemění. Dotaz zatím nebyl na serveru spuštěn. Není nutné znovu zakládat už smazaný testovací účet. Ruční odstranění Auth a cloudového save už je ověřené; celá e-mailová cesta žádosti není tímto databázovým testem samostatně ověřena. Není potřeba posílat hesla ani tokeny.
 3. Sjednotit disclosure s přesnou finální verzí Mobile Ads/UMP v AAB; dořešit diagnostické podtypy a případné account identifiers.
 4. Potvrdit použitelnost standardního Supabase DPA pro projekt a dořešit roli country.is. Jeho webové tvrzení o nelogování samo neřeší všechny právní role. Pak uzavřít Shared/Optional/Ephemeral u sporných řádků.
 5. Zkontrolovat formulář i build před uzavřeným testem. Žádný CSV import se nyní nevytváří ani nespouští; nesmí přepsat odpovědi neověřenými hodnotami.

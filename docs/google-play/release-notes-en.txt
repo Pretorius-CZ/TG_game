@@ -1,6 +1,6 @@
-First Android internal test.
-200 match-3 levels across 10 story chapters.
-English, Czech, German, French, Spanish and Brazilian Portuguese.
-Optional Google sign-in for cloud progress.
-Rewarded ads use Google demo units only.
-Please report your device, Android version, level and steps to reproduce any issue.
+Android internal test 0.1.0-internal.3.
+200 levels, 10 chapters and six languages.
+New game icon; local age choice before online features.
+Under-18 and private modes: local play without ads, Google sign-in or gameplay statistics.
+Adults: optional Google cloud save and demo rewarded ads.
+Please report device, Android version, level and steps to reproduce problems.

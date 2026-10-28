@@ -1,6 +1,7 @@
 from PIL import Image,ImageDraw,ImageFont,ImageOps
 from pathlib import Path
-out=Path('releases/google-play/internal-1/store-assets');out.mkdir(parents=True,exist_ok=True)
+from sys import argv
+out=Path(argv[1] if len(argv)>1 else 'releases/google-play/store-kit-current/assets');out.mkdir(parents=True,exist_ok=True)
 # Keep launcher exports in sync with the user's approved image.
 import runpy
 runpy.run_path(str(Path(__file__).with_name('create-android-icons.py')), run_name='__main__')
