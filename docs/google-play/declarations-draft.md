@@ -10,7 +10,7 @@ Hlavní dokument: [Věkové skupiny a Data safety](data-safety-2026-10-28.md). O
 - Žádost o odstranění: https://playbeyondthesignal.com/contact.html#delete-account . Dostupná z nastavení přihlášeného účtu v APK i webové hře; ruční vyřízení po ověření, nikoli automatický reset.
 - Základní hra bez účtu. Pod18/neuvedeno místní postup bez Google přihlášení, reklamních požadavků a odesílání statistik. Dospělý má oddělené dobrovolné online volby. Testovací APK na telefonu uživatelem ověřené včetně porovnání provozu s dospělým režimem.
 - Reklamy: ano, dobrovolné odměňované; nyní pouze demo. Platby/IAP nejsou implementované.
-- Publikum: navrženo9–12,13–15,16–17,18+, zatím nevyplněno v Console. Nejde o rating ani blokaci mladších. Starší formulace „všechny skupiny“ nebyla finálním rozhodnutím cílení.
+- Publikum: uživatel28.10.2026 schválil9–12,13–15,16–17,18+, zatím nevyplněno v Console. Nejde o rating ani blokaci mladších. Starší formulace „všechny skupiny“ nebyla finálním rozhodnutím cílení.
 - IARC/PEGI: neurčeno. Dotazník vyplnit podle konkrétních otázek; kreslené nálože na dílcích, nouzové přistání a sci-fi záchranný příběh nelze zaměnit za automatickou odpověď na každou otázku o násilí/strachu. Ve hře není hráčský chat ani veřejný UGC.
 - Práva: před odesláním udržet licence grafiky, audia a závislostí; samotná existence souborů není ověření práv.
 - Data safety: ano, některá data se v dospělé cestě sbírají a reklamní SDK sdílí. Dětský lokální režim nesmí vést k prohlášení „žádná data v aplikaci“.

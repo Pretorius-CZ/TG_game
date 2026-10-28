@@ -1093,3 +1093,5 @@ Návrh cílení9–12/13–15/16–17/18+ není rating ani blokace mladších a 
 nebyl odeslán. Zbývá konečné cílení, testovací Auth metadata/smazání účtu,
 verzově přesné SDK disclosure a sporné Shared/Ephemeral položky. Neměněn kód,
 reklamní provoz ani veřejné herní chování.
+
+2026-10-28 — Uživatel výslovně schválil cílení Google Play od9 let: skupiny9–12,13–15,16–17,18+. Není to PEGI/IARC rating ani nová blokace hraní mladších. Pod18 a neuvedený věk stále používá schválený místní režim; podklady aktualizované, do Console nic neodesláno.

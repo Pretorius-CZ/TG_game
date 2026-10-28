@@ -425,3 +425,5 @@ záznamů hry → dospělý s reklamou se záznamy → dítě po vynuceném ukon
 znovu bez záznamů. Podklady věkových skupin a Data safety připravené v
  google-play/data-safety-2026-10-28.md. Jsou to návrhy před vyplněním Console,
 nikoli potvrzení všech právních/SDK položek. Kód a produkční reklamy neměněné.
+
+28.10.2026 — Cílení Play9–12/13–15/16–17/18+ uživatelem schválené. Znovu nevyžadovat schválení stejné volby; zbývá finální posouzení Families/IARC a otevřené položky Data safety.

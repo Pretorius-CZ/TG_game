@@ -3,18 +3,18 @@
 Podklad z 28. 10. 2026 pro Android `0.1.0-internal.2`, versionCode2.
 **Pracovní návrh pro ruční vyplnění, nikoli odeslaný formulář.** Play účet zatím čeká na podporu. Nezapíná se produkční reklama ani se nemění hra.
 
-## 1. Cílové publikum — doporučený návrh
+## 1. Cílové publikum — schváleno uživatelem 28. 10. 2026
 
 | Skupina v Play Console | Návrh | Důvod v naší hře |
 |---|---|---|
 | 5 a méně | Nezahrnovat nyní | Příběh a cíle vyžadují čtení, omezené tahy a plánování; hra není navržená pro nečtenáře. |
 | 6–8 | Zatím nezahrnovat | Dosud nemáme přizpůsobený ani ověřený průchod začínajících čtenářů. Nejde o závadnost obsahu. |
-| 9–12 | Navrženo zahrnout | Prostorové spojování, plánování oprav a postupné čtení příběhu. Vyžaduje dokončení posouzení Families a vhodnosti pro tuto skupinu. |
-| 13–15 | Navrženo zahrnout | Logické úkoly a delší sci-fi příběh. |
-| 16–17 | Navrženo zahrnout | Stejná hra, místní režim bez online služeb. |
-| 18 a více | Navrženo zahrnout | Celá hra; dobrovolné cloudové ukládání, statistiky a odměňované reklamy. |
+| 9–12 | Schváleno zahrnout | Prostorové spojování, plánování oprav a postupné čtení příběhu. Vyžaduje dokončení posouzení Families a vhodnosti pro tuto skupinu. |
+| 13–15 | Schváleno zahrnout | Logické úkoly a delší sci-fi příběh. |
+| 16–17 | Schváleno zahrnout | Stejná hra, místní režim bez online služeb. |
+| 18 a více | Schváleno zahrnout | Celá hra; dobrovolné cloudové ukládání, statistiky a odměňované reklamy. |
 
-Tohle je návrh cílení podle současného designu, ne automatické věkové hodnocení ani rozhodnutí blokovat mladší hráče. V aplikaci se minimální věk hraní nenastavuje. Provozní rozdělení pod18/18+ chrání online funkce; nenahrazuje deklaraci cílových skupin, regionální posouzení ani IARC dotazník. Původní záměr uživatele zpřístupnit nezávadnou hru všem zůstává zaznamenaný; tabulku dosud nevybral v Play Console.
+Uživatel 28. 10. 2026 výslovně schválil cílení od 9 let: 9–12, 13–15, 16–17 a 18+. Jde o schválené zadání pro cílové skupiny, ne automatické věkové hodnocení ani rozhodnutí blokovat mladší hráče. V aplikaci se minimální věk hraní nenastavuje. Provozní rozdělení pod18/18+ chrání online funkce; nenahrazuje deklaraci cílových skupin, regionální posouzení ani IARC dotazník. Původní záměr uživatele zpřístupnit nezávadnou hru všem zůstává zaznamenaný; tabulku dosud nevybral v Play Console.
 
 [Google: cílové skupiny a vhodnost pro věk](https://support.google.com/googleplay/android-developer/answer/9867159?hl=en).
 
@@ -71,7 +71,7 @@ Cloudový postup a Auth účet odstraní správce na ověřenou žádost; reset 
 
 ## 6. Co zbývá před odesláním formuláře
 
-1. Potvrdit cílové skupiny podle skutečného designu; dokončit Families/regionální posouzení a přesný IARC dotazník. Žádná konkrétní PEGI/ESRB známka se nyní neurčuje.
+1. Cílové skupiny jsou uživatelem potvrzené (9–12,13–15,16–17,18+); dokončit Families/regionální posouzení a přesný IARC dotazník. Žádná konkrétní PEGI/ESRB známka se nyní neurčuje.
 2. Ověřit Auth metadata a ruční odstranění na odděleném testovacím účtu. Není potřeba posílat hesla ani tokeny.
 3. Sjednotit disclosure s přesnou finální verzí Mobile Ads/UMP v AAB; dořešit diagnostické podtypy a případné account identifiers.
 4. Potvrdit použitelnost standardního Supabase DPA pro projekt a dořešit roli country.is. Jeho webové tvrzení o nelogování samo neřeší všechny právní role. Pak uzavřít Shared/Optional/Ephemeral u sporných řádků.
