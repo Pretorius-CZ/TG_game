@@ -49,5 +49,14 @@
   "web.legal.contact.08": "Demandes concernant le compte et les données",
   "web.legal.contact.09": "Contactez-nous pour accéder à vos données, les corriger ou supprimer vos données ou votre compte. Utilisez si possible l’e-mail lié à la connexion Google. Une vérification peut être nécessaire. Redémarrer le jeu réinitialise la progression, sans supprimer le compte de connexion ni toutes les statistiques.",
   "web.legal.contact.10": "Lire nos informations de confidentialité",
-  "web.legal.contact.11": "JOUER ↗"
+  "web.legal.contact.11": "JOUER ↗",
+  "web.legal.deletion.1": "Demander la suppression de ton compte Beyond the Signal",
+  "web.legal.deletion.2": "Demander la suppression du compte",
+  "web.legal.deletion.3": "Écris si possible depuis l’adresse utilisée pour la connexion Google. Demande la suppression de ton compte Beyond the Signal et de ta progression dans le cloud. Nous vérifions que le compte t’appartient avant toute suppression et confirmons le traitement.",
+  "web.legal.deletion.4": "La suppression concerne ton compte de jeu, ta progression dans le cloud, tes étoiles et les entrées du journal déjà lues. Ton compte Google reste intact. Recommencer le jeu ou se déconnecter ne supprime pas le compte.",
+  "web.legal.deletion.5": "Les sauvegardes locales, l’énergie et les outils restent sur les appareils où ils sont enregistrés. Efface ces données sur chaque appareil si tu souhaites aussi supprimer ces copies.",
+  "web.legal.deletion.6": "Les statistiques facultatives utilisent des identifiants de navigateur aléatoires distincts. Dans les paramètres de chaque appareil, utilise l’option pour désactiver et supprimer tes statistiques, ou indique ta demande dans ton e-mail afin que nous puissions retrouver les données. N’envoie jamais de mot de passe, de lien de connexion ni de jeton de session.",
+  "web.legal.deletion.7": "Un brouillon d’e-mail s’ouvre. Son envoi constitue une demande : le compte n’est pas supprimé immédiatement. Tu peux aussi écrire directement à flambiz.cz@gmail.com.",
+  "web.legal.android.1": "Application Android et paramètres d’âge",
+  "web.legal.android.2": "L’application de test Android demande une tranche d’âge avant d’activer les fonctions en ligne. Seul le groupe choisi est enregistré sur l’appareil, pas la date de naissance. Les moins de 18 ans et les personnes qui ne souhaitent pas indiquer leur âge jouent localement, sans connexion Google, demande publicitaire ni transmission de statistiques de jeu. Leur progression reste sur l’appareil. Les adultes peuvent choisir séparément les sauvegardes Google dans le cloud et les statistiques facultatives. Les publicités récompensées pour adultes utilisent actuellement des annonces de démonstration Google ; Google Mobile Ads et UMP traitent les demandes et les choix de consentement lors de leur utilisation. Le choix d’âge ne remplace pas le consentement publicitaire."
 }

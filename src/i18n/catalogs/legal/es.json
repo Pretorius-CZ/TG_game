@@ -49,5 +49,14 @@
   "web.legal.contact.08": "Solicitudes sobre cuentas y datos",
   "web.legal.contact.09": "Escríbenos para acceder, corregir o eliminar tus datos personales o tu cuenta. Usa si es posible el correo vinculado al acceso Google. Podemos necesitar verificar la titularidad. Reiniciar el juego restablece el progreso; no elimina la cuenta de acceso ni todas las estadísticas.",
   "web.legal.contact.10": "Leer nuestra información de privacidad",
-  "web.legal.contact.11": "JUGAR ↗"
+  "web.legal.contact.11": "JUGAR ↗",
+  "web.legal.deletion.1": "Solicitar la eliminación de tu cuenta de Beyond the Signal",
+  "web.legal.deletion.2": "Solicitar la eliminación de la cuenta",
+  "web.legal.deletion.3": "Escribe, si puedes, desde el correo utilizado para iniciar sesión con Google. Pide eliminar tu cuenta de Beyond the Signal y tu progreso en la nube. Verificaremos que la cuenta te pertenece antes de eliminarla y confirmaremos cuando se complete.",
+  "web.legal.deletion.4": "Se eliminarán tu cuenta del juego, tu progreso en la nube, tus estrellas y las entradas leídas del diario. Tu cuenta de Google no se elimina. Reiniciar el juego o cerrar sesión no elimina la cuenta.",
+  "web.legal.deletion.5": "Las partidas locales, la energía y las herramientas permanecen en los dispositivos donde están guardadas. Borra esos datos en cada dispositivo si también quieres eliminar las copias locales.",
+  "web.legal.deletion.6": "Las estadísticas opcionales usan identificadores aleatorios del navegador independientes. En los ajustes de cada dispositivo, usa la opción para desactivar y eliminar tus estadísticas, o menciona la solicitud en tu correo para que podamos localizar los registros. Nunca envíes contraseñas, enlaces de inicio de sesión ni tokens de sesión.",
+  "web.legal.deletion.7": "Se abrirá un borrador de correo. Al enviarlo solicitas la eliminación; la cuenta no se borra de inmediato. También puedes escribir directamente a flambiz.cz@gmail.com.",
+  "web.legal.android.1": "Aplicación Android y ajustes de edad",
+  "web.legal.android.2": "La aplicación de prueba de Android pregunta el grupo de edad antes de activar las funciones en línea. Solo guarda el grupo elegido en el dispositivo, no la fecha de nacimiento. Los menores de 18 años y quienes no indican su edad juegan localmente, sin inicio de sesión con Google, solicitudes de anuncios ni envío de estadísticas del juego. El progreso permanece en el dispositivo. Los adultos pueden elegir por separado las partidas en la nube de Google y las estadísticas opcionales. Los anuncios con recompensa para adultos usan actualmente unidades de demostración de Google; Google Mobile Ads y UMP procesan las solicitudes y las opciones de consentimiento al usar estas funciones. La elección de edad no sustituye al consentimiento publicitario."
 }

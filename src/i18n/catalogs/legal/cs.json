@@ -49,5 +49,14 @@
   "web.legal.contact.08": "Účet a osobní údaje",
   "web.legal.contact.09": "Napiš nám kvůli přístupu, opravě nebo výmazu osobních údajů či účtu. U účtu pokud možno použij e-mail propojený s Google přihlášením. Můžeme potřebovat ověřit vlastnictví. Restart hry resetuje postup; nemaže přihlašovací účet ani všechny statistiky.",
   "web.legal.contact.10": "Informace o ochraně soukromí",
-  "web.legal.contact.11": "PLAY ↗"
+  "web.legal.contact.11": "PLAY ↗",
+  "web.legal.deletion.1": "Žádost o odstranění účtu Beyond the Signal",
+  "web.legal.deletion.2": "Odeslat žádost o odstranění účtu",
+  "web.legal.deletion.3": "Pokud můžeš, napiš z e-mailu používaného k přihlášení přes Google. Uveď, že chceš odstranit účet Beyond the Signal a cloudový postup. Před odstraněním ověříme vlastnictví a dokončení žádosti potvrdíme.",
+  "web.legal.deletion.4": "Odstranění zahrnuje herní přihlašovací účet, cloudový postup, hvězdy a přečtené zápisy deníku. Nesmaže tvůj účet Google. Restart hry ani odhlášení nejsou odstraněním účtu.",
+  "web.legal.deletion.5": "Místní postup, energie a pomůcky zůstávají na zařízeních, kde jsou uložené. Pokud chceš odstranit i tyto kopie, vymaž je na každém zařízení.",
+  "web.legal.deletion.6": "Dobrovolné statistiky používají samostatné náhodné identifikátory prohlížeče. Pro jejich smazání použij v Nastavení na každém zařízení „Vypnout a smazat moje statistiky“ nebo žádost uveď v e-mailu, abychom pomohli dohledat záznamy. Nikdy neposílej hesla, přihlašovací odkazy ani tokeny relace.",
+  "web.legal.deletion.7": "Otevře se návrh e-mailu. Odesláním žádáš o odstranění; účet se nesmaže okamžitě. Napsat můžeš také přímo na flambiz.cz@gmail.com.",
+  "web.legal.android.1": "Android aplikace a věkové nastavení",
+  "web.legal.android.2": "Testovací Android aplikace se před zapnutím online funkcí ptá na věkovou skupinu. V zařízení ukládá jen zvolenou skupinu, nikoli datum narození. Hráči mladší 18 let a ti, kteří věk nechtějí uvést, hrají místně bez přihlášení přes Google, požadavků na reklamy a odesílání herních statistik. Místní postup zůstává v daném zařízení. Dospělí mohou samostatně zvolit dobrovolné cloudové ukládání přes Google a statistiky. Reklamy za odměnu pro dospělé zatím používají testovací jednotky Google; Google Mobile Ads a UMP zpracovávají reklamní požadavky a volby souhlasu při použití těchto funkcí. Věkové nastavení nenahrazuje reklamní souhlas."
 }

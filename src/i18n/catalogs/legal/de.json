@@ -49,5 +49,14 @@
   "web.legal.contact.08": "Anfragen zu Konto und Daten",
   "web.legal.contact.09": "Kontaktiere uns für Auskunft, Berichtigung oder Löschung deiner personenbezogenen Daten oder deines Kontos. Nutze für Kontoanfragen möglichst die E-Mail der Google-Anmeldung. Eine Prüfung der Inhaberschaft kann nötig sein. Ein Neustart setzt den Fortschritt zurück, löscht aber weder das Anmeldekonto noch sämtliche Statistiken.",
   "web.legal.contact.10": "Unsere Datenschutzhinweise lesen",
-  "web.legal.contact.11": "SPIELEN ↗"
+  "web.legal.contact.11": "SPIELEN ↗",
+  "web.legal.deletion.1": "Löschung deines Beyond the Signal-Kontos beantragen",
+  "web.legal.deletion.2": "Kontolöschung beantragen",
+  "web.legal.deletion.3": "Schreibe möglichst von der E-Mail-Adresse deiner Google-Anmeldung. Bitte um die Löschung deines Beyond the Signal-Kontos und deines Cloud-Fortschritts. Vor der Löschung prüfen wir, ob dir das Konto gehört, und bestätigen den Abschluss.",
+  "web.legal.deletion.4": "Gelöscht werden dein Spielkonto, dein Cloud-Fortschritt, deine Sterne und gelesenen Logbucheinträge. Dein Google-Konto wird nicht gelöscht. Ein Neustart des Spiels oder eine Abmeldung löscht das Konto nicht.",
+  "web.legal.deletion.5": "Lokale Spielstände, Energie und Hilfsmittel bleiben auf den jeweiligen Geräten. Entferne diese Daten auf jedem Gerät, wenn du auch die lokalen Kopien löschen möchtest.",
+  "web.legal.deletion.6": "Freiwillige Statistiken verwenden eigene zufällige Browserkennungen. Nutze in den Einstellungen jedes Geräts die Option zum Deaktivieren und Löschen deiner Statistiken oder erwähne dies in deiner E-Mail, damit wir die Einträge finden können. Sende niemals Passwörter, Anmeldelinks oder Sitzungstoken.",
+  "web.legal.deletion.7": "Ein E-Mail-Entwurf wird geöffnet. Mit dem Senden beantragst du die Löschung; dein Konto wird nicht sofort gelöscht. Du kannst auch direkt an flambiz.cz@gmail.com schreiben.",
+  "web.legal.android.1": "Android-App und Alterseinstellungen",
+  "web.legal.android.2": "Die Android-Test-App fragt vor der Aktivierung von Online-Funktionen nach einer Altersgruppe. Nur die gewählte Gruppe wird auf dem Gerät gespeichert, nicht das Geburtsdatum. Personen unter 18 und Personen ohne Altersangabe spielen lokal, ohne Google-Anmeldung, Werbeanfragen oder Übertragung von Spielstatistiken. Ihr Fortschritt bleibt auf dem Gerät. Erwachsene können Google-Cloud-Spielstände und Statistiken getrennt und freiwillig aktivieren. Belohnte Werbung für Erwachsene verwendet derzeit Google-Testanzeigen; Google Mobile Ads und UMP verarbeiten Werbeanfragen und Einwilligungsentscheidungen bei Nutzung dieser Funktionen. Die Altersauswahl ersetzt keine Werbeeinwilligung."
 }
