@@ -1146,3 +1146,10 @@ internal.4 v releases/google-play/internal-4; podpis/bundletool a CSS v obou
 balíčcích ověřené. Fyzické ověření nového APK zatím neproběhlo. Účet Play
 již založený, uživatel dokončil platbu a čeká na ověření identity; aplikace
 v Console ještě nevytvořena. Starší poznámka o čekání na registraci neplatí.
+
+Nasazení opravy dokončeno: web d61d1bd, game hosting run 40778535735
+success. Na živém game webu izolovaný profil 393 × 873 px ověřil stejnou
+geometrii jako lokální oprava, všech pět popisků těsně u správných konzolí.
+Test nezapisoval cloud ani statistiky. Nové APK internal.4 má ověřený
+v2 podpis a package com.playbeyondthesignal.game.preview / versionCode 4.
+Záloha sources + APK/AAB: .local/backups/2026-10-28-archive-layout, ZIP CRC OK.
