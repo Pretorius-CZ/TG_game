@@ -5,7 +5,8 @@ for(const language of ['en','cs'])for(const outcome of ['viewed','dismissed','er
  test(`Android helper refill ${language} ${outcome}`,async({page})=>{
   await page.route(/supabase\.co|api\.country\.is/,r=>r.fulfill({status:204,body:''}));
   await page.route(/\/src\/androidAds\.js/,r=>r.fulfill({contentType:'application/javascript',body:`export async function androidMovesAd(){${outcome==='error'?'throw Error("No ad")':`return ${outcome==='viewed'}`};}`}));
-  await page.addInitScript(lang=>{
+  await page.addInitScript(()=>localStorage.setItem('beyond-signal-android-audience-v1',JSON.stringify({version:1,group:'adult'})));
+ await page.addInitScript(lang=>{
    localStorage.setItem('to-the-stars-language',lang);
    localStorage.setItem('to-the-stars-helpers-v1:guest:0',JSON.stringify([0,0,1,0,0]));
   },language);

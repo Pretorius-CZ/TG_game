@@ -1,5 +1,7 @@
 # Google Play — interní balíček 1
 
+**Aktualizace 28. 10. 2026:** aktuální sestavení je internal2 s místním režimem pro mladší/neuvádějící věk. Podrobnosti `android-audience-2026-10-28.md`; ruční cesta odstranění účtu `account-deletion.md`. Starší poznámky o chybějící věkové obrazovce tím nahrazené. Fyzické SDK ověření, Families posouzení a finální prohlášení zůstávají otevřené.
+
 Připraveno 27. 10. 2026. Stav: podepsaný AAB pro interní test, nikoli schválené veřejné vydání.
 
 ## Soubory a sestavení

@@ -1,5 +1,7 @@
 # Play Console — návrh prohlášení
 
+**Aktualizace 28. 10. 2026:** aktuální sestavení je internal2 s místním režimem pro mladší/neuvádějící věk. Podrobnosti `android-audience-2026-10-28.md`; ruční cesta odstranění účtu `account-deletion.md`. Starší poznámky o chybějící věkové obrazovce tím nahrazené. Fyzické SDK ověření, Families posouzení a finální prohlášení zůstávají otevřené.
+
 Nejde o vyplněný formulář ani potvrzení právní shody. Údaje platí pro interní build 0.1.0-internal.1 z 27. 10. 2026. Před veřejným vydáním znovu prověřit aktuální build, všechny SDK a dětské publikum.
 
 | Položka | Podklad / návrh |

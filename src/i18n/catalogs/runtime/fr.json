@@ -224,5 +224,20 @@
   "ui.updating": "Mise à jour du jeu…",
   "ship.nextRepair": "Réparation suivante : {name}",
   "ship.interiorReady": "Intérieur du vaisseau réparé",
-  "ship.revisitInterior": "Revisiter l’intérieur"
+  "ship.revisitInterior": "Revisiter l’intérieur",
+  "account.requestDeletion": "Supprimer ton compte de jeu",
+  "audience.title": "Avant de commencer",
+  "audience.intro": "Choisis ta tranche d’âge. Tu peux jouer dans chaque groupe.",
+  "audience.group": "Tranche d’âge",
+  "audience.minor": "Moins de 18 ans",
+  "audience.adult": "18 ans ou plus",
+  "audience.private": "Je préfère ne pas répondre",
+  "audience.continue": "Continuer",
+  "audience.storage": "Seul ce choix est enregistré sur cet appareil, pas ta date de naissance.",
+  "audience.failed": "Ton choix n’a pas pu être enregistré. Tu peux continuer à jouer localement.",
+  "audience.localContinue": "Continuer en mode local",
+  "audience.localNotice": "Mode local : aucune publicité, connexion Google ni transmission de statistiques de jeu. Ta progression reste sur cet appareil.",
+  "audience.adultNotice": "Les fonctions en ligne sont disponibles. Le partage de statistiques et les choix publicitaires restent facultatifs.",
+  "audience.settings": "Paramètres d’âge",
+  "audience.changeWarning": "Cette modification ferme la vue actuelle du jeu. La progression enregistrée reste sur l’appareil ; les puzzles en cours ne sont pas sauvegardés. Continuer ?"
 }

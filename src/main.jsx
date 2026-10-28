@@ -43,6 +43,7 @@ import {researchDestination} from './research.js';
 import {gardenDestination} from './garden.js';
 import {RewardAdProvider} from './RewardAd.jsx';
 import Welcome from './Welcome.jsx';
+import AndroidAudienceGate from './AndroidAudienceGate.jsx';
 import Rift from './Rift.jsx';
 import {riftDestinations,riftScenes,canVisitRift,riftArrivalLog} from './rift.js';
 import Elysium from './Elysium.jsx';
@@ -346,6 +347,6 @@ async function start(){
   let pending=false;try{pending=localStorage.getItem('beyond-signal-transfer-pending-v1')!==null;}catch{}
   if(pending){location.replace(new URL('./transfer.html',location.href));return;}
  }
- await initializeCrazyGames();createRoot(document.getElementById('root')).render(<LanguageProvider><OrientationGuard/><RewardAdProvider><LivesProvider><AccountProvider><App/></AccountProvider></LivesProvider></RewardAdProvider></LanguageProvider>);
+ await initializeCrazyGames();createRoot(document.getElementById('root')).render(<LanguageProvider><OrientationGuard/><AndroidAudienceGate><RewardAdProvider><LivesProvider><AccountProvider><App/></AccountProvider></LivesProvider></RewardAdProvider></AndroidAudienceGate></LanguageProvider>);
 }
 start().catch(error=>{document.getElementById('root').textContent=error.message;});

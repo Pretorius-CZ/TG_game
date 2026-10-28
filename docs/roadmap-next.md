@@ -410,3 +410,12 @@ pro záměr všech věků včetně dětí, práci s účty a statistikami dětí
 Android privacy/Data safety a odstranění účtu. Bez změn designu scén,
 pozic úkolů, herních pravidel či obtížnosti. Soukromý upload klíč a hesla
 nesmí do Gitu ani do veřejného ZIPu. Šifrovanou zálohu přenést také mimo PC.
+
+## 2026-10-28 — Android lokální dětský režim a odstranění účtu
+
+Schváleno uživatelem a implementováno: neutrální věková volba před Auth,
+místní hraní pro mladší18/neuvádějící věk, bez reklam/přihlášení/statistik.
+Dospělí nadále samostatně volí přihlášení, statistiky a reklamní souhlas.
+Detaily a zbývající fyzické kontroly: google-play/android-audience-2026-10-28.md.
+Žádost o odstranění účtu: kontaktní stránka#delete-account a odkaz v Nastavení;
+ručně vyřizuje správce po ověření. Google Play registrace dál čeká na podporu.

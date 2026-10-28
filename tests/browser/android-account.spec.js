@@ -27,6 +27,7 @@ async function setup(page,language='en'){
   return r.fulfill({status:204,body:''});
  });
  await page.route(/api\.country\.is/,r=>r.fulfill({status:204,body:''}));
+ await page.addInitScript(()=>localStorage.setItem('beyond-signal-android-audience-v1',JSON.stringify({version:1,group:'adult'})));
  await page.addInitScript(language=>{
   if(sessionStorage.getItem('account-seeded'))return;sessionStorage.setItem('account-seeded','1');
   localStorage.setItem('to-the-stars-language',language);
@@ -45,6 +46,9 @@ test('Android Google PKCE restores cloud, persists login, imports guest explicit
  expect(await page.evaluate(()=>new URL(window.nativeOpenedUrl).searchParams.get('redirect_to'))).toBe('com.playbeyondthesignal.game.preview://auth/callback');
  await page.evaluate(()=>window.nativeAuthEvents.appUrlOpen({url:'com.playbeyondthesignal.game.preview://auth/callback?code=qa-only-code'}));
  await expect.poll(()=>page.evaluate(key=>JSON.parse(localStorage.getItem(key))?.crewCompleted,accountKey(id))).toBe(2);
+ await page.getByRole('button',{name:/Settings/}).click();
+ await expect(page.getByRole('link',{name:'Delete your game account',exact:true})).toHaveAttribute('href','https://playbeyondthesignal.com/contact.html?lang=en#delete-account');
+ await page.getByRole('button',{name:'Close',exact:true}).click();
  expect(t.exchanges).toHaveLength(1);expect(t.exchanges[0].code_verifier).toBeTruthy();
  const guest=await page.evaluate(key=>JSON.parse(localStorage.getItem(key)),SAVE_KEY);expect(guest.navigationCompleted).toBe(2);
  await page.reload();await page.getByRole('button',{name:'⚙ Settings'}).click();

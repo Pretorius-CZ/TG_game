@@ -224,5 +224,20 @@
   "ui.updating": "Updating game…",
   "ship.nextRepair": "Next repair: {name}",
   "ship.interiorReady": "Interior repairs complete",
-  "ship.revisitInterior": "Revisit the interior"
+  "ship.revisitInterior": "Revisit the interior",
+  "account.requestDeletion": "Delete your game account",
+  "audience.title": "Before you start",
+  "audience.intro": "Choose your age group. You can play in every group.",
+  "audience.group": "Age group",
+  "audience.minor": "Under 18",
+  "audience.adult": "18 or older",
+  "audience.private": "Prefer not to say",
+  "audience.continue": "Continue",
+  "audience.storage": "Only this choice is saved on this device, not your date of birth.",
+  "audience.failed": "Your choice could not be saved. You can continue with local play.",
+  "audience.localContinue": "Continue with local play",
+  "audience.localNotice": "Local play: no ads, Google sign-in or outgoing gameplay statistics. Progress stays on this device.",
+  "audience.adultNotice": "Online features are available. Statistics and advertising choices remain optional.",
+  "audience.settings": "Age settings",
+  "audience.changeWarning": "Changing this setting closes the current game view. Saved progress stays on this device; unfinished puzzles are not saved. Continue?"
 }

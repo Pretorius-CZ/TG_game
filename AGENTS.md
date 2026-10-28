@@ -1053,3 +1053,17 @@ Viz docs/google-play/. Nenahráno do Play, registrace účtu čeká na podporu.
 Uživatel chce všechny věky včetně dětí: Families, dětské údaje/reklamy,
 odstranění účtu a Android privacy/Data safety zůstávají podmínkou před
 veřejným vydáním a zapojením dětských testerů. Nepřepínat potichu na 13+.
+
+## 2026-10-28 — Schválený Android místní režim
+
+Uživatel schválil pro mladší hráče místní hraní bez reklam, přihlášení přes
+Google a odesílání statistik. Implementována neutrální volba méně18 /18+ /
+neuvedeno před Auth a analytikou, šest jazyků. Neznámý/mladší/neuvedený
+věk blokuje služby také ve skutečných volacích cestách. Místní postup
+zachovaný. Webová věková obrazovka se nepřidává. Zvlášť připraven žádostní
+odkaz k odstranění účtu v nastavení a veřejná kontaktní sekce v6 jazycích;
+ručně vyřizovaná žádost, nikoli automatické smazání. 302unit/19Android-mode
+browser testů, 12 kontrol webové žádosti, APK+AAB internal2. Pravidla hry,
+obtížnost a pozice úkolů neměněné. Podrobnosti docs/google-play/.
+Před veřejným vydáním zbývá fyzické ověření nativních SDK přenosů, Families
+posouzení/regionální hranice, IARC a Data safety. Podpora Play stále neodpověděla.

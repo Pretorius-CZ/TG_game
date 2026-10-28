@@ -224,5 +224,20 @@
   "ui.updating": "Actualizando el juego…",
   "ship.nextRepair": "Siguiente reparación: {name}",
   "ship.interiorReady": "Interior reparado",
-  "ship.revisitInterior": "Visitar el interior"
+  "ship.revisitInterior": "Visitar el interior",
+  "account.requestDeletion": "Eliminar tu cuenta del juego",
+  "audience.title": "Antes de empezar",
+  "audience.intro": "Elige tu grupo de edad. Puedes jugar en cualquier grupo.",
+  "audience.group": "Grupo de edad",
+  "audience.minor": "Menor de 18 años",
+  "audience.adult": "18 años o más",
+  "audience.private": "Prefiero no indicarlo",
+  "audience.continue": "Continuar",
+  "audience.storage": "Solo se guarda esta elección en el dispositivo, no tu fecha de nacimiento.",
+  "audience.failed": "No se pudo guardar tu elección. Puedes seguir jugando en modo local.",
+  "audience.localContinue": "Continuar en modo local",
+  "audience.localNotice": "Modo local: sin anuncios, inicio de sesión con Google ni envío de estadísticas del juego. El progreso permanece en este dispositivo.",
+  "audience.adultNotice": "Las funciones en línea están disponibles. Compartir estadísticas y las opciones de publicidad siguen siendo voluntarios.",
+  "audience.settings": "Ajustes de edad",
+  "audience.changeWarning": "Este cambio cierra la vista actual del juego. El progreso guardado permanece en el dispositivo; los puzles en curso no se guardan. ¿Continuar?"
 }

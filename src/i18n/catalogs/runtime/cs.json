@@ -224,5 +224,20 @@
   "ui.updating": "Aktualizace hry…",
   "ship.nextRepair": "Další oprava: {name}",
   "ship.interiorReady": "Interiér lodi opraven",
-  "ship.revisitInterior": "Prohlédnout interiér"
+  "ship.revisitInterior": "Prohlédnout interiér",
+  "account.requestDeletion": "Odstranit herní účet",
+  "audience.title": "Než začneš",
+  "audience.intro": "Vyber svou věkovou skupinu. Hrát můžeš v každé skupině.",
+  "audience.group": "Věková skupina",
+  "audience.minor": "Méně než 18 let",
+  "audience.adult": "18 let a více",
+  "audience.private": "Nechci uvést",
+  "audience.continue": "Pokračovat",
+  "audience.storage": "Do zařízení ukládáme pouze tuto volbu, nikoli datum narození.",
+  "audience.failed": "Volbu se nepodařilo uložit. Můžeš pokračovat v místním hraní.",
+  "audience.localContinue": "Pokračovat v místním hraní",
+  "audience.localNotice": "Místní hraní: bez reklam, přihlášení přes Google a odesílání herních statistik. Postup zůstává v tomto zařízení.",
+  "audience.adultNotice": "Online funkce jsou dostupné. Statistiky a reklamní souhlasy zůstávají dobrovolné.",
+  "audience.settings": "Věkové nastavení",
+  "audience.changeWarning": "Změna zavře aktuální zobrazení hry. Uložený postup zůstane v zařízení; rozehraná minihra se neukládá. Pokračovat?"
 }

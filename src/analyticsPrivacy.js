@@ -1,3 +1,4 @@
+import {onlineServicesAllowed} from './androidAudience.js';
 export const analyticsChoiceKey='beyond-signal-analytics-choice-v1';
 export const analyticsDeletionKey='beyond-signal-analytics-deletions-v1';
 export const analyticsRetentionMs=90*24*60*60*1000;
@@ -7,7 +8,7 @@ let epoch=0;
 export const analyticsEpoch=()=>epoch;
 export function analyticsChoice(){try{const value=JSON.parse(localStorage.getItem(analyticsChoiceKey));return value?.version===1&&Number.isFinite(value.at)&&['granted','denied'].includes(value.state)?value.state:'unknown';}catch{return 'unknown';}}
 export function analyticsSince(){try{return analyticsAllowed()?JSON.parse(localStorage.getItem(analyticsChoiceKey)).at:Infinity;}catch{return Infinity;}}
-export const analyticsAllowed=()=>analyticsChoice()==='granted';
+export const analyticsAllowed=()=>onlineServicesAllowed()&&analyticsChoice()==='granted';
 export function clearAnalyticsHistory(){
  // Keep QA classification independently of optional visit measurements.
  try{const visit=JSON.parse(localStorage.getItem('beyond-signal-campaign-visit-v1'));if(visit?.source==='automated_test'&&visit?.medium==='bot')localStorage.setItem('beyond-signal-migrated-traffic-v1',JSON.stringify({source:visit.source,medium:visit.medium,campaign:visit.campaign}));}catch{}

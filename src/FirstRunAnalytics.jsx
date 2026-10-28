@@ -4,12 +4,13 @@ import {analyticsChoice,setAnalyticsChoice} from './analyticsPrivacy.js';
 import {crazyGames} from './platform.js';
 import './firstRunAnalytics.css';
 import {releasedLocales} from './i18n/locales.js';
+import {onlineServicesAllowed} from './androidAudience.js';
 
 export default function FirstRunAnalytics(){
  const {msg,language,setLanguage,availableLocales=releasedLocales}=useLanguage();
  const [choice,setChoice]=useState(analyticsChoice),[error,setError]=useState(false),[dismissed,setDismissed]=useState(false);
  const dialog=useRef(null),heading=useRef(null);
- const visible=!crazyGames&&choice==='unknown'&&!dismissed;
+ const visible=onlineServicesAllowed()&&!crazyGames&&choice==='unknown'&&!dismissed;
  useEffect(()=>{const update=()=>setChoice(analyticsChoice());window.addEventListener('analytics-choice-changed',update);return()=>window.removeEventListener('analytics-choice-changed',update);},[]);
  useEffect(()=>{
   if(!visible)return;

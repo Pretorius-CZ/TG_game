@@ -224,5 +224,20 @@
   "ui.updating": "Spiel wird aktualisiert …",
   "ship.nextRepair": "Nächste Reparatur: {name}",
   "ship.interiorReady": "Innenräume repariert",
-  "ship.revisitInterior": "Innenräume ansehen"
+  "ship.revisitInterior": "Innenräume ansehen",
+  "account.requestDeletion": "Spielkonto löschen",
+  "audience.title": "Bevor du beginnst",
+  "audience.intro": "Wähle deine Altersgruppe. Du kannst in jeder Gruppe spielen.",
+  "audience.group": "Altersgruppe",
+  "audience.minor": "Unter 18",
+  "audience.adult": "18 oder älter",
+  "audience.private": "Keine Angabe",
+  "audience.continue": "Weiter",
+  "audience.storage": "Nur diese Auswahl wird auf diesem Gerät gespeichert, nicht dein Geburtsdatum.",
+  "audience.failed": "Deine Auswahl konnte nicht gespeichert werden. Du kannst lokal weiterspielen.",
+  "audience.localContinue": "Lokal weiterspielen",
+  "audience.localNotice": "Lokales Spiel: keine Werbung, Google-Anmeldung oder Übertragung von Spielstatistiken. Dein Fortschritt bleibt auf diesem Gerät.",
+  "audience.adultNotice": "Online-Funktionen sind verfügbar. Statistikfreigabe und Werbeeinwilligung bleiben freiwillig.",
+  "audience.settings": "Alterseinstellungen",
+  "audience.changeWarning": "Diese Änderung schließt die aktuelle Spielansicht. Gespeicherter Fortschritt bleibt auf dem Gerät; laufende Rätsel werden nicht gespeichert. Fortfahren?"
 }

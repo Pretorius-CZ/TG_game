@@ -1,5 +1,6 @@
 import {supabase} from './supabase.js';
 import {analyticsDeletionKey,setAnalyticsChoice} from './analyticsPrivacy.js';
+import {onlineServicesAllowed} from './androidAudience.js';
 const identityKey='beyond-signal-balance-reporter-v1';
 export function pendingAnalyticsDeletions(){try{const rows=JSON.parse(localStorage.getItem(analyticsDeletionKey)||'[]');return Array.isArray(rows)?rows.filter(row=>typeof row?.id==='string'&&typeof row?.token==='string'):[];}catch{return [];}}
 let deleting;
@@ -27,6 +28,7 @@ export async function deleteBrowserAnalytics(){
  await retryAnalyticsDeletion();
 }
 export function startAnalyticsDeletionRetry(){
+ if(!onlineServicesAllowed())return;
  const retry=()=>{if(pendingAnalyticsDeletions().length)retryAnalyticsDeletion().catch(()=>{});};
  retry();window.addEventListener('online',retry);
  return()=>window.removeEventListener('online',retry);
