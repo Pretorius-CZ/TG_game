@@ -1067,3 +1067,15 @@ browser testů, 12 kontrol webové žádosti, APK+AAB internal2. Pravidla hry,
 obtížnost a pozice úkolů neměněné. Podrobnosti docs/google-play/.
 Před veřejným vydáním zbývá fyzické ověření nativních SDK přenosů, Families
 posouzení/regionální hranice, IARC a Data safety. Podpora Play stále neodpověděla.
+
+Nasazení 28.10. dokončeno: webový commit90afe18, hlavní Pages40716062677 success,
+herní hosting40716508054 success. Živá hra version1793201412011-90afe187b742.
+Všech šest kontaktních stránek HTTP200 a #delete-account ověřeno, Android
+privacy sekce živě ověřena. Android source aae70b1 (funkce f843138), APK
+releases/google-play/internal-2/beyond-the-signal-preview-2.apk a podepsaný
+AAB internal2. Google bundletool validate/podpis/manifest versionCode2
+prošly; běžný release bez interního přepínače stále odmítnutý. Veřejné
+reklamy nezapnuté. Místní ověřená záloha artifactů .local/backups/2026-10-28-internal2.
+Při aktualizaci preview APK neodinstalovávat. Pro nezletilý/neuvedený věk
+se otevře místní host, nikoli Google účet; dřívější účet se nemaže a jeho
+cloudový postup zůstává oddělený. Fyzické zařízení/SDK síťová kontrola zbývá.

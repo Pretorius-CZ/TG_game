@@ -16,3 +16,12 @@ Webový zdroj pro Play Console: https://playbeyondthesignal.com/contact.html#del
 Tento postup nikdy automaticky nespouštět proti účtu hráče v rámci testů. E2E ověřit na zvlášť založeném testovacím účtu se souhlasem vlastníka; dosud neprovedeno. Podklady nejsou tvrzením, že jsme dokončili Families ani celý Data safety formulář.
 
 Oficiální zdroje: [Google Play — account deletion](https://support.google.com/googleplay/android-developer/answer/13327111?hl=en), [Supabase — deleting users](https://supabase.com/docs/guides/auth/managing-user-data).
+
+## Ověřené nasazení
+
+28. 10. 2026: šest živých kontaktních stránek ověřeno HTTP200 a #delete-account.
+Veřejná URL https://playbeyondthesignal.com/contact.html#delete-account . Webový
+commit90afe18, hlavní Pages40716062677 success a herní hosting40716508054 success;
+živá herní verze1793201412011-90afe187b742. Odkaz na žádost je připraven také
+v nastavení přihlášené webové hry a v nové Android aplikaci. Žádost se stále
+vyřizuje ručně; neprovedli jsme smazání žádného účtu jako součást této práce.
