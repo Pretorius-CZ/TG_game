@@ -1095,3 +1095,5 @@ verzově přesné SDK disclosure a sporné Shared/Ephemeral položky. Neměněn 
 reklamní provoz ani veřejné herní chování.
 
 2026-10-28 — Uživatel výslovně schválil cílení Google Play od9 let: skupiny9–12,13–15,16–17,18+. Není to PEGI/IARC rating ani nová blokace hraní mladších. Pod18 a neuvedený věk stále používá schválený místní režim; podklady aktualizované, do Console nic neodesláno.
+
+2026-10-28 — Uživatel na odděleném Google testovacím účtu v APK uložil minihru do cloudu, ověřil jeden řádek game_progress a po odstranění Auth uživatele potvrdil no rows pro game_progress i auth.users. Ruční odstranění Auth + navázaného cloudového postupu ověřeno; není to automatické smazání v aplikaci ani ověření všech statistik/logů/záloh. Testovací UID neukládat zbytečně do veřejných podkladů.

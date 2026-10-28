@@ -24,7 +24,7 @@ Uživatel 28. 10. 2026 výslovně schválil cílení od 9 let: 9–12, 13–15, 
 |---|---|
 | Sbírá nebo sdílí aplikace data? | **Ano.** Dospělý může použít Google, cloud, statistiky a reklamu. Místní režim tuto odpověď nemění. |
 | Vytváření účtu | **Ano, Google OAuth** přes Supabase, volitelně v dospělém režimu. Základní hra funguje bez účtu. |
-| Způsob odstranění účtu | **Žádost**, v nastavení účtu odkaz na veřejnou stránku; vyřízení správcem po ověření vlastnictví. Není okamžité automatické smazání. Ověření odstranění na zvláštním testovacím účtu zbývá. |
+| Způsob odstranění účtu | **Žádost**, v nastavení účtu odkaz na veřejnou stránku; vyřízení správcem po ověření vlastnictví. Není okamžité automatické smazání. Na zvláštním testovacím účtu uživatel28.10. ověřil odstranění Auth i cloudového save (oba dotazy bez řádků). |
 | Web pro odstranění | https://playbeyondthesignal.com/contact.html#delete-account — nasazeno a ověřeno. |
 | Samostatné odstranění statistik | Ano, Nastavení → Vypnout a smazat moje statistiky pro identitu tohoto zařízení/adresy; offline žádost čeká na opakování. |
 | Soukromí | https://playbeyondthesignal.com/privacy.html — živá Android sekce a šest jazyků. |
@@ -67,12 +67,12 @@ Místní věková skupina, energie, zásoby a místní save se samy neodesílaj�
 
 ## 5. Retence a smazání — údaje pro kontrolora
 
-Cloudový postup a Auth účet odstraní správce na ověřenou žádost; reset hry není odstranění účtu. Zvláštní ověření skutečného smazání na vyhrazeném testovacím účtu zbývá. Podrobná analytika má90dní plus doběhnutí denního cleanupu; lokálně max.2000 pokusů a prořezání po spuštění. Smazání analytiky přes zařízení je jiné než smazání Google herního účtu. Bezpečnostní revokace, provozní logy a zálohy mají účely a retence popsané v soukromí/poskytovateli; neslibovat, že tlačítko smaže všechny kopie všech partnerů okamžitě.
+Cloudový postup a Auth účet odstraní správce na ověřenou žádost; reset hry není odstranění účtu. Ruční odstranění bylo28.10. ověřeno na vyhrazeném testovacím účtu: po smazání Auth uživatele nebyl nalezen ani auth.users účet, ani game_progress řádek. Podrobná analytika má90dní plus doběhnutí denního cleanupu; lokálně max.2000 pokusů a prořezání po spuštění. Smazání analytiky přes zařízení je jiné než smazání Google herního účtu. Bezpečnostní revokace, provozní logy a zálohy mají účely a retence popsané v soukromí/poskytovateli; neslibovat, že tlačítko smaže všechny kopie všech partnerů okamžitě.
 
 ## 6. Co zbývá před odesláním formuláře
 
 1. Cílové skupiny jsou uživatelem potvrzené (9–12,13–15,16–17,18+); dokončit Families/regionální posouzení a přesný IARC dotazník. Žádná konkrétní PEGI/ESRB známka se nyní neurčuje.
-2. Ověřit Auth metadata a ruční odstranění na odděleném testovacím účtu. Není potřeba posílat hesla ani tokeny.
+2. Ověřit přesná Auth metadata na odděleném testovacím účtu. Ruční odstranění Auth a cloudového save už je ověřené; celá e-mailová cesta žádosti není tímto databázovým testem samostatně ověřena. Není potřeba posílat hesla ani tokeny.
 3. Sjednotit disclosure s přesnou finální verzí Mobile Ads/UMP v AAB; dořešit diagnostické podtypy a případné account identifiers.
 4. Potvrdit použitelnost standardního Supabase DPA pro projekt a dořešit roli country.is. Jeho webové tvrzení o nelogování samo neřeší všechny právní role. Pak uzavřít Shared/Optional/Ephemeral u sporných řádků.
 5. Zkontrolovat formulář i build před uzavřeným testem. Žádný CSV import se nyní nevytváří ani nespouští; nesmí přepsat odpovědi neověřenými hodnotami.

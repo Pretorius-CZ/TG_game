@@ -13,7 +13,7 @@ Webový zdroj pro Play Console: https://playbeyondthesignal.com/contact.html#del
 5. Dobrovolná analytika není připojená k Google e-mailu. Nelze podle něj bez dalšího zjistit všechny náhodné identifikátory. Pomoci žadateli použít Nastavení → Vypnout a smazat moje statistiky na každém zařízení/adrese, nebo dohledat bezpečně identifikované záznamy ze žádosti. Nežádat soukromé reporting tokeny e-mailem. Bezpečnostní revokace a logy/zálohy mají vlastní účel a retenci popsanou v soukromí.
 6. Potvrdit vyřízení, skutečný rozsah a případná omezení. Vzdálené smazání Auth účtu nevymaže lokální kopie na jiných zařízeních, energii a zásoby; na to stránka výslovně upozorňuje. Nezamlčet legitimní uchovávaná data.
 
-Tento postup nikdy automaticky nespouštět proti účtu hráče v rámci testů. E2E ověřit na zvlášť založeném testovacím účtu se souhlasem vlastníka; dosud neprovedeno. Podklady nejsou tvrzením, že jsme dokončili Families ani celý Data safety formulář.
+Tento postup nikdy automaticky nespouštět proti účtu hráče v rámci testů. Ruční odstranění ověřeno 28. 10. 2026 na odděleném testovacím účtu podle potvrzení vlastníka; rozsah viz níže. Podklady nejsou tvrzením, že jsme dokončili Families ani celý Data safety formulář.
 
 Oficiální zdroje: [Google Play — account deletion](https://support.google.com/googleplay/android-developer/answer/13327111?hl=en), [Supabase — deleting users](https://supabase.com/docs/guides/auth/managing-user-data).
 
@@ -24,4 +24,11 @@ Veřejná URL https://playbeyondthesignal.com/contact.html#delete-account . Webo
 commit90afe18, hlavní Pages40716062677 success a herní hosting40716508054 success;
 živá herní verze1793201412011-90afe187b742. Odkaz na žádost je připraven také
 v nastavení přihlášené webové hry a v nové Android aplikaci. Žádost se stále
-vyřizuje ručně; neprovedli jsme smazání žádného účtu jako součást této práce.
+vyřizuje ručně; v této fázi nasazení ještě nebyl mazán žádný účet; následný test odstranění je uveden níže.
+
+
+## Ověření ručního odstranění — 28. 10. 2026
+
+Uživatel se v APK přihlásil druhým Google účtem a dokončil minihru. SQL kontrola game_progress nejprve vrátila jeden řádek s cloudovým postupem (na screenshotu první oprava a3 hvězdy). Po odstranění odpovídajícího testovacího Auth uživatele v Supabase uživatel potvrdil „no rows“ nejprve pro game_progress a následně pro auth.users. Ověřeno tedy odstranění Auth účtu i navázaného cloudového save, konzistentní s ON DELETE CASCADE. Hlavní účet nebyl cílem testu; účet Google samotný se tím neodstraňuje.
+
+Jde o uživatelem provedenou a potvrzenou kontrolu živé databáze. Neověřili jsme tím automatické mazání v aplikaci (není implementované), celý e-mailový proces žádosti, odstranění lokálních kopií, záloh/logů ani samostatných pseudonymních statistik. Testovací UID není potřeba trvale publikovat v repozitáři.

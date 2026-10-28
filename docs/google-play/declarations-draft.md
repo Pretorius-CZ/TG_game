@@ -14,6 +14,6 @@ Hlavní dokument: [Věkové skupiny a Data safety](data-safety-2026-10-28.md). O
 - IARC/PEGI: neurčeno. Dotazník vyplnit podle konkrétních otázek; kreslené nálože na dílcích, nouzové přistání a sci-fi záchranný příběh nelze zaměnit za automatickou odpověď na každou otázku o násilí/strachu. Ve hře není hráčský chat ani veřejný UGC.
 - Práva: před odesláním udržet licence grafiky, audia a závislostí; samotná existence souborů není ověření práv.
 - Data safety: ano, některá data se v dospělé cestě sbírají a reklamní SDK sdílí. Dětský lokální režim nesmí vést k prohlášení „žádná data v aplikaci“.
-- Instalace z Play, release OAuth callback, upgrade a skutečné vyřízení odstranění testovacího účtu zbývají. Play registrace stále čeká na podporu. Nebyl změněn ani odeslán žádný formulář v Play Console.
+- Uživatel28.10. ověřil ruční odstranění testovacího Auth účtu i cloudového postupu (oba kontrolní dotazy bez řádků). Instalace z Play, release OAuth callback a upgrade zbývají. Play registrace stále čeká na podporu. Nebyl změněn ani odeslán žádný formulář v Play Console.
 
 Ostatní podklady: [interní testování](internal-testing.md), [místní režim a měření](android-audience-2026-10-28.md), [postup odstranění](account-deletion.md).
