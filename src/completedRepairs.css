@@ -16,3 +16,12 @@
 .game .scene-repairs .hotspot-label{width:max-content;max-width:110px;flex-shrink:0}
 .archive-navigation.completed-scene-actions{position:relative;inset:auto;z-index:auto;margin-top:8px}
 @media(max-width:350px){.game .scene-repairs .hotspot-label{max-width:100px}}
+/* Archive consoles have fixed marker anchors; captions must not move their centers.
+   Override the wider return-corridor cards shared by these scenes. */
+.play-area .game.archive-site .hotspot{width:32%;max-width:120px;height:32px;padding:0;gap:0;transform:translate(-50%,-50%)}
+.play-area .game.archive-site .hotspot .hotspot-label{position:absolute;top:calc(100% + 4px);width:100%;max-width:none;letter-spacing:0;line-height:1.25;padding:4px;overflow-wrap:anywhere}
+.play-area .game.archive-site .hotspot-label-above .hotspot-label{top:auto;bottom:calc(100% + 4px)}
+/* The simulation has two close console rows: captions face away from that gap. */
+.play-area .game.archive-site [data-repair-id="archive-simulation-clocks"] .hotspot-label,
+.play-area .game.archive-site [data-repair-id="archive-simulation-probe"] .hotspot-label{top:auto;bottom:calc(100% + 4px)}
+.play-area .game.archive-site [data-repair-id="archive-simulation-replay"] .hotspot-label{top:calc(100% + 4px);bottom:auto}
