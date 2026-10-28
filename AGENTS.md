@@ -1136,3 +1136,13 @@ SDK disclosure/role dodavatelů a ověření názvů Auth metadata přes
 read-only docs/google-play/auth-metadata-audit.sql (zatím nespouštěno).
 Soukromé hodnoty, UID a tokeny dotaz nevrací. Testery nikdo nekontaktoval,
 placený běh ani 14denní období nejsou zahájené.
+
+2026-10-28 — Opraveno rozložení popisků a značek v archivu. Vlastní úzké
+popisky a pevné středy značek, Simulační komora horní dvojice nad konzolemi,
+HARD pod centrálním zařízením. Bez změny souřadnic v datech a ostatních kapitol.
+18 browser testů / 162 stavů scén, 302 unit testů, web i Android build prošly.
+Detaily docs/archive-layout-2026-10-28.md. Nové preview APK a podepsané AAB
+internal.4 v releases/google-play/internal-4; podpis/bundletool a CSS v obou
+balíčcích ověřené. Fyzické ověření nového APK zatím neproběhlo. Účet Play
+již založený, uživatel dokončil platbu a čeká na ověření identity; aplikace
+v Console ještě nevytvořena. Starší poznámka o čekání na registraci neplatí.

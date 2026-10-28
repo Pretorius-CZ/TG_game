@@ -13,8 +13,8 @@ android {
         applicationId "com.playbeyondthesignal.game"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 3
-        versionName "0.1.0-internal.3"
+        versionCode 4
+        versionName "0.1.0-internal.4"
         manifestPlaceholders = [admobApplicationId: admobUnits.test.applicationId]
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
