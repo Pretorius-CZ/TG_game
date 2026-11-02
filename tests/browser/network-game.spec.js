@@ -3,7 +3,7 @@ import {normalizeProgress} from '../../src/progressStorage.js';
 import {networkLevels} from '../../src/networkLevels.js';
 import {networkDestinations} from '../../src/networkExpansion.js';
 import {journeyStories} from '../../src/journeyStories.js';
-import {findMove} from '../../src/match3.js';
+import {findMove,adjacent,matches,swap} from '../../src/match3.js';
 
 const counts=Object.fromEntries(Object.keys(normalizeProgress()).filter(k=>k==='completed'||k.endsWith('Completed')).map(k=>[k,99]));
 const full=normalizeProgress({...counts,finaleDone:true,launchDone:true,scannerInstalled:true,jumpDone:true,elysiumArrival:1,riftCrossed:1,caretakerMet:1});
@@ -126,7 +126,10 @@ test('new narrow, wide and covered layouts work in the real minigame',async({pag
   const rect=await dialog.evaluate(e=>{const r=e.getBoundingClientRect();return{x:r.x,right:r.right};});expect(rect.x).toBeGreaterThanOrEqual(0);expect(rect.right).toBeLessThanOrEqual(394);
   expect(await dialog.locator('.route-node-current').count()).toBe(r.nodes.length?1:0);
   const board=Array(r.level.cols*r.level.rows).fill(null);for(const cell of await dialog.locator('[data-cell]').evaluateAll(xs=>xs.map(x=>({at:Number(x.dataset.cell),type:Number(x.dataset.type)}))))board[cell.at]=cell.type;
-  const [a,b]=findMove(board,r.level.cols,r.ice);await dialog.locator(`[data-cell="${a}"]`).click();await dialog.locator(`[data-cell="${b}"]`).click();
+  const available=await dialog.locator('[data-cell]:not(:disabled)').evaluateAll(xs=>xs.map(x=>Number(x.dataset.cell)));
+  const move=available.flatMap(a=>[a+1,a+r.level.cols].filter(b=>available.includes(b)&&adjacent(a,b,r.level.cols)&&matches(swap(board,a,b),r.level.cols).length).map(b=>[a,b]))[0];
+  expect(move,'a playable swap must exclude covered cells').toBeTruthy();
+  const [a,b]=move;await dialog.locator(`[data-cell="${a}"]`).click();await dialog.locator(`[data-cell="${b}"]`).click();
   await expect.poll(()=>dialog.locator('.cell:disabled').count()).toBeLessThanOrEqual(r.ice.length,{timeout:15000});
   await page.screenshot({path:'.local/network-minigame-'+number+'.png',fullPage:true});
  }
