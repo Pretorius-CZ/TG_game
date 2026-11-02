@@ -76,11 +76,11 @@ for(const language of ['cs','en','de','fr','es','pt-BR'])test(`new scene labels 
  }
 });
 
-test('network task markers stay circular before and after repairs',async({page})=>{
+for(const [group,from,to] of [['earlier stops',0,10],['first watch',10,18]])test(`network task markers stay circular before and after repairs: ${group}`,async({page})=>{
  test.setTimeout(180000);
  for(const width of [320,393,465]){
   await page.setViewportSize({width,height:950});
-  for(const scene of Object.keys(networkDestinations))for(const done of [0,1,networkDestinations[scene].repairs.length]){
+  for(const scene of Object.keys(networkDestinations).slice(from,to))for(const done of [0,1,networkDestinations[scene].repairs.length]){
    await setup(page,{scene,done});await page.locator('button.welcome-secondary').click();await page.locator('.chapters-dialog>.close').click();
    const markers=await page.locator('.network-site .hotspot .target').evaluateAll(xs=>xs.map(x=>{const r=x.getBoundingClientRect();return{w:r.width,h:r.height};}));
    expect(markers.length).toBeGreaterThan(0);

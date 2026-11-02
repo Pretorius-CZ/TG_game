@@ -16,6 +16,8 @@ zásobovacím pilotem: nejde o nové hledání původní zachráněné výpravy.
 
 Čtyři nové portrétní scény a čtyři opravené varianty. Dvě sousední pracovní
 oblasti sdílejí prostředí, ale mají vlastní úkoly, deník, postup a replay.
+Navazující oblast začíná již zapnutým obrazem místnosti; při přechodu
+nezhasíná vybavení zprovozněné v předchozí oblasti.
 Značky jsou umístěné u zařízení podle skutečné grafiky, nikoli v seznamu.
 Čtyři dvoupanelové přechody a dvoupanelový závěr po 250. Závěr se automaticky
 přehraje jednou pro profil/revizi a zůstává v nabídce příběhů pro replay.

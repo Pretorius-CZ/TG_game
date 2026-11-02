@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {networkLevels} from '../src/networkLevels.js';
-import {networkStops,canVisitNetwork} from '../src/networkExpansion.js';
+import {networkStops,networkDestinations,canVisitNetwork} from '../src/networkExpansion.js';
 import {networkCompletionStories} from '../src/networkCompletionStory.js';
 import {normalizeProgress,mergeProgress} from '../src/progressStorage.js';
 import {journeyFor} from '../src/journey.js';
@@ -16,6 +16,7 @@ test('the scheduled delivery visits eight small work areas and ends with a repla
  assert.deepEqual(levels.filter(r=>r.hard).map(r=>r.number),[235,240,245,250]);
  const full=normalizeProgress({...Object.fromEntries(Object.keys(normalizeProgress()).filter(k=>k==='completed'||k.endsWith('Completed')).map(k=>[k,99])),elysiumArrival:1,riftCrossed:1,caretakerMet:1,finaleDone:true,launchDone:true,scannerInstalled:true,jumpDone:true});
  for(const [i,s]of stops.entries()){
+  if(i%2){assert.equal(s.image,stops[i-1].image+'-restored');assert.equal(networkDestinations[s.scene].restoredImage,s.image);}
   const previous=networkStops[i+9],blocked=normalizeProgress({...full,[previous.key]:previous.total-1});
   assert.equal(canVisitNetwork(blocked,s.scene),false);assert.equal(blocked[s.key],0);
   assert.equal(mergeProgress(blocked,full)[s.key],s.total);

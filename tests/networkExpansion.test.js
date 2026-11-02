@@ -33,7 +33,7 @@ test('200 remains the rescue milestone; 201–250 continue and survive stale sav
 test('new scene art, fixed hotspots and six distinct sprites are shipped',()=>{
  for(const scene of networkScenes){
   const site=networkDestinations[scene];assert.equal(site.repairs.length>=2&&site.repairs.length<=5,true);assert.equal(site.clips.length,site.repairs.length);
-  for(const suffix of ['', '-restored'])assert.ok(existsSync(`public/scenes/${site.image}${suffix}.png`));
+  for(const image of [site.image,site.restoredImage??site.image+'-restored'])assert.ok(existsSync(`public/scenes/${image}.png`));
   for(const r of site.repairs){
    assert.ok(r.x>=10&&r.x<=90&&r.y>=30&&r.y<=85);
    const tiles=tileSetFor(r);assert.equal(new Set(tiles.sprites).size,6);
