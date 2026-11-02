@@ -19,6 +19,7 @@ export const networkDestinations=Object.fromEntries(networkStops.map((stop,secti
  return [scene,{title,key,repairs,
   system:section?networkStops[section-1].scene:'signal-station',chapter:'The new network',art:'network',hotspotOffset:0,
   image:stop.image??scene,imageExtension:'png',restoredExtension:'png',
+  ...(stop.restoredImage?{restoredImage:stop.restoredImage}:{}),
   clips:repairs.map(r=>`polygon(${Math.max(0,r.x-18)}% ${r.y-9}%,${Math.min(100,r.x+18)}% ${r.y-9}%,${Math.min(100,r.x+18)}% ${r.y+9}%,${Math.max(0,r.x-18)}% ${r.y+9}%)`),
   complete,
   ...(networkStops[section+1]?{nextScene:networkStops[section+1].scene}:{}),

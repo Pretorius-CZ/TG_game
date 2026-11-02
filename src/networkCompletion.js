@@ -30,4 +30,8 @@ export const completionStops=[
  ['network-dock-control','networkDockControlCompleted','The dock control room',3,[[19,48],[80,46],[50,58]],'The freighter has docked. Welcome the incoming watch.','network-receiving'],
  ['network-crew-arrival','networkCrewArrivalCompleted','The crew arrival gallery',2,[[19,51],[81,57]],'The crew and modules are aboard. Hand over the station.','network-first-watch'],
  ['network-first-watch','networkFirstWatchCompleted','The first working watch',3,[[19,51],[81,57],[50,68]],'The first delivery and watch handover are complete. Every stop remains open for another visit.','network-first-watch'],
-].map(([scene,key,title,total,positions,complete,image])=>({scene,key,title,total,positions,complete,image}));
+].map(([scene,key,title,total,positions,complete,image],index)=>({scene,key,title,total,positions,complete,
+ // The second work area starts after the first has powered the same room.
+ image:index%2?image+'-restored':image,
+ ...(index%2?{restoredImage:image+'-restored'}:{}),
+}));
