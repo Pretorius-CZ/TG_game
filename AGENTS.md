@@ -1026,3 +1026,11 @@ vydaný na Google Play. Sociální balíček EN: docs/media/network-update-2026-
 marketingová adresa bez game. subdomény. Automaticky na sociální sítě
 nepublikováno. Kontroly: 308 unit, i18n/site check, build a vstupní stránky
 v šesti jazycích na 320/1440 px prošly. Video dekódováno bez chyb.
+
+2026-11-02 — Oprava cloudového ukládání za levelem 200: SQL035 nechalo limit
+200 záznamů hvězd a odmítalo nové výhry chybou Too many star ratings.
+SQL035 pro další instalace opraveno na 210; existující databáze vyžaduje
+supabase/036_network_cloud_star_limit.sql (nedestruktivní, idempotentní).
+Nasazení zatím čeká na potvrzení uživatele. Přidán skutečný PostgreSQL test
+přes PGlite: reprodukce chyby, oprava, druhé zařízení, starší klient a RLS.
+309 unit a build prošly. Podrobnosti docs/cloud-sync-network-fix-2026-11-02.md.

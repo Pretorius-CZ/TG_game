@@ -159,7 +159,7 @@ begin
   if result->>'scene'='refuge-homes' then result := result || '{"scene":"elysium"}'::jsonb; end if;
  end if;
  if incoming ? 'stars' and (jsonb_typeof(incoming->'stars') is distinct from 'object') then raise exception 'Invalid star ratings'; end if;
- if jsonb_typeof(incoming->'stars')='object' and (select count(*) from jsonb_object_keys(incoming->'stars'))>200 then raise exception 'Too many star ratings'; end if;
+ if jsonb_typeof(incoming->'stars')='object' and (select count(*) from jsonb_object_keys(incoming->'stars'))>210 then raise exception 'Too many star ratings'; end if;
  if (result->>'refugeHomesCompleted')::integer<5 then
   result := result || '{"refugeMedicalCompleted":0}'::jsonb;
   if result->>'scene'='refuge-medical' then result := result || '{"scene":"refuge-homes"}'::jsonb; end if;
