@@ -79,8 +79,8 @@ function Playtest(){
  <div role="group" aria-label="Obtížnost">{[['easy','Lehké'],['fair','Akorát'],['hard','Těžké']].map(([value,label])=><button key={value} aria-pressed={rating===value} onClick={()=>setRating(value)}>{label}</button>)}</div>
  <label>Poznámka (nepovinná)<textarea maxLength={500} value={note} onChange={e=>setNote(e.target.value)} placeholder="Co bylo snadné nebo frustrující? Bez osobních údajů."/></label>
  <button className="primary" disabled={!rating||!ready||Boolean(error)} onClick={()=>next(false)}>Uložit hodnocení a další test</button><button disabled={!rating||!ready||Boolean(error)} onClick={()=>next(true)}>Uložit a zkusit stejný test znovu</button><button disabled={!rating||!ready||Boolean(error)} onClick={()=>next(false,true)}>Uložit a pokračovat později</button>
- </section>:done?<section><h2>Všech 200 levelů vyhodnoceno.</h2><p>Díky! Výsledky můžeš exportovat a společně je projdeme.</p></section>:<section>
- <h2>{session.cursor?'Pokračovat v testu':'200 levelů, náhodné pořadí'}</h2>
+ </section>:done?<section><h2>Všech {session.order.length} levelů vyhodnoceno.</h2><p>Díky! Výsledky můžeš exportovat a společně je projdeme.</p></section>:<section>
+ <h2>{session.cursor?'Pokračovat v testu':`${session.order.length} levelů, náhodné pořadí`}</h2>
  <p>Pořadí i současná pravidla se uloží při zahájení. Původní čísla, názvy, kapitoly a označení HARD zůstanou skryté. Po každém pokusu vyber hodnocení; můžeš pokračovat i po prohře.</p>
  <p>Běžný postup, účet, energie ani zásoby se nepoužijí. V každém pokusu máš jednu od každé pomůcky, jednu nápovědu a jeden krok zpět zdarma; bez reklam, bonusových tahů a čekání na energii. Použití kroku zpět se zapíše k výsledku.</p>
  <p>Zahájením povolíš sběr výsledku, tahů, času od otevření pokusu, použitých pomůcek a náloží, hodnocení a poznámky. Výsledky se ukládají zde a odesílají pod náhodným ID do samostatného playtestu v /balance. Bez Googlu, jména a e-mailu. Server má 90denní retenci. Rozhraní testu je česky, jazyk samotné desky přepneš nahoře.</p>

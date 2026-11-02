@@ -1006,3 +1006,14 @@ website, Android preview běží na 5185. Produkční web/game neaktualizovány.
 2026-10-26 — HARD předletová příprava má po splnění vlastní replay tlačítko s hvězdami pod exteriérem; Odlet samostatně. EN/CS/DE web i Android-mode: opakování, opuštění a následný odlet ověřeny. APK sestaveno.
 
 2026-10-26 — Finální zadání exteriéru: HARD předletová kontrola je běžný úkol NAD lodí s hvězdami/replay, nikoli pod scénou. Dole výhradně velký Odlet po splnění HARD. Web/Android EN/CS/DE ověřeny, APK sestaveno. docs/exterior-departure-layout-2026-10-26.md.
+
+## 2026-11-02 — Síť 201–210 ve společné hře
+Prvních deset levelů po původním konci 200 je integrovaných pro web a APK:
+dvě scény, šest nových ikon, pořadové energetické uzly, deník a třípanelový
+přechodový komiks. Vše v šesti jazycích; zbývajících 40 levelů pouze návrh.
+Původních 200 konfigurací a souřadnic se nemění. SQL035 uživatel potvrdil
+nasazenou bez chyb. Nové slepé běhy mají 210 úloh, staré zůstávají na 200.
+Android verze 5 má hotovou preview APK a podepsaný AAB, stále demo reklamy;
+nahrání na Google Play je samostatný krok. Detaily a ověření:
+docs/network-expansion-201-250.md. 308 unit testů a kontrola šesti katalogů
+2555/2555 prošly; prohlížeč kontroluje nové scény i původní archiv.

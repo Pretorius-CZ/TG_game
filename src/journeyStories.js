@@ -1,3 +1,4 @@
+import {networkIntroStory} from './networkStory.js';
 export const journeyStoryTranslations={};
 const text=(en,cs)=>(journeyStoryTranslations[en]=cs,en);
 const panel=(image,enTitle,csTitle,en,cs)=>({image,title:text(enTitle,csTitle),caption:text(en,cs)});
@@ -34,6 +35,7 @@ journeyStories.push(
  panel('signal-solar','A network that can answer','Síť, která dokáže odpovědět','Haven, Elysium, the garden and the Refuge confirm the restored path. The network is not magically repaired everywhere. But this rescue is complete, and its safe route is recorded for whoever needs it next.','Haven, Elysium, zahrada a Útočiště potvrzují obnovenou cestu. Celá síť se zázrakem neopravila všude. Tahle záchrana je ale dokončená a její bezpečná trasa zůstává zaznamenaná pro další, kdo ji bude potřebovat.'),
  panel('departure-flight','200 steps toward an answer','200 kroků k odpovědi','We were a supply pilot who took a detour for an impossible signal. We found people beyond it. For now, the ship can rest, and so can we. Thank you for bringing them home.','Začalo to zásobovacím letem a odbočkou za nečekaným signálem. Za ním jsme našli lidi. Loď si teď může odpočinout a my také. Děkujeme, že jsi je pomohl přivést domů.') ]}
 );
+journeyStories.push(networkIntroStory);
 text('The answer','Odpověď');
 export function availableJourneyStories(p,chapter){return journeyStories.filter(s=>(!chapter||s.chapter===chapter)&&s.ready(p));}
 

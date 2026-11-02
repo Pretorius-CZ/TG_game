@@ -17,14 +17,14 @@ test('thirteen consecutive tasks close the signal journey exactly at level 200',
  // Baseline includes approved 2026-10-23 limits and the20 unchanged archive repairs.
  assert.equal(createHash('sha256').update(JSON.stringify(levelCatalog.slice(0,187))).digest('hex'),'11f7fefa87fb8d51787ed280c11a969611099e61f3cf6375228cf5cb319f2de3');
  let p=afterArchive();const before=structuredClone(p);
- assert.deepEqual(levelCatalog.slice(187).map(r=>r.number),Array.from({length:13},(_,i)=>188+i));
+ assert.deepEqual(levelCatalog.slice(187,200).map(r=>r.number),Array.from({length:13},(_,i)=>188+i));
  for(const [i,scene] of scenes.entries()){
   const site=sites[scene];assert.equal(canVisitElysium(p,scene),true);if(i<3)assert.equal(canVisitElysium(p,scenes[i+1]),false);
   assert.equal(completeDestination(0,site.repairs[1].id,site.repairs),0);
   for(const repair of site.repairs){assert.equal(journeyFor(p).repair.id,repair.id);p=normalizeProgress({...p,[site.key]:completeDestination(p[site.key],repair.id,site.repairs)});}
   assert.equal(completeDestination(site.repairs.length,site.repairs[0].id,site.repairs),site.repairs.length);
  }
- assert.equal(journeyFor(p).kind,'end');assert.equal(journeyFor(p).scene,'signal-station');
+ assert.equal(journeyFor(p).kind,'repair');assert.equal(journeyFor(p).scene,'network-handover');
  assert.equal(journeyFor({...p,signalStationCompleted:3}).kind,'repair');
  assert.equal(Object.keys(p.stars).length,200);
  for(const site of Object.values(sites))assert.equal(mergeProgress(before,p)[site.key],site.repairs.length);

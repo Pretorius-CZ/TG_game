@@ -14,7 +14,7 @@ export default function StoryComic({panels,chapter,title,finishLabel,onFinish}){
  useEffect(()=>{setFailed(false);next.current?.focus({preventScroll:true});},[step]);
  return createPortal(<dialog className="caretaker-comic" ref={dialog} aria-label={t(title)} onCancel={e=>{e.preventDefault();finish();}} onKeyDown={e=>{if(e.key==='ArrowRight'){e.preventDefault();advance();}if(e.key==='ArrowLeft'){e.preventDefault();setStep(s=>Math.max(0,s-1));}}}>
   <div className="caretaker-panel" onPointerDown={e=>{if(e.target.closest('button'))return;pointer.current={x:e.clientX,y:e.clientY};}} onPointerUp={e=>{const start=pointer.current;pointer.current=null;if(!start||Math.abs(e.clientY-start.y)>60)return;const dx=e.clientX-start.x;if(dx< -50)advance();else if(dx>50)setStep(s=>Math.max(0,s-1));}} onPointerCancel={()=>{pointer.current=null;}}>
-   <img key={panel.image} src={`./scenes/${panel.image}.webp`} alt="" onError={()=>setFailed(true)} draggable={false}/>
+   <img key={panel.image} src={`./scenes/${panel.image}.${panel.imageExtension??'webp'}`} alt="" onError={()=>setFailed(true)} draggable={false}/>
    <button className="comic-skip" onClick={finish}>{t('Skip story')}</button>
    <div className="comic-caption">
     <span className="eyebrow">{t(chapter)} · {step+1}/{panels.length}</span>

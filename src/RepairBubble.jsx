@@ -32,7 +32,7 @@ export default function RepairBubble({ repair, replay, sceneRef, onClose, onPlay
       <p id="bubble-story">{t(replay ? 'This system is already restored. A little more practice before the next repair?' : repair.thought)}</p>
       <div className="bubble-objective">{t(repair.objective)}<br/>{t(moveBudget(repair))}{t(" moves")}{t(initialIce(repair).length?` · ${initialIce(repair).length} protective covers`:null)}</div>
       {t(boostersEnabled(repair)&&<p className="booster-guide">{t("Make 4 in a line or a T/L for a Pulse charge. Make 5 in a line for a Nova cross. Tap a charge to fire it for one move.")}</p>)}
-      {repair.resonators?.length>0&&<p className="booster-guide">{t("Match beside each ring to charge it. Blasts do not charge rings.")}</p>}
+      {repair.resonators?.length>0&&<p className="booster-guide">{t(repair.orderedRoute?'Power the glowing node first. Each separate adjacent match adds one pulse. The next node opens for the next wave, including cascades. Blasts do not directly charge nodes.':"Match beside each ring to charge it. Blasts do not charge rings.")}</p>}
       <button className="primary" onClick={onPlay}>{t(replay ? 'Replay lesson' : 'Play')} <span>{t("→")}</span></button>
       {t(import.meta.env.DEV&&onComplete&&!replay&&<button className="preview-complete" onClick={onComplete}>{t("✓ Complete level ")}<small>{t("Preview · skip match-3")}</small></button>)}
     </div>

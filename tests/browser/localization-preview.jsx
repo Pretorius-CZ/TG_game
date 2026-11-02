@@ -32,7 +32,7 @@ const scenes=['system','system2','elysium','rift',...sites.map(s=>s.scene)];
 const stories=[...[
  ['jump','Aster Veil arrival story',asterJumpPanels],['arrival','Approaching Elysium',elysiumArrivalPanels],['echo','Elysium departure story',echoDeparturePanels],['rift','Rift crossing story',riftStoryPanels],['research','Return to Elysium story',researchStoryPanels],['relay','Night garden descent story',relayStoryPanels],['caretaker','Caretaker encounter',caretakerPanels]
 ].map(([id,title,panels])=>({id,title,panels,finishLabel:'Close'})),...journeyStories];
-const seed=()=>({...Object.fromEntries(shipStages.map(s=>[s.key,s.total])),...Object.fromEntries(sites.map(s=>[s.key,s.repairs.length])),finaleDone:true,launchDone:true,scannerInstalled:true,jumpDone:true,elysiumRouteCompleted:1,elysiumArrival:1,riftCrossed:1,caretakerMet:1,scene:'buoy',stars:Object.fromEntries(levelCatalog.map(r=>[r.id,3]))});
+const seed=()=>({...Object.fromEntries(shipStages.map(s=>[s.key,s.total])),...Object.fromEntries(sites.map(s=>[s.key,s.repairs.length])),finaleDone:true,launchDone:true,scannerInstalled:true,jumpDone:true,elysiumRouteCompleted:1,elysiumArrival:1,riftCrossed:1,caretakerMet:1,scene:scenes.includes(new URLSearchParams(location.search).get('scene'))?new URLSearchParams(location.search).get('scene'):'buoy',stars:Object.fromEntries(levelCatalog.map(r=>[r.id,3]))});
 const practice={stockKey:'german-localization-preview:stock',tutorialKey:'german-localization-preview:tutorials',onResult:()=>{},onSnapshot:()=>{}};
 function Preview(){
  const {t}=useLanguage(),[progress,setProgress]=useState(seed),[revision,setRevision]=useState(0),[log,setLog]=useState(null),[read,setRead]=useState([]),[story,setStory]=useState(null),[notice,setNotice]=useState('');
@@ -42,7 +42,7 @@ function Preview(){
  const entries=sites.flatMap(s=>s.logs.map((entry,i)=>({...entry,available:i<(progress[s.key]??0)})));
  const props={progress,onProgress:setProgress,onNavigate:navigate,onLog:setLog,onContinueStory:()=>navigate(goal.scene),storyGoal:goal,onReplayStory:showStory,onJumpStory:()=>showStory('jump'),onEncounter:()=>showStory('caretaker')};
  return <main className="app">
-  <header className="chapter-preview-toolbar"><strong>Lokalizační náhled · kapitoly 2–10</strong><p>Postup je pouze v paměti. Výsledky se neodesílají. Běžná hra se nemění.</p>
+  <header className="chapter-preview-toolbar"><strong>Lokalizační náhled · kapitoly 2–11</strong><p>Postup je pouze v paměti. Výsledky se neodesílají. Běžná hra se nemění.</p>
    <label>Oblast <select aria-label="Oblast náhledu" value={progress.scene} onChange={e=>navigate(e.target.value)}>{scenes.map(scene=><option key={scene} value={scene}>{t(destinations[scene]?.title??({system:'System chart',system2:'Aster Veil system',elysium:'Elysium station',rift:'The Rift'}[scene]))}</option>)}</select></label>
    {site&&<label>Dokončené opravy <select aria-label="Dokončené opravy náhledu" value={progress[site.key]??0} onChange={e=>{setProgress(p=>({...p,[site.key]:Number(e.target.value)}));setRevision(n=>n+1);}}>{Array.from({length:site.repairs.length+1},(_,i)=><option key={i} value={i}>{i}/{site.repairs.length}</option>)}</select></label>}
    <label>Příběh <select aria-label="Příběh náhledu" value="" onChange={e=>showStory(e.target.value)}><option value="">Vyber scénu</option>{stories.map(s=><option key={s.id} value={s.id}>{t(s.title)}</option>)}</select></label>
