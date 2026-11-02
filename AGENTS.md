@@ -1196,3 +1196,16 @@ supabase/036_network_cloud_star_limit.sql (nedestruktivní, idempotentní).
 Nasazení zatím čeká na potvrzení uživatele. Přidán skutečný PostgreSQL test
 přes PGlite: reprodukce chyby, oprava, druhé zařízení, starší klient a RLS.
 309 unit a build prošly. Podrobnosti docs/cloud-sync-network-fix-2026-11-02.md.
+
+## 2026-11-02 — Zastávky 211–230 a mírnější uzly
+Hotových 20 levelů v osmi místech po 2–3 opravách, 16 nových obrazů,
+tři dvoupanelové příběhové přechody a všech šest jazyků. Uživatel upřesnil,
+že různorodost znamená více míst v příběhu. Zároveň na jeho žádost zmírněny
+uzly i v 201–210: nejvýše dva, na úzkých deskách jeden, celkem nejvýše čtyři
+impulzy. Původních 200 levelů beze změny. Nové tvary/cíle/kryty se střídají.
+SQL037 uživatel potvrdil jako nasazené; SQL036 předtím opravil přenos po 200
+na skutečných zařízeních podle uživatelova potvrzení. Databázové testy nyní
+ověřují všech 230 hvězd i reset. 313 unit, šest katalogů, build a prohlížečové
+kontroly nových scén/navigace prošly. Detaily v docs/network-short-stops-211-230.md.
+APK/AAB verze 6 připravené v releases/google-play/internal-6; nahrání na Play
+je stále samostatný krok. Staré slepé testy 200/210 se automaticky neprodlužují.
