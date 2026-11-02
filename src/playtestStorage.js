@@ -8,7 +8,7 @@ export function createPlaytest(repairs,{uuid=()=>crypto.randomUUID(),random=()=>
 export function readPlaytest(storage,key){
  const raw=storage.getItem(key);if(!raw)return null;
  const s=JSON.parse(raw);
- if(s.version!==1||!Array.isArray(s.order)||!Array.isArray(s.repairs)||s.order.length!==200||new Set(s.order).size!==200||s.order.some(id=>!s.repairs.some(r=>r.id===id))||!Number.isInteger(s.cursor)||s.cursor<0||s.cursor>s.order.length||!Array.isArray(s.attempts)||!Array.isArray(s.pending)||!Number.isInteger(s.revision))throw Error('Uložený test nelze bezpečně načíst. Exportuj jej nebo kontaktuj správce; nic nebylo smazáno.');
+ if(s.version!==1||!Array.isArray(s.order)||!Array.isArray(s.repairs)||![200,210].includes(s.order.length)||s.repairs.length!==s.order.length||new Set(s.order).size!==s.order.length||s.order.some(id=>!s.repairs.some(r=>r.id===id))||!Number.isInteger(s.cursor)||s.cursor<0||s.cursor>s.order.length||!Array.isArray(s.attempts)||!Array.isArray(s.pending)||!Number.isInteger(s.revision))throw Error('Uložený test nelze bezpečně načíst. Exportuj jej nebo kontaktuj správce; nic nebylo smazáno.');
  return s;
 }
 export function queuePlaytestResult(session,row){

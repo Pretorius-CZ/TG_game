@@ -35,7 +35,7 @@ test('German chapters 3–10 cover all remaining repairs, journals and story pan
    }else if(item&&typeof item==='object')audit(item);
   }
  }
- const chapters=chaptersFor({}).slice(2);assert.equal(chapters.length,8);
+ const chapters=chaptersFor({}).slice(2);assert.equal(chapters.length,9);
  for(const chapter of chapters){dataText(chapter,'de');audit(chapter.sections);}
  audit([elysiumRoute,elysiumRouteLog,elysiumArrivalLog,elysiumArrivalPanels,riftStoryPanels,riftArrivalLog,researchStoryPanels,relayStoryPanels,caretakerPanels,caretakerLog,journeyStories,echoDeparturePanels]);
  const full={...Object.fromEntries(Object.values(destinations).map(s=>[s.key,s.repairs.length])),launchDone:true,scannerInstalled:true,jumpDone:true,elysiumRouteCompleted:1,elysiumArrival:1,riftCrossed:1,caretakerMet:1};

@@ -1153,3 +1153,29 @@ geometrii jako lokální oprava, všech pět popisků těsně u správných konz
 Test nezapisoval cloud ani statistiky. Nové APK internal.4 má ověřený
 v2 podpis a package com.playbeyondthesignal.game.preview / versionCode 4.
 Záloha sources + APK/AAB: .local/backups/2026-10-28-archive-layout, ZIP CRC OK.
+
+## 2026-11-02 — Pokračování po200: Nová síť
+
+Uživatel schválil přípravu pokračování a obměnu dílků. Návrh50 levelů
+201–250 v docs/network-expansion-201-250.md navazuje na uzavřené volání
+a zachráněnou výpravu; neopakovat jejich záchranu. Rozšíření servisní sítě,
+nová plošina a přílet nové pracovní posádky, přímé opravy bez stavební měny.
+Prvních10 EN/CS pracovních úkolů v src/experimental/networkChapter.js,
+izolovaný prototyp pořadí energetických uzlů v networkRoute.js a
+tests/browser/network-preview.html. Nových6 rasterových dílků imagegen
+v public/prototypes/network-tiles. Vydaná navigace, stávajících200 levelů,
+cloud a APK se nemění. Náhled nemá účet/statistiky/ukládání/reklamy;
+zatím nemá nálože, kryty ani pomůcky a neslouží k měření finální obtížnosti.
+305unit testů a produkční build prošly; mobilní náhled320px ověřen
+izolovaným Edge/Playwright. Zatím lokální, bez nasazení/pushe.
+
+## 2026-11-02 — Síť 201–210 ve společné hře
+Prvních deset levelů po původním konci 200 je integrovaných pro web a APK:
+dvě scény, šest nových ikon, pořadové energetické uzly, deník a třípanelový
+přechodový komiks. Vše v šesti jazycích; zbývajících 40 levelů pouze návrh.
+Původních 200 konfigurací a souřadnic se nemění. SQL035 uživatel potvrdil
+nasazenou bez chyb. Nové slepé běhy mají 210 úloh, staré zůstávají na 200.
+Android verze 5 má hotovou preview APK a podepsaný AAB, stále demo reklamy;
+nahrání na Google Play je samostatný krok. Detaily a ověření:
+docs/network-expansion-201-250.md. 308 unit testů a kontrola šesti katalogů
+2555/2555 prošly; prohlížeč kontroluje nové scény i původní archiv.
