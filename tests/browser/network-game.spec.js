@@ -36,7 +36,7 @@ test('new transition comic opens once and leads into the first real repair',asyn
 });
 test('ordered nodes use the production MiniGame, new sprites and a valid move',async({page})=>{
  await page.setViewportSize({width:393,height:873});await setup(page,{done:2});
- await page.locator('.welcome-secondary').click();await page.locator('.chapters-dialog>.close').click();
+ await page.locator('button.welcome-secondary').click();await page.locator('.chapters-dialog>.close').click();
  await page.locator('[data-repair-id="network-first-node"] .target').click();
  await page.locator('.repair-bubble-dialog .primary').click();
  const dialog=page.locator('.mini-dialog[open]');await expect(dialog).toBeVisible();
@@ -51,7 +51,7 @@ test('ordered nodes use the production MiniGame, new sprites and a valid move',a
 for(const language of ['cs','en','de','fr','es','pt-BR'])test(`new scene labels remain anchored and separate ${language}`,async({page})=>{
  await page.setViewportSize({width:320,height:873});
  for(const scene of Object.keys(networkDestinations)){
-  await setup(page,{scene,done:5,language});await page.locator('.welcome-secondary').click();await page.locator('.chapters-dialog>.close').click();
+  await setup(page,{scene,done:5,language});await page.locator('button.welcome-secondary').click();await page.locator('.chapters-dialog>.close').click();
   const site=page.locator('.network-site');await expect(site).toBeVisible();
   await page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
   const rects=await site.locator('[data-repair-id]').evaluateAll(xs=>xs.map(x=>{
@@ -66,5 +66,17 @@ for(const language of ['cs','en','de','fr','es','pt-BR'])test(`new scene labels 
    for(const other of rects){expect(overlap(item.label,other.target),item.id+' covers '+other.id).toBe(false);if(item!==other)expect(overlap(item.label,other.label),item.id+' overlaps '+other.id).toBe(false);}
   }
   await page.screenshot({path:`.local/network-scene-${scene}-${language}.png`,fullPage:true});
+ }
+});
+
+test('network task markers stay circular before and after repairs',async({page})=>{
+ for(const width of [320,393,465]){
+  await page.setViewportSize({width,height:950});
+  for(const scene of Object.keys(networkDestinations))for(const done of [0,2,4,5]){
+   await setup(page,{scene,done});await page.locator('button.welcome-secondary').click();await page.locator('.chapters-dialog>.close').click();
+   const markers=await page.locator('.network-site .hotspot .target').evaluateAll(xs=>xs.map(x=>{const r=x.getBoundingClientRect();return{w:r.width,h:r.height};}));
+   expect(markers.length).toBeGreaterThan(0);
+   for(const r of markers){expect(Math.abs(r.w-r.h),`${scene} ${done} at ${width}`).toBeLessThan(1);expect(r.h).toBeGreaterThanOrEqual(33);}
+  }
  }
 });
