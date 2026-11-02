@@ -17,8 +17,9 @@ async function setup(page,{scene='network-handover',done=0,language='cs',comic=f
   const p=seed;
   localStorage.setItem('to-the-stars-progress-v1',JSON.stringify(p));
   localStorage.setItem('to-the-stars-language',language);
+  localStorage.setItem('to-the-stars-lives-v1',JSON.stringify({count:5,nextAt:null}));
   localStorage.setItem('beyond-signal-analytics-choice-v1',JSON.stringify({version:1,state:'denied',at:Date.now()}));
-  for(const id of stories)if(!(comic&&id==='network-first-watch')&&!(travel&&['network-crew-stops','network-near-departure','network-far-crossing'].includes(id)))localStorage.setItem('beyond-the-signal-story:guest:0:'+id,'seen');
+  for(const id of stories)if(!(comic&&id==='network-first-watch')&&!(travel&&['network-crew-stops','network-near-departure','network-far-crossing'].includes(id))&&!(travel==='completion'&&['network-visitor-arrives','network-alternate-flight','network-prepare-reception','network-crew-boards','network-watch-complete'].includes(id)))localStorage.setItem('beyond-the-signal-story:guest:0:'+id,'seen');
  },{seed,language,comic,travel,marker,stories:journeyStories.map(s=>s.id)});
  await page.goto('/?lang='+language);
 }
@@ -54,6 +55,7 @@ test('ordered nodes use the production MiniGame, new sprites and a valid move',a
  await page.screenshot({path:'.local/network-real-minigame.png',fullPage:true});
 });
 for(const language of ['cs','en','de','fr','es','pt-BR'])test(`new scene labels remain anchored and separate ${language}`,async({page})=>{
+ test.setTimeout(90000);
  await page.setViewportSize({width:320,height:873});
  for(const scene of Object.keys(networkDestinations)){
   await setup(page,{scene,done:5,language});await page.locator('button.welcome-secondary').click();await page.locator('.chapters-dialog>.close').click();
@@ -91,7 +93,7 @@ test('twenty new repairs traverse all eight stops and three travel comics',async
  test.setTimeout(90000);await page.setViewportSize({width:393,height:873});
  await setup(page,{scene:'network-water',language:'en',travel:true});await page.locator('.welcome-play').click();
  let comics=0;
- for(const r of networkLevels.slice(10)){
+ for(const r of networkLevels.slice(10,30)){
   await expect.poll(async()=>await page.locator('.caretaker-comic[open],.repair-bubble-dialog[open]').count()).toBeGreaterThan(0);
   if(await page.locator('.caretaker-comic[open]').count()){
    const comic=page.locator('.caretaker-comic[open]');comics++;
@@ -107,16 +109,16 @@ test('twenty new repairs traverse all eight stops and three travel comics',async
  }
  expect(comics).toBe(3);
  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('to-the-stars-progress-v1')));
- for(const s of Object.values(networkDestinations))expect(saved[s.key]).toBe(s.repairs.length);
+ for(const s of Object.values(networkDestinations).slice(0,10))expect(saved[s.key]).toBe(s.repairs.length);
  expect(Object.keys(saved.stars)).toHaveLength(230);
  await page.reload();await page.locator('button.welcome-secondary').click();
- await expect(page.locator('.chapters-dialog details').last().locator('summary')).toContainText('30/30');
+ await expect(page.locator('.chapters-dialog details').last().locator('summary')).toContainText('30/50');
 });
 
 test('new narrow, wide and covered layouts work in the real minigame',async({page})=>{
  test.setTimeout(90000);
  await page.setViewportSize({width:393,height:873});
- for(const number of [211,213,220,224,230]){
+ for(const number of [211,213,220,224,230,231,232,235,240,245,250]){
   const r=networkLevels.find(r=>r.number===number),[scene,site]=Object.entries(networkDestinations).find(([,s])=>s.repairs.some(x=>x.id===r.id));
   await setup(page,{scene,done:site.repairs.findIndex(x=>x.id===r.id),language:'en'});
   await page.locator('.welcome-play').click();await page.locator('.repair-bubble-dialog .primary').click();
@@ -133,4 +135,31 @@ test('new narrow, wide and covered layouts work in the real minigame',async({pag
   await expect.poll(()=>dialog.locator('.cell:disabled').count()).toBeLessThanOrEqual(r.ice.length,{timeout:15000});
   await page.screenshot({path:'.local/network-minigame-'+number+'.png',fullPage:true});
  }
+});
+
+test('the last twenty repairs deliver the crew and show the terminal comic once',async({page})=>{
+ test.setTimeout(90000);await page.setViewportSize({width:393,height:873});
+ await setup(page,{scene:'network-visitor-service',language:'en',travel:'completion'});await page.locator('.welcome-play').click();
+ let comics=0;
+ const finishComic=async()=>{
+  const comic=page.locator('.caretaker-comic[open]');await expect(comic).toBeVisible();comics++;
+  for(let i=0;i<2;i++){await expect.poll(()=>comic.locator('img').evaluate(img=>img.complete&&img.naturalWidth>0)).toBe(true);await comic.locator('.comic-caption>.primary').click();}
+ };
+ for(const r of networkLevels.slice(30)){
+  await expect.poll(()=>page.locator('.caretaker-comic[open],.repair-bubble-dialog[open]').count()).toBeGreaterThan(0);
+  if(await page.locator('.caretaker-comic[open]').count())await finishComic();
+  await expect(page.locator('#bubble-title')).toHaveText(r.name);
+  await page.locator('.repair-bubble-dialog .preview-complete').click();
+  await expect(page.locator('.repair-reveal h2')).toHaveText(r.name);
+  if(r.number===250){await finishComic();}
+  await page.locator('.repair-reveal .primary').click();
+ }
+ expect(comics).toBe(5);
+ const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('to-the-stars-progress-v1')));
+ expect(Object.keys(saved.stars)).toHaveLength(250);
+ for(const s of Object.values(networkDestinations))expect(saved[s.key]).toBe(s.repairs.length);
+ await page.screenshot({path:'.local/network-250-finished.png',fullPage:true});
+ await page.reload();await page.locator('button.welcome-secondary').click();
+ await expect(page.locator('.chapters-dialog details').last().locator('summary')).toContainText('50/50');
+ expect(await page.locator('.caretaker-comic[open]').count()).toBe(0);
 });

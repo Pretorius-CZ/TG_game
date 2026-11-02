@@ -1,3 +1,4 @@
+import {completionRows,completionStops} from './networkCompletion.js';
 // Short stops deliberately alternate interiors, gardens and beacon fieldwork.
 const rows=[
  ['water-recovery','Restore the water recovery loop','Obnov okruh recyklace vody','Connect the filters before filling the crew tanks.','Než naplníme nádrže posádky, připojíme filtry.','Clean water now returns to the reserve instead of leaving with waste heat.','Čistá voda se vrací do zásoby místo odtoku s odpadním teplem.',27,[4,5],24,[],4,'corners'],
@@ -29,11 +30,11 @@ export const networkStopDefinitions=[
  ['network-beacon-dock','networkNearDockCompleted','The near beacon dock',2,[[21,52],[78,65]],'The service dock is secure. Continue up to the beacon mast.'],
  ['network-beacon-mast','networkNearMastCompleted','The near beacon mast',3,[[15,45],[82,51],[50,73]],'The first branch is live. Follow it to the far approach.'],
  ['network-far-approach','networkFarApproachCompleted','The far approach',2,[[21,52],[78,65]],'The approach is marked. Enter the service tower.'],
- ['network-far-core','networkFarCoreCompleted','The far beacon tower',3,[[18,53],[85,64],[50,69]],'Both beacons are linked. More deliveries and destinations are being prepared.'],
+ ['network-far-core','networkFarCoreCompleted','The far beacon tower',3,[[18,53],[85,64],[50,69]],'Both beacons are linked. Meet the scheduled supply ship.'],
 ].map(([scene,key,title,total,positions,complete])=>({scene,key,title,total,positions,complete}));
 
 export function makeNetworkContinuation(tileNames){
- return rows.map(([slug,name,csName,thought,csThought,result,csResult,moves,colors,target,requirements,coverCount,shape],i)=>{
+ return [...rows,...completionRows].map(([slug,name,csName,thought,csThought,result,csResult,moves,colors,target,requirements,coverCount,shape],i)=>{
   const cols=shape==='wide'?8:shape==='narrow'?6:7,rows=shape==='wide'?7:8;
   const open=at=>{const x=at%cols,y=Math.floor(at/cols);return !((shape==='corners'||shape==='narrow')&&(x===0||x===cols-1)&&(y===0||y===rows-1)||shape==='waist'&&[3,4].includes(y)&&(x===0||x===cols-1)||shape==='steps'&&(y<2&&x<2||y>=rows-2&&x>=cols-2));};
   const nodePositions=[2*cols+2,4*cols+cols-3,6*cols+2];
@@ -53,3 +54,4 @@ export function makeNetworkContinuation(tileNames){
   return {id:'network-'+slug,number:211+i,name,csName,thought,csThought,result,csResult,moves,nodes,ice,hard:name.includes('HARD'),goals:colors.map(type=>({type,target,label:tileNames[type]})),level:{cols,rows,types:6,mask}};
  });
 }
+export {completionStops};

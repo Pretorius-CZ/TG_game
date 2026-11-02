@@ -1209,3 +1209,17 @@ ověřují všech 230 hvězd i reset. 313 unit, šest katalogů, build a prohlí
 kontroly nových scén/navigace prošly. Detaily v docs/network-short-stops-211-230.md.
 APK/AAB verze 6 připravené v releases/google-play/internal-6; nahrání na Play
 je stále samostatný krok. Staré slepé testy 200/210 se automaticky neprodlužují.
+
+## 2026-11-02 — První služba dokončená do 250
+Hotových 231–250: osm kratších pracovních oblastí ve čtyřech nových
+prostředích, osm obrazů, čtyři příběhové přechody a závěrečný komiks.
+Celá Síť má 50 úkolů; předání nové pracovní posádce uzavírá zakázku.
+Původní výprava zůstává zachráněná, žádná nová měna ani stavební ekonomika.
+Uzly nejvýše dva, úzké desky jeden. Starých 1–230 konfigurací beze změny.
+SQL038 uživatel potvrdil nasazené: 250 hvězd, osm nových počítadel,
+opravené spojování readIds a jejich limit 512. Reálné PostgreSQL testy
+ověřují staré klienty, přenos a reset; 316 unit testů a šest katalogů prošly.
+Staré slepé běhy 200/210/230 jsou zmrazené, nové obsahují 250 úloh.
+Vše v šesti jazycích, informační web má novinku a počet 250. APK/AAB verze 7
+připravené; Google Play vyžaduje samostatné nahrání. Detaily a prompty:
+docs/network-first-watch-231-250.md.

@@ -3,9 +3,9 @@ import assert from 'node:assert/strict';
 import {createPlaytest,readPlaytest,queuePlaytestResult,ratePlaytest,playtestExport,isPlaytestAttempt} from '../src/playtestStorage.js';
 import {levelGroups,levelCatalog} from '../src/levelCatalog.js';
 const repairs=levelGroups.flatMap(([,rs])=>rs);
-test('blind test pins every one of 230 repairs once without mutating production data',()=>{
+test('blind test pins every one of 250 repairs once without mutating production data',()=>{
  const before=JSON.stringify(repairs),s=createPlaytest(repairs,{random:()=>0.3,rules:'test'});
- assert.equal(s.order.length,230);assert.equal(new Set(s.order).size,230);assert.deepEqual([...s.order].sort(),levelCatalog.map(r=>r.id).sort());
+ assert.equal(s.order.length,250);assert.equal(new Set(s.order).size,250);assert.deepEqual([...s.order].sort(),levelCatalog.map(r=>r.id).sort());
  assert.notDeepEqual(s.order,repairs.map(r=>r.id));s.repairs[0].moves=999;assert.equal(JSON.stringify(repairs),before);assert.equal(s.consent,false);
  const storage={getItem:()=>JSON.stringify(s)};assert.deepEqual(readPlaytest(storage,'test'),s);
  assert.throws(()=>readPlaytest({getItem:()=>'{broken'},'test'));
@@ -14,6 +14,8 @@ test('blind test pins every one of 230 repairs once without mutating production 
  assert.deepEqual(readPlaytest({getItem:()=>JSON.stringify(legacy)},'legacy'),legacy,'existing 200-level sessions keep their frozen order');
  const previous=createPlaytest(repairs.slice(0,210),{rules:'network-route-v1'});
  assert.deepEqual(readPlaytest({getItem:()=>JSON.stringify(previous)},'previous'),previous,'existing 210-level sessions also keep their frozen rules and order');
+ const shortStops=createPlaytest(repairs.slice(0,230),{rules:'network-short-stops-v2'});
+ assert.deepEqual(readPlaytest({getItem:()=>JSON.stringify(shortStops)},'short-stops'),shortStops,'existing 230-level sessions remain frozen after the 250-level release');
 });
 test('rating revises the same attempt, preserves charge measurements and never exports secrets',()=>{
  const s=createPlaytest(repairs),row={attemptId:crypto.randomUUID(),level:s.order[0],outcome:'won',moves:8,configuration:{playtest:{chargeSwaps:2}},at:Date.now()};

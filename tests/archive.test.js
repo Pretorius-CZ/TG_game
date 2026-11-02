@@ -32,7 +32,7 @@ test('archive follows the rescued crew; its four areas persist and cannot be ski
  for(const s of Object.values(sites))for(const r of s.repairs)assert.equal(p.stars[r.id],1);
 });
 test('chapter regrouping preserves catalog order and gates within the living map',()=>{
- const p=arrived(),rows=chaptersFor(p);assert.deepEqual(rows.map(c=>c.total),[29,24,16,24,12,15,20,27,20,13,30]);
+ const p=arrived(),rows=chaptersFor(p);assert.deepEqual(rows.map(c=>c.total),[29,24,16,24,12,15,20,27,20,13,50]);
  const living=rows.find(c=>c.id==='ring');assert.equal(chapterSectionOpen({...p,riftCrossed:0},living,'elysium-research'),false);
  // Catalog after the approved 2026-10-17 refuge rebalance: IDs, order,
  // names and sizes preserved; nineteen move budgets intentionally changed.

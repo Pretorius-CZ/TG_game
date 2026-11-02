@@ -69,7 +69,7 @@ test('Spanish chapters 4–6 cover repairs, journals, transitions and all 51 cha
  assert.deepEqual([...missingTranslations],[]);
 });
 
-test('Spanish complete draft covers all 230 levels and the ending with no catalog problems',async()=>{
+test('Spanish complete draft covers all 250 levels and the ending with no catalog problems',async()=>{
  const catalog=await loadLocaleCatalog('es');assert.deepEqual(catalogProblems('es',catalog),[]);missingTranslations.clear();
  const fields=new Set(['name','room','thought','lesson','objective','result','action','title','text','source','time','caption','complete','finishLabel']);
  const counts=s=>(s.match(/\d+/g)??[]).map(Number).sort((a,b)=>a-b);
@@ -77,7 +77,7 @@ test('Spanish complete draft covers all 230 levels and the ending with no catalo
   if(fields.has(k)&&typeof v==='string')assert.deepEqual(counts(translate(v,'es')),counts(v),v);
   else if(v&&typeof v==='object')audit(v);
  }}
- const chapters=chaptersFor({});assert.equal(chapters.reduce((n,c)=>n+c.total,0),230);
+ const chapters=chaptersFor({});assert.equal(chapters.reduce((n,c)=>n+c.total,0),250);
  for(const chapter of chapters){dataText(chapter,'es');audit(chapter.sections);}
  for(const file of['nightGarden','nightGrove','nightRoot','nightSanctuary','caretakerStory','refuge','refugeHomes','refugeMedical','returnCorridor','refugeArrival','archive','signalNetwork','journeyStories'])for(const[k,v]of Object.entries(await import(`../src/${file}.js`)))if(/Logs$|Log$|Panels$|journeyStories$/.test(k))audit(v);
  for(const[,repairs]of levelGroups)for(const repair of repairs){const source=repair.objective.replace(/\d+/g,n=>String(+n+7));assert.deepEqual(counts(translate(source,'es')),counts(source),repair.id);}

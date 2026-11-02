@@ -20,7 +20,7 @@ export default function StoryComic({panels,chapter,title,finishLabel,onFinish}){
     <span className="eyebrow">{t(chapter)} · {step+1}/{panels.length}</span>
     <h2>{t(panel.title)}</h2><p aria-live="polite">{t(panel.caption)}</p>
     {failed&&<p role="alert">{t('Illustration could not load. You can still continue or skip.')}</p>}
-    <div className="comic-pagination" aria-label={`${step+1}/{panels.length}`}>{panels.map((p,i)=><button key={`${p.image}:${i}`} aria-label={`${t(i<step?'Previous panel':'Next panel')} ${i+1}`} aria-current={step===i?'step':undefined} onClick={()=>setStep(i)}><span/></button>)}</div>
+    <div className="comic-pagination" aria-label={`${step+1}/${panels.length}`}>{panels.map((p,i)=><button key={`${p.image}:${i}`} aria-label={`${t(i<step?'Previous panel':'Next panel')} ${i+1}`} aria-current={step===i?'step':undefined} onClick={()=>setStep(i)}><span/></button>)}</div>
     <button ref={next} className="primary" onClick={advance}>{t(step===panels.length-1?finishLabel:'Next')} →</button>
    </div>
   </div>

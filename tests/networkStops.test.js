@@ -9,7 +9,7 @@ import {findMove} from '../src/match3.js';
 import {initialIce} from '../src/levelRules.js';
 
 test('twenty new tasks visit eight short stops with varied boards and unchanged original budgets',()=>{
- const stops=networkStops.slice(2),levels=networkLevels.slice(10);
+ const stops=networkStops.slice(2,10),levels=networkLevels.slice(10,30);
  assert.equal(stops.length,8);assert.deepEqual(stops.map(s=>s.total),[2,3,2,3,2,3,2,3]);
  assert.deepEqual(levels.map(r=>r.number),Array.from({length:20},(_,i)=>211+i));
  assert.equal(new Set(stops.map(s=>s.scene)).size,8);

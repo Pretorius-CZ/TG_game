@@ -1,5 +1,6 @@
 // Published news, newest first. Copy lives in i18n/catalogs/web under news.<id>.<field>.
 export const updates=[
+  {id:'network-first-watch',date:'2026-11-02'},
   {id:'network-stops',date:'2026-11-02'},
   {id:'network-expansion',date:'2026-11-02'},
   {id:'spanish-release',date:'2026-10-27'},
