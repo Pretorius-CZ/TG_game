@@ -12,3 +12,4 @@
 .route-node-waiting{opacity:.55}
 .ordered-route-help{font-size:12px;line-height:1.35;color:#d5e5e7;margin:6px 0}
 .mini-dialog > .ordered-route-help{background:#102e3a;border:1px solid #668c97;border-radius:10px;padding:8px 12px;color:#d5e5e7;cursor:pointer}
+.play-area .game.network-site .hotspot .target{width:34px;height:34px;min-width:34px;min-height:34px;flex:0 0 34px;aspect-ratio:1;font-size:22px}

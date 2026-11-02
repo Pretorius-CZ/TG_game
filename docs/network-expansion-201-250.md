@@ -130,3 +130,17 @@ Výstupy public/scenes/network-{handover,platform}{,-restored}.png.
 Ikony: jeden samostatný předmět, průhledné pozadí, čitelná silueta při 48 px,
 bez textu/rámu, stříbrné konstrukční materiály a vlastní barevné jádro;
 public/tiles/network-{coupler,solar,lens,insulator,capsule,habitat}.png.
+
+Nasazení: společný obsah Android 9a7ffb5, Android balení b8524b1;
+web c2c3549. Webový build má 292 unit testů a katalog 2535/2535 (20 native
+zpráv je pouze v APK). Produkční game hosting run 41445910473 úspěšný,
+živá version.json obsahuje c2c3549fdc24. Lokální mobilní kontrola 26/26
+(archiv + nová kapitola), webová větev 8/8. Živá kontrola se provádí bez
+přihlášení/statistik, s izolovaným postupem. Zdrojové zálohy obou commitů
+jsou v .local/backups/2026-11-02-network. Google Play stále vyžaduje
+samostatné nahrání nového AAB, stávající vydání se pushem Gitu nezmění.
+
+Oprava po obrázku uživatele: aktivní značka se ve 34px vysokém flex obalu
+smršťovala z 52px do oválu. Pouze nová kapitola nyní nastavuje obě strany
+34px a zakazuje flex smrštění. Test zahrnuje obě scény, postup 0/2/4/5 a
+šířky 320/393/465; předchozí test jen hotových scén tento stav nepokrýval.
