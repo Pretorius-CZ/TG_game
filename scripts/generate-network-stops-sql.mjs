@@ -1,5 +1,7 @@
 import {readFileSync,writeFileSync} from 'node:fs';
-import {networkDestinations,networkScenes,networkStops} from '../src/networkExpansion.js';
+import {networkDestinations,networkStops as currentStops} from '../src/networkExpansion.js';
+// SQL037 is a reproducible historical 230-level migration.
+const networkStops=currentStops.slice(0,10),networkScenes=networkStops.map(s=>s.scene);
 const extra=networkStops.slice(2);
 let sql=readFileSync('supabase/035_network_expansion.sql','utf8');
 sql=sql.replace('-- Network extension, levels201-210. Apply after034.','-- Network short stops, levels211-230. Includes SQL035/036 behavior.\n-- Preserves all previous progress, uses the same reset revision and account lock.');

@@ -13,22 +13,22 @@ const finished200=()=>normalizeProgress({
  ...Object.fromEntries(Object.keys(normalizeProgress()).filter(k=>k==='completed'||k.endsWith('Completed')).map(k=>[k,99])),
  networkHandoverCompleted:0,networkPlatformCompleted:0,elysiumArrival:1,riftCrossed:1,caretakerMet:1,finaleDone:true,launchDone:true,scannerInstalled:true,jumpDone:true,
 });
-test('200 remains the rescue milestone; 201–230 continue and survive stale saves',()=>{
+test('200 remains the rescue milestone; 201–250 continue and survive stale saves',()=>{
  let p=finished200();assert.equal(Object.keys(p.stars).length,200);
  assert.equal(journeyFor(p).repair.number,201);assert.equal(networkIntroStory.ready(p),true);
  assert.equal(canVisitNetwork(p,'network-platform'),false);
  const old=structuredClone(p);
- for(let number=201;number<=230;number++){
+ for(let number=201;number<=250;number++){
   const next=journeyFor(p);assert.equal(next.repair.number,number);
   const site=networkDestinations[next.scene];assert.equal(canVisitNetwork(p,next.scene),true);
   p=normalizeProgress({...p,[site.key]:p[site.key]+1,scene:next.scene});
  }
- assert.equal(journeyFor(p).kind,'end');assert.equal(Object.keys(normalizeStars(p)).length,230);
+ assert.equal(journeyFor(p).kind,'end');assert.equal(Object.keys(normalizeStars(p)).length,250);
  assert.deepEqual(mergeProgress(old,p).networkPlatformCompleted,5);
  assert.equal(normalizeProgress({...p,signalStationCompleted:3}).networkHandoverCompleted,0);
  assert.equal(normalizeProgress({...p,signalStationCompleted:3}).networkPlatformCompleted,0);
  assert.equal(mergeProgress(p,normalizeProgress({resetRevision:1})).networkHandoverCompleted,0);
- assert.deepEqual(levelCatalog.slice(200).map(r=>r.number),Array.from({length:30},(_,i)=>201+i));
+ assert.deepEqual(levelCatalog.slice(200).map(r=>r.number),Array.from({length:50},(_,i)=>201+i));
 });
 test('new scene art, fixed hotspots and six distinct sprites are shipped',()=>{
  for(const scene of networkScenes){
@@ -42,7 +42,7 @@ test('new scene art, fixed hotspots and six distinct sprites are shipped',()=>{
  }
 });
 test('migration retains previous version fields and declares all new levels and privileges',()=>{
- const sql=readFileSync('supabase/037_network_short_stops.sql','utf8');
+ const sql=readFileSync('supabase/038_network_first_watch.sql','utf8');
  for(const site of Object.values(networkDestinations)){
   assert.ok(sql.includes(`('${site.key}',${site.repairs.length})`));
   for(const r of site.repairs)assert.ok(sql.includes(`('${r.id}','${site.key}',`));

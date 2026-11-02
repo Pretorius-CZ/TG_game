@@ -20,7 +20,7 @@ for(const width of [320,1440])test(`localized home and legal entry pages fit ${w
    await expect(page.locator('.game-language-note').first()).toBeVisible();
    await expect(page.locator('.update')).toHaveCount(updates.length);
    await expect(page.locator('.update').first().locator('time')).toHaveAttribute('datetime',updates[0].date);
-   await expect(page.locator('.update').first()).toContainText('211–230');
+   await expect(page.locator('.update').first()).toContainText('211–250');
    await page.screenshot({path:info.outputPath(`${code}-home.png`),fullPage:true});
   }
   if(file==='privacy.html'){

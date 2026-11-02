@@ -87,7 +87,7 @@ test('French complete catalog covers all 200 levels, journals and the ending wit
   if(fields.has(k)&&typeof v==='string')assert.deepEqual(counts(translate(v,'fr')),counts(v),v);
   else if(v&&typeof v==='object')audit(v);
  }}
- const chapters=chaptersFor({});assert.equal(chapters.reduce((n,c)=>n+c.total,0),230);
+ const chapters=chaptersFor({});assert.equal(chapters.reduce((n,c)=>n+c.total,0),250);
  for(const chapter of chapters){dataText(chapter,'fr');audit(chapter.sections);}
  audit(journeyStories);
  for(const file of ['archive','signalNetwork'])for(const[k,v]of Object.entries(await import(`../src/${file}.js`)))if(/Logs$|Log$|logEntries$/.test(k))audit(v);

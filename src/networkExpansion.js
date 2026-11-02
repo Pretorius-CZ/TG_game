@@ -1,10 +1,11 @@
 import {networkLevels,networkTileNames} from './networkLevels.js';
-import {networkStopDefinitions} from './networkContinuation.js';
+import {networkStopDefinitions,completionStops} from './networkContinuation.js';
 
 export const networkStops=[
  {scene:'network-handover',key:'networkHandoverCompleted',title:'The network watch',total:5,positions:[[17,50],[83,50],[18,63],[83,63],[50,49]],complete:'The old route stays open while we build the extension.'},
  {scene:'network-platform',key:'networkPlatformCompleted',title:'The service platform',total:5,positions:[[15,44],[82,35],[15,62],[83,56],[50,53]],complete:'The platform is ready for its first maintenance crew.'},
  ...networkStopDefinitions,
+ ...completionStops,
 ];
 export const networkScenes=networkStops.map(s=>s.scene);
 export const networkDestinations=Object.fromEntries(networkStops.map((stop,section)=>{
@@ -17,7 +18,7 @@ export const networkDestinations=Object.fromEntries(networkStops.map((stop,secti
  }));
  return [scene,{title,key,repairs,
   system:section?networkStops[section-1].scene:'signal-station',chapter:'The new network',art:'network',hotspotOffset:0,
-  image:scene,imageExtension:'png',restoredExtension:'png',
+  image:stop.image??scene,imageExtension:'png',restoredExtension:'png',
   clips:repairs.map(r=>`polygon(${Math.max(0,r.x-18)}% ${r.y-9}%,${Math.min(100,r.x+18)}% ${r.y-9}%,${Math.min(100,r.x+18)}% ${r.y+9}%,${Math.max(0,r.x-18)}% ${r.y+9}%)`),
   complete,
   ...(networkStops[section+1]?{nextScene:networkStops[section+1].scene}:{}),
