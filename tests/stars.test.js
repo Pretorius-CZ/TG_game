@@ -25,10 +25,10 @@ test('best rating survives both merge orders and reset defeats old ratings',()=>
 test('all 200 completed levels receive stars, including launch and approach',()=>{
  const raw=Object.fromEntries(Object.keys(normalizeProgress()).filter(k=>k.endsWith('Completed')||k==='completed').map(k=>[k,6]));
  const p=normalizeProgress({...raw,elysiumRouteCompleted:1,elysiumArrival:1,riftCrossed:1,caretakerMet:1,finaleDone:true,launchDone:true,scannerInstalled:true,jumpDone:true});
- assert.equal(Object.keys(p.stars).length,210);
+ assert.equal(Object.keys(p.stars).length,230);
  assert.deepEqual(new Set(completedLevelIds(p)),new Set(levelCatalog.map(r=>r.id)));
  assert.ok(Object.values(p.stars).every(n=>n===1));
- const sql=readFileSync(new URL('../supabase/035_network_expansion.sql',import.meta.url),'utf8');
+ const sql=readFileSync(new URL('../supabase/037_network_short_stops.sql',import.meta.url),'utf8');
  for(const r of levelCatalog)assert.ok(sql.includes("('"+r.id+"','"));
  assert.ok(sql.includes("'stars','{}'::jsonb"));
 });

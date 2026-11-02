@@ -8,7 +8,7 @@ import {destinations} from '../src/destinations.js';
 import {levelCatalog} from '../src/levelCatalog.js';
 import {journeyStories,chapterStoryOptions} from '../src/journeyStories.js';
 import {translate,missingTranslations} from '../src/i18n/translate.js';
-test('one story objective walks all 210 levels and required non-puzzle milestones',()=>{
+test('one story objective walks all 230 levels and required non-puzzle milestones',()=>{
  let p=normalizeProgress();const played=[],actions=[];
  for(let guard=0;guard<250;guard++){
   const goal=journeyFor(p);if(goal.kind==='end')break;
@@ -18,13 +18,13 @@ test('one story objective walks all 210 levels and required non-puzzle milestone
   else{actions.push(goal.action);if(goal.action==='departure')p.launchDone=true;else if(goal.action==='scanner')p.scannerInstalled=true;else if(goal.action==='gate')p.jumpDone=true;else if(goal.action==='approach'){played.push('elysium-route');p.elysiumRouteCompleted=1;p.elysiumArrival=1;}else if(goal.action==='cross')p.riftCrossed=1;else if(goal.action==='encounter')p.caretakerMet=1;else assert.fail(goal.action);}
   p=normalizeProgress(p);
  }
- assert.equal(journeyFor(p).kind,'end');assert.equal(new Set(played).size,210);assert.deepEqual(new Set(played),new Set(levelCatalog.map(r=>r.id)));
+ assert.equal(journeyFor(p).kind,'end');assert.equal(new Set(played).size,230);assert.deepEqual(new Set(played),new Set(levelCatalog.map(r=>r.id)));
  assert.deepEqual(actions,['departure','scanner','gate','approach','cross','encounter']);
  assert.equal(chapterStoryOptions(p,'archive').length,1);
 });
 test('story comics have bilingual panels and project artwork; replay eligibility preserves progress',()=>{
- missingTranslations.clear();assert.equal(journeyStories.length,8);
- for(const story of journeyStories){assert.equal(story.panels.length,story.terminal?4:3);translate(story.title,'cs');translate(story.finishLabel,'cs');
+ missingTranslations.clear();assert.equal(journeyStories.length,11);
+ for(const story of journeyStories){assert.equal(story.panels.length,story.terminal?4:story.panels.length===2?2:3);translate(story.title,'cs');translate(story.finishLabel,'cs');
   for(const panel of story.panels){assert.ok(existsSync(new URL('../public/scenes/'+panel.image+'.'+(panel.imageExtension??'webp'),import.meta.url)),panel.image);translate(panel.title,'cs');translate(panel.caption,'cs');}
   assert.equal(story.ready(normalizeProgress()),false);
  }

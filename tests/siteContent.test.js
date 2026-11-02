@@ -22,7 +22,7 @@ test('every public article ships readable HTML, a real canonical and complete Cz
  }
 });
 test('public factual numbers remain tied to current game content and recharge rules',()=>{
- assert.equal(levelCatalog.length,210);
+ assert.equal(levelCatalog.length,230);
  assert.match(en['web.about.adventure.extra'],new RegExp(String(levelCatalog.length)));
  assert.equal(INTRO_RECHARGE_MS,10*60*1000);assert.equal(RECHARGE_MS,30*60*1000);
  assert.match(en['web.saving.local.body'],/10 minutes.*30 minutes/);

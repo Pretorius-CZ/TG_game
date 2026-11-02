@@ -18,7 +18,7 @@ Samotné úspěšné spuštění CREATE FUNCTION tuto chybu neodhalilo.
 - Oba weby musí používat stejný Google účet ve hře. Přihlášení prohlížeče
   nebo Google Play samo o sobě není přihlášení ke cloudovému účtu hry.
 
-Živé nasazení SQL036 v okamžiku přípravy čeká na potvrzení uživatele.
+Uživatel následně potvrdil, že se postup po opravě mezi zařízeními propsal.
 Po potvrzení prověřit „Postup uložen online“ na zdrojovém zařízení a poté
 stejný počet oprav/hvězd na druhém zařízení. Aktuálně navštívená místnost
 se mezi zařízeními nepřepíná násilně; dosažený postup lze ověřit v Kapitolách.

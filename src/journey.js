@@ -41,6 +41,6 @@ export function journeyFor(p){
  for(const s of archiveScenes){next=siteTask(p,s,purposes.archive);if(next)return next;}
  for(const s of signalScenes){next=siteTask(p,s,['Restore the beacon links and deliver the crew’s answer.','Obnov spojení majáků a doruč odpověď posádky.']);if(next)return next;}
  for(const s of networkScenes){next=siteTask(p,s,['Expand the network while keeping the rescue route open.','Rozšiř síť a udržuj záchrannou trasu otevřenou.']);if(next)return next;}
- return {kind:'end',scene:'network-platform',purpose:['210 levels completed. The platform is ready. More network destinations are being prepared; you can revisit repairs and replay the story.','Dokončil jsi 210 levelů. Plošina je připravená. Další místa sítě chystáme; můžeš opakovat opravy a přehrát příběh.']};
+ return {kind:'end',scene:'network-far-core',purpose:['230 levels completed. Both beacons are linked. More network deliveries are being prepared; you can revisit every stop and replay the story.','Dokončil jsi 230 levelů. Oba majáky jsou propojené. Další dodávky do sítě chystáme; můžeš navštívit každou zastávku a přehrát příběh.']};
 }
 export function destinationName(scene){return destinations[scene]?.title??({system:'Kepler Reach',system2:'Aster Veil',elysium:'Elysium',rift:'The Rift',exterior:'Exterior',airlock:'Airlock',cockpit:'Cockpit',navigation:'Communications & navigation',crew:'Crew quarters',galley:'Galley & supplies',engine:'Engine room',corridor:'Corridor'}[scene]??scene);}

@@ -13,7 +13,7 @@ const editions={
  ['Den Plattformrahmen sichern','Befestige den vorgefertigten Rahmen an der vermessenen Position.','Unser Versorgungsschiff liefert endlich Bauteile, statt nach seinem Ziel zu suchen.'],
  ['Die Servicekreise trennen','Schalte die Stromversorgung der Reihe nach ein. Das Rückkehrsignal bleibt unabhängig.','Ein defekter Werkstattkreis wird die Landelichter nicht mehr ausschalten.'],
  ['Die Wartungswerkstatt öffnen','Bereite Werkzeug und Ersatzteile für die Wartungsteams der Signalfeuer vor.','Eine einfache Werkstatt gibt dem Netz einen Ort, an dem es seine Geräte reparieren kann.'],
- ['Die Plattform in Betrieb nehmen · SCHWER','Prüfe die Route mit drei Knoten und die Vorräte, bevor du die Plattform öffnest.','Das erste Wartungsteam bestätigt seine Ankunftszeit. Dies ist eine neue Reise, keine weitere vermisste Expedition.'],
+ ['Die Plattform in Betrieb nehmen · SCHWER','Prüfe die Route mit zwei Knoten und die Vorräte, bevor du die Plattform öffnest.','Das erste Wartungsteam bestätigt seine Ankunftszeit. Dies ist eine neue Reise, keine weitere vermisste Expedition.'],
  ],
  fr:[
  ['Prendre la relève du réseau','L’expédition est rentrée. L’opérateur nous demande d’étendre le réseau, pas de rouvrir l’ancien appel de détresse.','Notre prochaine cargaison contient des modules de rechange pour les balises.'],
@@ -25,7 +25,7 @@ const editions={
  ['Fixer la structure de la plateforme','Fixe la structure préfabriquée à l’emplacement relevé.','Notre vaisseau de ravitaillement livre enfin du matériel au lieu de chercher sa destination.'],
  ['Séparer les circuits de service','Active l’alimentation dans l’ordre en gardant la balise de retour indépendante.','Une panne de l’atelier n’éteindra plus les feux d’atterrissage.'],
  ['Ouvrir l’atelier de maintenance','Prépare les outils et les pièces de rechange pour les équipes d’entretien des balises.','Le réseau dispose désormais d’un atelier pour réparer son matériel.'],
- ['Mettre la plateforme en service · DIFFICILE','Teste la route à trois nœuds et vérifie les provisions avant d’ouvrir la plateforme.','La première équipe de maintenance confirme son créneau d’arrivée. C’est un nouveau voyage, pas une autre expédition disparue.'],
+ ['Mettre la plateforme en service · DIFFICILE','Teste la route à deux nœuds et vérifie les provisions avant d’ouvrir la plateforme.','La première équipe de maintenance confirme son créneau d’arrivée. C’est un nouveau voyage, pas une autre expédition disparue.'],
  ],
  es:[
  ['Tomar el relevo de la red','La expedición está en casa. El operador nos pide ampliar la red, no reabrir la antigua llamada de socorro.','Nuestra próxima carga contiene módulos de repuesto para las balizas.'],
@@ -37,7 +37,7 @@ const editions={
  ['Fijar la estructura de la plataforma','Fija la estructura prefabricada en la posición inspeccionada.','Nuestra nave de suministros por fin entrega material en vez de buscar su destino.'],
  ['Separar los circuitos de servicio','Activa la alimentación en orden y mantén independiente la baliza de retorno.','Una avería del taller ya no apagará las luces de aterrizaje.'],
  ['Abrir el taller de mantenimiento','Prepara herramientas y repuestos para los equipos de mantenimiento de las balizas.','La red ya dispone de un taller donde reparar sus equipos.'],
- ['Poner la plataforma en servicio · DIFÍCIL','Prueba la ruta de tres nodos y comprueba los suministros antes de abrir la plataforma.','El primer equipo de mantenimiento confirma su llegada. Es un nuevo viaje, no otra expedición desaparecida.'],
+ ['Poner la plataforma en servicio · DIFÍCIL','Prueba la ruta de dos nodos y comprueba los suministros antes de abrir la plataforma.','El primer equipo de mantenimiento confirma su llegada. Es un nuevo viaje, no otra expedición desaparecida.'],
  ],
  'pt-BR':[
  ['Assumir o turno da rede','A expedição está em casa. O operador pede que ampliemos a rede, sem reabrir o antigo pedido de socorro.','Nossa próxima carga contém módulos de reposição para os sinalizadores.'],
@@ -49,7 +49,7 @@ const editions={
  ['Fixar a estrutura da plataforma','Fixe a estrutura pré-fabricada na posição inspecionada.','Nossa nave de suprimentos finalmente entrega equipamentos em vez de procurar seu destino.'],
  ['Separar os circuitos de serviço','Ligue a energia em ordem e mantenha o sinalizador de retorno independente.','Uma falha no circuito da oficina não apagará mais as luzes de pouso.'],
  ['Abrir a oficina de manutenção','Prepare ferramentas e peças de reposição para as equipes de manutenção dos sinalizadores.','A rede agora tem uma oficina para consertar seus equipamentos.'],
- ['Colocar a plataforma em operação · DIFÍCIL','Teste a rota de três nós e confira os suprimentos antes de abrir a plataforma.','A primeira equipe de manutenção confirma sua chegada. É uma nova viagem, não outra expedição desaparecida.'],
+ ['Colocar a plataforma em operação · DIFÍCIL','Teste a rota de dois nós e confira os suprimentos antes de abrir a plataforma.','A primeira equipe de manutenção confirma sua chegada. É uma nova viagem, não outra expedição desaparecida.'],
  ],
 };
 const extra=[
@@ -81,7 +81,7 @@ const extra=[
  ['We will extend the network while the rescue route stays open. First take over the maintenance watch, then prepare the new platform for its first crew.','Rozšíříme síť a záchrannou trasu necháme otevřenou. Nejdřív převezmeme servisní službu a potom připravíme novou plošinu pro první posádku.','Wir erweitern das Netz, während die Rettungsroute offen bleibt. Übernimm zuerst den Wartungsdienst und bereite dann die neue Plattform für ihr erstes Team vor.','Nous étendrons le réseau sans fermer la route de secours. Prenons d’abord la relève, puis préparons la plateforme pour sa première équipe.','Ampliaremos la red sin cerrar la ruta de rescate. Primero tomaremos el relevo y después prepararemos la plataforma para su primera tripulación.','Vamos ampliar a rede sem fechar a rota de resgate. Primeiro assumiremos o turno de manutenção e depois prepararemos a plataforma para a primeira equipe.'],
 ];
 const maps=Object.fromEntries(['en',...codes].map(code=>[code,{}]));
-networkDraftLevels.forEach((r,i)=>['name','thought','result'].forEach((field,j)=>{
+networkDraftLevels.slice(0,10).forEach((r,i)=>['name','thought','result'].forEach((field,j)=>{
  const id=`network.level.${201+i}.${field}`;maps.en[id]=r[field];maps.cs[id]=r[{name:'csName',thought:'csThought',result:'csResult'}[field]];
  for(const code of codes.slice(1))maps[code][id]=editions[code][i][j];
 }));
