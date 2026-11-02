@@ -1017,3 +1017,12 @@ Android verze 5 má hotovou preview APK a podepsaný AAB, stále demo reklamy;
 nahrání na Google Play je samostatný krok. Detaily a ověření:
 docs/network-expansion-201-250.md. 308 unit testů a kontrola šesti katalogů
 2555/2555 prošly; prohlížeč kontroluje nové scény i původní archiv.
+
+2026-11-02 — Zveřejnění novinky Síť 201–210: šest jazyků na webu, informace
+o 10 levelech, dvou místech, šesti ikonách, komiksu a číslovaných uzlech.
+Android build popsán jako připravený k další distribuci, nikoli veřejně
+vydaný na Google Play. Sociální balíček EN: docs/media/network-update-2026-11-02
+(plakát 4:5, Story 9:16, MP4 8 s bez zvuku, popisky, prompty). Veřejná
+marketingová adresa bez game. subdomény. Automaticky na sociální sítě
+nepublikováno. Kontroly: 308 unit, i18n/site check, build a vstupní stránky
+v šesti jazycích na 320/1440 px prošly. Video dekódováno bez chyb.

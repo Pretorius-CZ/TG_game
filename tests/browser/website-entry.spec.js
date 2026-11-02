@@ -1,4 +1,6 @@
 import {test,expect} from '@playwright/test';
+import {updates} from '../../src/welcomeUpdates.js';
+import {levelCatalog} from '../../src/levelCatalog.js';
 import {websiteLocales,websiteAddress} from '../../src/i18n/websiteLocales.js';
 
 for(const width of [320,1440])test(`localized home and legal entry pages fit ${width}`,async({page},info)=>{
@@ -14,11 +16,11 @@ for(const width of [320,1440])test(`localized home and legal entry pages fit ${w
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   for(const link of await page.locator('.game-link').all())expect(new URL(await link.getAttribute('href')).searchParams.get('lang')).toBe(['cs','de','fr','es','pt-BR'].includes(code)?code:'en');
   if(file==='index.html'){
-   await expect(page.locator('[data-text="contentNote"]')).toContainText('200');
+   await expect(page.locator('[data-text="contentNote"]')).toContainText(String(levelCatalog.length));
    await expect(page.locator('.game-language-note').first()).toBeVisible();
-   await expect(page.locator('.update')).toHaveCount(9);
-   await expect(page.locator('.update').first().locator('time')).toHaveAttribute('datetime','2026-10-27');
-   await expect(page.locator('.update').first()).toContainText('Español');
+   await expect(page.locator('.update')).toHaveCount(updates.length);
+   await expect(page.locator('.update').first().locator('time')).toHaveAttribute('datetime',updates[0].date);
+   await expect(page.locator('.update').first()).toContainText('201–210');
    await page.screenshot({path:info.outputPath(`${code}-home.png`),fullPage:true});
   }
   if(file==='privacy.html'){
