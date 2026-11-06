@@ -63,13 +63,15 @@ for(const language of ['cs','en','de','fr','es','pt-BR'])test(`new scene labels 
   await page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
   const rects=await site.locator('[data-repair-id]').evaluateAll(xs=>xs.map(x=>{
    const rect=e=>{const r=e.getBoundingClientRect();return{x:r.x,y:r.y,w:r.width,h:r.height};};
-   return{id:x.dataset.repairId,label:rect(x.querySelector('.hotspot-label')),target:rect(x.querySelector('.target')),scene:rect(x.closest('.game'))};
+   const scene=x.closest('.game');
+   return{id:x.dataset.repairId,label:rect(x.querySelector('.hotspot-label')),target:rect(x.querySelector('.target')),scene:rect(scene),header:rect(scene.querySelector('.scene-top'))};
   }));
   expect(rects).toHaveLength(networkDestinations[scene].repairs.length);
   const overlap=(a,b)=>Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x)>1&&Math.min(a.y+a.h,b.y+b.h)-Math.max(a.y,b.y)>1;
   for(const item of rects){
    expect(item.label.x).toBeGreaterThanOrEqual(item.scene.x);
    expect(item.label.x+item.label.w).toBeLessThanOrEqual(item.scene.x+item.scene.w+1);
+   expect(overlap(item.label,item.header),item.id+' covers the chapter header').toBe(false);
    for(const other of rects){expect(overlap(item.label,other.target),item.id+' covers '+other.id).toBe(false);if(item!==other)expect(overlap(item.label,other.label),item.id+' overlaps '+other.id).toBe(false);}
   }
   await page.screenshot({path:`.local/network-scene-${scene}-${language}.png`,fullPage:true});
@@ -102,9 +104,18 @@ test('twenty new repairs traverse all eight stops and three travel comics',async
     await comic.locator('.comic-caption>.primary').click();
    }
   }
+  if(r.number===221){
+   await expect(page.locator('.network-chapter-progress')).toHaveText('0/20');
+   await expect(page.locator('.repair-bubble-dialog[open]')).toHaveCount(0);
+   await page.locator(`[data-repair-id="${r.id}"]`).click();
+  }
   await expect(page.locator('#bubble-title')).toHaveText(r.name);
   await page.locator('.repair-bubble-dialog .preview-complete').click();
   await expect(page.locator('.repair-reveal h2')).toHaveText(r.name);
+  if(r.number===220){
+   await expect(page.locator('.repair-reveal .eyebrow')).toHaveText('Chapter complete · The new network');
+   await expect(page.locator('.repair-reveal .primary')).toHaveText('Start chapter · The supply route');
+  }
   await page.locator('.repair-reveal .primary').click();
  }
  expect(comics).toBe(3);
@@ -112,7 +123,10 @@ test('twenty new repairs traverse all eight stops and three travel comics',async
  for(const s of Object.values(networkDestinations).slice(0,10))expect(saved[s.key]).toBe(s.repairs.length);
  expect(Object.keys(saved.stars)).toHaveLength(230);
  await page.reload();await page.locator('button.welcome-secondary').click();
- await expect(page.locator('.chapters-dialog details').last().locator('summary')).toContainText('30/50');
+ const summaries=page.locator('.chapters-dialog summary');
+ await expect(summaries.nth(10)).toContainText('20/20');
+ await expect(summaries.nth(11)).toContainText('10/20');
+ await expect(summaries.nth(12)).toContainText('0/10');
 });
 
 test('new narrow, wide and covered layouts work in the real minigame',async({page})=>{
@@ -148,9 +162,18 @@ test('the last twenty repairs deliver the crew and show the terminal comic once'
  for(const r of networkLevels.slice(30)){
   await expect.poll(()=>page.locator('.caretaker-comic[open],.repair-bubble-dialog[open]').count()).toBeGreaterThan(0);
   if(await page.locator('.caretaker-comic[open]').count())await finishComic();
+  if(r.number===241){
+   await expect(page.locator('.network-chapter-progress')).toHaveText('0/10');
+   await expect(page.locator('.repair-bubble-dialog[open]')).toHaveCount(0);
+   await page.locator(`[data-repair-id="${r.id}"]`).click();
+  }
   await expect(page.locator('#bubble-title')).toHaveText(r.name);
   await page.locator('.repair-bubble-dialog .preview-complete').click();
   await expect(page.locator('.repair-reveal h2')).toHaveText(r.name);
+  if(r.number===240){
+   await expect(page.locator('.repair-reveal .eyebrow')).toHaveText('Chapter complete · The supply route');
+   await expect(page.locator('.repair-reveal .primary')).toHaveText('Start chapter · The first arrival');
+  }
   if(r.number===250){await finishComic();}
   await page.locator('.repair-reveal .primary').click();
  }
@@ -160,6 +183,6 @@ test('the last twenty repairs deliver the crew and show the terminal comic once'
  for(const s of Object.values(networkDestinations))expect(saved[s.key]).toBe(s.repairs.length);
  await page.screenshot({path:'.local/network-250-finished.png',fullPage:true});
  await page.reload();await page.locator('button.welcome-secondary').click();
- await expect(page.locator('.chapters-dialog details').last().locator('summary')).toContainText('50/50');
+ await expect(page.locator('.chapters-dialog details').last().locator('summary')).toContainText('10/10');
  expect(await page.locator('.caretaker-comic[open]').count()).toBe(0);
 });

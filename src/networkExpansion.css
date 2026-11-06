@@ -2,9 +2,14 @@
 .play-area .game.network-site .hotspot{width:30%;max-width:122px;height:34px;padding:0;transform:translate(-50%,-50%)}
 .play-area .game.network-site .hotspot .hotspot-label{position:absolute;top:calc(100% + 5px);width:100%;max-width:none;line-height:1.2;letter-spacing:0;padding:4px;overflow-wrap:anywhere}
 .play-area .game.network-site .hotspot-label-above .hotspot-label{top:auto;bottom:calc(100% + 5px)}
-.play-area .game.network-site .scene-top{top:100px!important;left:18px;right:18px}
-.play-area .game.network-site .scene-top h1{font-size:26px;margin:5px 0}
-.play-area .game.network-site .scene-top p{display:none}
+.play-area .game.expedition.mine-site.network-site .scene-top {
+ top: 86px !important;
+ left: 18px;
+ right: 18px;
+ padding-top: 0;
+}
+.play-area .game.network-site .scene-top h1{font-size:clamp(20px,6vw,26px);margin:4px 0}
+.network-chapter-progress{white-space:nowrap}
 .play-area .game.network-site [data-repair-id="network-handover"] .hotspot-label,
 .play-area .game.network-site [data-repair-id="network-coupler"] .hotspot-label,
 .play-area .game.network-site [data-repair-id="network-survey"] .hotspot-label{top:auto;bottom:calc(100% + 5px)}
@@ -13,3 +18,16 @@
 .ordered-route-help{font-size:12px;line-height:1.35;color:#d5e5e7;margin:6px 0}
 .mini-dialog > .ordered-route-help{background:#102e3a;border:1px solid #668c97;border-radius:10px;padding:8px 12px;color:#d5e5e7;cursor:pointer}
 .play-area .game.network-site .hotspot .target{width:34px;height:34px;min-width:34px;min-height:34px;flex:0 0 34px;aspect-ratio:1;font-size:22px}
+.completed-scene-actions > .network-milestone {
+ display: block;
+ flex-basis: 100%;
+}
+
+.network-milestone strong {
+ color: #a8eee7;
+}
+
+.completed-scene-actions > .network-stop-summary {
+ flex-basis: 100%;
+ margin: 0;
+}

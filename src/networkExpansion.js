@@ -8,6 +8,23 @@ export const networkStops=[
  ...completionStops,
 ];
 export const networkScenes=networkStops.map(s=>s.scene);
+export const networkChapters = [
+ {
+  id: 'network', en: 'The new network', cs: 'Nová síť', scenes: networkScenes.slice(0, 6),
+  purpose: ['Prepare the platform and living quarters for the first maintenance crew.', 'Připrav plošinu a zázemí pro první údržbovou posádku.'],
+  outcome: 'The platform is powered, the crew quarters are ready, and the courtyard is open.',
+ },
+ {
+  id: 'network-route', en: 'The supply route', cs: 'Zásobovací trasa', scenes: networkScenes.slice(6, 14),
+  purpose: ['Link both beacons and guide the freighter along a safe approach.', 'Propoj oba majáky a naveď zásobovací loď bezpečnou trasou.'],
+  outcome: 'Both beacons are working. The freighter is on a verified approach to the station.',
+ },
+ {
+  id: 'network-arrival', en: 'The first arrival', cs: 'První přílet', scenes: networkScenes.slice(14),
+  purpose: ['Receive the freighter and hand the station over to its new crew.', 'Přijmi zásobovací loď a předej stanici nové posádce.'],
+  outcome: 'The first delivery is complete. The new crew has taken over the station.',
+ },
+];
 export const networkDestinations=Object.fromEntries(networkStops.map((stop,section)=>{
  const {scene,title,key,total,positions,complete}=stop;
  const offset=networkStops.slice(0,section).reduce((n,s)=>n+s.total,0);

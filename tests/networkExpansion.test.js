@@ -8,6 +8,8 @@ import {levelCatalog} from '../src/levelCatalog.js';
 import {tileSetFor} from '../src/tileSets.js';
 import {networkIntroStory} from '../src/networkStory.js';
 import {normalizeStars} from '../src/starRating.js';
+import {chaptersFor} from '../src/chapters.js';
+import {chapterStoryOptions} from '../src/journeyStories.js';
 
 const finished200=()=>normalizeProgress({
  ...Object.fromEntries(Object.keys(normalizeProgress()).filter(k=>k==='completed'||k.endsWith('Completed')).map(k=>[k,99])),
@@ -22,8 +24,21 @@ test('200 remains the rescue milestone; 201–250 continue and survive stale sav
   const next=journeyFor(p);assert.equal(next.repair.number,number);
   const site=networkDestinations[next.scene];assert.equal(canVisitNetwork(p,next.scene),true);
   p=normalizeProgress({...p,[site.key]:p[site.key]+1,scene:next.scene});
+  const checkpoint = {
+   219: {open: [true, false, false], done: [19, 0, 0]},
+   220: {open: [true, true, false], done: [20, 0, 0]},
+   239: {open: [true, true, false], done: [20, 19, 0]},
+   240: {open: [true, true, true], done: [20, 20, 0]},
+  }[number];
+  if (checkpoint) {
+   const chapters = chaptersFor(p).slice(10);
+   assert.deepEqual(chapters.map(c=>c.open), checkpoint.open);
+   assert.deepEqual(chapters.map(c=>c.done), checkpoint.done);
+  }
  }
  assert.equal(journeyFor(p).kind,'end');assert.equal(Object.keys(normalizeStars(p)).length,250);
+ assert.ok(chapterStoryOptions(p,'network-route').some(s=>s.id==='network-near-departure'));
+ assert.ok(chapterStoryOptions(p,'network-arrival').some(s=>s.id==='network-watch-complete'));
  assert.deepEqual(mergeProgress(old,p).networkPlatformCompleted,5);
  assert.equal(normalizeProgress({...p,signalStationCompleted:3}).networkHandoverCompleted,0);
  assert.equal(normalizeProgress({...p,signalStationCompleted:3}).networkPlatformCompleted,0);

@@ -469,5 +469,16 @@
   "network.completion.copy.14": "La tripulación y los módulos están a bordo. Entrega la estación.",
   "network.completion.copy.15": "La primera entrega y el relevo han terminado. Todas las paradas siguen abiertas.",
   "network.completion.copy.16": "Las dos balizas están conectadas. Encuentra el carguero previsto.",
-  "network.completion.copy.17": "Has completado 250 niveles. La primera entrega está hecha y la nueva tripulación dirige la estación. Puedes volver a todos los lugares e historias."
+  "network.completion.copy.17": "Has completado 250 niveles. La primera entrega está hecha y la nueva tripulación dirige la estación. Puedes volver a todos los lugares e historias.",
+  "network.chapter.route": "La ruta de suministros",
+  "network.chapter.arrival": "La primera llegada",
+  "network.chapter.platform-purpose": "Prepara la plataforma y los alojamientos para el primer equipo de mantenimiento.",
+  "network.chapter.route-purpose": "Conecta ambas balizas y guía al carguero por una aproximación segura.",
+  "network.chapter.arrival-purpose": "Recibe al carguero y entrega la estación a su nueva tripulación.",
+  "network.chapter.platform-outcome": "La plataforma tiene energía, los alojamientos están listos y el patio está abierto.",
+  "network.chapter.route-outcome": "Las dos balizas funcionan. El carguero se acerca a la estación por una ruta verificada.",
+  "network.chapter.arrival-outcome": "La primera entrega ha terminado. La nueva tripulación ha tomado el relevo en la estación.",
+  "network.chapter.complete": "Capítulo completado · {name}",
+  "network.chapter.next": "Empezar capítulo · {name}",
+  "network.chapter.progress": "Progreso del capítulo · {done}/{total}"
 }

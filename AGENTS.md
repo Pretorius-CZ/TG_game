@@ -1223,3 +1223,10 @@ Staré slepé běhy 200/210/230 jsou zmrazené, nové obsahují 250 úloh.
 Vše v šesti jazycích, informační web má novinku a počet 250. APK/AAB verze 7
 připravené; Google Play vyžaduje samostatné nahrání. Detaily a prompty:
 docs/network-first-watch-231-250.md.
+
+## 2026-11-06 — Síť rozdělená na tři kapitoly
+
+Levely 201–220 tvoří Novou síť, 221–240 Zásobovací trasu a 241–250 První
+přílet. Každá kapitola má vlastní cíl, počítadlo postupu a závěrečné
+shrnutí. Po přechodovém komiksu hráč otevře první úkol klepnutím ve scéně.
+ID levelů, hvězdy a uložený postup se nemění. Změna je v pracovní větvi.
