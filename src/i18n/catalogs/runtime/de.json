@@ -455,5 +455,16 @@
   "network.completion.copy.14": "Team und Module sind an Bord. Übergib die Station.",
   "network.completion.copy.15": "Erste Lieferung und Schichtübergabe abgeschlossen. Alle Haltepunkte bleiben zugänglich.",
   "network.completion.copy.16": "Beide Leuchtfeuer sind verbunden. Triff den angekündigten Frachter.",
-  "network.completion.copy.17": "250 Level abgeschlossen. Die erste Lieferung ist übergeben und das neue Team betreibt die Station. Alle Orte und Geschichten bleiben zugänglich."
+  "network.completion.copy.17": "250 Level abgeschlossen. Die erste Lieferung ist übergeben und das neue Team betreibt die Station. Alle Orte und Geschichten bleiben zugänglich.",
+  "network.chapter.route": "Die Versorgungsroute",
+  "network.chapter.arrival": "Die erste Ankunft",
+  "network.chapter.platform-purpose": "Bereite die Plattform und die Wohnräume für die erste Wartungscrew vor.",
+  "network.chapter.route-purpose": "Verbinde beide Leuchtfeuer und führe den Frachter auf einem sicheren Anflugkurs.",
+  "network.chapter.arrival-purpose": "Empfange den Frachter und übergib die Station an ihre neue Crew.",
+  "network.chapter.platform-outcome": "Die Plattform hat Strom, die Quartiere sind bereit und der Hof ist geöffnet.",
+  "network.chapter.route-outcome": "Beide Leuchtfeuer sind in Betrieb. Der Frachter nähert sich der Station auf einem geprüften Kurs.",
+  "network.chapter.arrival-outcome": "Die erste Lieferung ist abgeschlossen. Die neue Crew hat die Station übernommen.",
+  "network.chapter.complete": "Kapitel abgeschlossen · {name}",
+  "network.chapter.next": "Kapitel beginnen · {name}",
+  "network.chapter.progress": "Kapitelfortschritt · {done}/{total}"
 }

@@ -455,5 +455,16 @@
   "network.completion.copy.14": "Posádka i moduly jsou na palubě. Předej stanici.",
   "network.completion.copy.15": "První dodávka i předání služby jsou dokončené. Každá zastávka zůstává přístupná.",
   "network.completion.copy.16": "Oba majáky jsou propojené. Vydej se za plánovanou zásobovací lodí.",
-  "network.completion.copy.17": "Dokončil jsi 250 levelů. První dodávka je předaná a nová posádka řídí stanici. Všechna místa i příběhy zůstávají přístupné."
+  "network.completion.copy.17": "Dokončil jsi 250 levelů. První dodávka je předaná a nová posádka řídí stanici. Všechna místa i příběhy zůstávají přístupné.",
+  "network.chapter.route": "Zásobovací trasa",
+  "network.chapter.arrival": "První přílet",
+  "network.chapter.platform-purpose": "Připrav plošinu a zázemí pro první údržbovou posádku.",
+  "network.chapter.route-purpose": "Propoj oba majáky a naveď zásobovací loď bezpečnou trasou.",
+  "network.chapter.arrival-purpose": "Přijmi zásobovací loď a předej stanici nové posádce.",
+  "network.chapter.platform-outcome": "Plošina má energii, zázemí pro posádku je připravené a nádvoří je otevřené.",
+  "network.chapter.route-outcome": "Oba majáky fungují. Zásobovací loď se blíží ke stanici po ověřené trase.",
+  "network.chapter.arrival-outcome": "První dodávka je hotová. Stanici převzala nová posádka.",
+  "network.chapter.complete": "Kapitola dokončena · {name}",
+  "network.chapter.next": "Začít kapitolu · {name}",
+  "network.chapter.progress": "Postup kapitolou · {done}/{total}"
 }

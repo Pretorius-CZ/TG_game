@@ -1,4 +1,5 @@
 import {chaptersFor} from './chapters.js';
+import {networkChapters} from './networkExpansion.js';
 import ArchiveArt from './ArchiveArt.jsx';
 import SignalArt from './SignalArt.jsx';
 import './networkExpansion.css';
@@ -24,9 +25,18 @@ export default function Exploration({progress,onProgress,onNavigate,onLog,onEnco
  const {scene,scannerInstalled}=progress;
  const isArchive=scene.startsWith('archive-');
  const site=destinations[scene],done=site?(progress[site.key]??0):progress.mineCompleted;
- const chapter=chaptersFor(progress).find(c=>c.sections.some(s=>s.scene===scene));
+ const chapters = chaptersFor(progress);
+ const chapter = chapters.find(c => c.sections.some(s => s.scene === scene));
  const tasks=site?.repairs??[],logs=site?.logs??[];
  const total=site?.repairs.length??6, orbit=site?.system??'system';
+ const milestone = done === total && networkChapters.find(c => c.scenes.at(-1) === scene);
+ const nextChapter = milestone && chapters[chapter.number];
+ const milestoneLabel = milestone && msg('network.chapter.complete', {name: dataText(chapter)});
+ const startsNextChapter = nextChapter && nextChapter.entry === storyGoal?.scene;
+ const continueLabel = startsNextChapter
+  ? msg('network.chapter.next', {name: dataText(nextChapter)})
+  : msg('exploration.continueStory');
+ const continueFromStop = () => startsNextChapter ? onNavigate(nextChapter.entry) : onContinueStory();
  const ref=useRef(null),[bubble,setBubble]=useState(null),[playing,setPlaying]=useState(null),[reveal,setReveal]=useState(null),[crossing,setCrossing]=useState(false),[approaching,setApproaching]=useState(false);
  useEffect(()=>{duckMusic(Boolean(playing));return()=>duckMusic(false);},[playing]);
  useEffect(()=>{if(scene==='night-sanctuary'&&done===5&&!progress.caretakerMet&&!reveal)onEncounter?.();},[scene,done,progress.caretakerMet,reveal]);
@@ -56,12 +66,23 @@ export default function Exploration({progress,onProgress,onNavigate,onLog,onEnco
     {(site.art==='signal'||site.art==='network')&&<SignalArt scene={scene} completed={done} repairs={tasks}/>}
     {scene==='beyond-rift'&&<GardenArt completed={done}/>}
     {t(scene==='haven'&&done===total&&<div className="gate-aperture" aria-hidden="true"/>)}
-    <div className="scene-top"><span className="eyebrow">{chapter?`${msg('ui.chapter',{number:String(chapter.number).padStart(2,'0')})} / ${dataText(chapter).toLocaleUpperCase(language)}`:t(site.chapter??(site.system==='system2'?"CHAPTER 03 / ASTER VEIL":"CHAPTER 02 / KEPLER REACH"))}</span><h1>{t(site.title)}</h1><p>{done===total?t(site.complete):site.system==='rift'?<>{done}/{total} · {t(scene==='beyond-rift'?'Awaken one system at a time':'Follow the echo')}</>:t(`${done}/${total} tasks · Follow the signal into the outpost.`)}</p></div>
+    <div className="scene-top">
+     <span className="eyebrow">{chapter?`${msg('ui.chapter',{number:String(chapter.number).padStart(2,'0')})} / ${dataText(chapter).toLocaleUpperCase(language)}`:t(site.chapter??(site.system==='system2'?"CHAPTER 03 / ASTER VEIL":"CHAPTER 02 / KEPLER REACH"))}
+      {site.art==='network'&&<> · <span className="network-chapter-progress" aria-label={msg('network.chapter.progress',{done:chapter.done,total:chapter.total})}>{chapter.done}/{chapter.total}</span></>}
+     </span>
+     <h1>{t(site.title)}</h1>
+     {site.art!=='network'&&<p>{done===total?t(site.complete):site.system==='rift'?<>{done}/{total} · {t(scene==='beyond-rift'?'Awaken one system at a time':'Follow the echo')}</>:t(`${done}/${total} tasks · Follow the signal into the outpost.`)}</p>}
+    </div>
     {!reveal&&(done===total?<CompletedRepairs fixedLabels={site.art==='network'} repairs={tasks} hotspotOffset={site.hotspotOffset??110} onReplay={repair=>setBubble(tasks.indexOf(repair))}/>:tasks.slice(0,Math.min(done+1,total)).map((r,i)=><button key={r.id} data-repair-id={r.id} className={`hotspot ${i<done?'completed-hotspot':''} ${r.y>65?'hotspot-label-above':''}`} style={{left:`${r.x}%`,top:`calc(${site.hotspotOffset??110}px + (100% - ${site.hotspotOffset??110}px) * ${r.y/100})`}} title={t(r.name)} aria-label={t(r.name)} onClick={()=>setBubble(i)}><span className="target" aria-hidden="true">{i<done?'✓':'✦'}</span><span className="hotspot-label">{t(r.name)}{i<done&&<Stars id={r.id}/>}</span></button>))}
-    {t(reveal?<div className="repair-reveal"><span className="eyebrow">{t("EXPEDITION TASK COMPLETE")}</span><h2>{t(reveal.name)}</h2><p>{t(reveal.result)}</p><button className="new-log" onClick={()=>onLog(logs.find(e=>e.repair===reveal.id).id)}>{t("New log entry →")}</button><button className="primary" onClick={()=>{setReveal(null);if(!isArchive){if(done<total)setBubble(done);else onContinueStory();}}}>{isArchive?(msg('exploration.viewRepair')):done<total?(msg('exploration.nextRepair')):(storyGoal?.kind==='end'?(msg('exploration.closeResult')):(msg('exploration.continueStory')))}</button></div>:isArchive&&done!==total?<nav className="archive-navigation" aria-label={msg('exploration.archivePassages')}><button onClick={()=>onNavigate(orbit)}>← {t(destinations[orbit]?.title??'The Refuge')}</button>{site.nextScene&&<button disabled={done<total} onClick={()=>onNavigate(site.nextScene)}>{t(destinations[site.nextScene].title)} {done<total?'◇':'→'}</button>}</nav>:null)}
+    {t(reveal?<div className="repair-reveal"><span className="eyebrow">{milestoneLabel||t("EXPEDITION TASK COMPLETE")}</span><h2>{t(reveal.name)}</h2><p>{t(milestone?milestone.outcome:reveal.result)}</p><button className="new-log" onClick={()=>onLog(logs.find(e=>e.repair===reveal.id).id)}>{t("New log entry →")}</button><button className="primary" onClick={()=>{setReveal(null);if(!isArchive){if(done<total)setBubble(done);else continueFromStop();}}}>{isArchive?msg('exploration.viewRepair'):done<total?msg('exploration.nextRepair'):storyGoal?.kind==='end'?msg('exploration.closeResult'):continueLabel}</button></div>:isArchive&&done!==total?<nav className="archive-navigation" aria-label={msg('exploration.archivePassages')}><button onClick={()=>onNavigate(orbit)}>← {t(destinations[orbit]?.title??'The Refuge')}</button>{site.nextScene&&<button disabled={done<total} onClick={()=>onNavigate(site.nextScene)}>{t(destinations[site.nextScene].title)} {done<total?'◇':'→'}</button>}</nav>:null)}
    </>:null)}
   </section>
-  {!reveal&&done===total&&(isArchive?<nav className="archive-navigation completed-scene-actions" aria-label={msg('exploration.archivePassages')}><button onClick={()=>onNavigate(orbit)}>← {t(destinations[orbit]?.title??'The Refuge')}</button>{site.nextScene&&<button disabled={done<total} onClick={()=>onNavigate(site.nextScene)}>{t(destinations[site.nextScene].title)} {done<total?'◇':'→'}</button>}</nav>:<div className="scene-caption completed-scene-actions">{scene==='signal-station'&&done===total&&<div><p className="signal-milestone">{msg('exploration.answerDelivered')}</p><button className="primary" onClick={()=>onReplayStory?.('signal-delivered-200')}>{msg('exploration.replayEnding')}</button></div>}{t((scene==='haven'?<><button data-journey-action="gate" className={progress.jumpDone?'keep-playing':'primary'} onClick={()=>setCrossing(true)}>{progress.jumpDone?(msg('exploration.revisitAster')):t("Jump to Aster Veil →")}</button><p>{t(progress.jumpDone?'Registered route · travel is free':'Gate ready · no additional shipment required')}</p></>:<>{storyGoal?.kind!=='end'&&<button className="primary" onClick={onContinueStory}>{msg('exploration.continueStory')}</button>}<button className="keep-playing" onClick={()=>onNavigate(orbit)}>{msg('exploration.previousArea')}</button></>))}</div>)}
+  {!reveal&&done===total&&(isArchive?<nav className="archive-navigation completed-scene-actions" aria-label={msg('exploration.archivePassages')}><button onClick={()=>onNavigate(orbit)}>← {t(destinations[orbit]?.title??'The Refuge')}</button>{site.nextScene&&<button disabled={done<total} onClick={()=>onNavigate(site.nextScene)}>{t(destinations[site.nextScene].title)} {done<total?'◇':'→'}</button>}</nav>:<div className="scene-caption completed-scene-actions">
+   {milestone&&<div className="network-milestone"><strong>{milestoneLabel}</strong><p>{t(milestone.outcome)}</p></div>}
+   {site.art==='network'&&!milestone&&<p className="network-stop-summary">{t(site.complete)}</p>}
+   {scene==='signal-station'&&done===total&&<div><p className="signal-milestone">{msg('exploration.answerDelivered')}</p><button className="primary" onClick={()=>onReplayStory?.('signal-delivered-200')}>{msg('exploration.replayEnding')}</button></div>}
+   {t(scene==='haven'?<><button data-journey-action="gate" className={progress.jumpDone?'keep-playing':'primary'} onClick={()=>setCrossing(true)}>{progress.jumpDone?msg('exploration.revisitAster'):t("Jump to Aster Veil →")}</button><p>{t(progress.jumpDone?'Registered route · travel is free':'Gate ready · no additional shipment required')}</p></>:<>{storyGoal?.kind!=='end'&&<button className="primary" onClick={continueFromStop}>{continueLabel}</button>}<button className="keep-playing" onClick={()=>onNavigate(orbit)}>{msg('exploration.previousArea')}</button></>)}
+  </div>)}
   {approaching&&asterComplete(progress)&&<ElysiumApproach progress={progress} onProgress={onProgress} sceneRef={ref} onClose={()=>setApproaching(false)}/>}
   {t(crossing&&gateReady(progress)&&<GateTransit onComplete={arrive} onCancel={()=>setCrossing(false)}/>)}
   {t(bubble!=null&&<RepairBubble repair={tasks[bubble]} replay={bubble<done} sceneRef={ref} onClose={()=>setBubble(null)} onComplete={()=>finish(tasks[bubble])} onPlay={()=>{setPlaying(tasks[bubble]);setBubble(null);}}/>)}

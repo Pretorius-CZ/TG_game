@@ -455,5 +455,16 @@
   "network.completion.copy.14": "L’équipe et les modules sont à bord. Transmets la station.",
   "network.completion.copy.15": "La première livraison et la relève sont terminées. Chaque escale reste accessible.",
   "network.completion.copy.16": "Les deux balises sont reliées. Rejoins le cargo prévu.",
-  "network.completion.copy.17": "250 niveaux terminés. La première livraison est faite et la nouvelle équipe gère la station. Toutes les escales et histoires restent accessibles."
+  "network.completion.copy.17": "250 niveaux terminés. La première livraison est faite et la nouvelle équipe gère la station. Toutes les escales et histoires restent accessibles.",
+  "network.chapter.route": "La route de ravitaillement",
+  "network.chapter.arrival": "La première arrivée",
+  "network.chapter.platform-purpose": "Prépare la plateforme et les quartiers pour la première équipe de maintenance.",
+  "network.chapter.route-purpose": "Relie les deux balises et guide le cargo sur une voie d’approche sûre.",
+  "network.chapter.arrival-purpose": "Accueille le cargo et remets la station à son nouvel équipage.",
+  "network.chapter.platform-outcome": "La plateforme est alimentée, les quartiers sont prêts et la cour est ouverte.",
+  "network.chapter.route-outcome": "Les deux balises fonctionnent. Le cargo approche de la station par une route vérifiée.",
+  "network.chapter.arrival-outcome": "La première livraison est terminée. Le nouvel équipage a pris le relais sur la station.",
+  "network.chapter.complete": "Chapitre terminé · {name}",
+  "network.chapter.next": "Commencer le chapitre · {name}",
+  "network.chapter.progress": "Progression du chapitre · {done}/{total}"
 }

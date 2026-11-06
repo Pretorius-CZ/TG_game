@@ -327,7 +327,7 @@ function App() {
       </>)}
     </div></dialog>
     {t(bubble != null && <RepairBubble repair={repairs[bubble]} replay={bubble < completed} sceneRef={sceneRef} onComplete={()=>{const repair=repairs[bubble];setBubble(null);finishLesson(repair);}} onClose={() => {setBubble(null);requestAnimationFrame(() => {if(opener.current?.isConnected && !opener.current.closest('dialog:not([open])')) opener.current.focus();else mainAction.current?.focus();});}} onPlay={() => {setPlaying(repairs[bubble]);setBubble(null);}}/>)}
-    {bridge&&<StoryComic key={bridge.id} panels={bridge.panels} chapter={t(bridge.chapter==='network'?'The new network':bridge.chapter==='signal'?'The answer':bridge.chapter==='archive'?'Archive of echoes':'The Refuge')} title={bridge.title} finishLabel={bridge.finishLabel} onFinish={finishBridge}/>}
+    {bridge&&<StoryComic key={bridge.id} panels={bridge.panels} chapter={chaptersFor(progress).find(c=>c.id===bridge.chapter)?.en} title={bridge.title} finishLabel={bridge.finishLabel} onFinish={finishBridge}/>}
     {echoDeparture&&echoDepartureReady(progress)&&<EchoDepartureStory replay={echoDeparture==='replay'} onFinish={finishEchoDeparture}/>}
     {researchStory&&progress.gardenCompleted===6&&<ResearchStory replay={researchStory==='replay'} onFinish={finishResearchStory}/>}
     {relayStory&&progress.relayCompleted===4&&<RelayStory replay={relayStory==='replay'} onFinish={finishRelayStory}/>}

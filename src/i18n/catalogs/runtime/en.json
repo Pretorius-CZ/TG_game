@@ -455,5 +455,16 @@
   "network.completion.copy.14": "The crew and modules are aboard. Hand over the station.",
   "network.completion.copy.15": "The first delivery and watch handover are complete. Every stop remains open for another visit.",
   "network.completion.copy.16": "Both beacons are linked. Meet the scheduled supply ship.",
-  "network.completion.copy.17": "250 levels completed. The first delivery is complete and the new crew runs the station. Every stop and story remains available to revisit."
+  "network.completion.copy.17": "250 levels completed. The first delivery is complete and the new crew runs the station. Every stop and story remains available to revisit.",
+  "network.chapter.route": "The supply route",
+  "network.chapter.arrival": "The first arrival",
+  "network.chapter.platform-purpose": "Prepare the platform and living quarters for the first maintenance crew.",
+  "network.chapter.route-purpose": "Link both beacons and guide the freighter along a safe approach.",
+  "network.chapter.arrival-purpose": "Receive the freighter and hand the station over to its new crew.",
+  "network.chapter.platform-outcome": "The platform is powered, the crew quarters are ready, and the courtyard is open.",
+  "network.chapter.route-outcome": "Both beacons are working. The freighter is on a verified approach to the station.",
+  "network.chapter.arrival-outcome": "The first delivery is complete. The new crew has taken over the station.",
+  "network.chapter.complete": "Chapter complete · {name}",
+  "network.chapter.next": "Start chapter · {name}",
+  "network.chapter.progress": "Chapter progress · {done}/{total}"
 }
